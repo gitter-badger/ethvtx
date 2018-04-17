@@ -29,7 +29,10 @@
   },
   "keywords": [
     "ethereum",
-    "redux"
+    "redux",
+    "smart",
+    "contract",
+    "transaction"
   ],
   "author": "Iulian Rotaru",
   "license": "ISC",
