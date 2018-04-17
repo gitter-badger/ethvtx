@@ -1,7 +1,7 @@
 {
   "name": "vortex",
   "version": "0.0.1",
-  "description": "VortΞx is an Ethereum Dapp redux store that handles transactions, smart contracts and events.",
+  "description": "VortΞx is an Ethereum Dapp redux store that handles transactions, smart contracts, events ...",
   "main": "index.js",
   "directories": {
     "doc": "doc",
