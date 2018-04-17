@@ -1,0 +1,40 @@
+{
+  "name": "vortex",
+  "version": "0.0.1",
+  "description": "VortΞx is an Ethereum Dapp redux store that handles transactions, smart contracts and events.",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "dependencies": {
+    "typescript": "^2.7.2"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "expect": "^22.4.0",
+    "linted": "0.0.2",
+    "mocha": "^5.0.4",
+    "tslint": "^5.9.1",
+    "typedoc": "^0.11.1"
+  },
+  "scripts": {
+    "build": "tslint --project . && tsc",
+    "test": "tslint --project . && tsc && mocha",
+    "doc": "rm -rf ./doc && tslint --project . && tsc && typedoc --out doc --mode file ./_sources/sources/ --readme ./README.md --name \"VortΞx\" --theme minimal --hideGenerator --target ES6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https//gitlab.com/mortimr/vortex"
+  },
+  "keywords": [
+    "ethereum",
+    "redux"
+  ],
+  "author": "Iulian Rotaru",
+  "license": "ISC",
+  "bugs": {
+    "url": "https//gitlab.com/mortimr/vortex/issues"
+  },
+  "homepage": "https//gitlab.com/mortimr/vortex#README"
+}
