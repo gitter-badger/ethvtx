@@ -9,7 +9,8 @@ This document defines how the Redux Store is going to store its data.
 #### Definitions
 
 ###### `Transaction Status`
-```
+
+```javascript
 // deftype TX_STATUS_BROADCASTED
 {
     type: "BROADCASTED",
@@ -41,7 +42,9 @@ This document defines how the Redux Store is going to store its data.
 }
 ```
 
-```
+###### `Feed Objects`
+
+```javascript
 // deftype FEED_NEW_TX
 {
     action: "NEW_TRANSACTION",
@@ -56,7 +59,9 @@ This document defines how the Redux Store is going to store its data.
 }
 ```
 
-```
+#### General State
+
+```javascript
 {
 	web3: {
 		initialized: boolean,
@@ -84,11 +89,11 @@ This document defines how the Redux Store is going to store its data.
 		${contractName}: {
 			...
 			deployed: {
-				[web3 contract instance](https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethcontract)
+                Web3.eth.Contract
 			}
 			...
 			${address}: {
-				[web3 contract instance](https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethcontract)
+			    Web3.eth.Contract
 			}
 			...
 		}
@@ -128,15 +133,7 @@ Can be any transaction hash, will be set to `undefined` if no informations about
 
 #### `status`
 
-Status informations about how the transaction is going.
-
-#### `status.type`
-
-String between `TODO`, `TODO`.
-
-#### `status.data`
-
-A sub-object with different fields depending on the status type.
+An object of type `TX_STATUS_BROADCASTED`, `TX_STATUS_RECEIPT`, `TX_STATUS_CONFIRMED` or `TX_STATUS_ERROR`.
 
 #### `txParams`
 
@@ -152,7 +149,7 @@ Solidity name of the contract.
 
 #### `deployed`
 
-Special field, this one is the default instance found in the artifacts from truffle. It will also be mapped to its address.
+Special field, this one is the default instance found in the artifacts from truffle. It will also be mapped to its address. It is a [web3 contract instance](https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethcontract).
 
 #### `${address}`
 
