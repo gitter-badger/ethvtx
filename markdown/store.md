@@ -4,6 +4,58 @@
 
 This document defines how the Redux Store is going to store its data. 
 
+## Architecture
+
+#### Definitions
+
+###### `Transaction Status`
+```
+// deftype TX_STATUS_BROADCASTED
+{
+    type: "BROADCASTED",
+    transaction_hash: string,
+    timestamp: number
+}
+
+// deftype TX_STATUS_RECEIPT
+{
+    type: "RECEIPT",
+    transaction_hash: string,
+    transaction_receipt: object,
+    timestamp: number
+}
+
+// deftype TX_STATUS_CONFIRMED
+{
+    type: "CONFIRMED",
+    transaction_hash: string,
+    transaction_confirmation_receipt: object,
+    timestamp: number
+}
+
+// deftype TX_STATUS_ERROR
+{
+    type: "ERROR",
+    transaction_hash: string,
+    error: object
+}
+```
+
+```
+// deftype FEED_NEW_TX
+{
+    action: "NEW_TRANSACTION",
+    txHash: string
+}
+
+// deftype FEED_NEW_CONTRACT
+{
+    action: "NEW_CONTRACT",
+    contract_name: string,
+    contract_address: string
+}
+```
+
 ```
 {
 	web3: {
@@ -14,10 +66,7 @@ This document defines how the Redux Store is going to store its data.
 	tx: {
 		...
 		${txHash}: {
-			status: {
-				type: string,
-				data: object
-			}
+			status: TX_STATUS_BROADCASTED | TX_STATUS_RECEIPT | TX_STATUS_CONFIRMED | TX_STATUS_ERROR
 			txparams: {
 				from: string,
 				to: string,
@@ -35,11 +84,11 @@ This document defines how the Redux Store is going to store its data.
 		${contractName}: {
 			...
 			deployed: {
-				web3 contract instance
+				[web3 contract instance](https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethcontract)
 			}
 			...
 			${address}: {
-				web3 contract instance
+				[web3 contract instance](https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethcontract)
 			}
 			...
 		}
@@ -47,10 +96,7 @@ This document defines how the Redux Store is going to store its data.
 	},
 	feed: [
 		...
-		{
-			action: string,
-			data: object
-		}
+        FEED_NEW_TX | FEED_NEW_CONTRACT
 		...
 	]
 }
