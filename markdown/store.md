@@ -38,7 +38,8 @@ This document defines how the Redux Store is going to store its data.
 {
     type: "ERROR",
     transaction_hash: string,
-    error: object
+    error: object,
+    timestamp: number
 }
 ```
 
