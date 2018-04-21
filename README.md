@@ -15,3 +15,4 @@ Runtime Contracts can be loaded if appropriate artifact was loaded. You can mana
 * [Store](./markdown/store.md)
 * [Actions](./markdown/actions.md)
 * [Reducers](./markdown/reducers.md)
+* [Saga](./markdown/saga.md)

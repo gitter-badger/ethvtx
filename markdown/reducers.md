@@ -107,6 +107,7 @@ state.contracts[contractName][address] ===  {
 // ------------------ INPUT
 // -> contractName : string
 // -> address : string
+// -> instance : web3.eth.Contract
 // ------------------
 
 // ------------------------------ PREVIOUS STATE
@@ -114,7 +115,7 @@ state.contracts[contractName][address] === CONTRACT_LOADING
 // ------------------------------ NEXT STATE
 state.contracts[contractName][address] ===  {
                                                 status: 'CONTRACT_LOADED',
-                                                _: web3.eth.Contract
+                                                _: instance
                                             }
 
 ```
@@ -125,6 +126,7 @@ state.contracts[contractName][address] ===  {
 // ------------------ INPUT
 // -> contractName : string
 // -> address : string
+// -> error : object
 // ------------------
 
 // ------------------------------ PREVIOUS STATE
@@ -132,7 +134,7 @@ state.contracts[contractName][address] === CONTRACT_LOADING || state.contract[co
 // ------------------------------ NEXT STATE
 state.contracts[contractName][address] ===  {
                                                 status: 'CONTRACT_ERROR',
-                                                error: object
+                                                error: error
                                             }
 
 ```
