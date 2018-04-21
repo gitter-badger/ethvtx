@@ -13,14 +13,14 @@ This document defines how the Redux Store is going to store its data.
 ```javascript
 // deftype TX_STATUS_BROADCASTED
 {
-    type: "BROADCASTED",
+    type: 'BROADCASTED',
     transaction_hash: string,
     timestamp: number
 }
 
 // deftype TX_STATUS_RECEIPT
 {
-    type: "RECEIPT",
+    type: 'RECEIPT',
     transaction_hash: string,
     transaction_receipt: object,
     timestamp: number
@@ -28,7 +28,7 @@ This document defines how the Redux Store is going to store its data.
 
 // deftype TX_STATUS_CONFIRMED
 {
-    type: "CONFIRMED",
+    type: 'CONFIRMED',
     transaction_hash: string,
     transaction_confirmation_receipt: object,
     timestamp: number
@@ -36,10 +36,30 @@ This document defines how the Redux Store is going to store its data.
 
 // deftype TX_STATUS_ERROR
 {
-    type: "ERROR",
+    type: 'ERROR',
     transaction_hash: string,
     error: object,
     timestamp: number
+}
+```
+
+###### `Contract Objects`
+```javascript
+// deftype CONTRACT_LOADING
+{
+    status: 'CONTRACT_LOADING'
+}
+
+// deftype CONTRACT_LOADED
+{
+    status: 'CONTRACT_LOADED',
+    _: web3.eth.Contract
+}
+
+// deftype CONTRACT_ERROR
+{
+    status: 'CONTRACT_ERROR',
+    error: object
 }
 ```
 
@@ -48,15 +68,17 @@ This document defines how the Redux Store is going to store its data.
 ```javascript
 // deftype FEED_NEW_TX
 {
-    action: "NEW_TRANSACTION",
-    txHash: string
+    action: 'NEW_TRANSACTION',
+    transaction_hash: string,
+    timestamp: number
 }
 
 // deftype FEED_NEW_CONTRACT
 {
-    action: "NEW_CONTRACT",
+    action: 'NEW_CONTRACT',
     contract_name: string,
-    contract_address: string
+    contract_address: string,
+    timestamp: number
 }
 ```
 
@@ -90,11 +112,11 @@ This document defines how the Redux Store is going to store its data.
 		${contractName}: {
 			...
 			deployed: {
-                Web3.eth.Contract
+			    CONTRACT_LOADING | CONTRACT_LOADED | CONTRACT_ERROR
 			}
 			...
 			${address}: {
-			    Web3.eth.Contract
+			    CONTRACT_LOADING | CONTRACT_LOADED | CONTRACT_ERROR
 			}
 			...
 		}
