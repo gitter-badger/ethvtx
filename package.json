@@ -7,22 +7,37 @@
     "doc": "doc",
     "test": "test"
   },
+  "jest": {
+    "globalSetup": "./setup/setup.js",
+    "globalTeardown": "./setup/teardown.js",
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  },
   "dependencies": {
     "typescript": "^2.7.2"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "expect": "^22.4.0",
     "ganache-core": "^2.1.0",
+    "jest": "^22.4.3",
     "linted": "0.0.2",
-    "mocha": "^5.0.4",
     "truffle": "^4.1.7",
+    "ts-jest": "^22.4.4",
     "tslint": "^5.9.1",
     "typedoc": "^0.11.1"
   },
   "scripts": {
     "build": "tslint --project . && tsc",
-    "test": "tslint --project . && tsc && mocha",
+    "test": "tslint --project . && jest",
     "doc": "rm -rf ./doc && tslint --project . && tsc && typedoc --out doc --mode file ./_sources/sources/ --readme ./README.md --name \"VortΞx\" --theme minimal --hideGenerator --target ES6"
   },
   "repository": {

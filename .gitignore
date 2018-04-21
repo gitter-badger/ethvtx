@@ -1,5 +1,6 @@
 node_modules
+coverage
 doc
 .idea
-test/truffle/build
-test/truffle/test
+setup/truffle/build
+setup/truffle/test
