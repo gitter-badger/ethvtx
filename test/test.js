@@ -4,10 +4,10 @@ const { exec } = require('child_process');
 let Server;
 
 const isPortTaken = function(port, fn) {
-    const net = require('net')
+    const net = require('net');
     const tester = net.createServer()
         .once('error', function (err) {
-            if (err.code !== 'EADDRINUSE') return fn(err)
+            if (err.code !== 'EADDRINUSE') return fn(err);
             fn(null, true)
         })
         .once('listening', function() {
