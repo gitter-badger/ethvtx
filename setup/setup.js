@@ -1,4 +1,3 @@
-const expect = require('chai').expect;
 const Ganache = require("ganache-core");
 const { exec } = require('child_process');
 
