@@ -82,3 +82,98 @@ state.tx[txHash] ===    {
                         }
 ```
 
+#### Contract
+
+###### `REGISTER_CONTRACT`
+
+```javascript
+// ------------------ INPUT
+// -> contractName : string
+// -> address : string
+// ------------------
+
+// ------------------------------ PREVIOUS STATE
+state.contracts[contractName][address] === undefined
+// ------------------------------ NEXT STATE
+state.contracts[contractName][address] ===  {
+                                                status: 'CONTRACT_LOADING'
+                                            }
+
+```
+
+###### `CONTRACT_LOADED`
+
+```javascript
+// ------------------ INPUT
+// -> contractName : string
+// -> address : string
+// ------------------
+
+// ------------------------------ PREVIOUS STATE
+state.contracts[contractName][address] === CONTRACT_LOADING
+// ------------------------------ NEXT STATE
+state.contracts[contractName][address] ===  {
+                                                status: 'CONTRACT_LOADED',
+                                                _: web3.eth.Contract
+                                            }
+
+```
+
+###### `CONTRACT_ERROR`
+
+```javascript
+// ------------------ INPUT
+// -> contractName : string
+// -> address : string
+// ------------------
+
+// ------------------------------ PREVIOUS STATE
+state.contracts[contractName][address] === CONTRACT_LOADING || state.contract[contractName][address] === CONTRACT_LOADED
+// ------------------------------ NEXT STATE
+state.contracts[contractName][address] ===  {
+                                                status: 'CONTRACT_ERROR',
+                                                error: object
+                                            }
+
+```
+
+#### Feed
+
+###### `NEW_TRANSACTION`
+
+```javascript
+// ------------------ INPUT
+// -> txHash : string
+// ------------------
+
+// ------------------------------ PREVIOUS STATE
+state.feed.length === x
+// ------------------------------ NEXT STATE
+state.feed.length === x + 1
+state.feed[x] ===   {
+                        action: 'NEW_TRANSACTION',
+                        transaction_hash: txHash,
+                        timestamp: Date.now()
+                    }
+```
+
+###### `NEW_CONTRACT`
+
+```javascript
+// ------------------ INPUT
+// -> contractName: string
+// -> contractAddress: string
+// ------------------
+
+// ------------------------------ PREVIOUS STATE
+state.feed.length === x
+// ------------------------------ NEXT STATE
+state.feed.length === x + 1
+state.feed[x] ===   {
+                        action: 'NEW_CONTRACT',
+                        contract_name: contractName,
+                        contract_adddress: contractAddress,
+                        timestamp: Date.now()
+                    }
+```
+
