@@ -111,6 +111,10 @@ This document defines how the Redux Store is going to store its data.
 		...
 		${contractName}: {
 			...
+			artifact: {
+			    Truffle Artifact
+			}
+			...
 			deployed: {
 			    CONTRACT_LOADING | CONTRACT_LOADED | CONTRACT_ERROR
 			}
@@ -169,6 +173,10 @@ This section stores all live smart contracts. Each contract has a mapping within
 #### `${contractName}`
 
 Solidity name of the contract.
+
+#### `artifact`
+
+Truffle Artifact generated when compiling contracts with truffle.
 
 #### `deployed`
 
