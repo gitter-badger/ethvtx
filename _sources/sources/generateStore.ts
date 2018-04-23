@@ -2,7 +2,7 @@ declare var window: any;
 
 import {Reducer, Store, compose, createStore, applyMiddleware, DeepPartial} from "redux";
 import createSagaMiddleware, {SagaMiddleware} from 'redux-saga';
-import {State, Web3State} from './stateInterface';
+import {FeedState, State, Web3State} from './stateInterface';
 
 export function generateStore<T extends State = State>(contracts: any[], reducer: Reducer<T> = undefined, customState: DeepPartial<T> = undefined): Store {
 
@@ -13,10 +13,14 @@ export function generateStore<T extends State = State>(contracts: any[], reducer
 
     let initialState = {
         contracts: {},
+        tx: {},
         web3: {}
     } as DeepPartial<T>;
 
-    (<any>initialState.web3).initialized = false;
+    (<any>initialState.web3) = {
+        status: 'LOADING'
+    };
+    (<any>initialState.feed) = [] as FeedState[];
 
     for (let idx in contracts) {
         (<any>initialState.contracts[contracts[idx].contractName]) = {
