@@ -1,10 +1,21 @@
 declare var window: any;
 
-import {Reducer, Store, compose, createStore, applyMiddleware, DeepPartial} from "redux";
+import {
+    Reducer,
+    Store,
+    compose,
+    createStore,
+    applyMiddleware,
+    DeepPartial,
+    combineReducers,
+    ReducersMapObject
+} from "redux";
 import createSagaMiddleware, {SagaMiddleware} from 'redux-saga';
-import {FeedState, State, Web3State} from './stateInterface';
+import {FeedState, State} from './stateInterface';
+import {reducers} from "./reducers";
+import rootSaga from './sagas';
 
-export function generateStore<T extends State = State>(contracts: any[], reducer: Reducer<T> = undefined, customState: DeepPartial<T> = undefined): Store {
+export function generateStore<T extends State = State>(contracts: any[], reducer: ReducersMapObject<T> = undefined, customState: DeepPartial<T> = undefined): Store {
 
     let composer = compose;
     if (window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
@@ -33,9 +44,22 @@ export function generateStore<T extends State = State>(contracts: any[], reducer
         ...(<object>initialState)
     } as DeepPartial<T>;
 
-    //const sagaMiddleware: SagaMiddleware<any> = createSagaMiddleware<any>();
+    let combinedReducer: Reducer<T>;
+    if (reducer) {
+        reducer = {
+            ...(<object>reducer),
+            ...(<object>reducers)
+        } as ReducersMapObject<T>;
+    } else {
+        reducer = reducers as ReducersMapObject<T>;
+    }
+    combinedReducer = combineReducers<T>(reducer);
 
-    const store: Store = createStore<T, any, any, any>(reducer, combinedInitialState);
+    const sagaMiddleware: SagaMiddleware<any> = createSagaMiddleware<any>();
+
+    const store: Store = createStore<T, any, any, any>(combinedReducer, combinedInitialState, composer(applyMiddleware(sagaMiddleware)));
+
+    sagaMiddleware.run(rootSaga);
 
     return (store);
 }
