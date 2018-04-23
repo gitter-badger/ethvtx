@@ -23,7 +23,7 @@ class Vortex {
     static factory(contracts = undefined, reducersMap = undefined, customState = undefined) {
         return (Vortex._instance || (Vortex._instance = new Vortex(contracts, reducersMap, customState)));
     }
-    static _() {
+    static get() {
         return Vortex._instance;
     }
     /**
@@ -93,8 +93,23 @@ class Vortex {
     setCustomState(customState) {
         this._customState = customState;
     }
+    /**
+     * Contracts getter
+     *
+     * @returns {ContractArtifact[]} Array of loaded artifacts.
+     */
     get Contracts() {
         return (this._contracts);
+    }
+    /**
+     * Store getter
+     *
+     * @returns {Store<T extends State>} Instance of Store
+     */
+    get Store() {
+        if (!this._store)
+            throw new Error("Call run before");
+        return (this._store);
     }
 }
 Vortex._instance = undefined;

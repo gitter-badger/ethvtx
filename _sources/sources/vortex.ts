@@ -21,7 +21,7 @@ export class Vortex<T extends State> {
         return (Vortex._instance || (Vortex._instance = new Vortex<U>(contracts, reducersMap, customState)));
     }
 
-    public static _<U extends State = State>(): Vortex<U> {
+    public static get<U extends State = State>(): Vortex<U> {
         return Vortex._instance;
     }
 
@@ -109,8 +109,24 @@ export class Vortex<T extends State> {
         this._customState = customState;
     }
 
+    /**
+     * Contracts getter
+     *
+     * @returns {ContractArtifact[]} Array of loaded artifacts.
+     */
     public get Contracts(): ContractArtifact[] {
         return (this._contracts);
+    }
+
+    /**
+     * Store getter
+     *
+     * @returns {Store<T extends State>} Instance of Store
+     */
+    public get Store(): Store<T> {
+        if (!this._store)
+            throw new Error("Call run before");
+        return (this._store);
     }
 
 }

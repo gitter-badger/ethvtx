@@ -41,8 +41,8 @@
   },
   "scripts": {
     "build": "tslint --project . && tsc",
-    "test": "tslint --project . && jest",
-    "doc": "rm -rf ./doc && tslint --project . && tsc && typedoc --out doc --mode file ./_sources/sources/ --readme ./README.md --name \"VortΞx\" --theme minimal --hideGenerator --target ES6"
+    "test": "tslint --project . && jest --coverage",
+    "doc": "rm -rf ./doc && tslint --project . && tsc && typedoc --out doc --mode file ./_sources/sources/ --readme ./README.md --name \"VortΞx\" --theme minimal --hideGenerator --target ES6 --exclude **/*.test.ts"
   },
   "repository": {
     "type": "git",
