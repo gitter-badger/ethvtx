@@ -8,6 +8,34 @@ This document defines how the Redux Store is going to store its data.
 
 #### Definitions
 
+###### `Web3 Status`
+
+```javascript
+// deftype WEB3_LOADING
+{
+    status: 'LOADING'
+}
+
+// deftype WEB3_LOADED
+{
+    status: 'LOADED',
+    network_id: number,
+    _: Web3
+}
+
+// deftype WEB3_LOAD_ERROR
+{
+    status: 'LOAD_ERROR',
+    error: object
+}
+
+// deftype WEB3_NETWORK_ERROR
+{
+    status: 'NETWORK_ERROR',
+    network_id: number,
+}
+```
+
 ###### `Transaction Status`
 
 ```javascript
@@ -87,9 +115,7 @@ This document defines how the Redux Store is going to store its data.
 ```javascript
 {
 	web3: {
-		initialized: boolean,
-		networkid: number,
-		_: Web3
+	    WEB3_LOADING | WEB3_LOADED | WEB3_LOAD_ERROR | WEB3_NETWORK_ERROR
 	},
 	tx: {
 		...
@@ -110,6 +136,10 @@ This document defines how the Redux Store is going to store its data.
 	contracts: {
 		...
 		${contractName}: {
+			...
+			artifact: {
+			    Truffle Artifact
+			}
 			...
 			deployed: {
 			    CONTRACT_LOADING | CONTRACT_LOADED | CONTRACT_ERROR
@@ -169,6 +199,10 @@ This section stores all live smart contracts. Each contract has a mapping within
 #### `${contractName}`
 
 Solidity name of the contract.
+
+#### `artifact`
+
+Truffle Artifact generated when compiling contracts with truffle.
 
 #### `deployed`
 
