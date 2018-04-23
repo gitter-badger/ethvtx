@@ -24,6 +24,7 @@
     ]
   },
   "dependencies": {
+    "npm": "^5.8.0",
     "typescript": "^2.7.2"
   },
   "devDependencies": {
