@@ -56,7 +56,11 @@ export class Vortex<T extends State> {
         }
     }
 
-    public loadWeb3(): void {
+    /**
+     * Load Web3 instance from given source.
+     * @param {Promise<any>} source The source that returns an instance when resolved.
+     */
+    public loadWeb3(source: Promise<any>): void {
         if (this._store) {
             // TODO Dispatch action LOAD WEB3 into the store.
         } else {
