@@ -56,7 +56,7 @@
     "transaction"
   ],
   "author": "Iulian Rotaru",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https//gitlab.com/mortimr/vortex/issues"
   },
