@@ -1,7 +1,24 @@
-export interface Web3State {
-    initialized: boolean,
+export interface Web3LoadingState {
+    status: string
+}
+
+export interface Web3LoadedState {
+    status: string,
+    network_id: number,
+    _: any
+}
+
+export interface Web3LoadErrorState {
+    status: string,
+    error: any
+}
+
+export interface Web3NetworkErrorState {
+    status: string,
     network_id: number
 }
+
+export type Web3State = Web3LoadingState | Web3LoadedState | Web3LoadErrorState | Web3NetworkErrorState;
 
 export interface TransactionState {
 
