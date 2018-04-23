@@ -42,9 +42,20 @@ export interface ContractStoreState {
     [key: string]: ContractAddressesState;
 }
 
-export interface FeedState {
-
+export interface FeedNewContractState {
+    action: string,
+    contract_name: string,
+    contract_address: string,
+    timestamp: number
 }
+
+export interface FeedNewTransactionState {
+    action: string,
+    transaction_hash: string,
+    timestamp: number
+}
+
+export type FeedState = FeedNewContractState | FeedNewTransactionState;
 
 export interface State {
     web3: Web3State,
