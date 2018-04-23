@@ -8,6 +8,34 @@ This document defines how the Redux Store is going to store its data.
 
 #### Definitions
 
+###### `Web3 Status`
+
+```javascript
+// deftype WEB3_LOADING
+{
+    status: 'LOADING'
+}
+
+// deftype WEB3_LOADED
+{
+    status: 'LOADED',
+    network_id: number,
+    _: Web3
+}
+
+// deftype WEB3_LOAD_ERROR
+{
+    status: 'LOAD_ERROR',
+    error: object
+}
+
+// deftype WEB3_NETWORK_ERROR
+{
+    status: 'NETWORK_ERROR',
+    network_id: number,
+}
+```
+
 ###### `Transaction Status`
 
 ```javascript
@@ -87,9 +115,7 @@ This document defines how the Redux Store is going to store its data.
 ```javascript
 {
 	web3: {
-		initialized: boolean,
-		networkid: number,
-		_: Web3
+	    WEB3_LOADING | WEB3_LOADED | WEB3_LOAD_ERROR | WEB3_NETWORK_ERROR
 	},
 	tx: {
 		...
