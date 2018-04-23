@@ -57,7 +57,7 @@ export function generateStore<T extends State = State>(contracts: any[], reducer
 
     const sagaMiddleware: SagaMiddleware<any> = createSagaMiddleware<any>();
 
-    const store: Store = createStore<T, any, any, any>(combinedReducer, combinedInitialState, composer(applyMiddleware(sagaMiddleware)));
+    const store: Store<T> = createStore<T, any, any, any>(combinedReducer, combinedInitialState, composer(applyMiddleware(sagaMiddleware)));
 
     sagaMiddleware.run(rootSaga);
 
