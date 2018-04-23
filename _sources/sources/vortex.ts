@@ -5,8 +5,6 @@ import {generateStore} from "./generateStore";
 
 export class Vortex<T extends State> {
 
-    public test: string = "test";
-
     private _contracts: ContractArtifact[] = undefined;
 
     private _reducersMap: ReducersMapObject<T> = undefined;
