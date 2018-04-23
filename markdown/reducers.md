@@ -6,6 +6,58 @@ This document defines how reducers interact with input and state.
 
 ## Architecture
 
+#### Web3
+
+###### `LOADED_WEB3`
+
+```javascript
+// ------------------ INPUT
+// -> web3: Web3
+// -> networkId: number
+// ------------------
+
+// ------------------------------ PREVIOUS STATE
+state.web3 ===  WEB3_LOADING
+// ------------------------------ NEXT STATE
+state.web3 ===  {
+                    status: 'LOADED'
+                    netowrk_id: networkId,
+                    _: web3
+                }
+```
+
+###### `LOAD_ERROR_WEB3`
+
+```javascript
+// ------------------ INPUT
+// -> error: object
+// ------------------
+
+// ------------------------------ PREVIOUS STATE
+state.web3 ===  WEB3_LOADING
+// ------------------------------ NEXT STATE
+state.web3 ===  {
+                    status: 'LOAD_ERROR',
+                    error: error
+                }
+```
+
+###### `NETWORK_ERROR_WEB3`
+
+```javascript
+// ------------------ INPUT
+// -> networkId: number
+// ------------------
+
+// ------------------------------ PREVIOUS STATE
+state.web3 ===  WEB3_LOADING
+// ------------------------------ NEXT STATE
+state.web3 ===  {
+                    status: 'NETWORK_ERROR',
+                    network_id: networkId
+                }
+```
+
 #### Transactions
 
 ###### `REGISTER_TRANSACTION`
