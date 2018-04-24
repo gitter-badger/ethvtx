@@ -37,7 +37,9 @@
     "truffle": "^4.1.7",
     "ts-jest": "^22.4.4",
     "tslint": "^5.9.1",
-    "typedoc": "^0.11.1"
+    "typedoc": "^0.11.1",
+    "web3": "^1.0.0-beta.34",
+    "web3-typescript-typings": "^0.10.2"
   },
   "scripts": {
     "build": "tslint --project . && tsc",

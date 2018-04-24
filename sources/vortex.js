@@ -1,27 +1,31 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const generateStore_1 = require("./generateStore");
+const web3_actions_1 = require("./web3/web3.actions");
 class Vortex {
     /**
      * Instantiate a new Vorte instance.
      * Accessing VortexInstance will give access to the last instanciated Vortex.
      *
      * @param {[]} contracts List of contract artifacts created by truffle.
+     * @param loader Promise that returns a web3 instance ready to be used.
      * @param {ReducersMapObject<T extends State>} reducersMap Map of reducers (Not combined !)
      * @param {DeepPartial<T extends State>} customState Custom state matching interface that extends State.
      */
-    constructor(contracts, reducersMap = undefined, customState = undefined) {
+    constructor(contracts, loader, reducersMap = undefined, customState = undefined) {
+        this._web3_loader = undefined;
         this._contracts = undefined;
         this._reducersMap = undefined;
         this._customState = undefined;
         this._store = undefined;
         this._network_ids = [];
         this._contracts = contracts;
+        this._web3_loader = loader;
         this._reducersMap = reducersMap;
         this._customState = customState;
     }
-    static factory(contracts = undefined, reducersMap = undefined, customState = undefined) {
-        return (Vortex._instance || (Vortex._instance = new Vortex(contracts, reducersMap, customState)));
+    static factory(contracts, loader, reducersMap = undefined, customState = undefined) {
+        return (Vortex._instance || (Vortex._instance = new Vortex(contracts, loader, reducersMap, customState)));
     }
     static get() {
         return Vortex._instance;
@@ -46,9 +50,9 @@ class Vortex {
      * Load Web3 instance from given source.
      * @param {Promise<any>} source The source that returns an instance when resolved.
      */
-    loadWeb3(source) {
+    loadWeb3() {
         if (this._store) {
-            // TODO Dispatch action LOAD WEB3 into the store.
+            this._store.dispatch(web3_actions_1.Web3Load(this._web3_loader));
         }
         else {
             throw new Error("Call run before.");
