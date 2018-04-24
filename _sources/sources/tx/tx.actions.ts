@@ -1,5 +1,11 @@
 import {Action} from "redux";
 
+export interface TxSendRawAction extends Action {
+    signedTx: string,
+    web3: any,
+    resolvers: any
+}
+
 export interface TxSendAction extends Action {
     txArgs: any,
     web3: any,

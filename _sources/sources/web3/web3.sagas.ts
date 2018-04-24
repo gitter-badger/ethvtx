@@ -2,7 +2,7 @@ import {all, call, fork, put, PutEffect, take, takeLatest} from 'redux-saga/effe
 import {Action, Unsubscribe} from "redux";
 import {Web3Actions, Web3LoadAction, Web3LoadedAction, Web3LoadErrorAction} from "./web3.actions";
 import {SagaIterator, eventChannel, END} from "redux-saga";
-import {TxSendAction} from "../tx/tx.actions";
+import {TxSendAction, TxSendRawAction} from "../tx/tx.actions";
 import {Vortex} from "../vortex";
 
 // TODO check network id
@@ -12,6 +12,21 @@ function* resolveWeb3(action: Web3LoadAction): SagaIterator {
     return eventChannel((emit: (arg?: any) => void): Unsubscribe => {
 
         action.loader.then((web3: any): void => {
+
+            web3.eth.vortexSendRawTransaction = (signedTx: string): any => {
+                let resolvers = {};
+                let differed_return: Promise<string> = new Promise<string>((ok: (arg?: any) => void, ko: (arg?: any) => void): void => {
+                    (<any>resolvers).success = ok;
+                    (<any>resolvers).error = ko;
+                });
+                Vortex.get().Store.dispatch({
+                    type: 'TX_SEND_RAW',
+                    signedTx,
+                    web3,
+                    resolvers
+                } as TxSendRawAction);
+                return differed_return;
+            };
 
             web3.eth.vortexSendTransaction = (txArgs: any): any => {
                 let resolvers = {};
