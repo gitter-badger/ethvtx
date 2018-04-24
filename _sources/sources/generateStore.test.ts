@@ -27,11 +27,15 @@ describe("generateStore", () => {
 
             const dummyLoader: Promise<any> = new Promise<any>((ok: (value?: any) => void, ko: (reason?: any) => void): void => {
                 setTimeout((): void => {
-                    ok({dummy: "YES"});
+                    ok({dummy: "YES",
+                        eth: {
+                            cacheSendTransaction: {}
+                        }});
                 }, 1000);
             });
 
             store.subscribe(() => {
+                console.log()
                 if (store.getState().web3 && store.getState().web3._ && store.getState().web3._.dummy === "YES")
                     done();
             });
@@ -73,7 +77,10 @@ describe("generateStore", () => {
 
             const dummyLoader: Promise<any> = new Promise<any>((ok: (value?: any) => void, ko: (reason?: any) => void): void => {
                 setTimeout((): void => {
-                    ok({dummy: "YES"});
+                    ok({dummy: "YES",
+                        eth: {
+                            cacheSendTransaction: {}
+                        }});
                 }, 1000);
             });
 

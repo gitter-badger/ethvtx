@@ -2,8 +2,11 @@ import ContractArtifact from 'truffle-contract-schema';
 import {DeepPartial, Reducer, ReducersMapObject, Store} from "redux";
 import {State} from "./stateInterface";
 import {generateStore} from "./generateStore";
+import {Web3Load} from "./web3/web3.actions";
 
 export class Vortex<T extends State> {
+
+    private _web3_loader: Promise<any> = undefined;
 
     private _contracts: ContractArtifact[] = undefined;
 
@@ -17,8 +20,8 @@ export class Vortex<T extends State> {
 
     private static _instance: Vortex<any> = undefined;
 
-    public static factory<U extends State = State>(contracts: ContractArtifact[] = undefined, reducersMap: ReducersMapObject<U> = undefined, customState: DeepPartial<U> = undefined): Vortex<U> {
-        return (Vortex._instance || (Vortex._instance = new Vortex<U>(contracts, reducersMap, customState)));
+    public static factory<U extends State = State>(contracts: ContractArtifact[], loader: Promise<any>, reducersMap: ReducersMapObject<U> = undefined, customState: DeepPartial<U> = undefined): Vortex<U> {
+        return (Vortex._instance || (Vortex._instance = new Vortex<U>(contracts, loader, reducersMap, customState)));
     }
 
     public static get<U extends State = State>(): Vortex<U> {
@@ -30,11 +33,13 @@ export class Vortex<T extends State> {
      * Accessing VortexInstance will give access to the last instanciated Vortex.
      *
      * @param {[]} contracts List of contract artifacts created by truffle.
+     * @param loader Promise that returns a web3 instance ready to be used.
      * @param {ReducersMapObject<T extends State>} reducersMap Map of reducers (Not combined !)
      * @param {DeepPartial<T extends State>} customState Custom state matching interface that extends State.
      */
-    constructor(contracts: ContractArtifact[], reducersMap: ReducersMapObject<T> = undefined, customState: DeepPartial<T> = undefined) {
+    constructor(contracts: ContractArtifact[], loader: Promise<any>, reducersMap: ReducersMapObject<T> = undefined, customState: DeepPartial<T> = undefined) {
         this._contracts = contracts;
+        this._web3_loader = loader;
         this._reducersMap = reducersMap;
         this._customState = customState;
     }
@@ -58,9 +63,9 @@ export class Vortex<T extends State> {
      * Load Web3 instance from given source.
      * @param {Promise<any>} source The source that returns an instance when resolved.
      */
-    public loadWeb3(source: Promise<any>): void {
+    public loadWeb3(): void {
         if (this._store) {
-            // TODO Dispatch action LOAD WEB3 into the store.
+            this._store.dispatch(Web3Load(this._web3_loader));
         } else {
             throw new Error("Call run before.");
         }

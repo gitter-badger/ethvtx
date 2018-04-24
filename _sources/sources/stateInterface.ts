@@ -20,9 +20,34 @@ export interface Web3NetworkErrorState {
 
 export type Web3State = Web3LoadingState | Web3LoadedState | Web3LoadErrorState | Web3NetworkErrorState;
 
-export interface TransactionState {
-
+export interface TransactionBroadcastedState {
+    type: string,
+    transaction_hash: string,
+    timestamp: number
 }
+
+export interface TransactionReceiptState {
+    type: string,
+    transaction_hash: string,
+    transaction_receipt: any,
+    timestamp: number
+}
+
+export interface TransactionConfirmedState {
+    type: string,
+    transaction_hash: string,
+    transaction_confirmation_receipt: any,
+    timestamp: number
+}
+
+export interface TransactionErrorState {
+    type: string,
+    transaction_hash: string,
+    error: any,
+    timestamp: number
+}
+
+export type TransactionState = TransactionBroadcastedState | TransactionReceiptState | TransactionConfirmedState | TransactionErrorState;
 
 export interface TransactionStoreState {
     [key: string]: TransactionState;
