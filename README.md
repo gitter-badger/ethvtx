@@ -1,8 +1,6 @@
-# VortΞx
-
-<p align="center">
-<img src="./.assets/vortex.png">
-</p>
+<div align="center" >
+<img width="25%" src="./.assets/vortex.png">
+</div>
 
 ![CI](https://teamcity.rotaru.fr:2702/app/rest/builds/buildType:VortX_VortXBuild/statusIcon)
 
