@@ -6,7 +6,7 @@ declare var expect: any;
 
 import {Vortex} from "./vortex";
 import * as Migrations from '../../setup/truffle/build/contracts/Migrations.json';
-import {FeedNewTransaction} from "./feed/feed.actions";
+import {FeedNewTransaction, FeedNewContract} from "./feed/feed.actions";
 import * as Web3 from "web3";
 
 let _web3;
@@ -55,7 +55,7 @@ describe("Vortex", () => {
             switch (state.feed.length) {
                 case 1:
                     const txHash = (<FeedNewTransactionState>state.feed[0]).transaction_hash;
-                    if (state.tx[txHash].type === 'CONFIRMED') {
+                    if (state.tx[txHash].type === 'RECEIPT') {
                         clearInterval(intervalId);
                         done();
                     }
@@ -83,7 +83,7 @@ describe("Vortex", () => {
             switch (state.feed.length) {
                 case 2:
                     const txHash = (<FeedNewTransactionState>state.feed[1]).transaction_hash;
-                    if (state.tx[txHash].type === 'CONFIRMED') {
+                    if (state.tx[txHash].type === 'RECEIPT') {
                         clearInterval(intervalId);
                         done();
                     }
@@ -98,8 +98,13 @@ describe("Vortex", () => {
         }, 1000);
     }, 10000);
 
-    test('Adding New Feed Element', () => {
+    test('Adding New Transaction to Feed', () => {
         Vortex.get().Store.dispatch(FeedNewTransaction("Dummy Tx"));
-        expect(Vortex.get().Store.getState().feed[0].action).toBe('NEW_TRANSACTION');
+        expect(Vortex.get().Store.getState().feed[2].action).toBe('NEW_TRANSACTION');
+    });
+
+    test('Adding New Contract to Feed', () => {
+        Vortex.get().Store.dispatch(FeedNewContract("Dummy Tx", "0xabcd"));
+        expect(Vortex.get().Store.getState().feed[3].action).toBe('NEW_CONTRACT');
     });
 });

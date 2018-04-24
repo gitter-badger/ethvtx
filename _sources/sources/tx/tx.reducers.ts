@@ -38,7 +38,8 @@ export const tx: Reducer<TransactionStoreState, TxActions> = (state: Transaction
                 [(<TxConfirmedAction>action).txHash]: {
                     type: 'CONFIRMED',
                     transaction_hash: (<TxConfirmedAction>action).txHash,
-                    transaction_confirmation_receipt: (<TxConfirmedAction>action).confirmationReceipt,
+                    transaction_receipt: (<TxConfirmedAction>action).confirmationReceipt,
+                    transaction_confirmation_count: (<TxConfirmedAction>action).confirmationCount,
                     timestamp: Date.now()
                 } as TransactionConfirmedState
             };

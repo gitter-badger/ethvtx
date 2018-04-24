@@ -32,14 +32,16 @@ export function TxReceipt(txHash: string, receipt: any): TxReceiptAction {
 
 export interface TxConfirmedAction extends Action {
     txHash: string,
-    confirmationReceipt: any
+    confirmationReceipt: any,
+    confirmationCount: number
 }
 
-export function TxConfirmed(txHash: string, confirmationReceipt: any): TxConfirmedAction {
+export function TxConfirmed(txHash: string, confirmationReceipt: any, confirmationCount: number): TxConfirmedAction {
     return ({
         type: 'TX_CONFIRMED',
         txHash,
-        confirmationReceipt
+        confirmationReceipt,
+        confirmationCount
     });
 }
 

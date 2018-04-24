@@ -36,7 +36,8 @@ export interface TransactionReceiptState {
 export interface TransactionConfirmedState {
     type: string,
     transaction_hash: string,
-    transaction_confirmation_receipt: any,
+    transaction_receipt: any,
+    transaction_confirmation_count: number,
     timestamp: number
 }
 

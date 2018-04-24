@@ -27,19 +27,20 @@ function* sendTransaction(action: TxSendAction): SagaIterator {
                     txHash: _transaction_hash
                 } as TxBroadcastedAction);
             })
+            .on('confirmation', (_amount: number, _receipt: any): void => {
+                emit({
+                    type: 'TX_CONFIRMED',
+                    txHash: transaction_hash,
+                    confirmationReceipt: _receipt,
+                    confirmationCount: _amount
+                } as TxConfirmedAction);
+            })
             .on('receipt', (_receipt: any): void => {
                 emit({
                     type: 'TX_RECEIPT',
                     txHash: transaction_hash,
                     receipt: _receipt
                 } as TxReceiptAction)
-            })
-            .on('confirmation', (_amount: number, _receipt: any): void => {
-                emit({
-                    type: 'TX_CONFIRMED',
-                    txHash: transaction_hash,
-                    confirmationReceipt: _receipt
-                } as TxConfirmedAction)
                 emit(END);
             })
             .on('error', (_error: any): void => {
