@@ -58,7 +58,8 @@ This document defines how the Redux Store is going to store its data.
 {
     type: 'CONFIRMED',
     transaction_hash: string,
-    transaction_confirmation_receipt: object,
+    transaction_receipt: object,
+    transaction_confirmation_count: number,
     timestamp: number
 }
 

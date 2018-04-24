@@ -1,5 +1,9 @@
 # VortΞx
 
+<p align="center">
+<img src="./.assets/vortex.png">
+</p>
+
 ![CI](https://teamcity.rotaru.fr:2702/app/rest/builds/buildType:VortX_VortXBuild/statusIcon)
 
 
