@@ -6,10 +6,28 @@ export interface TxSendRawAction extends Action {
     resolvers: any
 }
 
+export function TxSendRaw(signedTx: string, web3: any, resolvers: any): TxSendRawAction {
+    return {
+        type: 'TX_SEND_RAW',
+        signedTx,
+        web3,
+        resolvers
+    } as TxSendRawAction;
+}
+
 export interface TxSendAction extends Action {
     txArgs: any,
     web3: any,
     resolvers: any
+}
+
+export function TxSend(txArgs: any, web3: any, resolvers: any): TxSendAction {
+    return {
+        type: 'TX_SEND',
+        txArgs,
+        web3,
+        resolvers
+    } as TxSendAction;
 }
 
 export interface TxBroadcastedAction extends Action {

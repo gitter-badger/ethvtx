@@ -19,7 +19,8 @@ exports.tx = (state = {}, action) => {
             return Object.assign({}, state, { [action.txHash]: {
                     type: 'CONFIRMED',
                     transaction_hash: action.txHash,
-                    transaction_confirmation_receipt: action.confirmationReceipt,
+                    transaction_receipt: action.confirmationReceipt,
+                    transaction_confirmation_count: action.confirmationCount,
                     timestamp: Date.now()
                 } });
         case 'TX_ERROR':

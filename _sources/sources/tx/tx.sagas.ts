@@ -1,16 +1,16 @@
-import {all, call, fork, put, take, takeEvery} from 'redux-saga/effects';
+import {call, put, take, takeEvery} from 'redux-saga/effects';
 import {
-    TxBroadcastedAction,
-    TxConfirmedAction,
-    TxErrorAction,
+    TxBroadcasted,
+    TxBroadcastedAction, TxConfirmed,
+    TxConfirmedAction, TxError,
+    TxErrorAction, TxReceipt,
     TxReceiptAction,
     TxSendAction,
     TxSendRawAction
 } from "./tx.actions";
 import {SagaIterator, eventChannel, END} from "redux-saga";
 import {Unsubscribe} from "redux";
-import {State, Web3LoadedState, Web3State} from "../stateInterface";
-import {FeedNewTransactionAction} from "../feed/feed.actions";
+import {FeedNewTransaction, FeedNewTransactionAction} from "../feed/feed.actions";
 
 
 function* sendTransaction(action: TxSendAction): SagaIterator {
@@ -25,29 +25,14 @@ function* sendTransaction(action: TxSendAction): SagaIterator {
                     action.resolvers.success(_transaction_hash);
                     action.resolvers = undefined;
                 }
-                emit({
-                    type: 'FEED_NEW_TRANSACTION',
-                    txHash: _transaction_hash
-                } as FeedNewTransactionAction);
-                emit({
-                    type: 'TX_BROADCASTED',
-                    txHash: _transaction_hash
-                } as TxBroadcastedAction);
+                emit(FeedNewTransaction(_transaction_hash));
+                emit(TxBroadcasted(_transaction_hash));
             })
             .on('confirmation', (_amount: number, _receipt: any): void => {
-                emit({
-                    type: 'TX_CONFIRMED',
-                    txHash: transaction_hash,
-                    confirmationReceipt: _receipt,
-                    confirmationCount: _amount
-                } as TxConfirmedAction);
+                emit(TxConfirmed(transaction_hash, _receipt, _amount))
             })
             .on('receipt', (_receipt: any): void => {
-                emit({
-                    type: 'TX_RECEIPT',
-                    txHash: transaction_hash,
-                    receipt: _receipt
-                } as TxReceiptAction)
+                emit(TxReceipt(transaction_hash, _receipt));
                 emit(END);
             })
             .on('error', (_error: any): void => {
@@ -58,11 +43,7 @@ function* sendTransaction(action: TxSendAction): SagaIterator {
                     action.resolvers.error(transaction_hash);
                     action.resolvers = undefined;
                 }
-                emit({
-                    type: 'TX_ERROR',
-                    txHash: transaction_hash,
-                    error: _error
-                } as TxErrorAction);
+                emit(TxError(transaction_hash, _error));
                 emit(END);
             });
 
@@ -96,29 +77,14 @@ function* sendRawTransaction(action: TxSendRawAction): SagaIterator {
                     action.resolvers.success(_transaction_hash);
                     action.resolvers = undefined;
                 }
-                emit({
-                    type: 'FEED_NEW_TRANSACTION',
-                    txHash: _transaction_hash
-                } as FeedNewTransactionAction);
-                emit({
-                    type: 'TX_BROADCASTED',
-                    txHash: _transaction_hash
-                } as TxBroadcastedAction);
+                emit(FeedNewTransaction(_transaction_hash));
+                emit(TxBroadcasted(_transaction_hash));
             })
             .on('confirmation', (_amount: number, _receipt: any): void => {
-                emit({
-                    type: 'TX_CONFIRMED',
-                    txHash: transaction_hash,
-                    confirmationReceipt: _receipt,
-                    confirmationCount: _amount
-                } as TxConfirmedAction);
+                emit(TxConfirmed(transaction_hash, _receipt, _amount));
             })
             .on('receipt', (_receipt: any): void => {
-                emit({
-                    type: 'TX_RECEIPT',
-                    txHash: transaction_hash,
-                    receipt: _receipt
-                } as TxReceiptAction)
+                emit(TxReceipt(transaction_hash, _receipt));
                 emit(END);
             })
             .on('error', (_error: any): void => {
@@ -129,11 +95,7 @@ function* sendRawTransaction(action: TxSendRawAction): SagaIterator {
                     action.resolvers.error(transaction_hash);
                     action.resolvers = undefined;
                 }
-                emit({
-                    type: 'TX_ERROR',
-                    txHash: transaction_hash,
-                    error: _error
-                } as TxErrorAction);
+                emit(TxError(transaction_hash, _error));
                 emit(END);
             });
 

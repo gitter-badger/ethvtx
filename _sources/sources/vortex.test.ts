@@ -1,4 +1,4 @@
-import {FeedNewTransactionState} from "./stateInterface";
+import {FeedNewContractState, FeedNewTransactionState, Web3LoadedState} from "./stateInterface";
 
 declare var describe: any;
 declare var test: any;
@@ -53,8 +53,8 @@ describe("Vortex", () => {
         let intervalId = setInterval(() => {
             const state = Vortex.get().Store.getState();
             switch (state.feed.length) {
-                case 1:
-                    const txHash = (<FeedNewTransactionState>state.feed[0]).transaction_hash;
+                case 2:
+                    const txHash = (<FeedNewTransactionState>state.feed[1]).transaction_hash;
                     if (state.tx[txHash].type === 'RECEIPT') {
                         clearInterval(intervalId);
                         done();
@@ -81,8 +81,8 @@ describe("Vortex", () => {
         let intervalId = setInterval(() => {
             const state = Vortex.get().Store.getState();
             switch (state.feed.length) {
-                case 2:
-                    const txHash = (<FeedNewTransactionState>state.feed[1]).transaction_hash;
+                case 3:
+                    const txHash = (<FeedNewTransactionState>state.feed[2]).transaction_hash;
                     if (state.tx[txHash].type === 'RECEIPT') {
                         clearInterval(intervalId);
                         done();
@@ -100,11 +100,55 @@ describe("Vortex", () => {
 
     test('Adding New Transaction to Feed', () => {
         Vortex.get().Store.dispatch(FeedNewTransaction("Dummy Tx"));
-        expect(Vortex.get().Store.getState().feed[2].action).toBe('NEW_TRANSACTION');
+        expect(Vortex.get().Store.getState().feed[3].action).toBe('NEW_TRANSACTION');
     });
 
     test('Adding New Contract to Feed', () => {
         Vortex.get().Store.dispatch(FeedNewContract("Dummy Tx", "0xabcd"));
-        expect(Vortex.get().Store.getState().feed[3].action).toBe('NEW_CONTRACT');
+        expect(Vortex.get().Store.getState().feed[4].action).toBe('NEW_CONTRACT');
     });
+
+    test('Recover Owner from constant call', (done: any): void => {
+        const state = Vortex.get().Store.getState();
+        const contractName = (<FeedNewContractState>state.feed[0]).contract_name;
+        const contractAddress = (<FeedNewContractState>state.feed[0]).contract_address;
+        const contract = state.contracts[contractName][contractAddress].instance;
+        contract.methods.owner.vortexCall({}).then((res: any): void => {
+            if (contract.methods.owner.vortexData({}) === res) {
+                done();
+            }
+        }).catch((e: any): void => {
+            done(e);
+        })
+    });
+
+    test('Call State modifying method, expect txHash and new tx', (done: any): void => {
+        const state = Vortex.get().Store.getState();
+        const coinbase = (<Web3LoadedState>state.web3).coinbase;
+        const contractName = (<FeedNewContractState>state.feed[0]).contract_name;
+        const contractAddress = (<FeedNewContractState>state.feed[0]).contract_address;
+        const contract = state.contracts[contractName][contractAddress].instance;
+
+        contract.methods.setCompleted.vortexSend({from: coinbase}, 23).then((_txHash: string): void => {
+            let intervalId = setInterval(() => {
+                const state = Vortex.get().Store.getState();
+                switch (state.feed.length) {
+                    case 6:
+                        const txHash = (<FeedNewTransactionState>state.feed[5]).transaction_hash;
+                        if (state.tx[txHash].type === 'RECEIPT') {
+                            clearInterval(intervalId);
+                            done();
+                        }
+                        if (state.tx[txHash].type === 'ERROR') {
+                            clearInterval(intervalId);
+                            done(new Error(JSON.stringify(state.tx[txHash])));
+                        }
+                        break ;
+                    default:
+                        break ;
+                }
+            }, 1000);
+
+        });
+    }, 10000);
 });

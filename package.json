@@ -1,7 +1,7 @@
 {
-  "name": "vortex",
-  "version": "0.0.1",
-  "description": "VortΞx is an Ethereum Dapp redux store that handles transactions, smart contracts, events ...",
+  "name": "vort_x",
+  "version": "0.0.4",
+  "description": "[FlexProject][VortΞx] is an Ethereum Dapp Redux Store that handles transactions, smart contracts, events ...",
   "main": "index.js",
   "directories": {
     "doc": "doc",
@@ -27,6 +27,7 @@
     "npm": "^5.8.0",
     "redux": "^4.0.0",
     "redux-saga": "^0.16.0",
+    "sha1": "^1.1.1",
     "truffle-contract-schema": "^2.0.0",
     "typescript": "^2.7.2"
   },
@@ -43,24 +44,30 @@
   },
   "scripts": {
     "build": "tslint --project . && tsc",
-    "test": "tslint --project . && jest --coverage",
+    "test": "tslint --project . && jest --coverage --notify",
     "doc": "rm -rf ./doc && tslint --project . && tsc && typedoc --out doc --mode file ./_sources/sources/ --readme ./README.md --name \"VortΞx\" --theme minimal --hideGenerator --target ES6 --exclude **/*.test.ts"
   },
   "repository": {
     "type": "git",
-    "url": "https//gitlab.com/mortimr/vortex"
+    "url": "https://gitlab.com/FlexProject/vortex"
   },
   "keywords": [
     "ethereum",
     "redux",
     "smart",
     "contract",
-    "transaction"
+    "transaction",
+    "web3",
+    "wallet",
+    "keypair",
+    "blockchain",
+    "react"
   ],
+  "readme": "NPM_README.md",
   "author": "Iulian Rotaru",
   "license": "MIT",
   "bugs": {
-    "url": "https//gitlab.com/mortimr/vortex/issues"
+    "url": "https://gitlab.com/FlexProject/vortex/issues"
   },
-  "homepage": "https//gitlab.com/mortimr/vortex#README"
+  "homepage": "https://gitlab.com/FlexProject/vortex#README"
 }

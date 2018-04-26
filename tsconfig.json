@@ -11,10 +11,32 @@
     "test"
   ],
   "include": [
+    "./typings.d.ts",
+
     "./_sources/index.ts",
+
     "./_sources/sources/vortex.ts",
     "./_sources/sources/generateStore.ts",
     "./_sources/sources/stateInterface.ts",
-    "./_sources/sources/dummyReducer.ts"
+    "./_sources/sources/dummyReducer.ts",
+    "./_sources/sources/sagas.ts",
+    "./_sources/sources/reducers.ts",
+
+    "./_sources/sources/web3/web3.sagas.ts",
+    "./_sources/sources/web3/web3.reducers.ts",
+    "./_sources/sources/web3/web3.actions.ts",
+
+    "./_sources/sources/tx/tx.sagas.ts",
+    "./_sources/sources/tx/tx.reducers.ts",
+    "./_sources/sources/tx/tx.actions.ts",
+
+    "./_sources/sources/feed/feed.reducers.ts",
+    "./_sources/sources/feed/feed.actions.ts",
+
+    "./_sources/sources/contracts/VortexContract.ts",
+    "./_sources/sources/contracts/contracts.saga.ts",
+    "./_sources/sources/contracts/contracts.reducers.ts",
+    "./_sources/sources/contracts/contracts.actions.ts"
+
   ]
 }

@@ -5,6 +5,7 @@ export interface Web3LoadingState {
 export interface Web3LoadedState {
     status: string,
     network_id: number,
+    coinbase: string,
     _: any
 }
 
@@ -54,14 +55,14 @@ export interface TransactionStoreState {
     [key: string]: TransactionState;
 }
 
-export interface DeployedContractState {
-
+export interface ContractInstanceState {
+    status?: string,
+    instance?: any,
+    error?: any
 }
 
-export type ContractState = DeployedContractState | any;
-
 export interface ContractAddressesState {
-    [key: string]: ContractState;
+    [key: string]: ContractInstanceState;
 }
 
 export interface ContractStoreState {

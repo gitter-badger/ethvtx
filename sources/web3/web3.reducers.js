@@ -7,7 +7,7 @@ exports.web3 = (state = { status: 'LOADING' }, action) => {
                 status: 'LOADING'
             });
         case 'LOADED_WEB3':
-            return (Object.assign({}, state, { status: 'LOADED', network_id: action.networkId, _: action._ }));
+            return (Object.assign({}, state, { status: 'LOADED', network_id: action.networkId, _: action._, coinbase: action.coinbase }));
         case 'LOAD_ERROR_WEB3':
             return (Object.assign({}, state, { status: 'LOAD_ERROR', error: action.error }));
         case 'NETWORK_ERROR_WEB3':
