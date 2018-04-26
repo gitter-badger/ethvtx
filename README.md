@@ -1,5 +1,5 @@
 <div align="center" >
-<img width="25%" src="./.assets/vortex.png">
+<img width="25%" src="https://gitlab.com/FlexProject/vortex/raw/master/.assets/vortex.png">
 </div>
 
 ![CI](https://teamcity.rotaru.fr:2702/app/rest/builds/buildType:VortX_VortXBuild/statusIcon)
@@ -17,7 +17,7 @@ Runtime Contracts can be loaded if appropriate artifact was loaded. You can mana
 
 ## Architecture Documentation
 
-* [Store](./markdown/store.md)
-* [Actions](./markdown/actions.md)
-* [Reducers](./markdown/reducers.md)
-* [Saga](./markdown/saga.md)
+* [Store](https://gitlab.com/FlexProject/vortex/blob/master/markdown/store.md)
+* [Actions](https://gitlab.com/FlexProject/vortex/blob/master/markdown/actions.md)
+* [Reducers](https://gitlab.com/FlexProject/vortex/blob/master/markdown/reducers.md)
+* [Saga](https://gitlab.com/FlexProject/vortex/blob/master/markdown/saga.md)

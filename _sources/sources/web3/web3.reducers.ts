@@ -16,7 +16,8 @@ export const web3 : Reducer<Web3State, Web3Actions> = (state: Web3State = {statu
                 ...state,
                 status: 'LOADED',
                 network_id: (<Web3LoadedAction>action).networkId,
-                _: (<Web3LoadedAction>action)._
+                _: (<Web3LoadedAction>action)._,
+                coinbase: (<Web3LoadedAction>action).coinbase
             });
 
         case 'LOAD_ERROR_WEB3':

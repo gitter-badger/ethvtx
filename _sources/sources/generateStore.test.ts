@@ -9,8 +9,18 @@ import * as Migrations from '../../setup/truffle/build/contracts/Migrations.json
 import {Reducer, Action, DeepPartial, ReducersMapObject} from "redux";
 import {State} from "./stateInterface";
 import {dummyReducer} from "./dummyReducer";
+import * as Web3 from "web3";
 
 let store;
+let _web3;
+const getWeb3: Promise<any> = new Promise<any>((ok: (arg?: any) => void, ko: (arg?: any) => void): void => {
+    try {
+        _web3 = new (<any>Web3)(new (<any>Web3).providers.HttpProvider("http://localhost:8545"));
+        ok(_web3);
+    } catch (e) {
+        ko(e);
+    }
+});
 
 describe("generateStore", () => {
 
@@ -25,24 +35,15 @@ describe("generateStore", () => {
 
         test("Load dummy web3", (done: (err?: any) => void) => {
 
-            const dummyLoader: Promise<any> = new Promise<any>((ok: (value?: any) => void, ko: (reason?: any) => void): void => {
-                setTimeout((): void => {
-                    ok({dummy: "YES",
-                        eth: {
-                            cacheSendTransaction: {}
-                        }});
-                }, 1000);
-            });
-
             store.subscribe(() => {
-                console.log()
-                if (store.getState().web3 && store.getState().web3._ && store.getState().web3._.dummy === "YES")
+                if (store.getState().web3 && store.getState().web3._)
                     done();
             });
 
             store.dispatch({
                 type: 'LOAD_WEB3',
-                loader: dummyLoader
+                loader: getWeb3,
+                networks: []
             } as Web3LoadAction);
 
         }, 10000)
@@ -75,23 +76,15 @@ describe("generateStore", () => {
 
         test("Load dummy web3", (done: (err?: any) => void) => {
 
-            const dummyLoader: Promise<any> = new Promise<any>((ok: (value?: any) => void, ko: (reason?: any) => void): void => {
-                setTimeout((): void => {
-                    ok({dummy: "YES",
-                        eth: {
-                            cacheSendTransaction: {}
-                        }});
-                }, 1000);
-            });
-
             store.subscribe(() => {
-                if (store.getState().web3 && store.getState().web3._ && store.getState().web3._.dummy === "YES")
+                if (store.getState().web3 && store.getState().web3._)
                     done();
             });
 
             store.dispatch({
                 type: 'LOAD_WEB3',
-                loader: dummyLoader
+                loader: getWeb3,
+                networks: []
             } as Web3LoadAction);
 
         }, 10000)

@@ -11,10 +11,11 @@ describe("Web3 Actions", () => {
     });
 
     test("Web3Loaded", () => {
-        const ret = Web3Loaded({test: 123}, 34);
+        const ret = Web3Loaded({test: 123}, 34, "0xabcd");
         expect(ret.networkId).toBe(34);
         expect(ret._.test).toBe(123);
         expect(ret.type).toBe('LOADED_WEB3');
+        expect(ret.coinbase).toBe("0xabcd");
     });
 
     test("Web3LoadError", () => {

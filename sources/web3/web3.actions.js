@@ -1,17 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-function Web3Load(loader) {
+function Web3Load(loader, networks) {
     return ({
         type: 'LOAD_WEB3',
-        loader
+        loader,
+        networks
     });
 }
 exports.Web3Load = Web3Load;
-function Web3Loaded(_, networkId) {
+function Web3Loaded(_, networkId, coinbase) {
     return ({
         type: 'LOADED_WEB3',
         _,
-        networkId
+        networkId,
+        coinbase
     });
 }
 exports.Web3Loaded = Web3Loaded;

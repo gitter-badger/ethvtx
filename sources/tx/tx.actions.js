@@ -1,5 +1,23 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+function TxSendRaw(signedTx, web3, resolvers) {
+    return {
+        type: 'TX_SEND_RAW',
+        signedTx,
+        web3,
+        resolvers
+    };
+}
+exports.TxSendRaw = TxSendRaw;
+function TxSend(txArgs, web3, resolvers) {
+    return {
+        type: 'TX_SEND',
+        txArgs,
+        web3,
+        resolvers
+    };
+}
+exports.TxSend = TxSend;
 function TxBroadcasted(txHash) {
     return ({
         type: 'TX_BROADCASTED',
@@ -15,11 +33,12 @@ function TxReceipt(txHash, receipt) {
     });
 }
 exports.TxReceipt = TxReceipt;
-function TxConfirmed(txHash, confirmationReceipt) {
+function TxConfirmed(txHash, confirmationReceipt, confirmationCount) {
     return ({
         type: 'TX_CONFIRMED',
         txHash,
-        confirmationReceipt
+        confirmationReceipt,
+        confirmationCount
     });
 }
 exports.TxConfirmed = TxConfirmed;

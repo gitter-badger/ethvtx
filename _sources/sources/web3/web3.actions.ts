@@ -1,26 +1,30 @@
 import {Action} from "redux";
 
 export interface Web3LoadAction extends Action {
-    loader: Promise<any>
+    loader: Promise<any>,
+    networks: number[]
 }
 
-export function Web3Load(loader: Promise<any>): Web3LoadAction {
+export function Web3Load(loader: Promise<any>, networks: number[]): Web3LoadAction {
     return ({
         type: 'LOAD_WEB3',
-        loader
+        loader,
+        networks
     });
 }
 
 export interface Web3LoadedAction extends Action {
     _: any,
-    networkId: number
+    networkId: number,
+    coinbase: string
 }
 
-export function Web3Loaded(_: any, networkId: number): Web3LoadedAction {
+export function Web3Loaded(_: any, networkId: number, coinbase: string): Web3LoadedAction {
     return ({
         type: 'LOADED_WEB3',
         _,
-        networkId
+        networkId,
+        coinbase
     })
 }
 

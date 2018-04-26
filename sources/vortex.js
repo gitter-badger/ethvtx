@@ -52,7 +52,7 @@ class Vortex {
      */
     loadWeb3() {
         if (this._store) {
-            this._store.dispatch(web3_actions_1.Web3Load(this._web3_loader));
+            this._store.dispatch(web3_actions_1.Web3Load(this._web3_loader, this._network_ids));
         }
         else {
             throw new Error("Call run before.");

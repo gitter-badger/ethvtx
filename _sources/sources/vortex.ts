@@ -6,7 +6,7 @@ import {Web3Load} from "./web3/web3.actions";
 
 export class Vortex<T extends State> {
 
-    private _web3_loader: Promise<any> = undefined;
+    private readonly _web3_loader: Promise<any> = undefined;
 
     private _contracts: ContractArtifact[] = undefined;
 
@@ -65,7 +65,7 @@ export class Vortex<T extends State> {
      */
     public loadWeb3(): void {
         if (this._store) {
-            this._store.dispatch(Web3Load(this._web3_loader));
+            this._store.dispatch(Web3Load(this._web3_loader, this._network_ids));
         } else {
             throw new Error("Call run before.");
         }

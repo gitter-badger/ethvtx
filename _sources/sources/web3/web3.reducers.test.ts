@@ -15,10 +15,11 @@ describe("Web3 Reducers", () => {
     });
 
     test("Web3Loaded", () => {
-        state = web3(state, Web3Loaded({test: 1234}, 4321));
+        state = web3(state, Web3Loaded({test: 1234}, 4321, "0xabcd"));
         expect(state._.test).toBe(1234);
         expect(state.network_id).toBe(4321);
         expect(state.status).toBe('LOADED');
+        expect(state.coinbase).toBe("0xabcd");
     });
 
     test("Web3LoadError", () => {
