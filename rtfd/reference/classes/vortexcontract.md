@@ -14,8 +14,6 @@
 
 ### Methods
 
-* [getData](vortexcontract.md#getdata)
-* [vortexCall](vortexcontract.md#vortexcall)
 * [callSignature](vortexcontract.md#callsignature)
 
 ---
@@ -45,45 +43,6 @@ ___
 
 ## Methods
 
-<a id="getdata"></a>
-
-### `<Private>` getData
-
-▸ **getData**(methodName: *`string`*, txArguments: *[VortexTransactionArguments](../interfaces/vortextransactionarguments.md)*, ...methodArguments: *`any`[]*): `any`
-
-*Defined in contracts/VortexContract.ts:28*
-
-**Parameters:**
-
-| Param | Type |
-| ------ | ------ |
-| methodName | `string` | 
-| txArguments | [VortexTransactionArguments](../interfaces/vortextransactionarguments.md) | 
-| `Rest` methodArguments | `any`[] | 
-
-**Returns:** `any`
-
-___
-<a id="vortexcall"></a>
-
-### `<Private>` vortexCall
-
-▸ **vortexCall**(methodName: *`string`*, methodAbiIndex: *`number`*, txArguments: *[VortexTransactionArguments](../interfaces/vortextransactionarguments.md)*, ...methodArguments: *`any`[]*): `Promise`<`any`>
-
-*Defined in contracts/VortexContract.ts:41*
-
-**Parameters:**
-
-| Param | Type |
-| ------ | ------ |
-| methodName | `string` | 
-| methodAbiIndex | `number` | 
-| txArguments | [VortexTransactionArguments](../interfaces/vortextransactionarguments.md) | 
-| `Rest` methodArguments | `any`[] | 
-
-**Returns:** `Promise`<`any`>
-
-___
 <a id="callsignature"></a>
 
 ### `<Static>` callSignature

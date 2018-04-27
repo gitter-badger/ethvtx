@@ -14,16 +14,6 @@
 
 * [constructor](vortex.md#constructor)
 
-### Properties
-
-* [_contracts](vortex.md#_contracts)
-* [_customState](vortex.md#_customstate)
-* [_network_ids](vortex.md#_network_ids)
-* [_reducersMap](vortex.md#_reducersmap)
-* [_store](vortex.md#_store)
-* [_web3_loader](vortex.md#_web3_loader)
-* [_instance](vortex.md#_instance)
-
 ### Accessors
 
 * [Contracts](vortex.md#contracts)
@@ -64,72 +54,6 @@ Instantiate a new Vorte instance. Accessing VortexInstance will give access to t
 | `Default value` customState | `DeepPartial`<`T`> |  undefined |  Custom state matching interface that extends State. |
 
 **Returns:** [Vortex](vortex.md)
-
-___
-
-## Properties
-
-<a id="_contracts"></a>
-
-### `<Private>` _contracts
-
-**● _contracts**: *`ContractArtifact`[]* =  undefined
-
-*Defined in vortex.ts:11*
-
-___
-<a id="_customstate"></a>
-
-### `<Private>` _customState
-
-**● _customState**: *`DeepPartial`<`T`>* =  undefined
-
-*Defined in vortex.ts:15*
-
-___
-<a id="_network_ids"></a>
-
-### `<Private>` _network_ids
-
-**● _network_ids**: *`number`[]* =  [] as number[]
-
-*Defined in vortex.ts:19*
-
-___
-<a id="_reducersmap"></a>
-
-### `<Private>` _reducersMap
-
-**● _reducersMap**: *`ReducersMapObject`<`T`>* =  undefined
-
-*Defined in vortex.ts:13*
-
-___
-<a id="_store"></a>
-
-### `<Private>` _store
-
-**● _store**: *`Store`<`T`>* =  undefined
-
-*Defined in vortex.ts:17*
-
-___
-<a id="_web3_loader"></a>
-
-### `<Private>` _web3_loader
-
-**● _web3_loader**: *`Promise`<`any`>* =  undefined
-
-*Defined in vortex.ts:9*
-
-___
-<a id="_instance"></a>
-
-### `<Static>``<Private>` _instance
-
-**● _instance**: *[Vortex](vortex.md)<`any`>* =  undefined
-
-*Defined in vortex.ts:21*
 
 ___
 

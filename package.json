@@ -46,7 +46,7 @@
   "scripts": {
     "build": "tslint --project . && tsc",
     "test": "tslint --project . && jest --coverage --notify",
-    "doc": "rm -rf ./rtfd/reference && tslint --project . && tsc && typedoc --out ./rtfd/reference --mode file ./_sources/sources/ --name \"VortΞx\" --theme markdown --hideGenerator --target ES6 --exclude **/*.test.ts --readme 'none'"
+    "doc": "rm -rf ./rtfd/reference && tslint --project . && tsc && typedoc --out ./rtfd/reference --mode file ./_sources/sources/ --name \"VortΞx\" --theme markdown --hideGenerator --target ES6 --exclude **/*.test.ts --readme 'none' --excludeExternals --excludePrivate"
   },
   "repository": {
     "type": "git",
