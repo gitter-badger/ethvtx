@@ -1,4 +1,6 @@
-# VortΞx Documentation
+<div align="center" >
+<img width="25%" src="https://gitlab.com/FlexProject/vortex/raw/master/.assets/vortex.png">
+</div>
 
 Welcome to the VortΞx documentation. This document will describe how you can harvest the potential of Redux+React in Dapps throught VortΞx.
 
@@ -16,7 +18,7 @@ The first part is [Web3](./web3.md) and will allow you to be alerted when the re
 
 The second part is [Tx](./tx.md) and will allow you to track your transactions. Every transactions emitted from Web3 or from a Contract will be listed in the Tx section, and you'll be able to access informations about its resolution (or its errors). Mounted in a component, it will update its State only when new informations are gathered. Very powerful tool to give visualization to your users.
 
-The third part is [Contract](./contract.md) and will store any requested contract. When creating a Vortex instance, you pass Truffle Artifacts. Vortex will look up for any deployed Smart Contract on the current network inside the Truffle Artifact. Also you will be able to instanciate new ones at specific addresses. The Contract section will allow you to monitor outgoing contract calls, and refresh constant calls automatically. This is the core section, allowing you to use your Smart Contracts in a whole different way; no more multiple imports or loadings of the same contract instance again.
+The third part is [Contract](./contracts.md) and will store any requested contract. When creating a Vortex instance, you pass Truffle Artifacts. Vortex will look up for any deployed Smart Contract on the current network inside the Truffle Artifact. Also you will be able to instanciate new ones at specific addresses. The Contract section will allow you to monitor outgoing contract calls, and refresh constant calls automatically. This is the core section, allowing you to use your Smart Contracts in a whole different way; no more multiple imports or loadings of the same contract instance again.
 
 The fourth part is [Feed](./feed.md) and will store a list of events. Theses events can be new contract or new transactions. This section is very useful is you want to manage a list of components that are connected to transactions or contracts. You will just have to filter the array on the specific feed event your are looking for, and your state will be updated as soon as there is change.
 

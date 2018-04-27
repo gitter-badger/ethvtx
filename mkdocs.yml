@@ -1,8 +1,9 @@
 site_name: VortΞx
-theme: readthedocs
+theme: rtd-dropdown
 docs_dir: ./rtfd
 pages:
   - 'Introduction': index.md
+  - 'Tutorial': tutorial.md
   - 'Web3': web3.md
   - 'Tx': tx.md
   - 'Contracts': contracts.md
@@ -11,5 +12,44 @@ pages:
   - 'Actions': architecture/actions.md
   - 'Reducers': architecture/reducers.md
   - 'Sagas': architecture/saga.md
-  - 'Reference': reference/README.md
-
+  - 'Reference':
+    - 'Index': reference/README.md
+    - reference/classes/vortex.md
+    - reference/classes/vortexcontract.md
+    - reference/interfaces/contractaddressesstate.md
+    - reference/interfaces/contracterroraction.md
+    - reference/interfaces/contractinstancestate.md
+    - reference/interfaces/contractloadedaction.md
+    - reference/interfaces/contractloadingaction.md
+    - reference/interfaces/contractsendaction.md
+    - reference/interfaces/contractstorestate.md
+    - reference/interfaces/contractvarerrorreceivedaction.md
+    - reference/interfaces/contractvarforcerefreshaction.md
+    - reference/interfaces/contractvarreceivedaction.md
+    - reference/interfaces/feednewcontractaction.md
+    - reference/interfaces/feednewcontractstate.md
+    - reference/interfaces/feednewtransactionaction.md
+    - reference/interfaces/feednewtransactionstate.md
+    - reference/interfaces/fetcheddata.md
+    - reference/interfaces/signaturecalls.md
+    - reference/interfaces/state.md
+    - reference/interfaces/transactionbroadcastedstate.md
+    - reference/interfaces/transactionconfirmedstate.md
+    - reference/interfaces/transactionerrorstate.md
+    - reference/interfaces/transactionreceiptstate.md
+    - reference/interfaces/transactionstorestate.md
+    - reference/interfaces/txbroadcastedaction.md
+    - reference/interfaces/txconfirmedaction.md
+    - reference/interfaces/txerroraction.md
+    - reference/interfaces/txreceiptaction.md
+    - reference/interfaces/txsendaction.md
+    - reference/interfaces/txsendrawaction.md
+    - reference/interfaces/vortextransactionarguments.md
+    - reference/interfaces/web3loadaction.md
+    - reference/interfaces/web3loadedaction.md
+    - reference/interfaces/web3loadedstate.md
+    - reference/interfaces/web3loaderroraction.md
+    - reference/interfaces/web3loaderrorstate.md
+    - reference/interfaces/web3loadingstate.md
+    - reference/interfaces/web3networkerroraction.md
+    - reference/interfaces/web3networkerrorstate.md
