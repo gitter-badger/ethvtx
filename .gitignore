@@ -4,3 +4,4 @@ doc
 .idea
 setup/truffle/build
 setup/truffle/test
+site

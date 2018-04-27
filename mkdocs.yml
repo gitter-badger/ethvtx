@@ -1,0 +1,15 @@
+site_name: VortΞx
+theme: readthedocs
+docs_dir: ./rtfd
+pages:
+  - 'Introduction': index.md
+  - 'Web3': web3.md
+  - 'Tx': tx.md
+  - 'Contracts': contracts.md
+  - 'Feed': feed.md
+  - 'Store Architecture': architecture/store.md
+  - 'Actions': architecture/actions.md
+  - 'Reducers': architecture/reducers.md
+  - 'Sagas': architecture/saga.md
+  - 'Reference': reference/README.md
+
