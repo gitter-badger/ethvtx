@@ -10,7 +10,7 @@ import {
 } from "./tx.actions";
 import {SagaIterator, eventChannel, END} from "redux-saga";
 import {Unsubscribe} from "redux";
-import {FeedNewTransaction, FeedNewTransactionAction} from "../feed/feed.actions";
+import {FeedNewError, FeedNewTransaction, FeedNewTransactionAction} from "../feed/feed.actions";
 
 
 function* sendTransaction(action: TxSendAction): SagaIterator {
@@ -44,6 +44,7 @@ function* sendTransaction(action: TxSendAction): SagaIterator {
                     action.resolvers = undefined;
                 }
                 emit(TxError(transaction_hash, _error));
+                emit(FeedNewError(_error, _error.message, "[tx.sagas.ts][sendTransaction] Trying to send a transaction."));
                 emit(END);
             });
 
@@ -96,6 +97,7 @@ function* sendRawTransaction(action: TxSendRawAction): SagaIterator {
                     action.resolvers = undefined;
                 }
                 emit(TxError(transaction_hash, _error));
+                emit(FeedNewError(_error, _error.message, "[tx.sagas.ts][sendRawTransaction] Trying to send a raw transaction."));
                 emit(END);
             });
 

@@ -21,6 +21,20 @@ exports.feed = (state = [], action) => {
             return [
                 ...state
             ];
+        case 'FEED_NEW_ERROR':
+            console.warn("[Feed][Error]: " + action.message);
+            state.push({
+                action: 'NEW_ERROR',
+                error: {
+                    reason: action.reason,
+                    message: action.message,
+                    when: action.when
+                },
+                timestamp: Date.now()
+            });
+            return [
+                ...state
+            ];
         default:
             return state;
     }

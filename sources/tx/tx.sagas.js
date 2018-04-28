@@ -33,6 +33,7 @@ function* sendTransaction(action) {
                 action.resolvers = undefined;
             }
             emit(tx_actions_1.TxError(transaction_hash, _error));
+            emit(feed_actions_1.FeedNewError(_error, _error.message, "[tx.sagas.ts][sendTransaction] Trying to send a transaction."));
             emit(redux_saga_1.END);
         });
         return () => {
@@ -81,6 +82,7 @@ function* sendRawTransaction(action) {
                 action.resolvers = undefined;
             }
             emit(tx_actions_1.TxError(transaction_hash, _error));
+            emit(feed_actions_1.FeedNewError(_error, _error.message, "[tx.sagas.ts][sendRawTransaction] Trying to send a raw transaction."));
             emit(redux_saga_1.END);
         });
         return () => {

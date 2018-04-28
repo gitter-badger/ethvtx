@@ -82,7 +82,19 @@ export interface FeedNewTransactionState {
     timestamp: number
 }
 
-export type FeedState = FeedNewContractState | FeedNewTransactionState;
+export interface FeedNewErrorErrorState {
+    reason: any,
+    message: string,
+    when: string
+}
+
+export interface FeedNewErrorState {
+    action: string,
+    error: FeedNewErrorErrorState,
+    timestamp: number
+}
+
+export type FeedState = FeedNewContractState | FeedNewTransactionState | FeedNewErrorState;
 
 export interface State {
     web3: Web3State,
