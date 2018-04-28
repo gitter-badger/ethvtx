@@ -15,3 +15,12 @@ function FeedNewContract(contractName, address) {
     });
 }
 exports.FeedNewContract = FeedNewContract;
+function FeedNewError(reason, message, when) {
+    return {
+        type: 'FEED_NEW_ERROR',
+        reason,
+        message,
+        when
+    };
+}
+exports.FeedNewError = FeedNewError;

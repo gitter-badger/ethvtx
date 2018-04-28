@@ -41,7 +41,9 @@ function* loadContract(contractName, contractAddress, userAddress, web3) {
     const contracts = (yield effects_1.select()).contracts;
     const artifact = contracts[contractName] ? contracts[contractName].artifact : undefined;
     if (!artifact) {
-        yield effects_1.put(contracts_actions_1.ContractError(contractName, contractAddress, new Error("Unable to recover artifact for contract " + contractName)));
+        const error = new Error("Unable to recover artifact for contract " + contractName + ":" + contractAddress);
+        yield effects_1.put(contracts_actions_1.ContractError(contractName, contractAddress, error));
+        yield effects_1.put(feed_actions_1.FeedNewError(error, error.message, "[contracts.saga.ts][loadContract] Trying to load artifact."));
         return;
     }
     if (contracts[contractName][contractAddress]) {
@@ -55,6 +57,7 @@ function* loadContract(contractName, contractAddress, userAddress, web3) {
     }
     catch (e) {
         yield effects_1.put(contracts_actions_1.ContractError(contractName, contractAddress, e));
+        yield effects_1.put(feed_actions_1.FeedNewError(e, e.message, "[contracts.saga.ts][loadContract] Trying to instantiate VortexContract."));
         throw (e);
     }
     yield effects_1.put(contracts_actions_1.ContractLoaded(contractName, contractAddress, vortex_contract));
@@ -98,6 +101,7 @@ function* contractCall(action, tx, arg_signature) {
                 action.resolvers.success(result);
         }).catch((error) => {
             emit(contracts_actions_1.ContractVarErrorReceived(action.contractName, action.contractAddress, action.methodName, arg_signature, error));
+            emit(feed_actions_1.FeedNewError(error, error.message, "[contracts.saga.ts][contractCall] Trying to recover constant call result."));
             if (action.resolvers)
                 action.resolvers.error(error);
         });
@@ -153,6 +157,7 @@ function* contractSend(action, tx) {
                 action.resolvers = undefined;
             }
             emit(tx_actions_1.TxError(transaction_hash, _error));
+            emit(feed_actions_1.FeedNewError(_error, _error.message, "[contracts.sagas.ts][contractSend] Trying to send method call."));
             emit(redux_saga_1.END);
         });
         return (() => { tx_events.off(); });
