@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const generateStore_1 = require("./generateStore");
 const web3_actions_1 = require("./web3/web3.actions");
+const contracts_actions_1 = require("./contracts/contracts.actions");
 class Vortex {
     /**
      * Instantiate a new Vorte instance.
@@ -96,6 +97,21 @@ class Vortex {
      */
     setCustomState(customState) {
         this._customState = customState;
+    }
+    /**
+     * Load a new instance of a Smart Contract. Expect a new Feed element and
+     * the contracts section to get updated.
+     *
+     * @param {string} contractName
+     * @param {string} contractAddress
+     */
+    loadContract(contractName, contractAddress) {
+        if (this._store) {
+            this._store.dispatch(contracts_actions_1.ContractLoad(contractName, contractAddress));
+        }
+        else {
+            throw new Error("Call run before.");
+        }
     }
     /**
      * Contracts getter

@@ -5,7 +5,6 @@ const web3_actions_1 = require("./web3.actions");
 const redux_saga_1 = require("redux-saga");
 const tx_actions_1 = require("../tx/tx.actions");
 const vortex_1 = require("../vortex");
-// TODO check network id
 function* resolveWeb3(action) {
     return redux_saga_1.eventChannel((emit) => {
         action.loader.then((web3) => {

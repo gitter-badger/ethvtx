@@ -42,7 +42,6 @@ class VortexContract {
                 dispatch(contracts_actions_1.ContractCall(_this.artifact.contractName, _this.options.address, methodName, txArguments, _resolvers, ...methodArguments));
             }
             else {
-                _resolvers.success();
                 return (new Promise((ok, ko) => {
                     ok(_this.methods[methodName].vortexCache[signature].data);
                 }));
