@@ -1,4 +1,5 @@
 import {Action} from "redux";
+import {FeedNewErrorErrorState} from "../stateInterface";
 
 export interface FeedNewTransactionAction extends Action {
     txHash: string;
@@ -24,4 +25,19 @@ export function FeedNewContract(contractName: string, address: string): FeedNewC
     });
 }
 
-export type FeedActions = FeedNewContractAction | FeedNewTransactionAction;
+export interface FeedNewErrorAction extends Action {
+    reason: any,
+    message: string,
+    when: string
+}
+
+export function FeedNewError(reason: any, message: string, when: string): FeedNewErrorAction {
+    return {
+        type: 'FEED_NEW_ERROR',
+        reason,
+        message,
+        when
+    } as FeedNewErrorAction;
+}
+
+export type FeedActions = FeedNewContractAction | FeedNewTransactionAction | FeedNewErrorAction;
