@@ -1,4 +1,5 @@
 import {Action} from "redux";
+import {RawTransactionArgumentState, TransactionArgumentState} from "../stateInterface";
 
 export interface TxSendRawAction extends Action {
     signedTx: string,
@@ -21,7 +22,7 @@ export interface TxSendAction extends Action {
     resolvers: any
 }
 
-export function TxSend(txArgs: any, web3: any, resolvers: any): TxSendAction {
+export function TxSend(txArgs: TransactionArgumentState, web3: any, resolvers: any): TxSendAction {
     return {
         type: 'TX_SEND',
         txArgs,
@@ -31,13 +32,15 @@ export function TxSend(txArgs: any, web3: any, resolvers: any): TxSendAction {
 }
 
 export interface TxBroadcastedAction extends Action {
-    txHash: string
+    txHash: string,
+    txArgs: TransactionArgumentState | RawTransactionArgumentState
 }
 
-export function TxBroadcasted(txHash: string): TxBroadcastedAction {
+export function TxBroadcasted(txHash: string, txArgs: TransactionArgumentState | RawTransactionArgumentState): TxBroadcastedAction {
     return ({
         type: 'TX_BROADCASTED',
-        txHash
+        txHash,
+        txArgs
     });
 }
 

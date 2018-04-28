@@ -49,7 +49,24 @@ export interface TransactionErrorState {
     timestamp: number
 }
 
-export type TransactionState = TransactionBroadcastedState | TransactionReceiptState | TransactionConfirmedState | TransactionErrorState;
+export interface TransactionArgumentState {
+    from?: any,
+    to?: any,
+    value?: any,
+    data?: any,
+    gas?: any,
+    gasPrice?: any,
+    nonce?: any,
+}
+
+export interface RawTransactionArgumentState {
+    signed_transaction: string
+}
+
+export interface TransactionState {
+    status: TransactionBroadcastedState | TransactionReceiptState | TransactionConfirmedState | TransactionErrorState,
+    transaction_arguments: TransactionArgumentState | RawTransactionArgumentState ;
+}
 
 export interface TransactionStoreState {
     [key: string]: TransactionState;

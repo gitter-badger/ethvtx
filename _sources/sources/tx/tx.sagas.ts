@@ -26,7 +26,7 @@ function* sendTransaction(action: TxSendAction): SagaIterator {
                     action.resolvers = undefined;
                 }
                 emit(FeedNewTransaction(_transaction_hash));
-                emit(TxBroadcasted(_transaction_hash));
+                emit(TxBroadcasted(_transaction_hash, action.txArgs));
             })
             .on('confirmation', (_amount: number, _receipt: any): void => {
                 emit(TxConfirmed(transaction_hash, _receipt, _amount))
@@ -79,7 +79,7 @@ function* sendRawTransaction(action: TxSendRawAction): SagaIterator {
                     action.resolvers = undefined;
                 }
                 emit(FeedNewTransaction(_transaction_hash));
-                emit(TxBroadcasted(_transaction_hash));
+                emit(TxBroadcasted(_transaction_hash, {signed_transaction: action.signedTx}));
             })
             .on('confirmation', (_amount: number, _receipt: any): void => {
                 emit(TxConfirmed(transaction_hash, _receipt, _amount));
