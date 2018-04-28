@@ -3,7 +3,7 @@ import {call, put, take, takeEvery, takeLatest, select} from 'redux-saga/effects
 import {SagaIterator, eventChannel, END} from "redux-saga";
 import {Unsubscribe} from "redux";
 import {State, Web3LoadedState} from "../stateInterface";
-import {FeedNewContract, FeedNewTransaction, FeedNewTransactionAction} from "../feed/feed.actions";
+import {FeedNewContract, FeedNewError, FeedNewTransaction, FeedNewTransactionAction} from "../feed/feed.actions";
 import {Web3LoadedAction, Web3LoadError, Web3NetworkError} from "../web3/web3.actions";
 import {VortexContract} from "./VortexContract";
 import {
@@ -57,7 +57,9 @@ function* loadContract(contractName: string, contractAddress: string, userAddres
     const contracts = (yield select()).contracts;
     const artifact = contracts[contractName] ? contracts[contractName].artifact : undefined;
     if (!artifact) {
-        yield put(ContractError(contractName, contractAddress, new Error("Unable to recover artifact for contract " + contractName)));
+        const error = new Error("Unable to recover artifact for contract " + contractName + ":" + contractAddress);
+        yield put(ContractError(contractName, contractAddress, error));
+        yield put(FeedNewError(error, error.message, "[contracts.saga.ts][loadContract] Trying to load artifact."));
         return ;
     }
     if (contracts[contractName][contractAddress]) {
@@ -70,6 +72,7 @@ function* loadContract(contractName: string, contractAddress: string, userAddres
         vortex_contract = new VortexContract(artifact, contractAddress, userAddress, web3);
     } catch (e) {
         yield put(ContractError(contractName, contractAddress, e));
+        yield put(FeedNewError(e, e.message, "[contracts.saga.ts][loadContract] Trying to instantiate VortexContract."));
         throw (e);
     }
     yield put(ContractLoaded(contractName, contractAddress, vortex_contract));
@@ -115,6 +118,7 @@ function* contractCall(action: ContractCallAction, tx: any, arg_signature: strin
                 action.resolvers.success(result);
         }).catch((error: any) => {
             emit(ContractVarErrorReceived(action.contractName, action.contractAddress, action.methodName, arg_signature, error));
+            emit(FeedNewError(error, error.message, "[contracts.saga.ts][contractCall] Trying to recover constant call result."));
             if (action.resolvers)
                 action.resolvers.error(error);
         });
@@ -177,6 +181,7 @@ function* contractSend(action: ContractSendAction, tx: any): SagaIterator {
                     action.resolvers = undefined;
                 }
                 emit(TxError(transaction_hash, _error));
+                emit(FeedNewError(_error, _error.message, "[contracts.sagas.ts][contractSend] Trying to send method call."));
                 emit(END);
             });
 
