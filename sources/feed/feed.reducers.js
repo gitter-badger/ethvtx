@@ -22,7 +22,7 @@ exports.feed = (state = [], action) => {
                 ...state
             ];
         case 'FEED_NEW_ERROR':
-            console.warn("[Feed][Error]: " + action.message);
+            console.warn("[Feed Error]: " + action.message + " => " + action.when);
             state.push({
                 action: 'NEW_ERROR',
                 error: {

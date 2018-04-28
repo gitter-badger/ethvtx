@@ -138,7 +138,7 @@ function* contractSend(action, tx) {
                 action.resolvers = undefined;
             }
             emit(feed_actions_1.FeedNewTransaction(_transaction_hash));
-            emit(tx_actions_1.TxBroadcasted(_transaction_hash));
+            emit(tx_actions_1.TxBroadcasted(_transaction_hash, action.transactionArgs));
         })
             .on('confirmation', (_amount, _receipt) => {
             emit(tx_actions_1.TxConfirmed(transaction_hash, _receipt, _amount));
