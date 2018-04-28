@@ -2,13 +2,7 @@ import ContractArtifact from 'truffle-contract-schema';
 import * as sha1 from 'sha1';
 import {Vortex} from "../vortex";
 import {ContractCall, ContractSend} from "./contracts.actions";
-
-interface VortexTransactionArguments {
-    from?: string,
-    gasPrice?: any,
-    gas?: any,
-    value?: any
-}
+import {TransactionArgumentState} from "../stateInterface";
 
 interface FetchedData {
     data: any,
@@ -25,7 +19,7 @@ export class VortexContract {
         return (sha1(JSON.stringify({methodArguments})));
     }
 
-    private getData(methodName: string, txArguments: VortexTransactionArguments, ...methodArguments: any[]): any {
+    private getData(methodName: string, txArguments: TransactionArgumentState, ...methodArguments: any[]): any {
         const _this: any = this;
         const signature = VortexContract.callSignature(...methodArguments);
         const dispatch = Vortex.get().Store.dispatch;
@@ -38,7 +32,7 @@ export class VortexContract {
         return (undefined);
     }
 
-    private vortexCall(methodName: string, methodAbiIndex: number, txArguments: VortexTransactionArguments, ...methodArguments: any[]): Promise<any> {
+    private vortexCall(methodName: string, methodAbiIndex: number, txArguments: TransactionArgumentState, ...methodArguments: any[]): Promise<any> {
         const _this: any = this;
         const _method_infos: any = _this._jsonInterface[methodAbiIndex];
         const _resolvers: any = {};

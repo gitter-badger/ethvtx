@@ -56,11 +56,11 @@ describe("Vortex", () => {
             switch (state.feed.length) {
                 case 2:
                     const txHash = (<FeedNewTransactionState>state.feed[1]).transaction_hash;
-                    if (state.tx[txHash].type === 'RECEIPT') {
+                    if (state.tx[txHash].status.type === 'RECEIPT') {
                         clearInterval(intervalId);
                         done();
                     }
-                    if (state.tx[txHash].type === 'ERROR') {
+                    if (state.tx[txHash].status.type === 'ERROR') {
                         clearInterval(intervalId);
                         done(new Error(JSON.stringify(state.tx[txHash])));
                     }
@@ -84,11 +84,11 @@ describe("Vortex", () => {
             switch (state.feed.length) {
                 case 3:
                     const txHash = (<FeedNewTransactionState>state.feed[2]).transaction_hash;
-                    if (state.tx[txHash].type === 'RECEIPT') {
+                    if (state.tx[txHash].status.type === 'RECEIPT') {
                         clearInterval(intervalId);
                         done();
                     }
-                    if (state.tx[txHash].type === 'ERROR') {
+                    if (state.tx[txHash].status.type === 'ERROR') {
                         clearInterval(intervalId);
                         done(new Error(JSON.stringify(state.tx[txHash])));
                     }
@@ -136,11 +136,11 @@ describe("Vortex", () => {
                 switch (state.feed.length) {
                     case 6:
                         const txHash = (<FeedNewTransactionState>state.feed[5]).transaction_hash;
-                        if (state.tx[txHash].type === 'RECEIPT') {
+                        if (state.tx[txHash].status.type === 'RECEIPT') {
                             clearInterval(intervalId);
                             done();
                         }
-                        if (state.tx[txHash].type === 'ERROR') {
+                        if (state.tx[txHash].status.type === 'ERROR') {
                             clearInterval(intervalId);
                             done(new Error(JSON.stringify(state.tx[txHash])));
                         }

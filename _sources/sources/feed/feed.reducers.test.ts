@@ -23,9 +23,9 @@ describe("Feed Reducers", (): void => {
     });
 
     test("FeedNewError", (): void => {
-        state = feed(state, FeedNewError(new Error("Ho"), "Hi", "Bye"));
-        expect(state[2].error.message).toBe("Hi");
-        expect(state[2].error.when).toBe("Bye");
+        state = feed(state, FeedNewError(new Error("Ho"), "Testing Error", "[feed.reducers.test.ts] Trying to manualy trigger error."));
+        expect(state[2].error.message).toBe("Testing Error");
+        expect(state[2].error.when).toBe("[feed.reducers.test.ts] Trying to manualy trigger error.");
         expect(state[2].error.reason.message).toBe("Ho");
         expect(state[2].action).toBe("NEW_ERROR");
     });
