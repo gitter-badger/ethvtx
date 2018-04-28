@@ -32,6 +32,7 @@
 
     "./_sources/sources/feed/feed.reducers.ts",
     "./_sources/sources/feed/feed.actions.ts",
+    "./_sources/sources/feed/feed.utils.ts",
 
     "./_sources/sources/contracts/VortexContract.ts",
     "./_sources/sources/contracts/contracts.saga.ts",
