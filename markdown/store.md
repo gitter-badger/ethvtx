@@ -72,6 +72,26 @@ This document defines how the Redux Store is going to store its data.
 }
 ```
 
+###### `Transaction Content`
+
+```javascript
+// deftype TX_ARGUMENTS
+{
+    from: any,
+    to: any,
+    value: any,
+    data: any,
+    gas: any,
+    gasPrice: any,
+    nonce: any,
+}
+
+// deftype RAW_TX_ARGUMENTS
+{
+    signed_transaction: string
+}
+```
+
 ###### `Contract Objects`
 ```javascript
 // deftype CONTRACT_LOADING
@@ -122,7 +142,7 @@ This document defines how the Redux Store is going to store its data.
 		...
 		${txHash}: {
 			status: TX_STATUS_BROADCASTED | TX_STATUS_RECEIPT | TX_STATUS_CONFIRMED | TX_STATUS_ERROR
-			txparams: {
+			transaction_arguments: {
 				from: string,
 				to: string,
 				value: string,
