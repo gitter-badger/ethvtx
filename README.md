@@ -1,3 +1,8 @@
+<!--
+  Title: Vortex
+  Description: And Ethereum Dapp React and Redux tool taking care of transactions, smart contracts and many more !
+  Author: mortimr
+  -->
 <div align="center" >
 <img width="25%" src="https://gitlab.com/FlexProject/vortex/raw/master/.assets/vortex.png">
 </div>
