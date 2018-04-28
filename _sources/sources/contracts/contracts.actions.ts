@@ -133,4 +133,17 @@ export function ContractVarForceRefresh(contractName: string, contractAddress: s
     } as ContractVarForceRefreshAction;
 }
 
+export interface ContractLoadAction extends Action {
+    contractName: string,
+    contractAddress: string
+}
+
+export function ContractLoad(contractName: string, contractAddress: string): ContractLoadAction {
+    return {
+        type: 'CONTRACT_LOAD',
+        contractName,
+        contractAddress
+    } as ContractLoadAction;
+}
+
 export type ContractActions = ContractLoadingAction | ContractLoadedAction | ContractErrorAction | ContractCallAction | ContractSendAction | ContractVarReceivedAction | ContractVarErrorReceivedAction | ContractVarForceRefreshAction;

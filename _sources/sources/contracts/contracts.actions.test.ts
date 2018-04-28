@@ -6,7 +6,7 @@ import {
     ContractCall,
     ContractVarReceived,
     ContractVarErrorReceived,
-    ContractVarForceRefresh
+    ContractVarForceRefresh, ContractLoad
 } from "./contracts.actions";
 
 declare let describe: any;
@@ -98,6 +98,13 @@ describe("Contracts Actions", (): void => {
         expect(ret.contractAddress).toBe(contractAddress);
         expect(ret.methodName).toBe(contractMethod);
         expect(ret.methodHash).toBe(contractMethod);
+    });
+
+    test("ContractLoad", (): void => {
+        const ret = ContractLoad(contractName, contractAddress);
+        expect(ret.type).toBe('CONTRACT_LOAD');
+        expect(ret.contractName).toBe(contractName);
+        expect(ret.contractAddress).toBe(contractAddress);
     });
 
 });

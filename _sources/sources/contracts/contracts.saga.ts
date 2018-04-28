@@ -2,12 +2,12 @@ import {call, put, take, takeEvery, takeLatest, select} from 'redux-saga/effects
 
 import {SagaIterator, eventChannel, END} from "redux-saga";
 import {Unsubscribe} from "redux";
-import {State} from "../stateInterface";
+import {State, Web3LoadedState} from "../stateInterface";
 import {FeedNewContract, FeedNewTransaction, FeedNewTransactionAction} from "../feed/feed.actions";
 import {Web3LoadedAction, Web3LoadError, Web3NetworkError} from "../web3/web3.actions";
 import {VortexContract} from "./VortexContract";
 import {
-    ContractCallAction, ContractError, ContractLoaded, ContractLoading, ContractSendAction,
+    ContractCallAction, ContractError, ContractLoadAction, ContractLoaded, ContractLoading, ContractSendAction,
     ContractVarErrorReceived, ContractVarForceRefresh,
     ContractVarReceived
 } from "./contracts.actions";
@@ -53,6 +53,29 @@ function *backgroundContractLoad(state: State): SagaIterator {
     });
 }
 
+function* loadContract(contractName: string, contractAddress: string, userAddress: string, web3: any): SagaIterator {
+    const contracts = (yield select()).contracts;
+    const artifact = contracts[contractName] ? contracts[contractName].artifact : undefined;
+    if (!artifact) {
+        yield put(ContractError(contractName, contractAddress, new Error("Unable to recover artifact for contract " + contractName)));
+        return ;
+    }
+    if (contracts[contractName][contractAddress]) {
+        console.warn("Contract already in store");
+        return ;
+    }
+    yield put(ContractLoading(contractName, contractAddress));
+    let vortex_contract: any;
+    try {
+        vortex_contract = new VortexContract(artifact, contractAddress, userAddress, web3);
+    } catch (e) {
+        yield put(ContractError(contractName, contractAddress, e));
+        throw (e);
+    }
+    yield put(ContractLoaded(contractName, contractAddress, vortex_contract));
+    yield put(FeedNewContract(contractName, contractAddress));
+}
+
 function *onLoadContractInitialize(action: Web3LoadedAction): SagaIterator {
     const contracts = (yield select()).contracts;
     const contractNames = Object.keys(contracts);
@@ -60,22 +83,14 @@ function *onLoadContractInitialize(action: Web3LoadedAction): SagaIterator {
         for (let idx = 0; idx < contractNames.length; ++idx) {
             if (contracts[contractNames[idx]].artifact.networks) {
                 if (contracts[contractNames[idx]].artifact.networks[action.networkId] === undefined) {
-                    yield put(Web3NetworkError(action.networkId));
+                    console.warn("Contract " + contractNames[idx] + " has no instance on current network");
                     break ;
                 }
-                yield put(ContractLoading(contractNames[idx], contracts[contractNames[idx]].artifact.networks[action.networkId].address));
-                let vortex_contract: any;
-                try {
-                    vortex_contract = new VortexContract(contracts[contractNames[idx]].artifact, contracts[contractNames[idx]].artifact.networks[action.networkId].address, action.coinbase, action._);
-                } catch (e) {
-                    yield put(ContractError(contractNames[idx], contracts[contractNames[idx]].artifact.networks[action.networkId].address, e));
-                    throw (e);
-                }
-                yield put(ContractLoaded(contractNames[idx], contracts[contractNames[idx]].artifact.networks[action.networkId].address, vortex_contract));
-                yield put(FeedNewContract(contractNames[idx], contracts[contractNames[idx]].artifact.networks[action.networkId].address));
+                yield* loadContract(contractNames[idx], contracts[contractNames[idx]].artifact.networks[action.networkId].address, action.coinbase, action._);
             }
         }
     } catch (e) {
+        console.log(e);
         yield put(Web3LoadError(e))
     }
 
@@ -186,8 +201,14 @@ function* onContractSend(action: ContractSendAction): SagaIterator {
     }
 }
 
+function* onContractLoad(action: ContractLoadAction): SagaIterator {
+    const {coinbase, _}: Web3LoadedState = (yield select()).web3;
+    yield* loadContract(action.contractName, action.contractAddress, coinbase, _);
+}
+
 export function* ContractSagas(): any {
     yield takeLatest('LOADED_WEB3', onLoadContractInitialize);
+    yield takeEvery('CONTRACT_LOAD', onContractLoad);
     yield takeEvery('CONTRACT_CALL', onContractCall);
     yield takeEvery('CONTRACT_SEND', onContractSend);
 }

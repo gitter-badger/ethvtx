@@ -37,6 +37,29 @@ function* backgroundContractLoad(state) {
         return (() => { clearInterval(interval_id); });
     });
 }
+function* loadContract(contractName, contractAddress, userAddress, web3) {
+    const contracts = (yield effects_1.select()).contracts;
+    const artifact = contracts[contractName] ? contracts[contractName].artifact : undefined;
+    if (!artifact) {
+        yield effects_1.put(contracts_actions_1.ContractError(contractName, contractAddress, new Error("Unable to recover artifact for contract " + contractName)));
+        return;
+    }
+    if (contracts[contractName][contractAddress]) {
+        console.warn("Contract already in store");
+        return;
+    }
+    yield effects_1.put(contracts_actions_1.ContractLoading(contractName, contractAddress));
+    let vortex_contract;
+    try {
+        vortex_contract = new VortexContract_1.VortexContract(artifact, contractAddress, userAddress, web3);
+    }
+    catch (e) {
+        yield effects_1.put(contracts_actions_1.ContractError(contractName, contractAddress, e));
+        throw (e);
+    }
+    yield effects_1.put(contracts_actions_1.ContractLoaded(contractName, contractAddress, vortex_contract));
+    yield effects_1.put(feed_actions_1.FeedNewContract(contractName, contractAddress));
+}
 function* onLoadContractInitialize(action) {
     const contracts = (yield effects_1.select()).contracts;
     const contractNames = Object.keys(contracts);
@@ -44,24 +67,15 @@ function* onLoadContractInitialize(action) {
         for (let idx = 0; idx < contractNames.length; ++idx) {
             if (contracts[contractNames[idx]].artifact.networks) {
                 if (contracts[contractNames[idx]].artifact.networks[action.networkId] === undefined) {
-                    yield effects_1.put(web3_actions_1.Web3NetworkError(action.networkId));
+                    console.warn("Contract " + contractNames[idx] + " has no instance on current network");
                     break;
                 }
-                yield effects_1.put(contracts_actions_1.ContractLoading(contractNames[idx], contracts[contractNames[idx]].artifact.networks[action.networkId].address));
-                let vortex_contract;
-                try {
-                    vortex_contract = new VortexContract_1.VortexContract(contracts[contractNames[idx]].artifact, contracts[contractNames[idx]].artifact.networks[action.networkId].address, action.coinbase, action._);
-                }
-                catch (e) {
-                    yield effects_1.put(contracts_actions_1.ContractError(contractNames[idx], contracts[contractNames[idx]].artifact.networks[action.networkId].address, e));
-                    throw (e);
-                }
-                yield effects_1.put(contracts_actions_1.ContractLoaded(contractNames[idx], contracts[contractNames[idx]].artifact.networks[action.networkId].address, vortex_contract));
-                yield effects_1.put(feed_actions_1.FeedNewContract(contractNames[idx], contracts[contractNames[idx]].artifact.networks[action.networkId].address));
+                yield* loadContract(contractNames[idx], contracts[contractNames[idx]].artifact.networks[action.networkId].address, action.coinbase, action._);
             }
         }
     }
     catch (e) {
+        console.log(e);
         yield effects_1.put(web3_actions_1.Web3LoadError(e));
     }
     const state = yield effects_1.select();
@@ -159,8 +173,13 @@ function* onContractSend(action) {
         ctsend.close();
     }
 }
+function* onContractLoad(action) {
+    const { coinbase, _ } = (yield effects_1.select()).web3;
+    yield* loadContract(action.contractName, action.contractAddress, coinbase, _);
+}
 function* ContractSagas() {
     yield effects_1.takeLatest('LOADED_WEB3', onLoadContractInitialize);
+    yield effects_1.takeEvery('CONTRACT_LOAD', onContractLoad);
     yield effects_1.takeEvery('CONTRACT_CALL', onContractCall);
     yield effects_1.takeEvery('CONTRACT_SEND', onContractSend);
 }
