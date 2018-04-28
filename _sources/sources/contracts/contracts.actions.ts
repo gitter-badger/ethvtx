@@ -1,4 +1,5 @@
 import {Action} from 'redux';
+import {TransactionArgumentState} from "../stateInterface";
 
 export interface ContractLoadingAction extends Action {
     contractName: string,
@@ -47,12 +48,12 @@ export interface ContractSendAction extends Action {
     contractName: string,
     contractAddress: string,
     methodName: string,
-    transactionArgs: any,
+    transactionArgs: TransactionArgumentState,
     resolvers: any,
     methodArgs: any
 }
 
-export function ContractSend(contractName: string, contractAddress: string, methodName: string, transactionArgs: any, resolvers: any, ...methodArgs: any[]): ContractSendAction {
+export function ContractSend(contractName: string, contractAddress: string, methodName: string, transactionArgs: TransactionArgumentState, resolvers: any, ...methodArgs: any[]): ContractSendAction {
     return {
         type: 'CONTRACT_SEND',
         contractName,
@@ -66,7 +67,7 @@ export function ContractSend(contractName: string, contractAddress: string, meth
 
 export type ContractCallAction = ContractSendAction;
 
-export function ContractCall(contractName: string, contractAddress: string, methodName: string, transactionArgs: any, resolvers: any, ...methodArgs: any[]): ContractCallAction {
+export function ContractCall(contractName: string, contractAddress: string, methodName: string, transactionArgs: TransactionArgumentState, resolvers: any, ...methodArgs: any[]): ContractCallAction {
     return {
         type: 'CONTRACT_CALL',
         contractName,

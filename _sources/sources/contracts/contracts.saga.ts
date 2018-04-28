@@ -13,7 +13,6 @@ import {
 } from "./contracts.actions";
 import {
     TxBroadcasted,
-    TxBroadcastedAction,
     TxConfirmed,
     TxError,
     TxReceipt
@@ -162,7 +161,7 @@ function* contractSend(action: ContractSendAction, tx: any): SagaIterator {
                     action.resolvers = undefined;
                 }
                 emit(FeedNewTransaction(_transaction_hash));
-                emit(TxBroadcasted(_transaction_hash));
+                emit(TxBroadcasted(_transaction_hash, action.transactionArgs));
             })
             .on('confirmation', (_amount: number, _receipt: any): void => {
                 emit(TxConfirmed(transaction_hash, _receipt, _amount));

@@ -28,7 +28,7 @@ export const feed : Reducer<FeedState[], FeedActions> = (state: FeedState[] = []
             ];
 
         case 'FEED_NEW_ERROR':
-            console.warn("[Feed][Error]: " + (<FeedNewErrorAction>action).message);
+            console.warn("[Feed Error]: " + (<FeedNewErrorAction>action).message + " => " + (<FeedNewErrorAction>action).when);
             state.push({
                 action: 'NEW_ERROR',
                 error: {
