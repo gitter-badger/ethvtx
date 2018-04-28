@@ -8,6 +8,7 @@ import {Vortex} from "./vortex";
 import * as Migrations from '../../setup/truffle/build/contracts/Migrations.json';
 import {FeedNewTransaction, FeedNewContract} from "./feed/feed.actions";
 import * as Web3 from "web3";
+import {ContractLoad} from "./contracts/contracts.actions";
 
 let _web3;
 
@@ -151,4 +152,22 @@ describe("Vortex", () => {
 
         });
     }, 10000);
+
+    test('Load new instance of Migrations', (done: (arg?: any) => void) => {
+        Vortex.get().loadContract("Migrations", (<Web3LoadedState>Vortex.get().Store.getState().web3).coinbase);
+        let intervalId = setInterval(() => {
+            const state = Vortex.get().Store.getState();
+            switch (state.feed.length) {
+                case 7:
+                    if (state.feed[6].action === 'NEW_CONTRACT' && (<FeedNewContractState>state.feed[6]).contract_name === 'Migrations' && (<FeedNewContractState>state.feed[6]).contract_address === (<Web3LoadedState>Vortex.get().Store.getState().web3).coinbase)
+                        done();
+                    else
+                        done(new Error("Invalid Feed element"));
+                    break ;
+                default:
+                    break ;
+            }
+        }, 1000);
+    }, 10000);
+
 });

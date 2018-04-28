@@ -5,8 +5,6 @@ import {SagaIterator, eventChannel, END} from "redux-saga";
 import {TxSend, TxSendRaw} from "../tx/tx.actions";
 import {Vortex} from "../vortex";
 
-// TODO check network id
-
 function* resolveWeb3(action: Web3LoadAction): SagaIterator {
     return eventChannel((emit: (arg?: any) => void): Unsubscribe => {
 

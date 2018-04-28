@@ -3,6 +3,7 @@ import {DeepPartial, Reducer, ReducersMapObject, Store} from "redux";
 import {State} from "./stateInterface";
 import {generateStore} from "./generateStore";
 import {Web3Load} from "./web3/web3.actions";
+import {ContractLoad} from "./contracts/contracts.actions";
 
 export class Vortex<T extends State> {
 
@@ -112,6 +113,21 @@ export class Vortex<T extends State> {
      */
     public setCustomState(customState: DeepPartial<T>): void {
         this._customState = customState;
+    }
+
+    /**
+     * Load a new instance of a Smart Contract. Expect a new Feed element and
+     * the contracts section to get updated.
+     *
+     * @param {string} contractName
+     * @param {string} contractAddress
+     */
+    public loadContract(contractName: string, contractAddress: string): void {
+        if (this._store) {
+            this._store.dispatch(ContractLoad(contractName, contractAddress));
+        } else {
+            throw new Error("Call run before.");
+        }
     }
 
     /**
