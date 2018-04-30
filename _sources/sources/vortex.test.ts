@@ -31,6 +31,11 @@ describe("Vortex", () => {
         expect(Vortex.get().Contracts[0].contractName).toBe("Migrations");
     });
 
+    test('Whitelist Networks from Migrations', () => {
+        Vortex.get().networksOf(Migrations);
+        expect(Vortex.get().Networks.length).toBe(1);
+    });
+
     test('Run Instance', () => {
         Vortex.get().run();
     });
