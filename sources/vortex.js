@@ -79,6 +79,14 @@ class Vortex {
         this._network_ids.push(network_id);
     }
     /**
+     *  Takes a Truffle Contract Artifact and extracts all network ids where Contract has instances, adds them to whitelist
+     *
+     * @param {any} contract A Truffle Contract Artifact
+     */
+    networksOf(contract) {
+        this._network_ids = this._network_ids.concat(Object.keys(contract.networks).map((val) => parseInt(val)));
+    }
+    /**
      * Add a new reducer in the Reducer Map.
      *
      * @param {string} field Field Name associated with reducer.
@@ -130,6 +138,14 @@ class Vortex {
         if (!this._store)
             throw new Error("Call run before");
         return (this._store);
+    }
+    /**
+     * Network Id Whitelist getter.
+     *
+     * @returns {number[]} List of whitelisted network ids.
+     */
+    get Networks() {
+        return (this._network_ids);
     }
 }
 Vortex._instance = undefined;

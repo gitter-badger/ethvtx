@@ -94,6 +94,15 @@ export class Vortex<T extends State> {
     }
 
     /**
+     *  Takes a Truffle Contract Artifact and extracts all network ids where Contract has instances, adds them to whitelist
+     *
+     * @param {any} contract A Truffle Contract Artifact
+     */
+    public networksOf(contract: ContractArtifact): void {
+        this._network_ids = this._network_ids.concat(Object.keys(contract.networks).map((val: string) => parseInt(val)));
+    }
+
+    /**
      * Add a new reducer in the Reducer Map.
      *
      * @param {string} field Field Name associated with reducer.
@@ -150,4 +159,12 @@ export class Vortex<T extends State> {
         return (this._store);
     }
 
+    /**
+     * Network Id Whitelist getter.
+     *
+     * @returns {number[]} List of whitelisted network ids.
+     */
+    public get Networks(): number[] {
+        return (this._network_ids);
+    }
 }
