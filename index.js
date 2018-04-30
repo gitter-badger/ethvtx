@@ -9,4 +9,5 @@ __export(require("./sources/web3/web3.actions"));
 __export(require("./sources/tx/tx.actions"));
 __export(require("./sources/contracts/contracts.actions"));
 __export(require("./sources/feed/feed.actions"));
+__export(require("./sources/feed/feed.utils"));
 __export(require("./sources/contracts/VortexContract"));
