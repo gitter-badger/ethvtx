@@ -27,5 +27,10 @@ export const FeedFilterErrors = createSelector(getFeed, (feed: FeedState[]): Fee
     return feed.filter((elem: FeedState): boolean => !!((FeedTypeLinks[elem.action] ? FeedTypeLinks[elem.action] : -1) & FeedType.Errors))
 });
 
+export const FeedFilter = (type: FeedType): any => {
+    return createSelector(getFeed, (feed: FeedState[]): FeedState[] => {
+        return feed.filter((elem: FeedState): boolean => !!((FeedTypeLinks[elem.action] ? FeedTypeLinks[elem.action] : -1) & type))
+    });
+};
 
 

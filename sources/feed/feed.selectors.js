@@ -22,3 +22,8 @@ exports.FeedFilterContracts = reselect_1.createSelector(getFeed, (feed) => {
 exports.FeedFilterErrors = reselect_1.createSelector(getFeed, (feed) => {
     return feed.filter((elem) => !!((FeedTypeLinks[elem.action] ? FeedTypeLinks[elem.action] : -1) & FeedType.Errors));
 });
+exports.FeedFilter = (type) => {
+    return reselect_1.createSelector(getFeed, (feed) => {
+        return feed.filter((elem) => !!((FeedTypeLinks[elem.action] ? FeedTypeLinks[elem.action] : -1) & type));
+    });
+};
