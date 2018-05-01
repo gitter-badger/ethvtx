@@ -1,5 +1,5 @@
 <div align="center" >
-<img width="25%" src="https://gitlab.com/FlexProject/vortex/raw/master/.assets/vortex.png">
+<img width="25%" src="https://raw.githubusercontent.com/Horyus/vort_x/master/.assets/vortex.png">
 </div>
 
 ![CI](https://teamcity.rotaru.fr:2702/app/rest/builds/buildType:VortX_VortXBuild/statusIcon)
