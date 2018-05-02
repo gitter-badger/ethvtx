@@ -152,37 +152,50 @@ function* contractSend(action: ContractSendAction, tx: any): SagaIterator {
     let state: State = yield select();
 
     return eventChannel((emit: (arg?: any) => void): Unsubscribe => {
-
-        const tx_events = tx.send(action.transactionArgs)
-            .on('transactionHash', (_transaction_hash: string): void => {
-                transaction_hash = _transaction_hash;
-                if (action.resolvers) {
-                    action.resolvers.success(_transaction_hash);
-                    action.resolvers = undefined;
-                }
-                emit(FeedNewTransaction(_transaction_hash));
-                emit(TxBroadcasted(_transaction_hash, action.transactionArgs));
-            })
-            .on('confirmation', (_amount: number, _receipt: any): void => {
-                emit(TxConfirmed(transaction_hash, _receipt, _amount));
-            })
-            .on('receipt', (_receipt: any): void => {
-                runForceRefreshRoundOn(state, emit, action.contractName, action.contractAddress);
-                emit(TxReceipt(transaction_hash, _receipt));
-                emit(END);
-            })
-            .on('error', (_error: any): void => {
-                if (transaction_hash === undefined) {
-                    transaction_hash = 'last';
-                }
-                if (action.resolvers) {
-                    action.resolvers.error(transaction_hash);
-                    action.resolvers = undefined;
-                }
-                emit(TxError(transaction_hash, _error));
-                emit(FeedNewError(_error, _error.message, "[contracts.sagas.ts][contractSend] Trying to send method call."));
-                emit(END);
-            });
+        let tx_events = undefined;
+        try {
+            tx_events = tx.send(action.transactionArgs)
+                .on('transactionHash', (_transaction_hash: string): void => {
+                    transaction_hash = _transaction_hash;
+                    if (action.resolvers) {
+                        action.resolvers.success(_transaction_hash);
+                        action.resolvers = undefined;
+                    }
+                    emit(FeedNewTransaction(_transaction_hash));
+                    emit(TxBroadcasted(_transaction_hash, action.transactionArgs));
+                })
+                .on('confirmation', (_amount: number, _receipt: any): void => {
+                    emit(TxConfirmed(transaction_hash, _receipt, _amount));
+                })
+                .on('receipt', (_receipt: any): void => {
+                    runForceRefreshRoundOn(state, emit, action.contractName, action.contractAddress);
+                    emit(TxReceipt(transaction_hash, _receipt));
+                    emit(END);
+                })
+                .on('error', (_error: any): void => {
+                    if (transaction_hash === undefined) {
+                        transaction_hash = 'last';
+                    }
+                    if (action.resolvers) {
+                        action.resolvers.error(transaction_hash);
+                        action.resolvers = undefined;
+                    }
+                    emit(TxError(transaction_hash, _error));
+                    emit(FeedNewError(_error, _error.message, "[contracts.sagas.ts][contractSend] Trying to send method call."));
+                    emit(END);
+                });
+        } catch (reason) {
+            if (transaction_hash === undefined) {
+                transaction_hash = 'last';
+            }
+            if (action.resolvers) {
+                action.resolvers.error(transaction_hash);
+                action.resolvers = undefined;
+            }
+            emit(TxError(transaction_hash, reason));
+            emit(FeedNewError(reason, reason.message, "[contracts.sagas.ts][contractSend] Trying to send method call."));
+            emit(END);
+        }
 
         return ((): void => {tx_events.off()})
     });
