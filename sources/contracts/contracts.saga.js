@@ -7,6 +7,7 @@ const web3_actions_1 = require("../web3/web3.actions");
 const VortexContract_1 = require("./VortexContract");
 const contracts_actions_1 = require("./contracts.actions");
 const tx_actions_1 = require("../tx/tx.actions");
+const vortex_1 = require("../vortex");
 function runForceRefreshRoundOn(state, emit, contractName, instance_address) {
     Object.keys(state.contracts[contractName][instance_address].instance.methods).forEach((methodName) => {
         if (state.contracts[contractName][instance_address].instance.methods[methodName].vortexCache) {
@@ -130,36 +131,51 @@ function* contractSend(action, tx) {
     let transaction_hash;
     let state = yield effects_1.select();
     return redux_saga_1.eventChannel((emit) => {
-        const tx_events = tx.send(action.transactionArgs)
-            .on('transactionHash', (_transaction_hash) => {
-            transaction_hash = _transaction_hash;
-            if (action.resolvers) {
-                action.resolvers.success(_transaction_hash);
-                action.resolvers = undefined;
-            }
-            emit(feed_actions_1.FeedNewTransaction(_transaction_hash));
-            emit(tx_actions_1.TxBroadcasted(_transaction_hash, action.transactionArgs));
-        })
-            .on('confirmation', (_amount, _receipt) => {
-            emit(tx_actions_1.TxConfirmed(transaction_hash, _receipt, _amount));
-        })
-            .on('receipt', (_receipt) => {
-            runForceRefreshRoundOn(state, emit, action.contractName, action.contractAddress);
-            emit(tx_actions_1.TxReceipt(transaction_hash, _receipt));
-            emit(redux_saga_1.END);
-        })
-            .on('error', (_error) => {
+        let tx_events = undefined;
+        try {
+            tx_events = tx.send(action.transactionArgs)
+                .on('transactionHash', (_transaction_hash) => {
+                transaction_hash = _transaction_hash;
+                if (action.resolvers) {
+                    action.resolvers.success(_transaction_hash);
+                    action.resolvers = undefined;
+                }
+                emit(feed_actions_1.FeedNewTransaction(_transaction_hash));
+                emit(tx_actions_1.TxBroadcasted(_transaction_hash, action.transactionArgs));
+            })
+                .on('confirmation', (_amount, _receipt) => {
+                emit(tx_actions_1.TxConfirmed(transaction_hash, _receipt, _amount));
+            })
+                .on('receipt', (_receipt) => {
+                runForceRefreshRoundOn(state, emit, action.contractName, action.contractAddress);
+                emit(tx_actions_1.TxReceipt(transaction_hash, _receipt));
+                emit(redux_saga_1.END);
+            })
+                .on('error', (_error) => {
+                if (transaction_hash === undefined) {
+                    transaction_hash = 'last';
+                }
+                emit(tx_actions_1.TxError(transaction_hash, _error));
+                emit(feed_actions_1.FeedNewError(_error, _error.message, "[contracts.sagas.ts][contractSend] Trying to send method call."));
+                if (action.resolvers) {
+                    action.resolvers.error(transaction_hash);
+                    action.resolvers = undefined;
+                }
+                emit(redux_saga_1.END);
+            });
+        }
+        catch (reason) {
             if (transaction_hash === undefined) {
                 transaction_hash = 'last';
             }
+            vortex_1.Vortex.get().Store.dispatch(tx_actions_1.TxError(transaction_hash, reason));
+            vortex_1.Vortex.get().Store.dispatch(feed_actions_1.FeedNewError(reason, reason.message, "[contracts.sagas.ts][contractSend] Trying to send method call."));
             if (action.resolvers) {
                 action.resolvers.error(transaction_hash);
                 action.resolvers = undefined;
             }
-            emit(tx_actions_1.TxError(transaction_hash, _error));
-            emit(feed_actions_1.FeedNewError(_error, _error.message, "[contracts.sagas.ts][contractSend] Trying to send method call."));
             emit(redux_saga_1.END);
-        });
+        }
         return (() => { tx_events.off(); });
     });
 }
