@@ -1,8 +1,6 @@
 import {Reducer} from "redux";
 import {
-    TransactionBroadcastedState,
-    TransactionConfirmedState, TransactionErrorState,
-    TransactionReceiptState, TransactionState,
+    TransactionState,
     TransactionStoreState
 } from "../stateInterface";
 import {TxActions, TxBroadcastedAction, TxConfirmedAction, TxErrorAction, TxReceiptAction} from "./tx.actions";

@@ -1,5 +1,4 @@
 import {Action} from "redux";
-import {FeedNewErrorErrorState} from "../stateInterface";
 
 export interface FeedNewTransactionAction extends Action {
     txHash: string;

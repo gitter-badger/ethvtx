@@ -3,8 +3,8 @@ import {call, put, take, takeEvery, takeLatest, select} from 'redux-saga/effects
 import {SagaIterator, eventChannel, END} from "redux-saga";
 import {Unsubscribe} from "redux";
 import {State, Web3LoadedState} from "../stateInterface";
-import {FeedNewContract, FeedNewError, FeedNewTransaction, FeedNewTransactionAction} from "../feed/feed.actions";
-import {Web3LoadedAction, Web3LoadError, Web3NetworkError} from "../web3/web3.actions";
+import {FeedNewContract, FeedNewError, FeedNewTransaction} from "../feed/feed.actions";
+import {Web3LoadedAction, Web3LoadError} from "../web3/web3.actions";
 import {VortexContract} from "./VortexContract";
 import {
     ContractCallAction, ContractError, ContractLoadAction, ContractLoaded, ContractLoading, ContractSendAction,
@@ -17,6 +17,7 @@ import {
     TxError,
     TxReceipt
 } from "../tx/tx.actions";
+import {Vortex} from "../vortex";
 
 export function runForceRefreshRoundOn(state: State, emit: (arg?: any) => void, contractName: string, instance_address: string): void {
     Object.keys(state.contracts[contractName][instance_address].instance.methods).forEach((methodName: string): void => {
@@ -176,24 +177,24 @@ function* contractSend(action: ContractSendAction, tx: any): SagaIterator {
                     if (transaction_hash === undefined) {
                         transaction_hash = 'last';
                     }
+                    emit(TxError(transaction_hash, _error));
+                    emit(FeedNewError(_error, _error.message, "[contracts.sagas.ts][contractSend] Trying to send method call."));
                     if (action.resolvers) {
                         action.resolvers.error(transaction_hash);
                         action.resolvers = undefined;
                     }
-                    emit(TxError(transaction_hash, _error));
-                    emit(FeedNewError(_error, _error.message, "[contracts.sagas.ts][contractSend] Trying to send method call."));
                     emit(END);
                 });
         } catch (reason) {
             if (transaction_hash === undefined) {
                 transaction_hash = 'last';
             }
+            Vortex.get().Store.dispatch(TxError(transaction_hash, reason));
+            Vortex.get().Store.dispatch(FeedNewError(reason, reason.message, "[contracts.sagas.ts][contractSend] Trying to send method call."));
             if (action.resolvers) {
                 action.resolvers.error(transaction_hash);
                 action.resolvers = undefined;
             }
-            emit(TxError(transaction_hash, reason));
-            emit(FeedNewError(reason, reason.message, "[contracts.sagas.ts][contractSend] Trying to send method call."));
             emit(END);
         }
 
