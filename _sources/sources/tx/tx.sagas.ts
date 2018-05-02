@@ -1,16 +1,16 @@
 import {call, put, take, takeEvery} from 'redux-saga/effects';
 import {
     TxBroadcasted,
-    TxBroadcastedAction, TxConfirmed,
-    TxConfirmedAction, TxError,
-    TxErrorAction, TxReceipt,
-    TxReceiptAction,
+    TxConfirmed,
+    TxError,
+    TxReceipt,
     TxSendAction,
     TxSendRawAction
 } from "./tx.actions";
+import {Vortex} from "../vortex";
 import {SagaIterator, eventChannel, END} from "redux-saga";
 import {Unsubscribe} from "redux";
-import {FeedNewError, FeedNewTransaction, FeedNewTransactionAction} from "../feed/feed.actions";
+import {FeedNewError, FeedNewTransaction} from "../feed/feed.actions";
 
 
 function* sendTransaction(action: TxSendAction): SagaIterator {
@@ -41,24 +41,24 @@ function* sendTransaction(action: TxSendAction): SagaIterator {
                     if (transaction_hash === undefined) {
                         transaction_hash = 'last';
                     }
-                    if (action.resolvers) {
-                        action.resolvers.error(transaction_hash);
-                        action.resolvers = undefined;
-                    }
                     emit(TxError(transaction_hash, _error));
                     emit(FeedNewError(_error, _error.message, "[tx.sagas.ts][sendTransaction] Trying to send a transaction."));
+                    if (action.resolvers) {
+                        action.resolvers.success(transaction_hash);
+                        action.resolvers = undefined;
+                    }
                     emit(END);
                 });
         } catch (reason) {
             if (transaction_hash === undefined) {
                 transaction_hash = 'last';
             }
+            Vortex.get().Store.dispatch(TxError(transaction_hash, reason));
+            Vortex.get().Store.dispatch(FeedNewError(reason, reason.message, "[tx.sagas.ts][sendTransaction] Trying to send a transaction."));
             if (action.resolvers) {
                 action.resolvers.error(transaction_hash);
                 action.resolvers = undefined;
             }
-            emit(TxError(transaction_hash, reason));
-            emit(FeedNewError(reason, reason.message, "[tx.sagas.ts][sendTransaction] Trying to send a transaction."));
             emit(END);
         }
 
@@ -109,24 +109,24 @@ function* sendRawTransaction(action: TxSendRawAction): SagaIterator {
                     if (transaction_hash === undefined) {
                         transaction_hash = 'last';
                     }
+                    emit(TxError(transaction_hash, _error));
+                    emit(FeedNewError(_error, _error.message, "[tx.sagas.ts][sendRawTransaction] Trying to send a raw transaction."));
                     if (action.resolvers) {
                         action.resolvers.error(transaction_hash);
                         action.resolvers = undefined;
                     }
-                    emit(TxError(transaction_hash, _error));
-                    emit(FeedNewError(_error, _error.message, "[tx.sagas.ts][sendRawTransaction] Trying to send a raw transaction."));
                     emit(END);
                 });
         } catch (reason) {
             if (transaction_hash === undefined) {
                 transaction_hash = 'last';
             }
+            Vortex.get().Store.dispatch(TxError(transaction_hash, reason));
+            Vortex.get().Store.dispatch(FeedNewError(reason, reason.message, "[tx.sagas.ts][sendRawTransaction] Trying to send a raw transaction."));
             if (action.resolvers) {
                 action.resolvers.error(transaction_hash);
                 action.resolvers = undefined;
             }
-            emit(TxError(transaction_hash, reason));
-            emit(FeedNewError(reason, reason.message, "[tx.sagas.ts][sendRawTransaction] Trying to send a raw transaction."));
             emit(END);
         }
 

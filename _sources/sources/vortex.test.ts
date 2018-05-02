@@ -8,7 +8,6 @@ import {Vortex} from "./vortex";
 import * as Migrations from '../../setup/truffle/build/contracts/Migrations.json';
 import {FeedNewTransaction, FeedNewContract} from "./feed/feed.actions";
 import * as Web3 from "web3";
-import {ContractLoad} from "./contracts/contracts.actions";
 
 let _web3;
 
