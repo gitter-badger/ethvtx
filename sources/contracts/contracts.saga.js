@@ -9,10 +9,10 @@ const contracts_actions_1 = require("./contracts.actions");
 const tx_actions_1 = require("../tx/tx.actions");
 const vortex_1 = require("../vortex");
 function runForceRefreshRoundOn(state, emit, contractName, instance_address) {
-    Object.keys(state.contracts[contractName][instance_address].instance.methods).forEach((methodName) => {
-        if (state.contracts[contractName][instance_address].instance.methods[methodName].vortexCache) {
-            Object.keys(state.contracts[contractName][instance_address].instance.methods[methodName].vortexCache).forEach((signature) => {
-                if (state.contracts[contractName][instance_address].instance.methods[methodName].vortexCache[signature].synced) {
+    Object.keys(state.contracts[contractName][instance_address].instance.vortex).forEach((methodName) => {
+        if (state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache) {
+            Object.keys(state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache).forEach((signature) => {
+                if (state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache[signature].synced) {
                     emit(contracts_actions_1.ContractVarForceRefresh(contractName, instance_address, methodName, signature));
                 }
             });
@@ -30,11 +30,12 @@ function runForceRefreshRound(state, emit) {
     });
 }
 exports.runForceRefreshRound = runForceRefreshRound;
-function* backgroundContractLoad(state) {
+function* backgroundContractLoad() {
     return redux_saga_1.eventChannel((emit) => {
         const interval_id = setInterval(() => {
+            const state = vortex_1.Vortex.get().Store.getState();
             runForceRefreshRound(state, emit);
-        }, 1000);
+        }, 5000);
         return (() => { clearInterval(interval_id); });
     });
 }
@@ -74,16 +75,14 @@ function* onLoadContractInitialize(action) {
                     console.warn("Contract " + contractNames[idx] + " has no instance on current network");
                     break;
                 }
-                yield* loadContract(contractNames[idx], contracts[contractNames[idx]].artifact.networks[action.networkId].address, action.coinbase, action._);
+                yield* loadContract(contractNames[idx], contracts[contractNames[idx]].artifact.networks[action.networkId].address.toLowerCase(), action.coinbase, action._);
             }
         }
     }
     catch (e) {
-        console.log(e);
         yield effects_1.put(web3_actions_1.Web3LoadError(e));
     }
-    const state = yield effects_1.select();
-    const auto_refresh = yield effects_1.call(backgroundContractLoad, state);
+    const auto_refresh = yield effects_1.call(backgroundContractLoad);
     try {
         while (true) {
             const time_to_update = yield effects_1.take(auto_refresh);
@@ -114,7 +113,7 @@ function* onContractCall(action) {
     const contracts = (yield effects_1.select()).contracts;
     const current_contract = contracts[action.contractName][action.contractAddress].instance;
     const arg_signature = VortexContract_1.VortexContract.callSignature(...action.methodArgs);
-    if (!current_contract.methods[action.methodName].vortexCache[arg_signature].synced) {
+    if (!current_contract.vortex[action.methodName].vortexCache[arg_signature].synced) {
         const ctcall = yield effects_1.call(contractCall, action, current_contract.methods[action.methodName](...action.methodArgs), arg_signature);
         try {
             while (true) {
@@ -147,8 +146,8 @@ function* contractSend(action, tx) {
                 emit(tx_actions_1.TxConfirmed(transaction_hash, _receipt, _amount));
             })
                 .on('receipt', (_receipt) => {
-                runForceRefreshRoundOn(state, emit, action.contractName, action.contractAddress);
                 emit(tx_actions_1.TxReceipt(transaction_hash, _receipt));
+                runForceRefreshRoundOn(state, emit, action.contractName, action.contractAddress);
                 emit(redux_saga_1.END);
             })
                 .on('error', (_error) => {

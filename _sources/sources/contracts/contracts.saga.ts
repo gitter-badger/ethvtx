@@ -20,10 +20,10 @@ import {
 import {Vortex} from "../vortex";
 
 export function runForceRefreshRoundOn(state: State, emit: (arg?: any) => void, contractName: string, instance_address: string): void {
-    Object.keys(state.contracts[contractName][instance_address].instance.methods).forEach((methodName: string): void => {
-        if (state.contracts[contractName][instance_address].instance.methods[methodName].vortexCache) {
-            Object.keys(state.contracts[contractName][instance_address].instance.methods[methodName].vortexCache).forEach((signature: string): void => {
-                if (state.contracts[contractName][instance_address].instance.methods[methodName].vortexCache[signature].synced) {
+    Object.keys(state.contracts[contractName][instance_address].instance.vortex).forEach((methodName: string): void => {
+        if (state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache) {
+            Object.keys(state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache).forEach((signature: string): void => {
+                if (state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache[signature].synced) {
                     emit(ContractVarForceRefresh(contractName, instance_address, methodName, signature));
                 }
             })
@@ -41,13 +41,14 @@ export function runForceRefreshRound(state: State, emit: (arg?: any) => void): v
     });
 }
 
-function *backgroundContractLoad(state: State): SagaIterator {
+function *backgroundContractLoad(): SagaIterator {
 
 
     return eventChannel((emit: (arg?: any) => void): Unsubscribe => {
         const interval_id = setInterval((): void => {
+            const state = Vortex.get().Store.getState();
             runForceRefreshRound(state, emit);
-        }, 1000);
+        }, 5000);
 
         return ((): void => { clearInterval(interval_id) });
     });
@@ -89,16 +90,14 @@ function *onLoadContractInitialize(action: Web3LoadedAction): SagaIterator {
                     console.warn("Contract " + contractNames[idx] + " has no instance on current network");
                     break ;
                 }
-                yield* loadContract(contractNames[idx], contracts[contractNames[idx]].artifact.networks[action.networkId].address, action.coinbase, action._);
+                yield* loadContract(contractNames[idx], contracts[contractNames[idx]].artifact.networks[action.networkId].address.toLowerCase(), action.coinbase, action._);
             }
         }
     } catch (e) {
-        console.log(e);
         yield put(Web3LoadError(e))
     }
 
-    const state = yield select();
-    const auto_refresh = yield call(backgroundContractLoad, state);
+    const auto_refresh = yield call(backgroundContractLoad);
     try {
         while (true) {
             const time_to_update = yield take(auto_refresh);
@@ -134,7 +133,7 @@ function* onContractCall(action: ContractCallAction): SagaIterator {
     const current_contract = contracts[action.contractName][action.contractAddress].instance;
     const arg_signature = VortexContract.callSignature(...action.methodArgs);
 
-    if (!current_contract.methods[action.methodName].vortexCache[arg_signature].synced) {
+    if (!current_contract.vortex[action.methodName].vortexCache[arg_signature].synced) {
         const ctcall = yield call(contractCall, action, current_contract.methods[action.methodName](...action.methodArgs), arg_signature);
         try {
             while (true) {
@@ -169,8 +168,8 @@ function* contractSend(action: ContractSendAction, tx: any): SagaIterator {
                     emit(TxConfirmed(transaction_hash, _receipt, _amount));
                 })
                 .on('receipt', (_receipt: any): void => {
-                    runForceRefreshRoundOn(state, emit, action.contractName, action.contractAddress);
                     emit(TxReceipt(transaction_hash, _receipt));
+                    runForceRefreshRoundOn(state, emit, action.contractName, action.contractAddress);
                     emit(END);
                 })
                 .on('error', (_error: any): void => {

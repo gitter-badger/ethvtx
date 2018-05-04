@@ -22,16 +22,18 @@ const setup = async () => new Promise((ok, ko) => {
     console.log("+--------------------------------------+\n");
     global.Server = Ganache.server();
     let intervalId = setInterval(() => {
-        isPortTaken(8545, (err, status) => {
+        isPortTaken(8546, (err, status) => {
             if (status === false) {
-                Server.listen(8545, (err) => {
+                Server.listen(8546, (err) => {
                     if (err)
                         ko(err);
-                    console.log("# Started Ganache server on port 8545");
+                    console.log("# Started Ganache server on port 8546");
                     exec("cd setup/truffle && ../../node_modules/.bin/truffle migrate --reset && cd ../..", (err, stdout, stderr) => {
                         if (err)
                             ko(err);
                         console.log("# Deployed Smart Contracts with Truffle");
+                        if (stdout)
+                            console.error(stdout);
                         if (stderr)
                             console.error(stderr);
                         console.log("\n+--------------------------------------+");
@@ -42,7 +44,7 @@ const setup = async () => new Promise((ok, ko) => {
                 });
                 clearInterval(intervalId);
             } else {
-                console.warn("Port 8545 is taken, waiting ...");
+                console.warn("Port 8546 is taken, waiting ...");
             }
         })
     }, 5000);

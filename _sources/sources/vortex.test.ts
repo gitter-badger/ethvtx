@@ -13,7 +13,7 @@ let _web3;
 
 const getWeb3: Promise<any> = new Promise<any>((ok: (arg?: any) => void, ko: (arg?: any) => void): void => {
     try {
-        _web3 = new (<any>Web3)(new (<any>Web3).providers.HttpProvider("http://localhost:8545"));
+        _web3 = new (<any>Web3)(new (<any>Web3).providers.HttpProvider("http://localhost:8546"));
         ok(_web3);
     } catch (e) {
         ko(e);
@@ -116,10 +116,10 @@ describe("Vortex", () => {
     test('Recover Owner from constant call', (done: any): void => {
         const state = Vortex.get().Store.getState();
         const contractName = (<FeedNewContractState>state.feed[0]).contract_name;
-        const contractAddress = (<FeedNewContractState>state.feed[0]).contract_address;
+        const contractAddress = (<FeedNewContractState>state.feed[0]).contract_address.toLowerCase();
         const contract = state.contracts[contractName][contractAddress].instance;
-        contract.methods.owner.vortexCall({}).then((res: any): void => {
-            if (contract.methods.owner.vortexData({}) === res) {
+        contract.vortex.owner.vortexCall({}).then((res: any): void => {
+            if (contract.vortex.owner.vortexData({}) === res) {
                 done();
             }
         }).catch((e: any): void => {
@@ -134,7 +134,7 @@ describe("Vortex", () => {
         const contractAddress = (<FeedNewContractState>state.feed[0]).contract_address;
         const contract = state.contracts[contractName][contractAddress].instance;
 
-        contract.methods.setCompleted.vortexSend({from: coinbase}, 23).then((_txHash: string): void => {
+        contract.vortex.setCompleted.vortexSend({from: coinbase}, 23).then((_txHash: string): void => {
             let intervalId = setInterval(() => {
                 const state = Vortex.get().Store.getState();
                 switch (state.feed.length) {

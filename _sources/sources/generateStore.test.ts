@@ -15,7 +15,7 @@ let store;
 let _web3;
 const getWeb3: Promise<any> = new Promise<any>((ok: (arg?: any) => void, ko: (arg?: any) => void): void => {
     try {
-        _web3 = new (<any>Web3)(new (<any>Web3).providers.HttpProvider("http://localhost:8545"));
+        _web3 = new (<any>Web3)(new (<any>Web3).providers.HttpProvider("http://localhost:8546"));
         ok(_web3);
     } catch (e) {
         ko(e);
