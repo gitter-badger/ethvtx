@@ -35,7 +35,7 @@ function* backgroundContractLoad() {
         const interval_id = setInterval(() => {
             const state = vortex_1.Vortex.get().Store.getState();
             runForceRefreshRound(state, emit);
-        }, 5000);
+        }, 15000);
         return (() => { clearInterval(interval_id); });
     });
 }
@@ -144,11 +144,13 @@ function* contractSend(action, tx) {
             })
                 .on('confirmation', (_amount, _receipt) => {
                 emit(tx_actions_1.TxConfirmed(transaction_hash, _receipt, _amount));
+                if (!(_amount % 5))
+                    runForceRefreshRoundOn(state, emit, action.contractName, action.contractAddress);
+                if (_amount >= 24)
+                    emit(redux_saga_1.END);
             })
                 .on('receipt', (_receipt) => {
                 emit(tx_actions_1.TxReceipt(transaction_hash, _receipt));
-                runForceRefreshRoundOn(state, emit, action.contractName, action.contractAddress);
-                emit(redux_saga_1.END);
             })
                 .on('error', (_error) => {
                 if (transaction_hash === undefined) {

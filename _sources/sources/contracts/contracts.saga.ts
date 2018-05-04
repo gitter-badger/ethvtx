@@ -48,7 +48,7 @@ function *backgroundContractLoad(): SagaIterator {
         const interval_id = setInterval((): void => {
             const state = Vortex.get().Store.getState();
             runForceRefreshRound(state, emit);
-        }, 5000);
+        }, 15000);
 
         return ((): void => { clearInterval(interval_id) });
     });
@@ -166,11 +166,13 @@ function* contractSend(action: ContractSendAction, tx: any): SagaIterator {
                 })
                 .on('confirmation', (_amount: number, _receipt: any): void => {
                     emit(TxConfirmed(transaction_hash, _receipt, _amount));
+                    if (!(_amount % 5))
+                        runForceRefreshRoundOn(state, emit, action.contractName, action.contractAddress);
+                    if (_amount >= 24)
+                        emit(END);
                 })
                 .on('receipt', (_receipt: any): void => {
                     emit(TxReceipt(transaction_hash, _receipt));
-                    runForceRefreshRoundOn(state, emit, action.contractName, action.contractAddress);
-                    emit(END);
                 })
                 .on('error', (_error: any): void => {
                     if (transaction_hash === undefined) {
