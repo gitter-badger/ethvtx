@@ -166,7 +166,7 @@ function* contractSend(action: ContractSendAction, tx: any): SagaIterator {
                 })
                 .on('confirmation', (_amount: number, _receipt: any): void => {
                     emit(TxConfirmed(transaction_hash, _receipt, _amount));
-                    if (!(_amount % 5))
+                    if (!(_amount % 5) || _amount < 5)
                         runForceRefreshRoundOn(state, emit, action.contractName, action.contractAddress);
                     if (_amount >= 24)
                         emit(END);
