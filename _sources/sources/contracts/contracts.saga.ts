@@ -179,7 +179,7 @@ function* contractSend(action: ContractSendAction, tx: any): SagaIterator {
                         transaction_hash = 'last';
                     }
                     emit(TxError(transaction_hash, _error));
-                    emit(FeedNewError(_error, _error.message, "[contracts.sagas.ts][contractSend] Trying to send method call."));
+                    emit(FeedNewError(_error, _error.message, "[contracts.sagas.ts][contractSend.error] Trying to send method call."));
                     if (action.resolvers) {
                         action.resolvers.error(transaction_hash);
                         action.resolvers = undefined;
@@ -191,7 +191,7 @@ function* contractSend(action: ContractSendAction, tx: any): SagaIterator {
                 transaction_hash = 'last';
             }
             Vortex.get().Store.dispatch(TxError(transaction_hash, reason));
-            Vortex.get().Store.dispatch(FeedNewError(reason, reason.message, "[contracts.sagas.ts][contractSend] Trying to send method call."));
+            Vortex.get().Store.dispatch(FeedNewError(reason, reason.message, "[contracts.sagas.ts][contractSend.catch] Trying to send method call."));
             if (action.resolvers) {
                 action.resolvers.error(transaction_hash);
                 action.resolvers = undefined;
