@@ -33,6 +33,10 @@ export const tx: Reducer<TransactionStoreState, TxActions> = (state: Transaction
                         transaction_hash: (<TxReceiptAction>action).txHash,
                         transaction_receipt: (<TxReceiptAction>action).receipt,
                         timestamp: Date.now()
+                    },
+                    transaction_arguments: {
+                        ...state[(<TxReceiptAction>action).txHash].transaction_arguments,
+                        ...(<TxReceiptAction>action).txArgs
                     }
                 } as TransactionState
             };

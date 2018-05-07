@@ -32,7 +32,7 @@ function* sendTransaction(action: TxSendAction): SagaIterator {
                     emit(TxBroadcasted(_transaction_hash, action.txArgs));
                 })
                 .on('confirmation', (_amount: number, _receipt: any): void => {
-                    emit(TxConfirmed(transaction_hash, _receipt, _amount))
+                    emit(TxConfirmed(transaction_hash, _receipt, _amount));
                     if (!(_amount % 5) || _amount < 5) {
                         if (action.txArgs.from)
                             emit(AccountUpdateRequest(action.txArgs.from));
@@ -43,7 +43,17 @@ function* sendTransaction(action: TxSendAction): SagaIterator {
                         emit(END);
                 })
                 .on('receipt', (_receipt: any): void => {
-                    emit(TxReceipt(transaction_hash, _receipt));
+                    action.web3.eth.getTransaction(transaction_hash).then((txInfos: any): void => {
+                        Vortex.get().Store.dispatch(TxReceipt(transaction_hash, _receipt, {
+                            from: txInfos.from.toLowerCase(),
+                            to: txInfos.to.toLowerCase(),
+                            gas: txInfos.gas.toString(),
+                            gasPrice: txInfos.gasPrice,
+                            data: txInfos.input,
+                            nonce: txInfos.nonce,
+                            value: txInfos.value
+                        }));
+                    });
                 })
                 .on('error', (_error: any): void => {
                     if (transaction_hash === undefined) {
@@ -92,7 +102,8 @@ function* callSendTransaction(action: TxSendAction): SagaIterator {
 function* sendRawTransaction(action: TxSendRawAction): SagaIterator {
     let transaction_hash: string;
     let coinbase: string = (yield select()).web3.coinbase;
-
+    let to: string = undefined;
+    let from: string = undefined;
 
     return eventChannel((emit: (arg?: any) => void): Unsubscribe => {
         let _transactionEvents = undefined;
@@ -110,7 +121,12 @@ function* sendRawTransaction(action: TxSendRawAction): SagaIterator {
                 .on('confirmation', (_amount: number, _receipt: any): void => {
                     emit(TxConfirmed(transaction_hash, _receipt, _amount));
                     if (!(_amount % 5) || _amount < 5) {
-                        // TODO Recover from and to in receipt
+                        if (to) {
+                            emit(AccountUpdateRequest(to));
+                        }
+                        if (from) {
+                            emit(AccountUpdateRequest(from));
+                        }
                         emit(AccountUpdateRequest(coinbase));
                     }
                     if (_amount >= 24)
@@ -118,7 +134,19 @@ function* sendRawTransaction(action: TxSendRawAction): SagaIterator {
 
                 })
                 .on('receipt', (_receipt: any): void => {
-                    emit(TxReceipt(transaction_hash, _receipt));
+                    action.web3.eth.getTransaction(transaction_hash).then((txInfos: any): void => {
+                        from = txInfos.from.toLowerCase();
+                        to = txInfos.to.toLowerCase();
+                        Vortex.get().Store.dispatch(TxReceipt(transaction_hash, _receipt, {
+                            from: txInfos.from.toLowerCase(),
+                            to: txInfos.to.toLowerCase(),
+                            gas: txInfos.gas.toString(),
+                            gasPrice: txInfos.gasPrice,
+                            data: txInfos.input,
+                            nonce: txInfos.nonce,
+                            value: txInfos.value
+                        }));
+                    });
                 })
                 .on('error', (_error: any): void => {
                     if (transaction_hash === undefined) {

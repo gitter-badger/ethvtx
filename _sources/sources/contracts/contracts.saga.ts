@@ -147,7 +147,7 @@ function* onContractCall(action: ContractCallAction): SagaIterator {
     }
 }
 
-function* contractSend(action: ContractSendAction, tx: any): SagaIterator {
+function* contractSend(action: ContractSendAction, tx: any, web3: any): SagaIterator {
 
     let transaction_hash: string;
     let state: State = yield select();
@@ -178,7 +178,17 @@ function* contractSend(action: ContractSendAction, tx: any): SagaIterator {
                         emit(END);
                 })
                 .on('receipt', (_receipt: any): void => {
-                    emit(TxReceipt(transaction_hash, _receipt));
+                    web3.eth.getTransaction(transaction_hash).then((txInfos: any): void => {
+                        Vortex.get().Store.dispatch(TxReceipt(transaction_hash, _receipt, {
+                            from: txInfos.from.toLowerCase(),
+                            to: txInfos.to.toLowerCase(),
+                            gas: txInfos.gas.toString(),
+                            gasPrice: txInfos.gasPrice,
+                            data: txInfos.input,
+                            nonce: txInfos.nonce,
+                            value: txInfos.value
+                        }));
+                    });
                 })
                 .on('error', (_error: any): void => {
                     if (transaction_hash === undefined) {
@@ -212,10 +222,10 @@ function* contractSend(action: ContractSendAction, tx: any): SagaIterator {
 
 function* onContractSend(action: ContractSendAction): SagaIterator {
     action.contractAddress = action.contractAddress.toLowerCase();
-    const contracts = (yield select()).contracts;
-    const current_contract = contracts[action.contractName][action.contractAddress].instance;
+    const current_state = (yield select());
+    const current_contract = current_state.contracts[action.contractName][action.contractAddress].instance;
 
-    const ctsend = yield call(contractSend, action, current_contract.methods[action.methodName](...action.methodArgs));
+    const ctsend = yield call(contractSend, action, current_contract.methods[action.methodName](...action.methodArgs), current_state.web3._);
     try {
         while (true) {
             const resolution = yield take(ctsend);

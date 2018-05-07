@@ -44,16 +44,28 @@ export function TxBroadcasted(txHash: string, txArgs: TransactionArgumentState |
     });
 }
 
-export interface TxReceiptAction extends Action {
-    txHash: string,
-    receipt: any
+export interface TxReceiptTxArgs {
+    from?: string,
+    gas?: string,
+    gasPrice?: string,
+    data?: string,
+    nonce?: number,
+    to?: string,
+    value?: string
 }
 
-export function TxReceipt(txHash: string, receipt: any): TxReceiptAction {
+export interface TxReceiptAction extends Action {
+    txHash: string,
+    receipt: any,
+    txArgs: TxReceiptTxArgs
+}
+
+export function TxReceipt(txHash: string, receipt: any, txArgs: TxReceiptTxArgs): TxReceiptAction {
     return ({
         type: 'TX_RECEIPT',
         txHash,
-        receipt
+        receipt,
+        txArgs
     });
 }
 
