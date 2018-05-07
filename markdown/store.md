@@ -135,12 +135,29 @@ This document defines how the Redux Store is going to store its data.
 
 ```javascript
 {
+    accounts: {
+        ...
+        configuration: {
+            refresh_rate: number
+        }
+        ...
+        coinbase: {
+            balance: string,
+            coinbase: boolean
+        },
+        ...
+        [account_address]: {
+            balance: string,
+            coinbase: boolean
+        }
+        ...
+    },
 	web3: {
 	    WEB3_LOADING | WEB3_LOADED | WEB3_LOAD_ERROR | WEB3_NETWORK_ERROR
 	},
 	tx: {
 		...
-		${txHash}: {
+		[transaction_hash]: {
 			status: TX_STATUS_BROADCASTED | TX_STATUS_RECEIPT | TX_STATUS_CONFIRMED | TX_STATUS_ERROR
 			transaction_arguments: {
 				from: string,
@@ -156,17 +173,13 @@ This document defines how the Redux Store is going to store its data.
 	},
 	contracts: {
 		...
-		${contractName}: {
+		[contract_name]: {
 			...
 			artifact: {
 			    Truffle Artifact
 			}
 			...
-			deployed: {
-			    CONTRACT_LOADING | CONTRACT_LOADED | CONTRACT_ERROR
-			}
-			...
-			${address}: {
+			[contract_address]: {
 			    CONTRACT_LOADING | CONTRACT_LOADED | CONTRACT_ERROR
 			}
 			...

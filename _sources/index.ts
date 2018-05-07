@@ -21,7 +21,12 @@ export {
     TransactionState,
     ContractInstanceState,
     State,
-    TransactionStoreState
+    TransactionStoreState,
+    AccountState,
+    AccountStoreState,
+    AccountInfoState,
+    AccountErrorState,
+    AccountConfigState, FeedNewAccountState
 } from './sources/stateInterface';
 export {dummyReducer} from './sources/dummyReducer';
 export {
@@ -81,6 +86,21 @@ export {
     FeedNewError
 } from './sources/feed/feed.actions';
 export {
-    FeedType, FeedFilter, FeedFilterContracts, FeedFilterErrors, FeedFilterTransactions
+    FeedType, FeedFilter, FeedFilterContracts, FeedFilterErrors, FeedFilterTransactions, FeedFilterAccounts
 } from './sources/feed/feed.selectors';
+export {
+    AccountActions,
+    AccountUpdateRequestAction,
+    AccountUpdateAction,
+    AccountErrorAction,
+    AccountConfigAction,
+    AccountRemoveAction,
+    AccountAddAction,
+    AccountAdd,
+    AccountConfig,
+    AccountError,
+    AccountRemove,
+    AccountUpdate,
+    AccountUpdateRequest
+} from './sources/accounts/accounts.actions';
 export {VortexContract} from './sources/contracts/VortexContract';

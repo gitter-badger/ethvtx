@@ -35,6 +35,16 @@ exports.feed = (state = [], action) => {
             return [
                 ...state
             ];
+        case 'FEED_NEW_ACCOUNT':
+            state.push({
+                action: 'NEW_ACCOUNT',
+                account: action.account,
+                coinbase: action.coinbase,
+                timestamp: Date.now()
+            });
+            return [
+                ...state
+            ];
         default:
             return state;
     }
