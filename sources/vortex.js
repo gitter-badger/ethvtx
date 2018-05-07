@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const generateStore_1 = require("./generateStore");
 const web3_actions_1 = require("./web3/web3.actions");
 const contracts_actions_1 = require("./contracts/contracts.actions");
+const accounts_actions_1 = require("./accounts/accounts.actions");
 class Vortex {
     /**
      * Instantiate a new Vorte instance.
@@ -10,23 +11,20 @@ class Vortex {
      *
      * @param {[]} contracts List of contract artifacts created by truffle.
      * @param loader Promise that returns a web3 instance ready to be used.
-     * @param {ReducersMapObject<T extends State>} reducersMap Map of reducers (Not combined !)
-     * @param {DeepPartial<T extends State>} customState Custom state matching interface that extends State.
+     * @param {GeneratorConfig<T>} config Configuration arguments for the store generator.
      */
-    constructor(contracts, loader, reducersMap = undefined, customState = undefined) {
+    constructor(contracts, loader, config = undefined) {
         this._web3_loader = undefined;
         this._contracts = undefined;
-        this._reducersMap = undefined;
-        this._customState = undefined;
+        this._config = {};
         this._store = undefined;
         this._network_ids = [];
         this._contracts = contracts;
         this._web3_loader = loader;
-        this._reducersMap = reducersMap;
-        this._customState = customState;
+        this._config = config || {};
     }
-    static factory(contracts, loader, reducersMap = undefined, customState = undefined) {
-        return (Vortex._instance || (Vortex._instance = new Vortex(contracts, loader, reducersMap, customState)));
+    static factory(contracts, loader, config = undefined) {
+        return (Vortex._instance || (Vortex._instance = new Vortex(contracts, loader, config)));
     }
     static get() {
         return Vortex._instance;
@@ -36,12 +34,7 @@ class Vortex {
      */
     run() {
         if (this._contracts) {
-            if (this._reducersMap) {
-                this._store = generateStore_1.generateStore(this._contracts, this._reducersMap, this._customState);
-            }
-            else {
-                this._store = generateStore_1.generateStore(this._contracts);
-            }
+            this._store = generateStore_1.generateStore(this._contracts, this._config);
         }
         else {
             throw new Error("No Contracts Given");
@@ -93,10 +86,10 @@ class Vortex {
      * @param {Reducer<any, any>} reducer Reducer
      */
     addReducer(field, reducer) {
-        if (this._reducersMap === undefined) {
-            this._reducersMap = {};
+        if (this._config.reducer === undefined) {
+            this._config.reducer = {};
         }
-        this._reducersMap[field] = reducer;
+        this._config.reducer[field] = reducer;
     }
     /**
      * Custom Initial State, useful when adding custom properties.
@@ -104,7 +97,7 @@ class Vortex {
      * @param {DeepPartial<T extends State>} customState
      */
     setCustomState(customState) {
-        this._customState = customState;
+        this._config.custom_state = customState;
     }
     /**
      * Load a new instance of a Smart Contract. Expect a new Feed element and
@@ -116,6 +109,19 @@ class Vortex {
     loadContract(contractName, contractAddress) {
         if (this._store) {
             this._store.dispatch(contracts_actions_1.ContractLoad(contractName, contractAddress));
+        }
+        else {
+            throw new Error("Call run before.");
+        }
+    }
+    /**
+     * Add a new contract to fetch pool.
+     *
+     * @param {string} address Address to fetch
+     */
+    subscribeAccount(address) {
+        if (this._store) {
+            this._store.dispatch(accounts_actions_1.AccountAdd(address));
         }
         else {
             throw new Error("Call run before.");

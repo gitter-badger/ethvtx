@@ -8,6 +8,7 @@ const VortexContract_1 = require("./VortexContract");
 const contracts_actions_1 = require("./contracts.actions");
 const tx_actions_1 = require("../tx/tx.actions");
 const vortex_1 = require("../vortex");
+const accounts_actions_1 = require("../accounts/accounts.actions");
 function runForceRefreshRoundOn(state, emit, contractName, instance_address) {
     Object.keys(state.contracts[contractName][instance_address].instance.vortex).forEach((methodName) => {
         if (state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache) {
@@ -144,8 +145,13 @@ function* contractSend(action, tx) {
             })
                 .on('confirmation', (_amount, _receipt) => {
                 emit(tx_actions_1.TxConfirmed(transaction_hash, _receipt, _amount));
-                if (!(_amount % 5) || _amount < 5)
+                if (!(_amount % 5) || _amount < 5) {
                     runForceRefreshRoundOn(state, emit, action.contractName, action.contractAddress);
+                    if (action.transactionArgs.from)
+                        emit(accounts_actions_1.AccountUpdateRequest(action.transactionArgs.from));
+                    if (action.transactionArgs.to)
+                        emit(accounts_actions_1.AccountUpdateRequest(action.transactionArgs.to));
+                }
                 if (_amount >= 24)
                     emit(redux_saga_1.END);
             })
