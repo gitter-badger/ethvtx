@@ -39,4 +39,17 @@ export function FeedNewError(reason: any, message: string, when: string): FeedNe
     } as FeedNewErrorAction;
 }
 
-export type FeedActions = FeedNewContractAction | FeedNewTransactionAction | FeedNewErrorAction;
+export interface FeedNewAccountAction extends Action {
+    account: string,
+    coinbase: boolean
+}
+
+export function FeedNewAccount(account: string, coinbase: boolean): FeedNewAccountAction {
+    return {
+        type: 'FEED_NEW_ACCOUNT',
+        account,
+        coinbase
+    } as FeedNewAccountAction;
+}
+
+export type FeedActions = FeedNewContractAction | FeedNewTransactionAction | FeedNewErrorAction | FeedNewAccountAction;

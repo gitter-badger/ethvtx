@@ -1,4 +1,4 @@
-import {Web3Load, Web3Loaded, Web3LoadError, Web3NetworkError} from "./web3.actions";
+import {Web3Load, Web3Loaded, Web3LoadError, Web3NetworkError, Web3Ready} from "./web3.actions";
 
 declare var describe: any;
 declare var test: any;

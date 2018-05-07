@@ -18,6 +18,7 @@ import {
     TxReceipt
 } from "../tx/tx.actions";
 import {Vortex} from "../vortex";
+import {AccountUpdateRequest} from "../accounts/accounts.actions";
 
 export function runForceRefreshRoundOn(state: State, emit: (arg?: any) => void, contractName: string, instance_address: string): void {
     Object.keys(state.contracts[contractName][instance_address].instance.vortex).forEach((methodName: string): void => {
@@ -166,8 +167,13 @@ function* contractSend(action: ContractSendAction, tx: any): SagaIterator {
                 })
                 .on('confirmation', (_amount: number, _receipt: any): void => {
                     emit(TxConfirmed(transaction_hash, _receipt, _amount));
-                    if (!(_amount % 5) || _amount < 5)
+                    if (!(_amount % 5) || _amount < 5) {
                         runForceRefreshRoundOn(state, emit, action.contractName, action.contractAddress);
+                        if (action.transactionArgs.from)
+                            emit(AccountUpdateRequest(action.transactionArgs.from));
+                        if (action.transactionArgs.to)
+                            emit(AccountUpdateRequest(action.transactionArgs.to));
+                    }
                     if (_amount >= 24)
                         emit(END);
                 })

@@ -7,12 +7,14 @@ export enum FeedType {
     Transactions = 1,
     Contracts = 2,
     Errors = 4,
+    Accounts = 8
 }
 
 const FeedTypeLinks: any = {
     NEW_TRANSACTION: 1,
     NEW_CONTRACT: 2,
-    NEW_ERROR: 4
+    NEW_ERROR: 4,
+    NEW_ACCOUNT: 8
 };
 
 export const FeedFilterTransactions = createSelector(getFeed, (feed: FeedState[]): FeedState[] => {
@@ -25,6 +27,10 @@ export const FeedFilterContracts = createSelector(getFeed, (feed: FeedState[]): 
 
 export const FeedFilterErrors = createSelector(getFeed, (feed: FeedState[]): FeedState[] => {
     return feed.filter((elem: FeedState): boolean => !!((FeedTypeLinks[elem.action] ? FeedTypeLinks[elem.action] : -1) & FeedType.Errors))
+});
+
+export const FeedFilterAccounts = createSelector(getFeed, (feed: FeedState[]): FeedState[] => {
+    return feed.filter((elem: FeedState): boolean => !!((FeedTypeLinks[elem.action] ? FeedTypeLinks[elem.action] : -1) & FeedType.Accounts))
 });
 
 export const FeedFilter = (type: FeedType): any => {

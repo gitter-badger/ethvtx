@@ -43,6 +43,21 @@ describe("Vortex", () => {
         Vortex.get().loadWeb3();
     });
 
+    test('Check Coinbase Balance', (done) => {
+        setTimeout((): void => {
+            done(expect(Vortex.get().Store.getState().accounts.coinbase).not.toBe(undefined));
+        }, 1000);
+    });
+
+    test('Get accounts and follow them', (done) => {
+        _web3.eth.getAccounts().then(acc => {
+            Vortex.get().subscribeAccount(acc[1]);
+            setTimeout((): void => {
+                done(expect(Vortex.get().Store.getState().accounts[acc[1]]).not.toBe(undefined));
+            }, 1000);
+        });
+    });
+
     test('Send New Transaction from dispatch', (done: (arg?: any) => void) => {
         _web3.eth.getAccounts().then((acc: string[]) => {
             Vortex.get().Store.dispatch({
@@ -58,8 +73,8 @@ describe("Vortex", () => {
         let intervalId = setInterval(() => {
             const state = Vortex.get().Store.getState();
             switch (state.feed.length) {
-                case 2:
-                    const txHash = (<FeedNewTransactionState>state.feed[1]).transaction_hash;
+                case 4:
+                    const txHash = (<FeedNewTransactionState>state.feed[3]).transaction_hash;
                     if (state.tx[txHash].status.type === 'RECEIPT') {
                         clearInterval(intervalId);
                         done();
@@ -86,8 +101,8 @@ describe("Vortex", () => {
         let intervalId = setInterval(() => {
             const state = Vortex.get().Store.getState();
             switch (state.feed.length) {
-                case 3:
-                    const txHash = (<FeedNewTransactionState>state.feed[2]).transaction_hash;
+                case 5:
+                    const txHash = (<FeedNewTransactionState>state.feed[4]).transaction_hash;
                     if (state.tx[txHash].status.type === 'RECEIPT') {
                         clearInterval(intervalId);
                         done();
@@ -105,12 +120,12 @@ describe("Vortex", () => {
 
     test('Adding New Transaction to Feed', () => {
         Vortex.get().Store.dispatch(FeedNewTransaction("Dummy Tx"));
-        expect(Vortex.get().Store.getState().feed[3].action).toBe('NEW_TRANSACTION');
+        expect(Vortex.get().Store.getState().feed[5].action).toBe('NEW_TRANSACTION');
     });
 
     test('Adding New Contract to Feed', () => {
         Vortex.get().Store.dispatch(FeedNewContract("Dummy Tx", "0xabcd"));
-        expect(Vortex.get().Store.getState().feed[4].action).toBe('NEW_CONTRACT');
+        expect(Vortex.get().Store.getState().feed[6].action).toBe('NEW_CONTRACT');
     });
 
     test('Recover Owner from constant call', (done: any): void => {
@@ -138,8 +153,8 @@ describe("Vortex", () => {
             let intervalId = setInterval(() => {
                 const state = Vortex.get().Store.getState();
                 switch (state.feed.length) {
-                    case 6:
-                        const txHash = (<FeedNewTransactionState>state.feed[5]).transaction_hash;
+                    case 8  :
+                        const txHash = (<FeedNewTransactionState>state.feed[7]).transaction_hash;
                         if (state.tx[txHash].status.type === 'RECEIPT') {
                             clearInterval(intervalId);
                             done();
@@ -162,8 +177,8 @@ describe("Vortex", () => {
         let intervalId = setInterval(() => {
             const state = Vortex.get().Store.getState();
             switch (state.feed.length) {
-                case 7:
-                    if (state.feed[6].action === 'NEW_CONTRACT' && (<FeedNewContractState>state.feed[6]).contract_name === 'Migrations' && (<FeedNewContractState>state.feed[6]).contract_address === (<Web3LoadedState>Vortex.get().Store.getState().web3).coinbase)
+                case 9:
+                    if (state.feed[8].action === 'NEW_CONTRACT' && (<FeedNewContractState>state.feed[8]).contract_name === 'Migrations' && (<FeedNewContractState>state.feed[8]).contract_address === (<Web3LoadedState>Vortex.get().Store.getState().web3).coinbase)
                         done();
                     else
                         done(new Error("Invalid Feed element"));

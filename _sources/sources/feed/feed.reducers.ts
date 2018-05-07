@@ -1,6 +1,12 @@
 import {Reducer} from "redux";
 import {FeedState} from "../stateInterface";
-import {FeedActions, FeedNewContractAction, FeedNewErrorAction, FeedNewTransactionAction} from "./feed.actions";
+import {
+    FeedActions,
+    FeedNewAccountAction,
+    FeedNewContractAction,
+    FeedNewErrorAction,
+    FeedNewTransactionAction
+} from "./feed.actions";
 
 export const feed : Reducer<FeedState[], FeedActions> = (state: FeedState[] = [] as FeedState[], action: FeedActions): FeedState[] => {
 
@@ -36,6 +42,17 @@ export const feed : Reducer<FeedState[], FeedActions> = (state: FeedState[] = []
                     message: (<FeedNewErrorAction>action).message,
                     when: (<FeedNewErrorAction>action).when
                 },
+                timestamp: Date.now()
+            });
+            return [
+                ...state
+            ];
+
+        case 'FEED_NEW_ACCOUNT':
+            state.push({
+                action: 'NEW_ACCOUNT',
+                account: (<FeedNewAccountAction>action).account,
+                coinbase: (<FeedNewAccountAction>action).coinbase,
                 timestamp: Date.now()
             });
             return [

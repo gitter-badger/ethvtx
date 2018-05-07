@@ -1,4 +1,4 @@
-import {call, put, take, takeEvery} from 'redux-saga/effects';
+import {call, put, select, take, takeEvery} from 'redux-saga/effects';
 import {
     TxBroadcasted,
     TxConfirmed,
@@ -11,6 +11,7 @@ import {Vortex} from "../vortex";
 import {SagaIterator, eventChannel, END} from "redux-saga";
 import {Unsubscribe} from "redux";
 import {FeedNewError, FeedNewTransaction} from "../feed/feed.actions";
+import {AccountUpdateRequest} from "../accounts/accounts.actions";
 
 
 function* sendTransaction(action: TxSendAction): SagaIterator {
@@ -32,10 +33,17 @@ function* sendTransaction(action: TxSendAction): SagaIterator {
                 })
                 .on('confirmation', (_amount: number, _receipt: any): void => {
                     emit(TxConfirmed(transaction_hash, _receipt, _amount))
+                    if (!(_amount % 5) || _amount < 5) {
+                        if (action.txArgs.from)
+                            emit(AccountUpdateRequest(action.txArgs.from));
+                        if (action.txArgs.to)
+                            emit(AccountUpdateRequest(action.txArgs.to));
+                    }
+                    if (_amount >= 24)
+                        emit(END);
                 })
                 .on('receipt', (_receipt: any): void => {
                     emit(TxReceipt(transaction_hash, _receipt));
-                    emit(END);
                 })
                 .on('error', (_error: any): void => {
                     if (transaction_hash === undefined) {
@@ -83,6 +91,7 @@ function* callSendTransaction(action: TxSendAction): SagaIterator {
 
 function* sendRawTransaction(action: TxSendRawAction): SagaIterator {
     let transaction_hash: string;
+    let coinbase: string = (yield select()).web3.coinbase;
 
 
     return eventChannel((emit: (arg?: any) => void): Unsubscribe => {
@@ -100,10 +109,16 @@ function* sendRawTransaction(action: TxSendRawAction): SagaIterator {
                 })
                 .on('confirmation', (_amount: number, _receipt: any): void => {
                     emit(TxConfirmed(transaction_hash, _receipt, _amount));
+                    if (!(_amount % 5) || _amount < 5) {
+                        // TODO Recover from and to in receipt
+                        emit(AccountUpdateRequest(coinbase));
+                    }
+                    if (_amount >= 24)
+                        emit(END);
+
                 })
                 .on('receipt', (_receipt: any): void => {
                     emit(TxReceipt(transaction_hash, _receipt));
-                    emit(END);
                 })
                 .on('error', (_error: any): void => {
                     if (transaction_hash === undefined) {
