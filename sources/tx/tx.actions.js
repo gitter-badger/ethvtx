@@ -26,11 +26,12 @@ function TxBroadcasted(txHash, txArgs) {
     });
 }
 exports.TxBroadcasted = TxBroadcasted;
-function TxReceipt(txHash, receipt) {
+function TxReceipt(txHash, receipt, txArgs) {
     return ({
         type: 'TX_RECEIPT',
         txHash,
-        receipt
+        receipt,
+        txArgs
     });
 }
 exports.TxReceipt = TxReceipt;

@@ -127,7 +127,7 @@ function* onContractCall(action) {
         }
     }
 }
-function* contractSend(action, tx) {
+function* contractSend(action, tx, web3) {
     let transaction_hash;
     let state = yield effects_1.select();
     return redux_saga_1.eventChannel((emit) => {
@@ -156,7 +156,18 @@ function* contractSend(action, tx) {
                     emit(redux_saga_1.END);
             })
                 .on('receipt', (_receipt) => {
-                emit(tx_actions_1.TxReceipt(transaction_hash, _receipt));
+                web3.eth.getTransaction(transaction_hash).then((txInfos) => {
+                    console.log(txInfos);
+                    vortex_1.Vortex.get().Store.dispatch(tx_actions_1.TxReceipt(transaction_hash, _receipt, {
+                        from: txInfos.from.toLowerCase(),
+                        to: txInfos.to.toLowerCase(),
+                        gas: txInfos.gas.toString(),
+                        gasPrice: txInfos.gasPrice,
+                        data: txInfos.input,
+                        nonce: txInfos.nonce,
+                        value: txInfos.value
+                    }));
+                });
             })
                 .on('error', (_error) => {
                 if (transaction_hash === undefined) {
@@ -188,9 +199,9 @@ function* contractSend(action, tx) {
 }
 function* onContractSend(action) {
     action.contractAddress = action.contractAddress.toLowerCase();
-    const contracts = (yield effects_1.select()).contracts;
-    const current_contract = contracts[action.contractName][action.contractAddress].instance;
-    const ctsend = yield effects_1.call(contractSend, action, current_contract.methods[action.methodName](...action.methodArgs));
+    const current_state = (yield effects_1.select());
+    const current_contract = current_state.contracts[action.contractName][action.contractAddress].instance;
+    const ctsend = yield effects_1.call(contractSend, action, current_contract.methods[action.methodName](...action.methodArgs), current_state.web3._);
     try {
         while (true) {
             const resolution = yield effects_1.take(ctsend);

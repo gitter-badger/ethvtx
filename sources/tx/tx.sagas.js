@@ -33,7 +33,18 @@ function* sendTransaction(action) {
                     emit(redux_saga_1.END);
             })
                 .on('receipt', (_receipt) => {
-                emit(tx_actions_1.TxReceipt(transaction_hash, _receipt));
+                action.web3.eth.getTransaction(transaction_hash).then((txInfos) => {
+                    console.log(txInfos);
+                    vortex_1.Vortex.get().Store.dispatch(tx_actions_1.TxReceipt(transaction_hash, _receipt, {
+                        from: txInfos.from.toLowerCase(),
+                        to: txInfos.to.toLowerCase(),
+                        gas: txInfos.gas.toString(),
+                        gasPrice: txInfos.gasPrice,
+                        data: txInfos.input,
+                        nonce: txInfos.nonce,
+                        value: txInfos.value
+                    }));
+                });
             })
                 .on('error', (_error) => {
                 if (transaction_hash === undefined) {
@@ -81,6 +92,8 @@ function* callSendTransaction(action) {
 function* sendRawTransaction(action) {
     let transaction_hash;
     let coinbase = (yield effects_1.select()).web3.coinbase;
+    let to = undefined;
+    let from = undefined;
     return redux_saga_1.eventChannel((emit) => {
         let _transactionEvents = undefined;
         try {
@@ -97,6 +110,12 @@ function* sendRawTransaction(action) {
                 .on('confirmation', (_amount, _receipt) => {
                 emit(tx_actions_1.TxConfirmed(transaction_hash, _receipt, _amount));
                 if (!(_amount % 5) || _amount < 5) {
+                    if (to) {
+                        emit(accounts_actions_1.AccountUpdateRequest(to));
+                    }
+                    if (from) {
+                        emit(accounts_actions_1.AccountUpdateRequest(from));
+                    }
                     // TODO Recover from and to in receipt
                     emit(accounts_actions_1.AccountUpdateRequest(coinbase));
                 }
@@ -104,7 +123,19 @@ function* sendRawTransaction(action) {
                     emit(redux_saga_1.END);
             })
                 .on('receipt', (_receipt) => {
-                emit(tx_actions_1.TxReceipt(transaction_hash, _receipt));
+                action.web3.eth.getTransaction(transaction_hash).then((txInfos) => {
+                    from = txInfos.from.toLowerCase();
+                    to = txInfos.to.toLowerCase();
+                    vortex_1.Vortex.get().Store.dispatch(tx_actions_1.TxReceipt(transaction_hash, _receipt, {
+                        from: txInfos.from.toLowerCase(),
+                        to: txInfos.to.toLowerCase(),
+                        gas: txInfos.gas.toString(),
+                        gasPrice: txInfos.gasPrice,
+                        data: txInfos.input,
+                        nonce: txInfos.nonce,
+                        value: txInfos.value
+                    }));
+                });
             })
                 .on('error', (_error) => {
                 if (transaction_hash === undefined) {

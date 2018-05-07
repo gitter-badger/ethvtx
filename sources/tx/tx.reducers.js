@@ -14,7 +14,7 @@ exports.tx = (state = {}, action) => {
                         transaction_hash: action.txHash,
                         transaction_receipt: action.receipt,
                         timestamp: Date.now()
-                    } }) });
+                    }, transaction_arguments: Object.assign({}, state[action.txHash].transaction_arguments, action.txArgs) }) });
         case 'TX_CONFIRMED':
             return Object.assign({}, state, { [action.txHash]: Object.assign({}, state[action.txHash], { status: {
                         type: 'CONFIRMED',
