@@ -24,7 +24,7 @@ exports.AccountUpdate = (address, balance, coinbase = false) => {
 exports.AccountError = (address, error) => {
     return {
         type: 'ACCOUNT_ERROR',
-        address,
+        address: address.toLowerCase(),
         error
     };
 };
@@ -34,6 +34,6 @@ exports.AccountConfig = (config) => {
 exports.AccountUpdateRequest = (address) => {
     return {
         type: 'ACCOUNT_UPDATE_REQUEST',
-        address
+        address: address.toLowerCase()
     };
 };

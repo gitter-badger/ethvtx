@@ -6,6 +6,14 @@ const vortex_1 = require("../vortex");
 const redux_saga_1 = require("redux-saga");
 const feed_actions_1 = require("../feed/feed.actions");
 const accounts_actions_1 = require("../accounts/accounts.actions");
+const bn_js_1 = require("bn.js");
+const toLower = [
+    "to",
+    "from",
+    "gas",
+    "gasPrice",
+    "value"
+];
 function* sendTransaction(action) {
     let transaction_hash;
     return redux_saga_1.eventChannel((emit) => {
@@ -19,6 +27,11 @@ function* sendTransaction(action) {
                     action.resolvers = undefined;
                 }
                 emit(feed_actions_1.FeedNewTransaction(_transaction_hash));
+                Object.keys(action.txArgs).forEach((key) => {
+                    if (toLower.indexOf(key) !== -1) {
+                        action.txArgs[key] = action.txArgs[key].toLowerCase();
+                    }
+                });
                 emit(tx_actions_1.TxBroadcasted(_transaction_hash, action.txArgs));
             })
                 .on('confirmation', (_amount, _receipt) => {
@@ -34,15 +47,14 @@ function* sendTransaction(action) {
             })
                 .on('receipt', (_receipt) => {
                 action.web3.eth.getTransaction(transaction_hash).then((txInfos) => {
-                    console.log(txInfos);
                     vortex_1.Vortex.get().Store.dispatch(tx_actions_1.TxReceipt(transaction_hash, _receipt, {
                         from: txInfos.from.toLowerCase(),
                         to: txInfos.to.toLowerCase(),
-                        gas: txInfos.gas.toString(),
-                        gasPrice: txInfos.gasPrice,
+                        gas: '0x' + (new bn_js_1.BN(txInfos.gas)).toString(16).toLowerCase(),
+                        gasPrice: '0x' + (new bn_js_1.BN(txInfos.gasPrice)).toString(16).toLowerCase(),
                         data: txInfos.input,
                         nonce: txInfos.nonce,
-                        value: txInfos.value
+                        value: '0x' + (new bn_js_1.BN(txInfos.value)).toString(16).toLowerCase()
                     }));
                 });
             })
@@ -116,7 +128,6 @@ function* sendRawTransaction(action) {
                     if (from) {
                         emit(accounts_actions_1.AccountUpdateRequest(from));
                     }
-                    // TODO Recover from and to in receipt
                     emit(accounts_actions_1.AccountUpdateRequest(coinbase));
                 }
                 if (_amount >= 24)
@@ -129,11 +140,11 @@ function* sendRawTransaction(action) {
                     vortex_1.Vortex.get().Store.dispatch(tx_actions_1.TxReceipt(transaction_hash, _receipt, {
                         from: txInfos.from.toLowerCase(),
                         to: txInfos.to.toLowerCase(),
-                        gas: txInfos.gas.toString(),
-                        gasPrice: txInfos.gasPrice,
+                        gas: '0x' + (new bn_js_1.BN(txInfos.gas)).toString(16).toLowerCase(),
+                        gasPrice: '0x' + (new bn_js_1.BN(txInfos.gasPrice)).toString(16).toLowerCase(),
                         data: txInfos.input,
                         nonce: txInfos.nonce,
-                        value: txInfos.value
+                        value: '0x' + (new bn_js_1.BN(txInfos.value)).toString(16).toLowerCase()
                     }));
                 });
             })

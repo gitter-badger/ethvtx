@@ -9,6 +9,14 @@ const contracts_actions_1 = require("./contracts.actions");
 const tx_actions_1 = require("../tx/tx.actions");
 const vortex_1 = require("../vortex");
 const accounts_actions_1 = require("../accounts/accounts.actions");
+const bn_js_1 = require("bn.js");
+const toLower = [
+    "to",
+    "from",
+    "gas",
+    "gasPrice",
+    "value"
+];
 function runForceRefreshRoundOn(state, emit, contractName, instance_address) {
     Object.keys(state.contracts[contractName][instance_address].instance.vortex).forEach((methodName) => {
         if (state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache) {
@@ -37,7 +45,9 @@ function* backgroundContractLoad() {
             const state = vortex_1.Vortex.get().Store.getState();
             runForceRefreshRound(state, emit);
         }, 15000);
-        return (() => { clearInterval(interval_id); });
+        return (() => {
+            clearInterval(interval_id);
+        });
     });
 }
 function* loadContract(contractName, contractAddress, userAddress, web3) {
@@ -106,7 +116,8 @@ function* contractCall(action, tx, arg_signature) {
             if (action.resolvers)
                 action.resolvers.error(error);
         });
-        return (() => { });
+        return (() => {
+        });
     });
 }
 function* onContractCall(action) {
@@ -141,6 +152,11 @@ function* contractSend(action, tx, web3) {
                     action.resolvers = undefined;
                 }
                 emit(feed_actions_1.FeedNewTransaction(_transaction_hash));
+                Object.keys(action.transactionArgs).forEach((key) => {
+                    if (toLower.indexOf(key) !== -1 && typeof (action.transactionArgs[key]) === 'string') {
+                        action.transactionArgs[key] = action.transactionArgs[key].toLowerCase();
+                    }
+                });
                 emit(tx_actions_1.TxBroadcasted(_transaction_hash, action.transactionArgs));
             })
                 .on('confirmation', (_amount, _receipt) => {
@@ -157,15 +173,14 @@ function* contractSend(action, tx, web3) {
             })
                 .on('receipt', (_receipt) => {
                 web3.eth.getTransaction(transaction_hash).then((txInfos) => {
-                    console.log(txInfos);
                     vortex_1.Vortex.get().Store.dispatch(tx_actions_1.TxReceipt(transaction_hash, _receipt, {
                         from: txInfos.from.toLowerCase(),
                         to: txInfos.to.toLowerCase(),
-                        gas: txInfos.gas.toString(),
-                        gasPrice: txInfos.gasPrice,
+                        gas: '0x' + (new bn_js_1.BN(txInfos.gas)).toString(16).toLowerCase(),
+                        gasPrice: '0x' + (new bn_js_1.BN(txInfos.gasPrice)).toString(16).toLowerCase(),
                         data: txInfos.input,
                         nonce: txInfos.nonce,
-                        value: txInfos.value
+                        value: '0x' + (new bn_js_1.BN(txInfos.value)).toString(16).toLowerCase()
                     }));
                 });
             })
@@ -194,7 +209,9 @@ function* contractSend(action, tx, web3) {
             }
             emit(redux_saga_1.END);
         }
-        return (() => { tx_events.off(); });
+        return (() => {
+            tx_events.off();
+        });
     });
 }
 function* onContractSend(action) {
