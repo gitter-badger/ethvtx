@@ -16,7 +16,7 @@
 
 VortΞx is an Ethereum Dapp redux store that handles transactions, smart contracts, accounts, method calls, web3 status ... Very easy to use with React, it will allow your Dapp to be more reactive (no need to refresh anything), and will make less requests with web3, for even better results.
 
-## [Documentation](https://vort-x.rtfd.io)
+## [Documentation](https://vort-x.readthedocs.io/)
 
 ## Installation
 
