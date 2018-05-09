@@ -27,13 +27,13 @@ function loopOnAccounts(emit) {
                 })
                     .catch((e) => {
                     emit(accounts_actions_1.AccountError(address, e));
-                    emit(feed_actions_1.FeedNewError(e, e.message, "[accounts.sagas.ts][loopOnAccounts] Trying to fetch account informations."));
+                    emit(feed_actions_1.FeedNewError(e, e.message, "[accounts.sagas.ts][loopOnAccounts] Trying to fetch accounts.md informations."));
                     ko(e);
                 });
             });
             if (running)
                 loopOnAccounts(emit).catch((e) => {
-                    emit(feed_actions_1.FeedNewError(e, e.message, "[accounts.sagas.ts][loopOnAccounts] Trying to fetch account informations."));
+                    emit(feed_actions_1.FeedNewError(e, e.message, "[accounts.sagas.ts][loopOnAccounts] Trying to fetch accounts.md informations."));
                     ko(e);
                 });
         }, refresh_rate);
@@ -43,7 +43,7 @@ function* refreshLoop() {
     return redux_saga_1.eventChannel((emit) => {
         running = true;
         loopOnAccounts(emit).catch((e) => {
-            emit(feed_actions_1.FeedNewError(e, e.message, "[accounts.sagas.ts][loopOnAccounts] Trying to fetch account informations."));
+            emit(feed_actions_1.FeedNewError(e, e.message, "[accounts.sagas.ts][loopOnAccounts] Trying to fetch accounts.md informations."));
             emit(redux_saga_1.END);
         });
         return (() => {
@@ -74,7 +74,7 @@ function* singleFetch(action, new_address, coinbase) {
             emit(redux_saga_1.END);
         }).catch((e) => {
             emit(accounts_actions_1.AccountError(action.address, e));
-            emit(feed_actions_1.FeedNewError(e, e.message, "[accounts.sagas.ts][singleFetch] Trying to fetch account informations."));
+            emit(feed_actions_1.FeedNewError(e, e.message, "[accounts.sagas.ts][singleFetch] Trying to fetch accounts.md informations."));
             emit(redux_saga_1.END);
         });
         return (() => {
