@@ -18,18 +18,20 @@ function TxSend(txArgs, web3, resolvers) {
     };
 }
 exports.TxSend = TxSend;
-function TxBroadcasted(txHash) {
+function TxBroadcasted(txHash, txArgs) {
     return ({
         type: 'TX_BROADCASTED',
-        txHash
+        txHash,
+        txArgs
     });
 }
 exports.TxBroadcasted = TxBroadcasted;
-function TxReceipt(txHash, receipt) {
+function TxReceipt(txHash, receipt, txArgs) {
     return ({
         type: 'TX_RECEIPT',
         txHash,
-        receipt
+        receipt,
+        txArgs
     });
 }
 exports.TxReceipt = TxReceipt;

@@ -49,7 +49,24 @@ export interface TransactionErrorState {
     timestamp: number
 }
 
-export type TransactionState = TransactionBroadcastedState | TransactionReceiptState | TransactionConfirmedState | TransactionErrorState;
+export interface TransactionArgumentState {
+    from?: any,
+    to?: any,
+    value?: any,
+    data?: any,
+    gas?: any,
+    gasPrice?: any,
+    nonce?: any,
+}
+
+export interface RawTransactionArgumentState {
+    signed_transaction: string
+}
+
+export interface TransactionState {
+    status: TransactionBroadcastedState | TransactionReceiptState | TransactionConfirmedState | TransactionErrorState,
+    transaction_arguments: TransactionArgumentState | RawTransactionArgumentState ;
+}
 
 export interface TransactionStoreState {
     [key: string]: TransactionState;
@@ -69,25 +86,61 @@ export interface ContractStoreState {
     [key: string]: ContractAddressesState;
 }
 
-export interface FeedNewContractState {
+interface FeedHeader {
     action: string,
+    timestamp: number
+}
+
+export interface FeedNewContractState extends FeedHeader {
     contract_name: string,
     contract_address: string,
-    timestamp: number
 }
 
-export interface FeedNewTransactionState {
-    action: string,
+export interface FeedNewTransactionState extends FeedHeader {
     transaction_hash: string,
-    timestamp: number
 }
 
-export type FeedState = FeedNewContractState | FeedNewTransactionState;
+export interface FeedNewErrorErrorState {
+    reason: any,
+    message: string,
+    when: string
+}
+
+export interface FeedNewErrorState extends FeedHeader {
+    error: FeedNewErrorErrorState,
+}
+
+export interface FeedNewAccountState extends FeedHeader{
+    account: string,
+    coinbase: boolean
+}
+
+export type FeedState = FeedNewContractState | FeedNewTransactionState | FeedNewErrorState | FeedNewAccountState;
+
+export interface AccountInfoState {
+    balance: string,
+    coinbase: boolean
+}
+
+export interface AccountConfigState {
+    refresh_rate: number
+}
+
+export interface AccountErrorState {
+    error: any
+}
+
+export type AccountState = AccountInfoState | AccountConfigState | AccountErrorState;
+
+export interface AccountStoreState {
+    [key:string]: AccountState
+}
 
 export interface State {
     web3: Web3State,
     tx: TransactionStoreState,
     contracts: ContractStoreState,
-    feed: FeedState[]
+    feed: FeedState[],
+    accounts: AccountStoreState
 }
 

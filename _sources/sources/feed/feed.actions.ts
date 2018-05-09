@@ -24,4 +24,32 @@ export function FeedNewContract(contractName: string, address: string): FeedNewC
     });
 }
 
-export type FeedActions = FeedNewContractAction | FeedNewTransactionAction;
+export interface FeedNewErrorAction extends Action {
+    reason: any,
+    message: string,
+    when: string
+}
+
+export function FeedNewError(reason: any, message: string, when: string): FeedNewErrorAction {
+    return {
+        type: 'FEED_NEW_ERROR',
+        reason,
+        message,
+        when
+    } as FeedNewErrorAction;
+}
+
+export interface FeedNewAccountAction extends Action {
+    account: string,
+    coinbase: boolean
+}
+
+export function FeedNewAccount(account: string, coinbase: boolean): FeedNewAccountAction {
+    return {
+        type: 'FEED_NEW_ACCOUNT',
+        account,
+        coinbase
+    } as FeedNewAccountAction;
+}
+
+export type FeedActions = FeedNewContractAction | FeedNewTransactionAction | FeedNewErrorAction | FeedNewAccountAction;

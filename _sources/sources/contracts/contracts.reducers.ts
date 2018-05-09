@@ -55,27 +55,87 @@ const contractErrorReducer: Reducer<ContractStoreState, ContractErrorAction> = (
 };
 
 const contractVarReceivedReducer: Reducer<ContractStoreState, ContractVarReceivedAction> = (state: ContractStoreState, action: ContractVarReceivedAction): ContractStoreState => {
-    state[action.contractName][action.contractAddress.toLowerCase()].instance.methods[action.methodName].vortexCache[action.methodHash] = {
-        data: action.result,
-        synced: true,
+    return {
+        ...state,
+        [action.contractName]: {
+            ...state[action.contractName],
+            [action.contractAddress.toLowerCase()]: {
+                ...state[action.contractName][action.contractAddress.toLowerCase()],
+                instance: {
+                    ...state[action.contractName][action.contractAddress.toLowerCase()].instance,
+                    vortex: {
+                        ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortex,
+                        [action.methodName]: {
+                            ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortex[action.methodName],
+                            vortexCache: {
+                                ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortex[action.methodName].vortexCache,
+                                [action.methodHash]: {
+                                    data: action.result,
+                                    synced: true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     };
-    return state;
 };
 
 const contractVarErrorReceivedReducer: Reducer<ContractStoreState, ContractVarErrorReceivedAction> = (state: ContractStoreState, action: ContractVarErrorReceivedAction): ContractStoreState => {
-    state[action.contractName][action.contractAddress.toLowerCase()].instance.methods[action.methodName].vortexCache[action.methodHash] = {
-        error: action.error,
-        synced: true,
+    return {
+        ...state,
+        [action.contractName]: {
+            ...state[action.contractName],
+            [action.contractAddress.toLowerCase()]: {
+                ...state[action.contractName][action.contractAddress.toLowerCase()],
+                instance: {
+                    ...state[action.contractName][action.contractAddress.toLowerCase()].instance,
+                    vortex: {
+                        ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortex,
+                        [action.methodName]: {
+                            ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortex[action.methodName],
+                            vortexCache: {
+                                ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortex[action.methodName].vortexCache,
+                                [action.methodHash]: {
+                                    error: action.error,
+                                    synced: true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     };
-    return state;
 };
 
 const contractVarForceRefreshReducer: Reducer<ContractStoreState, ContractVarForceRefreshAction> = (state: ContractStoreState, action: ContractVarForceRefreshAction): ContractStoreState => {
-    state[action.contractName][action.contractAddress.toLowerCase()].instance.methods[action.methodName].vortexCache[action.methodHash] = {
-        ...state[action.contractName][action.contractAddress.toLowerCase()].instance.methods[action.methodName].vortexCache[action.methodHash],
-        synced: false,
+    return {
+        ...state,
+        [action.contractName]: {
+            ...state[action.contractName],
+            [action.contractAddress.toLowerCase()]: {
+                ...state[action.contractName][action.contractAddress.toLowerCase()],
+                instance: {
+                    ...state[action.contractName][action.contractAddress.toLowerCase()].instance,
+                    vortex: {
+                        ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortex,
+                        [action.methodName]: {
+                            ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortex[action.methodName],
+                            vortexCache: {
+                                ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortex[action.methodName].vortexCache,
+                                [action.methodHash]: {
+                                    ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortex[action.methodName].vortexCache[action.methodHash],
+                                    synced: false
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     };
-    return state;
 };
 
 export const contracts: Reducer<ContractStoreState, ContractActions> = (state: ContractStoreState = {}, action: ContractActions): ContractStoreState => {

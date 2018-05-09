@@ -1,4 +1,5 @@
 import {Action} from "redux";
+import {RawTransactionArgumentState, TransactionArgumentState} from "../stateInterface";
 
 export interface TxSendRawAction extends Action {
     signedTx: string,
@@ -21,7 +22,7 @@ export interface TxSendAction extends Action {
     resolvers: any
 }
 
-export function TxSend(txArgs: any, web3: any, resolvers: any): TxSendAction {
+export function TxSend(txArgs: TransactionArgumentState, web3: any, resolvers: any): TxSendAction {
     return {
         type: 'TX_SEND',
         txArgs,
@@ -31,26 +32,40 @@ export function TxSend(txArgs: any, web3: any, resolvers: any): TxSendAction {
 }
 
 export interface TxBroadcastedAction extends Action {
-    txHash: string
+    txHash: string,
+    txArgs: TransactionArgumentState | RawTransactionArgumentState
 }
 
-export function TxBroadcasted(txHash: string): TxBroadcastedAction {
+export function TxBroadcasted(txHash: string, txArgs: TransactionArgumentState | RawTransactionArgumentState): TxBroadcastedAction {
     return ({
         type: 'TX_BROADCASTED',
-        txHash
+        txHash,
+        txArgs
     });
+}
+
+export interface TxReceiptTxArgs {
+    from?: string,
+    gas?: string,
+    gasPrice?: string,
+    data?: string,
+    nonce?: number,
+    to?: string,
+    value?: string
 }
 
 export interface TxReceiptAction extends Action {
     txHash: string,
-    receipt: any
+    receipt: any,
+    txArgs: TxReceiptTxArgs
 }
 
-export function TxReceipt(txHash: string, receipt: any): TxReceiptAction {
+export function TxReceipt(txHash: string, receipt: any, txArgs: TxReceiptTxArgs): TxReceiptAction {
     return ({
         type: 'TX_RECEIPT',
         txHash,
-        receipt
+        receipt,
+        txArgs
     });
 }
 

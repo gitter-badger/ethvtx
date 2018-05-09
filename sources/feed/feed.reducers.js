@@ -21,6 +21,30 @@ exports.feed = (state = [], action) => {
             return [
                 ...state
             ];
+        case 'FEED_NEW_ERROR':
+            console.warn("[Feed Error]: " + action.message + " => " + action.when);
+            state.push({
+                action: 'NEW_ERROR',
+                error: {
+                    reason: action.reason,
+                    message: action.message,
+                    when: action.when
+                },
+                timestamp: Date.now()
+            });
+            return [
+                ...state
+            ];
+        case 'FEED_NEW_ACCOUNT':
+            state.push({
+                action: 'NEW_ACCOUNT',
+                account: action.account,
+                coinbase: action.coinbase,
+                timestamp: Date.now()
+            });
+            return [
+                ...state
+            ];
         default:
             return state;
     }

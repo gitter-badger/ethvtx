@@ -4,7 +4,7 @@ declare var describe: any;
 declare var test: any;
 declare var expect: any;
 
-import {generateStore} from './generateStore';
+import {generateStore, GeneratorConfig} from './generateStore';
 import * as Migrations from '../../setup/truffle/build/contracts/Migrations.json';
 import {Reducer, Action, DeepPartial, ReducersMapObject} from "redux";
 import {State} from "./stateInterface";
@@ -15,7 +15,7 @@ let store;
 let _web3;
 const getWeb3: Promise<any> = new Promise<any>((ok: (arg?: any) => void, ko: (arg?: any) => void): void => {
     try {
-        _web3 = new (<any>Web3)(new (<any>Web3).providers.HttpProvider("http://localhost:8545"));
+        _web3 = new (<any>Web3)(new (<any>Web3).providers.HttpProvider("http://localhost:8546"));
         ok(_web3);
     } catch (e) {
         ko(e);
@@ -69,7 +69,10 @@ describe("generateStore", () => {
                 testStateProperty: dummyreducer
             };
 
-            store = generateStore<testState>([Migrations], reducermap, {testStateProperty: 23} as DeepPartial<testState>);
+            store = generateStore<testState>([Migrations], {
+                reducer: reducermap,
+                custom_state: {testStateProperty: 23} as DeepPartial<testState>
+            } as GeneratorConfig<testState>);
             let state: testState = store.getState();
             expect(state.testStateProperty).toBe(23);
         });

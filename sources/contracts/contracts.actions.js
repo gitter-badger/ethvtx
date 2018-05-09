@@ -82,3 +82,11 @@ function ContractVarForceRefresh(contractName, contractAddress, methodName, meth
     };
 }
 exports.ContractVarForceRefresh = ContractVarForceRefresh;
+function ContractLoad(contractName, contractAddress) {
+    return {
+        type: 'CONTRACT_LOAD',
+        contractName,
+        contractAddress
+    };
+}
+exports.ContractLoad = ContractLoad;

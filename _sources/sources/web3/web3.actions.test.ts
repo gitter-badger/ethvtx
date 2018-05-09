@@ -7,7 +7,7 @@ declare var expect: any;
 describe("Web3 Actions", () => {
 
     test("Web3Load", () => {
-        expect(Web3Load(new Promise<any>((ok: any, ko: any): void => {})).type).toBe('LOAD_WEB3');
+        expect(Web3Load((new Promise<any>((ok: any, ko: any): void => {})), []).type).toBe('LOAD_WEB3');
     });
 
     test("Web3Loaded", () => {

@@ -4,5 +4,6 @@ exports.dummyReducer = {
     web3: {},
     tx: {},
     contracts: {},
-    feed: {}
+    feed: {},
+    accounts: {}
 };
