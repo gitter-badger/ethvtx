@@ -1,7 +1,7 @@
 {
   "name": "vort_x",
-  "version": "0.0.4",
-  "description": "[FlexProject][VortΞx] is an Ethereum Dapp Redux Store that handles transactions, smart contracts, events ...",
+  "version": "1.0.0",
+  "description": "[VortΞx] is an Ethereum Dapp Redux Store that handles transactions, smart contracts, accounts, method calls ...",
   "main": "index.js",
   "directories": {
     "doc": "doc",
