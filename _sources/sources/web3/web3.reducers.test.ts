@@ -10,7 +10,7 @@ let state = undefined;
 describe("Web3 Reducers", () => {
 
     test("Web3Load", () => {
-        state = web3(state, Web3Load(new Promise<any>((ok: any, ko: any): void => {})));
+        state = web3(state, Web3Load(new Promise<any>((ok: any, ko: any): void => {}), []));
         expect(state.status).toBe('LOADING');
     });
 

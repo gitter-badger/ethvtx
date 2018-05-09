@@ -19,6 +19,15 @@ import {
 } from "../tx/tx.actions";
 import {Vortex} from "../vortex";
 import {AccountUpdateRequest} from "../accounts/accounts.actions";
+import {BN} from 'bn.js';
+
+const toLower: string[] = [
+    "to",
+    "from",
+    "gas",
+    "gasPrice",
+    "value"
+];
 
 export function runForceRefreshRoundOn(state: State, emit: (arg?: any) => void, contractName: string, instance_address: string): void {
     Object.keys(state.contracts[contractName][instance_address].instance.vortex).forEach((methodName: string): void => {
@@ -42,7 +51,7 @@ export function runForceRefreshRound(state: State, emit: (arg?: any) => void): v
     });
 }
 
-function *backgroundContractLoad(): SagaIterator {
+function* backgroundContractLoad(): SagaIterator {
 
 
     return eventChannel((emit: (arg?: any) => void): Unsubscribe => {
@@ -51,7 +60,9 @@ function *backgroundContractLoad(): SagaIterator {
             runForceRefreshRound(state, emit);
         }, 15000);
 
-        return ((): void => { clearInterval(interval_id) });
+        return ((): void => {
+            clearInterval(interval_id)
+        });
     });
 }
 
@@ -62,11 +73,11 @@ function* loadContract(contractName: string, contractAddress: string, userAddres
         const error = new Error("Unable to recover artifact for contract " + contractName + ":" + contractAddress);
         yield put(ContractError(contractName, contractAddress, error));
         yield put(FeedNewError(error, error.message, "[contracts.saga.ts][loadContract] Trying to load artifact."));
-        return ;
+        return;
     }
     if (contracts[contractName][contractAddress]) {
         console.warn("Contract already in store");
-        return ;
+        return;
     }
     yield put(ContractLoading(contractName, contractAddress));
     let vortex_contract: any;
@@ -81,7 +92,7 @@ function* loadContract(contractName: string, contractAddress: string, userAddres
     yield put(FeedNewContract(contractName, contractAddress));
 }
 
-function *onLoadContractInitialize(action: Web3LoadedAction): SagaIterator {
+function* onLoadContractInitialize(action: Web3LoadedAction): SagaIterator {
     const contracts = (yield select()).contracts;
     const contractNames = Object.keys(contracts);
     try {
@@ -89,7 +100,7 @@ function *onLoadContractInitialize(action: Web3LoadedAction): SagaIterator {
             if (contracts[contractNames[idx]].artifact.networks) {
                 if (contracts[contractNames[idx]].artifact.networks[action.networkId] === undefined) {
                     console.warn("Contract " + contractNames[idx] + " has no instance on current network");
-                    break ;
+                    break;
                 }
                 yield* loadContract(contractNames[idx], contracts[contractNames[idx]].artifact.networks[action.networkId].address.toLowerCase(), action.coinbase, action._);
             }
@@ -123,7 +134,8 @@ function* contractCall(action: ContractCallAction, tx: any, arg_signature: strin
                 action.resolvers.error(error);
         });
 
-        return ((): void => {});
+        return ((): void => {
+        });
     });
 
 }
@@ -163,6 +175,11 @@ function* contractSend(action: ContractSendAction, tx: any, web3: any): SagaIter
                         action.resolvers = undefined;
                     }
                     emit(FeedNewTransaction(_transaction_hash));
+                    Object.keys(action.transactionArgs).forEach((key: string): void => {
+                        if (toLower.indexOf(key) !== -1 && typeof(action.transactionArgs[key]) === 'string') {
+                            action.transactionArgs[key] = action.transactionArgs[key].toLowerCase();
+                        }
+                    });
                     emit(TxBroadcasted(_transaction_hash, action.transactionArgs));
                 })
                 .on('confirmation', (_amount: number, _receipt: any): void => {
@@ -182,11 +199,11 @@ function* contractSend(action: ContractSendAction, tx: any, web3: any): SagaIter
                         Vortex.get().Store.dispatch(TxReceipt(transaction_hash, _receipt, {
                             from: txInfos.from.toLowerCase(),
                             to: txInfos.to.toLowerCase(),
-                            gas: txInfos.gas.toString(),
-                            gasPrice: txInfos.gasPrice,
+                            gas: '0x' + (new BN(txInfos.gas)).toString(16).toLowerCase(),
+                            gasPrice: '0x' + (new BN(txInfos.gasPrice)).toString(16).toLowerCase(),
                             data: txInfos.input,
                             nonce: txInfos.nonce,
-                            value: txInfos.value
+                            value: '0x' + (new BN(txInfos.value)).toString(16).toLowerCase()
                         }));
                     });
                 })
@@ -215,7 +232,9 @@ function* contractSend(action: ContractSendAction, tx: any, web3: any): SagaIter
             emit(END);
         }
 
-        return ((): void => {tx_events.off()})
+        return ((): void => {
+            tx_events.off()
+        })
     });
 
 }

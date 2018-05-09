@@ -12,7 +12,15 @@ import {SagaIterator, eventChannel, END} from "redux-saga";
 import {Unsubscribe} from "redux";
 import {FeedNewError, FeedNewTransaction} from "../feed/feed.actions";
 import {AccountUpdateRequest} from "../accounts/accounts.actions";
+import {BN} from 'bn.js';
 
+const toLower: string[] = [
+    "to",
+    "from",
+    "gas",
+    "gasPrice",
+    "value"
+];
 
 function* sendTransaction(action: TxSendAction): SagaIterator {
     let transaction_hash: string;
@@ -29,6 +37,11 @@ function* sendTransaction(action: TxSendAction): SagaIterator {
                         action.resolvers = undefined;
                     }
                     emit(FeedNewTransaction(_transaction_hash));
+                    Object.keys(action.txArgs).forEach((key: string): void => {
+                        if (toLower.indexOf(key) !== -1) {
+                            action.txArgs[key] = action.txArgs[key].toLowerCase();
+                        }
+                    });
                     emit(TxBroadcasted(_transaction_hash, action.txArgs));
                 })
                 .on('confirmation', (_amount: number, _receipt: any): void => {
@@ -47,11 +60,11 @@ function* sendTransaction(action: TxSendAction): SagaIterator {
                         Vortex.get().Store.dispatch(TxReceipt(transaction_hash, _receipt, {
                             from: txInfos.from.toLowerCase(),
                             to: txInfos.to.toLowerCase(),
-                            gas: txInfos.gas.toString(),
-                            gasPrice: txInfos.gasPrice,
+                            gas: '0x' + (new BN(txInfos.gas)).toString(16).toLowerCase(),
+                            gasPrice: '0x' + (new BN(txInfos.gasPrice)).toString(16).toLowerCase(),
                             data: txInfos.input,
                             nonce: txInfos.nonce,
-                            value: txInfos.value
+                            value: '0x' + (new BN(txInfos.value)).toString(16).toLowerCase()
                         }));
                     });
                 })
@@ -140,11 +153,11 @@ function* sendRawTransaction(action: TxSendRawAction): SagaIterator {
                         Vortex.get().Store.dispatch(TxReceipt(transaction_hash, _receipt, {
                             from: txInfos.from.toLowerCase(),
                             to: txInfos.to.toLowerCase(),
-                            gas: txInfos.gas.toString(),
-                            gasPrice: txInfos.gasPrice,
+                            gas: '0x' + (new BN(txInfos.gas)).toString(16).toLowerCase(),
+                            gasPrice: '0x' + (new BN(txInfos.gasPrice)).toString(16).toLowerCase(),
                             data: txInfos.input,
                             nonce: txInfos.nonce,
-                            value: txInfos.value
+                            value: '0x' + (new BN(txInfos.value)).toString(16).toLowerCase()
                         }));
                     });
                 })
