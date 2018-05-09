@@ -17,7 +17,7 @@ let running: boolean = false;
 function fetchAccount(address: string, coinbase: boolean, emit: (arg?: any) => void): Promise<void> {
     return new Promise<void>((ok: (arg?: any) => void, ko: (arg?: any) => void): void => {
         (<Web3LoadedState>Vortex.get().Store.getState().web3)._.eth.getBalance(address).then((balance: any) => {
-            Vortex.get().Store.dispatch(AccountUpdate(address, balance, coinbase));
+            emit(AccountUpdate(address, balance, coinbase));
             ok();
         }).catch((e: Error): void => {
             ko(e);

@@ -9,7 +9,7 @@ let running = false;
 function fetchAccount(address, coinbase, emit) {
     return new Promise((ok, ko) => {
         vortex_1.Vortex.get().Store.getState().web3._.eth.getBalance(address).then((balance) => {
-            vortex_1.Vortex.get().Store.dispatch(accounts_actions_1.AccountUpdate(address, balance, coinbase));
+            emit(accounts_actions_1.AccountUpdate(address, balance, coinbase));
             ok();
         }).catch((e) => {
             ko(e);

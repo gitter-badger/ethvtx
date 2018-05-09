@@ -30,6 +30,7 @@ var feed_actions_1 = require("./sources/feed/feed.actions");
 exports.FeedNewTransaction = feed_actions_1.FeedNewTransaction;
 exports.FeedNewContract = feed_actions_1.FeedNewContract;
 exports.FeedNewError = feed_actions_1.FeedNewError;
+exports.FeedNewAccount = feed_actions_1.FeedNewAccount;
 var feed_selectors_1 = require("./sources/feed/feed.selectors");
 exports.FeedType = feed_selectors_1.FeedType;
 exports.FeedFilter = feed_selectors_1.FeedFilter;

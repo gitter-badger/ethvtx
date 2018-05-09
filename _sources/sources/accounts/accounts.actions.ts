@@ -48,7 +48,7 @@ export interface AccountErrorAction extends Action {
 export const AccountError = (address: string, error: any): AccountErrorAction => {
     return {
         type: 'ACCOUNT_ERROR',
-        address,
+        address: address.toLowerCase(),
         error
     } as AccountErrorAction;
 };
@@ -70,7 +70,7 @@ export interface AccountUpdateRequestAction extends Action {
 export const AccountUpdateRequest = (address: string): AccountUpdateRequestAction => {
     return {
         type: 'ACCOUNT_UPDATE_REQUEST',
-        address
+        address: address.toLowerCase()
     } as AccountUpdateRequestAction;
 };
 

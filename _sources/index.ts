@@ -26,7 +26,8 @@ export {
     AccountStoreState,
     AccountInfoState,
     AccountErrorState,
-    AccountConfigState, FeedNewAccountState
+    AccountConfigState,
+    FeedNewAccountState
 } from './sources/stateInterface';
 export {dummyReducer} from './sources/dummyReducer';
 export {
@@ -53,7 +54,8 @@ export {
     TxSend,
     TxSendAction,
     TxSendRaw,
-    TxSendRawAction
+    TxSendRawAction,
+    TxReceiptTxArgs
 } from './sources/tx/tx.actions';
 export {
     ContractLoadAction,
@@ -83,7 +85,9 @@ export {
     FeedNewContractAction,
     FeedNewTransactionAction,
     FeedActions,
-    FeedNewError
+    FeedNewError,
+    FeedNewAccountAction,
+    FeedNewAccount
 } from './sources/feed/feed.actions';
 export {
     FeedType, FeedFilter, FeedFilterContracts, FeedFilterErrors, FeedFilterTransactions, FeedFilterAccounts
