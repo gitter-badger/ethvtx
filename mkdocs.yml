@@ -10,7 +10,7 @@ pages:
     - 'AccountConfigState': reference/interfaces/accountconfigstate.md
     - 'AccountErrorState': reference/interfaces/accounterrorstate.md
     - 'AccountInfoState': reference/interfaces/accountinfostate.md
-    - 'AccountStoreState': reference/interfaces/accountStorestate.md
+    - 'AccountStoreState': reference/interfaces/accountstorestate.md
     - 'ContractAddressState': reference/interfaces/contractaddressesstate.md
     - 'ContractInstanceState': reference/interfaces/contractinstancestate.md
     - 'ContractStoreState': reference/interfaces/contractstorestate.md
