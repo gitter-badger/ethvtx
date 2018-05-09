@@ -15,7 +15,7 @@ npm install --save vort_x vort_x-components
 
 #### Creating a classic VortΞx instance
 
-Creating a [VortΞx](./reference/classes/vortex.md) instance is quite easy. Start by import the VortΞx class from the `vort_x` package.
+Creating a [VortΞx](./reference/classes/vortex.md) instance is quite easy. Start by importing the Vortex class from the `vort_x` package.
 
 ```javascript
 // ES6 or TS
@@ -232,6 +232,8 @@ const mapStateToProps = (state) => {
 export const AccountFollower = connect(_AccountFollower, mapStateToProps);
 ```
 
+![VortexAccount](./illustrations/account.png)
+
 ###### Props
 
 * **element** (mandatory)
@@ -338,6 +340,8 @@ export class Overlay extends Component {
 }
 ```
 
+![VortexFeedList](./illustrations/overlay.png)
+
 The above example uses the `react-sliding-pane` library to create a sliding pane containing every single Feed element. If you want your VortexFeedList to only render Transactions and Contracts, you can give `filter={FeedType.Transactions | FeedType.Contracts}` as `filter` prop.
 
 ###### Props
@@ -435,6 +439,8 @@ export class ListTransactions extends React.Component {
 
 }
 ```
+
+![VortexTransactionsList](./illustrations/transactions_list.png)
 
 ###### Props
 
@@ -564,6 +570,8 @@ export class ListContracts extends React.Component {
 
 }
 ```
+
+![VortexContractsList](./illustrations/contract_list.png)
 
 ###### Props
 
