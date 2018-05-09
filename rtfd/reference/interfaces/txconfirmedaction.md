@@ -29,7 +29,7 @@
 
 **● confirmationCount**: *`number`*
 
-*Defined in tx/tx.actions.ts:60*
+*Defined in tx/tx.actions.ts:75*
 
 ___
 <a id="confirmationreceipt"></a>
@@ -38,7 +38,7 @@ ___
 
 **● confirmationReceipt**: *`any`*
 
-*Defined in tx/tx.actions.ts:59*
+*Defined in tx/tx.actions.ts:74*
 
 ___
 <a id="txhash"></a>
@@ -47,7 +47,7 @@ ___
 
 **● txHash**: *`string`*
 
-*Defined in tx/tx.actions.ts:58*
+*Defined in tx/tx.actions.ts:73*
 
 ___
 <a id="type"></a>
@@ -58,7 +58,7 @@ ___
 
 *Inherited from Action.type*
 
-*Defined in /Users/irotaru/WebstormProjects/vortex/node_modules/redux/index.d.ts:20*
+*Defined in /Users/irotaru/Vortex/vortex/node_modules/redux/index.d.ts:20*
 
 ___
 

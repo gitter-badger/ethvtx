@@ -1,20 +1,20 @@
-[VortΞx](../README.md) > [FeedNewTransactionState](../interfaces/feednewtransactionstate.md)
+[VortΞx](../README.md) > [FeedNewErrorState](../interfaces/feednewerrorstate.md)
 
-# Interface: FeedNewTransactionState
+# Interface: FeedNewErrorState
 
 ## Hierarchy
 
  [FeedHeader](feedheader.md)
 
-**↳ FeedNewTransactionState**
+**↳ FeedNewErrorState**
 
 ## Index
 
 ### Properties
 
-* [action](feednewtransactionstate.md#action)
-* [timestamp](feednewtransactionstate.md#timestamp)
-* [transaction_hash](feednewtransactionstate.md#transaction_hash)
+* [action](feednewerrorstate.md#action)
+* [error](feednewerrorstate.md#error)
+* [timestamp](feednewerrorstate.md#timestamp)
 
 ---
 
@@ -31,6 +31,15 @@
 *Defined in stateInterface.ts:90*
 
 ___
+<a id="error"></a>
+
+###  error
+
+**● error**: *[FeedNewErrorErrorState](feednewerrorerrorstate.md)*
+
+*Defined in stateInterface.ts:110*
+
+___
 <a id="timestamp"></a>
 
 ###  timestamp
@@ -40,15 +49,6 @@ ___
 *Inherited from [FeedHeader](feedheader.md).[timestamp](feedheader.md#timestamp)*
 
 *Defined in stateInterface.ts:91*
-
-___
-<a id="transaction_hash"></a>
-
-###  transaction_hash
-
-**● transaction_hash**: *`string`*
-
-*Defined in stateInterface.ts:100*
 
 ___
 

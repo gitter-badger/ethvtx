@@ -29,7 +29,7 @@
 
 **● resolvers**: *`any`*
 
-*Defined in tx/tx.actions.ts:6*
+*Defined in tx/tx.actions.ts:7*
 
 ___
 <a id="signedtx"></a>
@@ -38,7 +38,7 @@ ___
 
 **● signedTx**: *`string`*
 
-*Defined in tx/tx.actions.ts:4*
+*Defined in tx/tx.actions.ts:5*
 
 ___
 <a id="type"></a>
@@ -49,7 +49,7 @@ ___
 
 *Inherited from Action.type*
 
-*Defined in /Users/irotaru/WebstormProjects/vortex/node_modules/redux/index.d.ts:20*
+*Defined in /Users/irotaru/Vortex/vortex/node_modules/redux/index.d.ts:20*
 
 ___
 <a id="web3"></a>
@@ -58,7 +58,7 @@ ___
 
 **● web3**: *`any`*
 
-*Defined in tx/tx.actions.ts:5*
+*Defined in tx/tx.actions.ts:6*
 
 ___
 

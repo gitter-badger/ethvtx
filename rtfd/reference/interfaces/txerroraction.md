@@ -28,7 +28,7 @@
 
 **● error**: *`any`*
 
-*Defined in tx/tx.actions.ts:74*
+*Defined in tx/tx.actions.ts:89*
 
 ___
 <a id="txhash"></a>
@@ -37,7 +37,7 @@ ___
 
 **● txHash**: *`string`*
 
-*Defined in tx/tx.actions.ts:73*
+*Defined in tx/tx.actions.ts:88*
 
 ___
 <a id="type"></a>
@@ -48,7 +48,7 @@ ___
 
 *Inherited from Action.type*
 
-*Defined in /Users/irotaru/WebstormProjects/vortex/node_modules/redux/index.d.ts:20*
+*Defined in /Users/irotaru/Vortex/vortex/node_modules/redux/index.d.ts:20*
 
 ___
 

@@ -4,52 +4,34 @@ docs_dir: ./rtfd
 pages:
   - 'Introduction': index.md
   - 'Tutorial': tutorial.md
-  - 'Web3': web3.md
-  - 'Tx': tx.md
-  - 'Contracts': contracts.md
-  - 'Feed': feed.md
   - 'Store Architecture': architecture/store.md
-  - 'Actions': architecture/actions.md
-  - 'Reducers': architecture/reducers.md
-  - 'Sagas': architecture/saga.md
-  - 'Reference':
-    - 'Index': reference/README.md
-    - 'Vortex': reference/classes/vortex.md
-    - 'VortexContract': reference/classes/vortexcontract.md
+  - 'Index': reference/README.md
+  - 'States':
+    - 'AccountConfigState': reference/interfaces/accountconfigstate.md
+    - 'AccountErrorState': reference/interfaces/accounterrorstate.md
+    - 'AccountInfoState': reference/interfaces/accountinfostate.md
+    - 'AccountStoreState': reference/interfaces/accountStorestate.md
     - 'ContractAddressState': reference/interfaces/contractaddressesstate.md
-    - 'ContractErrorAction': reference/interfaces/contracterroraction.md
     - 'ContractInstanceState': reference/interfaces/contractinstancestate.md
-    - 'ContractLoadedAction': reference/interfaces/contractloadedaction.md
-    - 'ContractLoadingAction': reference/interfaces/contractloadingaction.md
-    - 'ContractSendAction': reference/interfaces/contractsendaction.md
     - 'ContractStoreState': reference/interfaces/contractstorestate.md
-    - 'ContractVarErrorReceivedAction': reference/interfaces/contractvarerrorreceivedaction.md
-    - 'ContractVarForceRefreshAction': reference/interfaces/contractvarforcerefreshaction.md
-    - 'ContractVarReceivedAction': reference/interfaces/contractvarreceivedaction.md
-    - 'FeedNewContractAction': reference/interfaces/feednewcontractaction.md
+    - 'FeedNewAccountState': reference/interfaces/feednewaccountstate.md
     - 'FeedNewContractState': reference/interfaces/feednewcontractstate.md
-    - 'FeedNewTransactionAction': reference/interfaces/feednewtransactionaction.md
+    - 'FeedNewErrorState': reference/interfaces/feednewerrorstate.md
+    - 'FeedNewErrorErrorState': reference/interfaces/feednewerrorerrorstate.md
     - 'FeedNewTransactionState': reference/interfaces/feednewtransactionstate.md
-    - 'FetchedData': reference/interfaces/fetcheddata.md
-    - 'SignatureCalls': reference/interfaces/signaturecalls.md
+    - 'RawTransactionArgumentState': reference/interfaces/rawtransactionargumentstate.md
     - 'State': reference/interfaces/state.md
+    - 'TransactionArgumentState': reference/interfaces/transactionargumentstate.md
     - 'TransactionBroadcastedState': reference/interfaces/transactionbroadcastedstate.md
     - 'TransactionConfirmedState': reference/interfaces/transactionconfirmedstate.md
     - 'TransactionErrorState': reference/interfaces/transactionerrorstate.md
     - 'TransactionReceiptState': reference/interfaces/transactionreceiptstate.md
+    - 'TransactionState': reference/interfaces/transactionstate.md
     - 'TransactionStoreState': reference/interfaces/transactionstorestate.md
-    - 'TxBroadcastedAction': reference/interfaces/txbroadcastedaction.md
-    - 'TxConfirmedAction': reference/interfaces/txconfirmedaction.md
-    - 'TxErrorAction': reference/interfaces/txerroraction.md
-    - 'TxReceiptAction': reference/interfaces/txreceiptaction.md
-    - 'TxSendAction': reference/interfaces/txsendaction.md
-    - 'TxSendRawAction': reference/interfaces/txsendrawaction.md
-    - 'VortexTransactionArguments': reference/interfaces/vortextransactionarguments.md
-    - 'Web3LoadAction': reference/interfaces/web3loadaction.md
-    - 'Web3LoadedAction': reference/interfaces/web3loadedaction.md
     - 'Web3LoadedState': reference/interfaces/web3loadedstate.md
-    - 'Web3LoadErrorAction': reference/interfaces/web3loaderroraction.md
     - 'Web3LoadErrorState': reference/interfaces/web3loaderrorstate.md
     - 'Web3LoadingState': reference/interfaces/web3loadingstate.md
-    - 'Web3NetworkErrorAction': reference/interfaces/web3networkerroraction.md
     - 'Web3NetworkErrorState': reference/interfaces/web3networkerrorstate.md
+  - 'Classes':
+    - 'Vortex': reference/classes/vortex.md
+    - 'VortexContract': reference/classes/vortexcontract.md

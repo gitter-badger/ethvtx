@@ -32,7 +32,7 @@
 
 **● contractAddress**: *`string`*
 
-*Defined in contracts/contracts.actions.ts:48*
+*Defined in contracts/contracts.actions.ts:49*
 
 ___
 <a id="contractname"></a>
@@ -41,7 +41,7 @@ ___
 
 **● contractName**: *`string`*
 
-*Defined in contracts/contracts.actions.ts:47*
+*Defined in contracts/contracts.actions.ts:48*
 
 ___
 <a id="methodargs"></a>
@@ -50,7 +50,7 @@ ___
 
 **● methodArgs**: *`any`*
 
-*Defined in contracts/contracts.actions.ts:52*
+*Defined in contracts/contracts.actions.ts:53*
 
 ___
 <a id="methodname"></a>
@@ -59,7 +59,7 @@ ___
 
 **● methodName**: *`string`*
 
-*Defined in contracts/contracts.actions.ts:49*
+*Defined in contracts/contracts.actions.ts:50*
 
 ___
 <a id="resolvers"></a>
@@ -68,16 +68,16 @@ ___
 
 **● resolvers**: *`any`*
 
-*Defined in contracts/contracts.actions.ts:51*
+*Defined in contracts/contracts.actions.ts:52*
 
 ___
 <a id="transactionargs"></a>
 
 ###  transactionArgs
 
-**● transactionArgs**: *`any`*
+**● transactionArgs**: *[TransactionArgumentState](transactionargumentstate.md)*
 
-*Defined in contracts/contracts.actions.ts:50*
+*Defined in contracts/contracts.actions.ts:51*
 
 ___
 <a id="type"></a>
@@ -88,7 +88,7 @@ ___
 
 *Inherited from Action.type*
 
-*Defined in /Users/irotaru/WebstormProjects/vortex/node_modules/redux/index.d.ts:20*
+*Defined in /Users/irotaru/Vortex/vortex/node_modules/redux/index.d.ts:20*
 
 ___
 

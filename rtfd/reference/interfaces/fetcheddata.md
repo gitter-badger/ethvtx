@@ -11,6 +11,7 @@
 ### Properties
 
 * [data](fetcheddata.md#data)
+* [error](fetcheddata.md#error)
 * [synced](fetcheddata.md#synced)
 
 ---
@@ -23,7 +24,16 @@
 
 **● data**: *`any`*
 
-*Defined in contracts/VortexContract.ts:14*
+*Defined in contracts/VortexContract.ts:8*
+
+___
+<a id="error"></a>
+
+###  error
+
+**● error**: *`any`*
+
+*Defined in contracts/VortexContract.ts:10*
 
 ___
 <a id="synced"></a>
@@ -32,7 +42,7 @@ ___
 
 **● synced**: *`boolean`*
 
-*Defined in contracts/VortexContract.ts:15*
+*Defined in contracts/VortexContract.ts:9*
 
 ___
 

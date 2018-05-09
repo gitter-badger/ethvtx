@@ -29,7 +29,7 @@
 
 **● contractAddress**: *`string`*
 
-*Defined in contracts/contracts.actions.ts:33*
+*Defined in contracts/contracts.actions.ts:34*
 
 ___
 <a id="contractname"></a>
@@ -38,7 +38,7 @@ ___
 
 **● contractName**: *`string`*
 
-*Defined in contracts/contracts.actions.ts:32*
+*Defined in contracts/contracts.actions.ts:33*
 
 ___
 <a id="error"></a>
@@ -47,7 +47,7 @@ ___
 
 **● error**: *`any`*
 
-*Defined in contracts/contracts.actions.ts:34*
+*Defined in contracts/contracts.actions.ts:35*
 
 ___
 <a id="type"></a>
@@ -58,7 +58,7 @@ ___
 
 *Inherited from Action.type*
 
-*Defined in /Users/irotaru/WebstormProjects/vortex/node_modules/redux/index.d.ts:20*
+*Defined in /Users/irotaru/Vortex/vortex/node_modules/redux/index.d.ts:20*
 
 ___
 

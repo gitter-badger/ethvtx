@@ -10,6 +10,7 @@
 
 ### Properties
 
+* [accounts](state.md#accounts)
 * [contracts](state.md#contracts)
 * [feed](state.md#feed)
 * [tx](state.md#tx)
@@ -19,13 +20,22 @@
 
 ## Properties
 
+<a id="accounts"></a>
+
+###  accounts
+
+**● accounts**: *[AccountStoreState](accountstorestate.md)*
+
+*Defined in stateInterface.ts:144*
+
+___
 <a id="contracts"></a>
 
 ###  contracts
 
 **● contracts**: *[ContractStoreState](contractstorestate.md)*
 
-*Defined in stateInterface.ts:90*
+*Defined in stateInterface.ts:142*
 
 ___
 <a id="feed"></a>
@@ -34,7 +44,7 @@ ___
 
 **● feed**: *[FeedState](../#feedstate)[]*
 
-*Defined in stateInterface.ts:91*
+*Defined in stateInterface.ts:143*
 
 ___
 <a id="tx"></a>
@@ -43,7 +53,7 @@ ___
 
 **● tx**: *[TransactionStoreState](transactionstorestate.md)*
 
-*Defined in stateInterface.ts:89*
+*Defined in stateInterface.ts:141*
 
 ___
 <a id="web3"></a>
@@ -52,7 +62,7 @@ ___
 
 **● web3**: *[Web3State](../#web3state)*
 
-*Defined in stateInterface.ts:88*
+*Defined in stateInterface.ts:140*
 
 ___
 

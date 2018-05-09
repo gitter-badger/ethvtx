@@ -3,6 +3,10 @@
 
 ## Index
 
+### Enumerations
+
+* [FeedType](enums/feedtype.md)
+
 ### Classes
 
 * [Vortex](classes/vortex.md)
@@ -10,9 +14,21 @@
 
 ### Interfaces
 
+* [AccountAddAction](interfaces/accountaddaction.md)
+* [AccountConfigAction](interfaces/accountconfigaction.md)
+* [AccountConfigState](interfaces/accountconfigstate.md)
+* [AccountErrorAction](interfaces/accounterroraction.md)
+* [AccountErrorState](interfaces/accounterrorstate.md)
+* [AccountInfoState](interfaces/accountinfostate.md)
+* [AccountRemoveAction](interfaces/accountremoveaction.md)
+* [AccountStoreState](interfaces/accountstorestate.md)
+* [AccountUpdateAction](interfaces/accountupdateaction.md)
+* [AccountUpdateRequestAction](interfaces/accountupdaterequestaction.md)
+* [CachedWaitingCalls](interfaces/cachedwaitingcalls.md)
 * [ContractAddressesState](interfaces/contractaddressesstate.md)
 * [ContractErrorAction](interfaces/contracterroraction.md)
 * [ContractInstanceState](interfaces/contractinstancestate.md)
+* [ContractLoadAction](interfaces/contractloadaction.md)
 * [ContractLoadedAction](interfaces/contractloadedaction.md)
 * [ContractLoadingAction](interfaces/contractloadingaction.md)
 * [ContractSendAction](interfaces/contractsendaction.md)
@@ -20,25 +36,35 @@
 * [ContractVarErrorReceivedAction](interfaces/contractvarerrorreceivedaction.md)
 * [ContractVarForceRefreshAction](interfaces/contractvarforcerefreshaction.md)
 * [ContractVarReceivedAction](interfaces/contractvarreceivedaction.md)
+* [FeedHeader](interfaces/feedheader.md)
+* [FeedNewAccountAction](interfaces/feednewaccountaction.md)
+* [FeedNewAccountState](interfaces/feednewaccountstate.md)
 * [FeedNewContractAction](interfaces/feednewcontractaction.md)
 * [FeedNewContractState](interfaces/feednewcontractstate.md)
+* [FeedNewErrorAction](interfaces/feednewerroraction.md)
+* [FeedNewErrorErrorState](interfaces/feednewerrorerrorstate.md)
+* [FeedNewErrorState](interfaces/feednewerrorstate.md)
 * [FeedNewTransactionAction](interfaces/feednewtransactionaction.md)
 * [FeedNewTransactionState](interfaces/feednewtransactionstate.md)
 * [FetchedData](interfaces/fetcheddata.md)
+* [GeneratorConfig](interfaces/generatorconfig.md)
+* [RawTransactionArgumentState](interfaces/rawtransactionargumentstate.md)
 * [SignatureCalls](interfaces/signaturecalls.md)
 * [State](interfaces/state.md)
+* [TransactionArgumentState](interfaces/transactionargumentstate.md)
 * [TransactionBroadcastedState](interfaces/transactionbroadcastedstate.md)
 * [TransactionConfirmedState](interfaces/transactionconfirmedstate.md)
 * [TransactionErrorState](interfaces/transactionerrorstate.md)
 * [TransactionReceiptState](interfaces/transactionreceiptstate.md)
+* [TransactionState](interfaces/transactionstate.md)
 * [TransactionStoreState](interfaces/transactionstorestate.md)
 * [TxBroadcastedAction](interfaces/txbroadcastedaction.md)
 * [TxConfirmedAction](interfaces/txconfirmedaction.md)
 * [TxErrorAction](interfaces/txerroraction.md)
 * [TxReceiptAction](interfaces/txreceiptaction.md)
+* [TxReceiptTxArgs](interfaces/txreceipttxargs.md)
 * [TxSendAction](interfaces/txsendaction.md)
 * [TxSendRawAction](interfaces/txsendrawaction.md)
-* [VortexTransactionArguments](interfaces/vortextransactionarguments.md)
 * [Web3LoadAction](interfaces/web3loadaction.md)
 * [Web3LoadErrorAction](interfaces/web3loaderroraction.md)
 * [Web3LoadErrorState](interfaces/web3loaderrorstate.md)
@@ -50,23 +76,42 @@
 
 ### Type aliases
 
+* [AccountActions](#accountactions)
+* [AccountState](#accountstate)
 * [ContractActions](#contractactions)
 * [ContractCallAction](#contractcallaction)
 * [FeedActions](#feedactions)
 * [FeedState](#feedstate)
-* [TransactionState](#transactionstate)
 * [TxActions](#txactions)
 * [Web3Actions](#web3actions)
 * [Web3State](#web3state)
 
 ### Variables
 
+* [FeedFilterAccounts](#feedfilteraccounts)
+* [FeedFilterContracts](#feedfiltercontracts)
+* [FeedFilterErrors](#feedfiltererrors)
+* [FeedFilterTransactions](#feedfiltertransactions)
+* [running](#running)
+* [toLower](#tolower)
 * [window](#window)
 
 ### Functions
 
+* [AccountAdd](#accountadd)
+* [AccountConfig](#accountconfig)
+* [AccountConfigReducer](#accountconfigreducer)
+* [AccountError](#accounterror)
+* [AccountErrorReducer](#accounterrorreducer)
+* [AccountRemove](#accountremove)
+* [AccountRemoveReducer](#accountremovereducer)
+* [AccountSagas](#accountsagas)
+* [AccountUpdate](#accountupdate)
+* [AccountUpdateReducer](#accountupdatereducer)
+* [AccountUpdateRequest](#accountupdaterequest)
 * [ContractCall](#contractcall)
 * [ContractError](#contracterror)
+* [ContractLoad](#contractload)
 * [ContractLoaded](#contractloaded)
 * [ContractLoading](#contractloading)
 * [ContractSagas](#contractsagas)
@@ -74,7 +119,10 @@
 * [ContractVarErrorReceived](#contractvarerrorreceived)
 * [ContractVarForceRefresh](#contractvarforcerefresh)
 * [ContractVarReceived](#contractvarreceived)
+* [FeedFilter](#feedfilter)
+* [FeedNewAccount](#feednewaccount)
 * [FeedNewContract](#feednewcontract)
+* [FeedNewError](#feednewerror)
 * [FeedNewTransaction](#feednewtransaction)
 * [TxBroadcasted](#txbroadcasted)
 * [TxConfirmed](#txconfirmed)
@@ -88,6 +136,7 @@
 * [Web3Loaded](#web3loaded)
 * [Web3NetworkError](#web3networkerror)
 * [Web3Sagas](#web3sagas)
+* [accounts](#accounts)
 * [backgroundContractLoad](#backgroundcontractload)
 * [callResolveWeb3](#callresolveweb3)
 * [callSendRawTransaction](#callsendrawtransaction)
@@ -102,21 +151,32 @@
 * [contractVarReceivedReducer](#contractvarreceivedreducer)
 * [contracts](#contracts)
 * [feed](#feed)
+* [fetchAccount](#fetchaccount)
 * [generateStore](#generatestore)
+* [getFeed](#getfeed)
+* [loadContract](#loadcontract)
+* [loopOnAccounts](#looponaccounts)
+* [onAccountAdd](#onaccountadd)
+* [onAccountInit](#onaccountinit)
 * [onContractCall](#oncontractcall)
+* [onContractLoad](#oncontractload)
 * [onContractSend](#oncontractsend)
 * [onLoadContractInitialize](#onloadcontractinitialize)
+* [onUpdateRequest](#onupdaterequest)
+* [refreshLoop](#refreshloop)
 * [resolveWeb3](#resolveweb3)
 * [rootSaga](#rootsaga)
 * [runForceRefreshRound](#runforcerefreshround)
 * [runForceRefreshRoundOn](#runforcerefreshroundon)
 * [sendRawTransaction](#sendrawtransaction)
 * [sendTransaction](#sendtransaction)
+* [singleFetch](#singlefetch)
 * [tx](#tx)
 * [web3](#web3)
 
 ### Object literals
 
+* [FeedTypeLinks](#feedtypelinks)
 * [dummyReducer](#dummyreducer)
 * [reducers](#reducers)
 
@@ -124,6 +184,32 @@
 
 ## Type aliases
 
+<a id="accountactions"></a>
+
+###  AccountActions
+
+**ΤAccountActions**: *[AccountAddAction](interfaces/accountaddaction.md) |
+[AccountRemoveAction](interfaces/accountremoveaction.md) |
+[AccountUpdateAction](interfaces/accountupdateaction.md) |
+[AccountErrorAction](interfaces/accounterroraction.md) |
+[AccountConfigAction](interfaces/accountconfigaction.md)
+*
+
+*Defined in accounts/accounts.actions.ts:77*
+
+___
+<a id="accountstate"></a>
+
+###  AccountState
+
+**ΤAccountState**: *[AccountInfoState](interfaces/accountinfostate.md) |
+[AccountConfigState](interfaces/accountconfigstate.md) |
+[AccountErrorState](interfaces/accounterrorstate.md)
+*
+
+*Defined in stateInterface.ts:133*
+
+___
 <a id="contractactions"></a>
 
 ###  ContractActions
@@ -138,7 +224,7 @@
 [ContractVarForceRefreshAction](interfaces/contractvarforcerefreshaction.md)
 *
 
-*Defined in contracts/contracts.actions.ts:136*
+*Defined in contracts/contracts.actions.ts:150*
 
 ___
 <a id="contractcallaction"></a>
@@ -147,7 +233,7 @@ ___
 
 **ΤContractCallAction**: *[ContractSendAction](interfaces/contractsendaction.md)*
 
-*Defined in contracts/contracts.actions.ts:67*
+*Defined in contracts/contracts.actions.ts:68*
 
 ___
 <a id="feedactions"></a>
@@ -155,10 +241,12 @@ ___
 ###  FeedActions
 
 **ΤFeedActions**: *[FeedNewContractAction](interfaces/feednewcontractaction.md) |
-[FeedNewTransactionAction](interfaces/feednewtransactionaction.md)
+[FeedNewTransactionAction](interfaces/feednewtransactionaction.md) |
+[FeedNewErrorAction](interfaces/feednewerroraction.md) |
+[FeedNewAccountAction](interfaces/feednewaccountaction.md)
 *
 
-*Defined in feed/feed.actions.ts:27*
+*Defined in feed/feed.actions.ts:55*
 
 ___
 <a id="feedstate"></a>
@@ -166,23 +254,12 @@ ___
 ###  FeedState
 
 **ΤFeedState**: *[FeedNewContractState](interfaces/feednewcontractstate.md) |
-[FeedNewTransactionState](interfaces/feednewtransactionstate.md)
+[FeedNewTransactionState](interfaces/feednewtransactionstate.md) |
+[FeedNewErrorState](interfaces/feednewerrorstate.md) |
+[FeedNewAccountState](interfaces/feednewaccountstate.md)
 *
 
-*Defined in stateInterface.ts:85*
-
-___
-<a id="transactionstate"></a>
-
-###  TransactionState
-
-**ΤTransactionState**: *[TransactionBroadcastedState](interfaces/transactionbroadcastedstate.md) |
-[TransactionReceiptState](interfaces/transactionreceiptstate.md) |
-[TransactionConfirmedState](interfaces/transactionconfirmedstate.md) |
-[TransactionErrorState](interfaces/transactionerrorstate.md)
-*
-
-*Defined in stateInterface.ts:52*
+*Defined in stateInterface.ts:118*
 
 ___
 <a id="txactions"></a>
@@ -195,7 +272,7 @@ ___
 [TxErrorAction](interfaces/txerroraction.md)
 *
 
-*Defined in tx/tx.actions.ts:85*
+*Defined in tx/tx.actions.ts:100*
 
 ___
 <a id="web3actions"></a>
@@ -227,6 +304,83 @@ ___
 
 ## Variables
 
+<a id="feedfilteraccounts"></a>
+
+### `<Const>` FeedFilterAccounts
+
+**● FeedFilterAccounts**: *`function` &
+`object`
+* =  createSelector(getFeed, (feed: FeedState[]): FeedState[] => {
+    return feed.filter((elem: FeedState): boolean => !!((FeedTypeLinks[elem.action] ? FeedTypeLinks[elem.action] : -1) & FeedType.Accounts))
+})
+
+*Defined in feed/feed.selectors.ts:32*
+
+___
+<a id="feedfiltercontracts"></a>
+
+### `<Const>` FeedFilterContracts
+
+**● FeedFilterContracts**: *`function` &
+`object`
+* =  createSelector(getFeed, (feed: FeedState[]): FeedState[] => {
+    return feed.filter((elem: FeedState): boolean => !!((FeedTypeLinks[elem.action] ? FeedTypeLinks[elem.action] : -1) & FeedType.Contracts))
+})
+
+*Defined in feed/feed.selectors.ts:24*
+
+___
+<a id="feedfiltererrors"></a>
+
+### `<Const>` FeedFilterErrors
+
+**● FeedFilterErrors**: *`function` &
+`object`
+* =  createSelector(getFeed, (feed: FeedState[]): FeedState[] => {
+    return feed.filter((elem: FeedState): boolean => !!((FeedTypeLinks[elem.action] ? FeedTypeLinks[elem.action] : -1) & FeedType.Errors))
+})
+
+*Defined in feed/feed.selectors.ts:28*
+
+___
+<a id="feedfiltertransactions"></a>
+
+### `<Const>` FeedFilterTransactions
+
+**● FeedFilterTransactions**: *`function` &
+`object`
+* =  createSelector(getFeed, (feed: FeedState[]): FeedState[] => {
+    return feed.filter((elem: FeedState): boolean => !!((FeedTypeLinks[elem.action] ? FeedTypeLinks[elem.action] : -1) & FeedType.Transactions))
+})
+
+*Defined in feed/feed.selectors.ts:20*
+
+___
+<a id="running"></a>
+
+### `<Let>` running
+
+**● running**: *`boolean`* = false
+
+*Defined in accounts/accounts.saga.ts:15*
+
+___
+<a id="tolower"></a>
+
+### `<Const>` toLower
+
+**● toLower**: *`string`[]* =  [
+    "to",
+    "from",
+    "gas",
+    "gasPrice",
+    "value"
+]
+
+*Defined in tx/tx.sagas.ts:17*
+*Defined in contracts/contracts.saga.ts:24*
+
+___
 <a id="window"></a>
 
 ###  window
@@ -239,13 +393,202 @@ ___
 
 ## Functions
 
+<a id="accountadd"></a>
+
+### `<Const>` AccountAdd
+
+▸ **AccountAdd**(address: *`string`*, coinbase?: *`boolean`*): [AccountAddAction](interfaces/accountaddaction.md)
+
+*Defined in accounts/accounts.actions.ts:9*
+
+**Parameters:**
+
+| Param | Type | Default value |
+| ------ | ------ | ------ |
+| address | `string` | - | 
+| `Default value` coinbase | `boolean` | false | 
+
+**Returns:** [AccountAddAction](interfaces/accountaddaction.md)
+
+___
+<a id="accountconfig"></a>
+
+### `<Const>` AccountConfig
+
+▸ **AccountConfig**(config: *[AccountConfigState](interfaces/accountconfigstate.md)*): [AccountConfigAction](interfaces/accountconfigaction.md)
+
+*Defined in accounts/accounts.actions.ts:59*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| config | [AccountConfigState](interfaces/accountconfigstate.md) | 
+
+**Returns:** [AccountConfigAction](interfaces/accountconfigaction.md)
+
+___
+<a id="accountconfigreducer"></a>
+
+### `<Const>` AccountConfigReducer
+
+▸ **AccountConfigReducer**(state: *[AccountStoreState](interfaces/accountstorestate.md)*, action: *[AccountConfigAction](interfaces/accountconfigaction.md)*): [AccountStoreState](interfaces/accountstorestate.md)
+
+*Defined in accounts/accounts.reducers.ts:42*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| state | [AccountStoreState](interfaces/accountstorestate.md) | 
+| action | [AccountConfigAction](interfaces/accountconfigaction.md) | 
+
+**Returns:** [AccountStoreState](interfaces/accountstorestate.md)
+
+___
+<a id="accounterror"></a>
+
+### `<Const>` AccountError
+
+▸ **AccountError**(address: *`string`*, error: *`any`*): [AccountErrorAction](interfaces/accounterroraction.md)
+
+*Defined in accounts/accounts.actions.ts:48*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| address | `string` | 
+| error | `any` | 
+
+**Returns:** [AccountErrorAction](interfaces/accounterroraction.md)
+
+___
+<a id="accounterrorreducer"></a>
+
+### `<Const>` AccountErrorReducer
+
+▸ **AccountErrorReducer**(state: *[AccountStoreState](interfaces/accountstorestate.md)*, action: *[AccountErrorAction](interfaces/accounterroraction.md)*): [AccountStoreState](interfaces/accountstorestate.md)
+
+*Defined in accounts/accounts.reducers.ts:55*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| state | [AccountStoreState](interfaces/accountstorestate.md) | 
+| action | [AccountErrorAction](interfaces/accounterroraction.md) | 
+
+**Returns:** [AccountStoreState](interfaces/accountstorestate.md)
+
+___
+<a id="accountremove"></a>
+
+### `<Const>` AccountRemove
+
+▸ **AccountRemove**(address: *`string`*): [AccountRemoveAction](interfaces/accountremoveaction.md)
+
+*Defined in accounts/accounts.actions.ts:21*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| address | `string` | 
+
+**Returns:** [AccountRemoveAction](interfaces/accountremoveaction.md)
+
+___
+<a id="accountremovereducer"></a>
+
+### `<Const>` AccountRemoveReducer
+
+▸ **AccountRemoveReducer**(state: *[AccountStoreState](interfaces/accountstorestate.md)*, action: *[AccountRemoveAction](interfaces/accountremoveaction.md)*): [AccountStoreState](interfaces/accountstorestate.md)
+
+*Defined in accounts/accounts.reducers.ts:10*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| state | [AccountStoreState](interfaces/accountstorestate.md) | 
+| action | [AccountRemoveAction](interfaces/accountremoveaction.md) | 
+
+**Returns:** [AccountStoreState](interfaces/accountstorestate.md)
+
+___
+<a id="accountsagas"></a>
+
+###  AccountSagas
+
+▸ **AccountSagas**(): `any`
+
+*Defined in accounts/accounts.saga.ts:134*
+
+**Returns:** `any`
+
+___
+<a id="accountupdate"></a>
+
+### `<Const>` AccountUpdate
+
+▸ **AccountUpdate**(address: *`string`*, balance: *`string`*, coinbase?: *`boolean`*): [AccountUpdateAction](interfaces/accountupdateaction.md)
+
+*Defined in accounts/accounts.actions.ts:34*
+
+**Parameters:**
+
+| Param | Type | Default value |
+| ------ | ------ | ------ |
+| address | `string` | - | 
+| balance | `string` | - | 
+| `Default value` coinbase | `boolean` | false | 
+
+**Returns:** [AccountUpdateAction](interfaces/accountupdateaction.md)
+
+___
+<a id="accountupdatereducer"></a>
+
+### `<Const>` AccountUpdateReducer
+
+▸ **AccountUpdateReducer**(state: *[AccountStoreState](interfaces/accountstorestate.md)*, action: *[AccountUpdateAction](interfaces/accountupdateaction.md)*): [AccountStoreState](interfaces/accountstorestate.md)
+
+*Defined in accounts/accounts.reducers.ts:17*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| state | [AccountStoreState](interfaces/accountstorestate.md) | 
+| action | [AccountUpdateAction](interfaces/accountupdateaction.md) | 
+
+**Returns:** [AccountStoreState](interfaces/accountstorestate.md)
+
+___
+<a id="accountupdaterequest"></a>
+
+### `<Const>` AccountUpdateRequest
+
+▸ **AccountUpdateRequest**(address: *`string`*): [AccountUpdateRequestAction](interfaces/accountupdaterequestaction.md)
+
+*Defined in accounts/accounts.actions.ts:70*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| address | `string` | 
+
+**Returns:** [AccountUpdateRequestAction](interfaces/accountupdaterequestaction.md)
+
+___
 <a id="contractcall"></a>
 
 ###  ContractCall
 
-▸ **ContractCall**(contractName: *`string`*, contractAddress: *`string`*, methodName: *`string`*, transactionArgs: *`any`*, resolvers: *`any`*, ...methodArgs: *`any`[]*): [ContractCallAction](#contractcallaction)
+▸ **ContractCall**(contractName: *`string`*, contractAddress: *`string`*, methodName: *`string`*, transactionArgs: *[TransactionArgumentState](interfaces/transactionargumentstate.md)*, resolvers: *`any`*, ...methodArgs: *`any`[]*): [ContractCallAction](#contractcallaction)
 
-*Defined in contracts/contracts.actions.ts:69*
+*Defined in contracts/contracts.actions.ts:70*
 
 **Parameters:**
 
@@ -254,7 +597,7 @@ ___
 | contractName | `string` | 
 | contractAddress | `string` | 
 | methodName | `string` | 
-| transactionArgs | `any` | 
+| transactionArgs | [TransactionArgumentState](interfaces/transactionargumentstate.md) | 
 | resolvers | `any` | 
 | `Rest` methodArgs | `any`[] | 
 
@@ -267,7 +610,7 @@ ___
 
 ▸ **ContractError**(contractName: *`string`*, contractAddress: *`string`*, error: *`any`*): [ContractErrorAction](interfaces/contracterroraction.md)
 
-*Defined in contracts/contracts.actions.ts:37*
+*Defined in contracts/contracts.actions.ts:38*
 
 **Parameters:**
 
@@ -280,13 +623,31 @@ ___
 **Returns:** [ContractErrorAction](interfaces/contracterroraction.md)
 
 ___
+<a id="contractload"></a>
+
+###  ContractLoad
+
+▸ **ContractLoad**(contractName: *`string`*, contractAddress: *`string`*): [ContractLoadAction](interfaces/contractloadaction.md)
+
+*Defined in contracts/contracts.actions.ts:142*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| contractName | `string` | 
+| contractAddress | `string` | 
+
+**Returns:** [ContractLoadAction](interfaces/contractloadaction.md)
+
+___
 <a id="contractloaded"></a>
 
 ###  ContractLoaded
 
 ▸ **ContractLoaded**(contractName: *`string`*, contractAddress: *`string`*, contractInstance: *`any`*): [ContractLoadedAction](interfaces/contractloadedaction.md)
 
-*Defined in contracts/contracts.actions.ts:22*
+*Defined in contracts/contracts.actions.ts:23*
 
 **Parameters:**
 
@@ -305,7 +666,7 @@ ___
 
 ▸ **ContractLoading**(contractName: *`string`*, contractAddress: *`string`*): [ContractLoadingAction](interfaces/contractloadingaction.md)
 
-*Defined in contracts/contracts.actions.ts:8*
+*Defined in contracts/contracts.actions.ts:9*
 
 **Parameters:**
 
@@ -323,7 +684,7 @@ ___
 
 ▸ **ContractSagas**(): `any`
 
-*Defined in contracts/contracts.saga.ts:189*
+*Defined in contracts/contracts.saga.ts:263*
 
 **Returns:** `any`
 
@@ -332,9 +693,9 @@ ___
 
 ###  ContractSend
 
-▸ **ContractSend**(contractName: *`string`*, contractAddress: *`string`*, methodName: *`string`*, transactionArgs: *`any`*, resolvers: *`any`*, ...methodArgs: *`any`[]*): [ContractSendAction](interfaces/contractsendaction.md)
+▸ **ContractSend**(contractName: *`string`*, contractAddress: *`string`*, methodName: *`string`*, transactionArgs: *[TransactionArgumentState](interfaces/transactionargumentstate.md)*, resolvers: *`any`*, ...methodArgs: *`any`[]*): [ContractSendAction](interfaces/contractsendaction.md)
 
-*Defined in contracts/contracts.actions.ts:55*
+*Defined in contracts/contracts.actions.ts:56*
 
 **Parameters:**
 
@@ -343,7 +704,7 @@ ___
 | contractName | `string` | 
 | contractAddress | `string` | 
 | methodName | `string` | 
-| transactionArgs | `any` | 
+| transactionArgs | [TransactionArgumentState](interfaces/transactionargumentstate.md) | 
 | resolvers | `any` | 
 | `Rest` methodArgs | `any`[] | 
 
@@ -356,7 +717,7 @@ ___
 
 ▸ **ContractVarErrorReceived**(contractName: *`string`*, contractAddress: *`string`*, methodName: *`string`*, methodHash: *`string`*, error: *`any`*): [ContractVarErrorReceivedAction](interfaces/contractvarerrorreceivedaction.md)
 
-*Defined in contracts/contracts.actions.ts:108*
+*Defined in contracts/contracts.actions.ts:109*
 
 **Parameters:**
 
@@ -377,7 +738,7 @@ ___
 
 ▸ **ContractVarForceRefresh**(contractName: *`string`*, contractAddress: *`string`*, methodName: *`string`*, methodHash: *`string`*): [ContractVarForceRefreshAction](interfaces/contractvarforcerefreshaction.md)
 
-*Defined in contracts/contracts.actions.ts:126*
+*Defined in contracts/contracts.actions.ts:127*
 
 **Parameters:**
 
@@ -397,7 +758,7 @@ ___
 
 ▸ **ContractVarReceived**(contractName: *`string`*, contractAddress: *`string`*, methodName: *`string`*, methodHash: *`string`*, result: *`any`*): [ContractVarReceivedAction](interfaces/contractvarreceivedaction.md)
 
-*Defined in contracts/contracts.actions.ts:89*
+*Defined in contracts/contracts.actions.ts:90*
 
 **Parameters:**
 
@@ -410,6 +771,41 @@ ___
 | result | `any` | 
 
 **Returns:** [ContractVarReceivedAction](interfaces/contractvarreceivedaction.md)
+
+___
+<a id="feedfilter"></a>
+
+### `<Const>` FeedFilter
+
+▸ **FeedFilter**(type: *[FeedType](enums/feedtype.md)*): `any`
+
+*Defined in feed/feed.selectors.ts:36*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| type | [FeedType](enums/feedtype.md) | 
+
+**Returns:** `any`
+
+___
+<a id="feednewaccount"></a>
+
+###  FeedNewAccount
+
+▸ **FeedNewAccount**(account: *`string`*, coinbase: *`boolean`*): [FeedNewAccountAction](interfaces/feednewaccountaction.md)
+
+*Defined in feed/feed.actions.ts:47*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| account | `string` | 
+| coinbase | `boolean` | 
+
+**Returns:** [FeedNewAccountAction](interfaces/feednewaccountaction.md)
 
 ___
 <a id="feednewcontract"></a>
@@ -428,6 +824,25 @@ ___
 | address | `string` | 
 
 **Returns:** [FeedNewContractAction](interfaces/feednewcontractaction.md)
+
+___
+<a id="feednewerror"></a>
+
+###  FeedNewError
+
+▸ **FeedNewError**(reason: *`any`*, message: *`string`*, when: *`string`*): [FeedNewErrorAction](interfaces/feednewerroraction.md)
+
+*Defined in feed/feed.actions.ts:33*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| reason | `any` | 
+| message | `string` | 
+| when | `string` | 
+
+**Returns:** [FeedNewErrorAction](interfaces/feednewerroraction.md)
 
 ___
 <a id="feednewtransaction"></a>
@@ -451,15 +866,18 @@ ___
 
 ###  TxBroadcasted
 
-▸ **TxBroadcasted**(txHash: *`string`*): [TxBroadcastedAction](interfaces/txbroadcastedaction.md)
+▸ **TxBroadcasted**(txHash: *`string`*, txArgs: *[TransactionArgumentState](interfaces/transactionargumentstate.md) |[RawTransactionArgumentState](interfaces/rawtransactionargumentstate.md)*): [TxBroadcastedAction](interfaces/txbroadcastedaction.md)
 
-*Defined in tx/tx.actions.ts:37*
+*Defined in tx/tx.actions.ts:39*
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
 | txHash | `string` | 
+| txArgs | [TransactionArgumentState](interfaces/transactionargumentstate.md) |
+[RawTransactionArgumentState](interfaces/rawtransactionargumentstate.md)
+ | 
 
 **Returns:** [TxBroadcastedAction](interfaces/txbroadcastedaction.md)
 
@@ -470,7 +888,7 @@ ___
 
 ▸ **TxConfirmed**(txHash: *`string`*, confirmationReceipt: *`any`*, confirmationCount: *`number`*): [TxConfirmedAction](interfaces/txconfirmedaction.md)
 
-*Defined in tx/tx.actions.ts:63*
+*Defined in tx/tx.actions.ts:78*
 
 **Parameters:**
 
@@ -489,7 +907,7 @@ ___
 
 ▸ **TxError**(txHash: *`string`*, error: *`any`*): [TxErrorAction](interfaces/txerroraction.md)
 
-*Defined in tx/tx.actions.ts:77*
+*Defined in tx/tx.actions.ts:92*
 
 **Parameters:**
 
@@ -505,9 +923,9 @@ ___
 
 ###  TxReceipt
 
-▸ **TxReceipt**(txHash: *`string`*, receipt: *`any`*): [TxReceiptAction](interfaces/txreceiptaction.md)
+▸ **TxReceipt**(txHash: *`string`*, receipt: *`any`*, txArgs: *[TxReceiptTxArgs](interfaces/txreceipttxargs.md)*): [TxReceiptAction](interfaces/txreceiptaction.md)
 
-*Defined in tx/tx.actions.ts:49*
+*Defined in tx/tx.actions.ts:63*
 
 **Parameters:**
 
@@ -515,6 +933,7 @@ ___
 | ------ | ------ |
 | txHash | `string` | 
 | receipt | `any` | 
+| txArgs | [TxReceiptTxArgs](interfaces/txreceipttxargs.md) | 
 
 **Returns:** [TxReceiptAction](interfaces/txreceiptaction.md)
 
@@ -525,7 +944,7 @@ ___
 
 ▸ **TxSagas**(): `any`
 
-*Defined in tx/tx.sagas.ts:119*
+*Defined in tx/tx.sagas.ts:207*
 
 **Returns:** `any`
 
@@ -534,15 +953,15 @@ ___
 
 ###  TxSend
 
-▸ **TxSend**(txArgs: *`any`*, web3: *`any`*, resolvers: *`any`*): [TxSendAction](interfaces/txsendaction.md)
+▸ **TxSend**(txArgs: *[TransactionArgumentState](interfaces/transactionargumentstate.md)*, web3: *`any`*, resolvers: *`any`*): [TxSendAction](interfaces/txsendaction.md)
 
-*Defined in tx/tx.actions.ts:24*
+*Defined in tx/tx.actions.ts:25*
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| txArgs | `any` | 
+| txArgs | [TransactionArgumentState](interfaces/transactionargumentstate.md) | 
 | web3 | `any` | 
 | resolvers | `any` | 
 
@@ -555,7 +974,7 @@ ___
 
 ▸ **TxSendRaw**(signedTx: *`string`*, web3: *`any`*, resolvers: *`any`*): [TxSendRawAction](interfaces/txsendrawaction.md)
 
-*Defined in tx/tx.actions.ts:9*
+*Defined in tx/tx.actions.ts:10*
 
 **Parameters:**
 
@@ -645,24 +1064,36 @@ ___
 
 ▸ **Web3Sagas**(): `any`
 
-*Defined in web3/web3.sagas.ts:74*
+*Defined in web3/web3.sagas.ts:72*
 
 **Returns:** `any`
+
+___
+<a id="accounts"></a>
+
+### `<Const>` accounts
+
+▸ **accounts**(state?: *[AccountStoreState](interfaces/accountstorestate.md)*, action: *[AccountActions](#accountactions)*): [AccountStoreState](interfaces/accountstorestate.md)
+
+*Defined in accounts/accounts.reducers.ts:77*
+
+**Parameters:**
+
+| Param | Type | Default value |
+| ------ | ------ | ------ |
+| `Default value` state | [AccountStoreState](interfaces/accountstorestate.md) |  {} as AccountStoreState | 
+| action | [AccountActions](#accountactions) | - | 
+
+**Returns:** [AccountStoreState](interfaces/accountstorestate.md)
 
 ___
 <a id="backgroundcontractload"></a>
 
 ###  backgroundContractLoad
 
-▸ **backgroundContractLoad**(state: *[State](interfaces/state.md)*): `SagaIterator`
+▸ **backgroundContractLoad**(): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:44*
-
-**Parameters:**
-
-| Param | Type |
-| ------ | ------ |
-| state | [State](interfaces/state.md) | 
+*Defined in contracts/contracts.saga.ts:54*
 
 **Returns:** `SagaIterator`
 
@@ -673,7 +1104,7 @@ ___
 
 ▸ **callResolveWeb3**(action: *[Web3LoadAction](interfaces/web3loadaction.md)*): `SagaIterator`
 
-*Defined in web3/web3.sagas.ts:62*
+*Defined in web3/web3.sagas.ts:60*
 
 **Parameters:**
 
@@ -690,7 +1121,7 @@ ___
 
 ▸ **callSendRawTransaction**(action: *[TxSendRawAction](interfaces/txsendrawaction.md)*): `SagaIterator`
 
-*Defined in tx/tx.sagas.ts:108*
+*Defined in tx/tx.sagas.ts:196*
 
 **Parameters:**
 
@@ -707,7 +1138,7 @@ ___
 
 ▸ **callSendTransaction**(action: *[TxSendAction](interfaces/txsendaction.md)*): `SagaIterator`
 
-*Defined in tx/tx.sagas.ts:56*
+*Defined in tx/tx.sagas.ts:103*
 
 **Parameters:**
 
@@ -724,7 +1155,7 @@ ___
 
 ▸ **contractCall**(action: *[ContractCallAction](#contractcallaction)*, tx: *`any`*, arg_signature: *`string`*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:94*
+*Defined in contracts/contracts.saga.ts:123*
 
 **Parameters:**
 
@@ -795,9 +1226,9 @@ ___
 
 ###  contractSend
 
-▸ **contractSend**(action: *[ContractSendAction](interfaces/contractsendaction.md)*, tx: *`any`*): `SagaIterator`
+▸ **contractSend**(action: *[ContractSendAction](interfaces/contractsendaction.md)*, tx: *`any`*, web3: *`any`*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:131*
+*Defined in contracts/contracts.saga.ts:162*
 
 **Parameters:**
 
@@ -805,6 +1236,7 @@ ___
 | ------ | ------ |
 | action | [ContractSendAction](interfaces/contractsendaction.md) | 
 | tx | `any` | 
+| web3 | `any` | 
 
 **Returns:** `SagaIterator`
 
@@ -815,7 +1247,7 @@ ___
 
 ▸ **contractVarErrorReceivedReducer**(state: *[ContractStoreState](interfaces/contractstorestate.md)*, action: *[ContractVarErrorReceivedAction](interfaces/contractvarerrorreceivedaction.md)*): [ContractStoreState](interfaces/contractstorestate.md)
 
-*Defined in contracts/contracts.reducers.ts:65*
+*Defined in contracts/contracts.reducers.ts:85*
 
 **Parameters:**
 
@@ -833,7 +1265,7 @@ ___
 
 ▸ **contractVarForceRefreshReducer**(state: *[ContractStoreState](interfaces/contractstorestate.md)*, action: *[ContractVarForceRefreshAction](interfaces/contractvarforcerefreshaction.md)*): [ContractStoreState](interfaces/contractstorestate.md)
 
-*Defined in contracts/contracts.reducers.ts:73*
+*Defined in contracts/contracts.reducers.ts:113*
 
 **Parameters:**
 
@@ -869,7 +1301,7 @@ ___
 
 ▸ **contracts**(state?: *[ContractStoreState](interfaces/contractstorestate.md)*, action: *[ContractActions](#contractactions)*): [ContractStoreState](interfaces/contractstorestate.md)
 
-*Defined in contracts/contracts.reducers.ts:81*
+*Defined in contracts/contracts.reducers.ts:141*
 
 **Parameters:**
 
@@ -887,7 +1319,7 @@ ___
 
 ▸ **feed**(state?: *[FeedState](#feedstate)[]*, action: *[FeedActions](#feedactions)*): [FeedState](#feedstate)[]
 
-*Defined in feed/feed.reducers.ts:5*
+*Defined in feed/feed.reducers.ts:11*
 
 **Parameters:**
 
@@ -899,13 +1331,32 @@ ___
 **Returns:** [FeedState](#feedstate)[]
 
 ___
+<a id="fetchaccount"></a>
+
+###  fetchAccount
+
+▸ **fetchAccount**(address: *`string`*, coinbase: *`boolean`*, emit: *`function`*): `Promise`<`void`>
+
+*Defined in accounts/accounts.saga.ts:17*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| address | `string` | 
+| coinbase | `boolean` | 
+| emit | `function` | 
+
+**Returns:** `Promise`<`void`>
+
+___
 <a id="generatestore"></a>
 
 ###  generateStore
 
-▸ **generateStore**T(contracts: *`any`[]*, reducer?: *`ReducersMapObject`<`T`>*, customState?: *`DeepPartial`<`T`>*): `Store`
+▸ **generateStore**T(contracts: *`any`[]*, config?: *[GeneratorConfig](interfaces/generatorconfig.md)<`T`>*): `Store`
 
-*Defined in generateStore.ts:18*
+*Defined in generateStore.ts:31*
 
 **Type parameters:**
 
@@ -915,10 +1366,91 @@ ___
 | Param | Type | Default value |
 | ------ | ------ | ------ |
 | contracts | `any`[] | - | 
-| `Default value` reducer | `ReducersMapObject`<`T`> |  undefined | 
-| `Default value` customState | `DeepPartial`<`T`> |  undefined | 
+| `Default value` config | [GeneratorConfig](interfaces/generatorconfig.md)<`T`> |  undefined | 
 
 **Returns:** `Store`
+
+___
+<a id="getfeed"></a>
+
+### `<Const>` getFeed
+
+▸ **getFeed**(state: *[State](interfaces/state.md)*): [FeedState](#feedstate)[]
+
+*Defined in feed/feed.selectors.ts:4*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| state | [State](interfaces/state.md) | 
+
+**Returns:** [FeedState](#feedstate)[]
+
+___
+<a id="loadcontract"></a>
+
+###  loadContract
+
+▸ **loadContract**(contractName: *`string`*, contractAddress: *`string`*, userAddress: *`string`*, web3: *`any`*): `SagaIterator`
+
+*Defined in contracts/contracts.saga.ts:69*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| contractName | `string` | 
+| contractAddress | `string` | 
+| userAddress | `string` | 
+| web3 | `any` | 
+
+**Returns:** `SagaIterator`
+
+___
+<a id="looponaccounts"></a>
+
+###  loopOnAccounts
+
+▸ **loopOnAccounts**(emit: *`function`*): `Promise`<`void`>
+
+*Defined in accounts/accounts.saga.ts:28*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| emit | `function` | 
+
+**Returns:** `Promise`<`void`>
+
+___
+<a id="onaccountadd"></a>
+
+###  onAccountAdd
+
+▸ **onAccountAdd**(action: *[AccountAddAction](interfaces/accountaddaction.md)*): `SagaIterator`
+
+*Defined in accounts/accounts.saga.ts:107*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| action | [AccountAddAction](interfaces/accountaddaction.md) | 
+
+**Returns:** `SagaIterator`
+
+___
+<a id="onaccountinit"></a>
+
+###  onAccountInit
+
+▸ **onAccountInit**(): `SagaIterator`
+
+*Defined in accounts/accounts.saga.ts:71*
+
+**Returns:** `SagaIterator`
 
 ___
 <a id="oncontractcall"></a>
@@ -927,7 +1459,7 @@ ___
 
 ▸ **onContractCall**(action: *[ContractCallAction](#contractcallaction)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:112*
+*Defined in contracts/contracts.saga.ts:143*
 
 **Parameters:**
 
@@ -938,13 +1470,30 @@ ___
 **Returns:** `SagaIterator`
 
 ___
+<a id="oncontractload"></a>
+
+###  onContractLoad
+
+▸ **onContractLoad**(action: *[ContractLoadAction](interfaces/contractloadaction.md)*): `SagaIterator`
+
+*Defined in contracts/contracts.saga.ts:258*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| action | [ContractLoadAction](interfaces/contractloadaction.md) | 
+
+**Returns:** `SagaIterator`
+
+___
 <a id="oncontractsend"></a>
 
 ###  onContractSend
 
 ▸ **onContractSend**(action: *[ContractSendAction](interfaces/contractsendaction.md)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:173*
+*Defined in contracts/contracts.saga.ts:242*
 
 **Parameters:**
 
@@ -961,7 +1510,7 @@ ___
 
 ▸ **onLoadContractInitialize**(action: *[Web3LoadedAction](interfaces/web3loadedaction.md)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:56*
+*Defined in contracts/contracts.saga.ts:95*
 
 **Parameters:**
 
@@ -972,13 +1521,41 @@ ___
 **Returns:** `SagaIterator`
 
 ___
+<a id="onupdaterequest"></a>
+
+###  onUpdateRequest
+
+▸ **onUpdateRequest**(action: *[AccountUpdateRequestAction](interfaces/accountupdaterequestaction.md)*): `SagaIterator`
+
+*Defined in accounts/accounts.saga.ts:119*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| action | [AccountUpdateRequestAction](interfaces/accountupdaterequestaction.md) | 
+
+**Returns:** `SagaIterator`
+
+___
+<a id="refreshloop"></a>
+
+###  refreshLoop
+
+▸ **refreshLoop**(): `SagaIterator`
+
+*Defined in accounts/accounts.saga.ts:54*
+
+**Returns:** `SagaIterator`
+
+___
 <a id="resolveweb3"></a>
 
 ###  resolveWeb3
 
 ▸ **resolveWeb3**(action: *[Web3LoadAction](interfaces/web3loadaction.md)*): `SagaIterator`
 
-*Defined in web3/web3.sagas.ts:10*
+*Defined in web3/web3.sagas.ts:8*
 
 **Parameters:**
 
@@ -995,7 +1572,7 @@ ___
 
 ▸ **rootSaga**(): `any`
 
-*Defined in sagas.ts:6*
+*Defined in sagas.ts:7*
 
 **Returns:** `any`
 
@@ -1006,7 +1583,7 @@ ___
 
 ▸ **runForceRefreshRound**(state: *[State](interfaces/state.md)*, emit: *`function`*): `void`
 
-*Defined in contracts/contracts.saga.ts:34*
+*Defined in contracts/contracts.saga.ts:44*
 
 **Parameters:**
 
@@ -1024,7 +1601,7 @@ ___
 
 ▸ **runForceRefreshRoundOn**(state: *[State](interfaces/state.md)*, emit: *`function`*, contractName: *`string`*, instance_address: *`string`*): `void`
 
-*Defined in contracts/contracts.saga.ts:22*
+*Defined in contracts/contracts.saga.ts:32*
 
 **Parameters:**
 
@@ -1044,7 +1621,7 @@ ___
 
 ▸ **sendRawTransaction**(action: *[TxSendRawAction](interfaces/txsendrawaction.md)*): `SagaIterator`
 
-*Defined in tx/tx.sagas.ts:68*
+*Defined in tx/tx.sagas.ts:115*
 
 **Parameters:**
 
@@ -1061,7 +1638,7 @@ ___
 
 ▸ **sendTransaction**(action: *[TxSendAction](interfaces/txsendaction.md)*): `SagaIterator`
 
-*Defined in tx/tx.sagas.ts:16*
+*Defined in tx/tx.sagas.ts:25*
 
 **Parameters:**
 
@@ -1072,13 +1649,32 @@ ___
 **Returns:** `SagaIterator`
 
 ___
+<a id="singlefetch"></a>
+
+###  singleFetch
+
+▸ **singleFetch**(action: *[AccountAddAction](interfaces/accountaddaction.md)*, new_address: *`boolean`*, coinbase: *`boolean`*): `SagaIterator`
+
+*Defined in accounts/accounts.saga.ts:86*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| action | [AccountAddAction](interfaces/accountaddaction.md) | 
+| new_address | `boolean` | 
+| coinbase | `boolean` | 
+
+**Returns:** `SagaIterator`
+
+___
 <a id="tx"></a>
 
 ### `<Const>` tx
 
 ▸ **tx**(state?: *[TransactionStoreState](interfaces/transactionstorestate.md)*, action: *[TxActions](#txactions)*): [TransactionStoreState](interfaces/transactionstorestate.md)
 
-*Defined in tx/tx.reducers.ts:10*
+*Defined in tx/tx.reducers.ts:8*
 
 **Parameters:**
 
@@ -1111,21 +1707,90 @@ ___
 
 ## Object literals
 
+<a id="feedtypelinks"></a>
+
+### `<Const>` FeedTypeLinks
+
+**FeedTypeLinks**: *`object`*
+
+*Defined in feed/feed.selectors.ts:13*
+
+<a id="feedtypelinks.new_account"></a>
+
+####  NEW_ACCOUNT
+
+**● NEW_ACCOUNT**: *`number`* = 8
+
+*Defined in feed/feed.selectors.ts:17*
+
+___
+<a id="feedtypelinks.new_contract"></a>
+
+####  NEW_CONTRACT
+
+**● NEW_CONTRACT**: *`number`* = 2
+
+*Defined in feed/feed.selectors.ts:15*
+
+___
+<a id="feedtypelinks.new_error"></a>
+
+####  NEW_ERROR
+
+**● NEW_ERROR**: *`number`* = 4
+
+*Defined in feed/feed.selectors.ts:16*
+
+___
+<a id="feedtypelinks.new_transaction"></a>
+
+####  NEW_TRANSACTION
+
+**● NEW_TRANSACTION**: *`number`* = 1
+
+*Defined in feed/feed.selectors.ts:14*
+
+___
+
+___
 <a id="dummyreducer"></a>
 
 ### `<Const>` dummyReducer
 
 **dummyReducer**: *`object`*
 
-*Defined in dummyReducer.ts:4*
+*Defined in dummyReducer.ts:11*
 
+<a id="dummyreducer.accounts"></a>
+
+####  accounts
+
+**● accounts**: *`function`* =  {} as Reducer<AccountStoreState>
+
+*Defined in dummyReducer.ts:16*
+
+#### Type declaration
+▸(state: *`S` |`undefined`*, action: *`A`*): `S`
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| state | `S` |
+`undefined`
+ | 
+| action | `A` | 
+
+**Returns:** `S`
+
+___
 <a id="dummyreducer.contracts"></a>
 
 ####  contracts
 
 **● contracts**: *`function`* =  {} as Reducer<ContractStoreState>
 
-*Defined in dummyReducer.ts:7*
+*Defined in dummyReducer.ts:14*
 
 #### Type declaration
 ▸(state: *`S` |`undefined`*, action: *`A`*): `S`
@@ -1148,7 +1813,7 @@ ___
 
 **● feed**: *`function`* =  {} as Reducer<FeedState[]>
 
-*Defined in dummyReducer.ts:8*
+*Defined in dummyReducer.ts:15*
 
 #### Type declaration
 ▸(state: *`S` |`undefined`*, action: *`A`*): `S`
@@ -1171,7 +1836,7 @@ ___
 
 **● tx**: *`function`* =  {} as Reducer<TransactionStoreState>
 
-*Defined in dummyReducer.ts:6*
+*Defined in dummyReducer.ts:13*
 
 #### Type declaration
 ▸(state: *`S` |`undefined`*, action: *`A`*): `S`
@@ -1194,7 +1859,7 @@ ___
 
 **● web3**: *`function`* =  {} as Reducer<Web3State>
 
-*Defined in dummyReducer.ts:5*
+*Defined in dummyReducer.ts:12*
 
 #### Type declaration
 ▸(state: *`S` |`undefined`*, action: *`A`*): `S`
@@ -1219,15 +1884,38 @@ ___
 
 **reducers**: *`object`*
 
-*Defined in reducers.ts:8*
+*Defined in reducers.ts:9*
 
+<a id="reducers.accounts"></a>
+
+####  accounts
+
+**● accounts**: *`function`*
+
+*Defined in reducers.ts:14*
+
+#### Type declaration
+▸(state: *`S` |`undefined`*, action: *`A`*): `S`
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| state | `S` |
+`undefined`
+ | 
+| action | `A` | 
+
+**Returns:** `S`
+
+___
 <a id="reducers.contracts"></a>
 
 ####  contracts
 
 **● contracts**: *`function`*
 
-*Defined in reducers.ts:11*
+*Defined in reducers.ts:12*
 
 #### Type declaration
 ▸(state: *`S` |`undefined`*, action: *`A`*): `S`
@@ -1250,7 +1938,7 @@ ___
 
 **● feed**: *`function`*
 
-*Defined in reducers.ts:12*
+*Defined in reducers.ts:13*
 
 #### Type declaration
 ▸(state: *`S` |`undefined`*, action: *`A`*): `S`
@@ -1273,7 +1961,7 @@ ___
 
 **● tx**: *`function`*
 
-*Defined in reducers.ts:10*
+*Defined in reducers.ts:11*
 
 #### Type declaration
 ▸(state: *`S` |`undefined`*, action: *`A`*): `S`
@@ -1296,7 +1984,7 @@ ___
 
 **● web3**: *`function`*
 
-*Defined in reducers.ts:9*
+*Defined in reducers.ts:10*
 
 #### Type declaration
 ▸(state: *`S` |`undefined`*, action: *`A`*): `S`

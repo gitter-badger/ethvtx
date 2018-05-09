@@ -31,7 +31,7 @@
 
 **● contractAddress**: *`string`*
 
-*Defined in contracts/contracts.actions.ts:102*
+*Defined in contracts/contracts.actions.ts:103*
 
 ___
 <a id="contractname"></a>
@@ -40,7 +40,7 @@ ___
 
 **● contractName**: *`string`*
 
-*Defined in contracts/contracts.actions.ts:101*
+*Defined in contracts/contracts.actions.ts:102*
 
 ___
 <a id="error"></a>
@@ -49,7 +49,7 @@ ___
 
 **● error**: *`any`*
 
-*Defined in contracts/contracts.actions.ts:105*
+*Defined in contracts/contracts.actions.ts:106*
 
 ___
 <a id="methodhash"></a>
@@ -58,7 +58,7 @@ ___
 
 **● methodHash**: *`string`*
 
-*Defined in contracts/contracts.actions.ts:104*
+*Defined in contracts/contracts.actions.ts:105*
 
 ___
 <a id="methodname"></a>
@@ -67,7 +67,7 @@ ___
 
 **● methodName**: *`string`*
 
-*Defined in contracts/contracts.actions.ts:103*
+*Defined in contracts/contracts.actions.ts:104*
 
 ___
 <a id="type"></a>
@@ -78,7 +78,7 @@ ___
 
 *Inherited from Action.type*
 
-*Defined in /Users/irotaru/WebstormProjects/vortex/node_modules/redux/index.d.ts:20*
+*Defined in /Users/irotaru/Vortex/vortex/node_modules/redux/index.d.ts:20*
 
 ___
 

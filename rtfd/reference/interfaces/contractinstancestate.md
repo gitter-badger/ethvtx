@@ -24,7 +24,7 @@
 
 **● error**: *`any`*
 
-*Defined in stateInterface.ts:61*
+*Defined in stateInterface.ts:78*
 
 ___
 <a id="instance"></a>
@@ -33,7 +33,7 @@ ___
 
 **● instance**: *`any`*
 
-*Defined in stateInterface.ts:60*
+*Defined in stateInterface.ts:77*
 
 ___
 <a id="status"></a>
@@ -42,7 +42,7 @@ ___
 
 **● status**: *`string`*
 
-*Defined in stateInterface.ts:59*
+*Defined in stateInterface.ts:76*
 
 ___
 

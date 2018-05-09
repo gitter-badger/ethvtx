@@ -17,6 +17,7 @@
 ### Accessors
 
 * [Contracts](vortex.md#contracts)
+* [Networks](vortex.md#networks)
 * [Store](vortex.md#store)
 
 ### Methods
@@ -24,9 +25,12 @@
 * [addContract](vortex.md#addcontract)
 * [addNetwork](vortex.md#addnetwork)
 * [addReducer](vortex.md#addreducer)
+* [loadContract](vortex.md#loadcontract)
 * [loadWeb3](vortex.md#loadweb3)
+* [networksOf](vortex.md#networksof)
 * [run](vortex.md#run)
 * [setCustomState](vortex.md#setcustomstate)
+* [subscribeAccount](vortex.md#subscribeaccount)
 * [factory](vortex.md#factory)
 * [get](vortex.md#get)
 
@@ -38,7 +42,7 @@
 
 ###  constructor
 
-⊕ **new Vortex**(contracts: *`ContractArtifact`[]*, loader: *`Promise`<`any`>*, reducersMap?: *`ReducersMapObject`<`T`>*, customState?: *`DeepPartial`<`T`>*): [Vortex](vortex.md)
+⊕ **new Vortex**(contracts: *`ContractArtifact`[]*, loader: *`Promise`<`any`>*, config?: *[GeneratorConfig](../interfaces/generatorconfig.md)<`T`>*): [Vortex](vortex.md)
 
 *Defined in vortex.ts:29*
 
@@ -50,8 +54,7 @@ Instantiate a new Vorte instance. Accessing VortexInstance will give access to t
 | ------ | ------ | ------ | ------ |
 | contracts | `ContractArtifact`[] | - |  List of contract artifacts created by truffle. |
 | loader | `Promise`<`any`> | - |  Promise that returns a web3 instance ready to be used. |
-| `Default value` reducersMap | `ReducersMapObject`<`T`> |  undefined |  Map of reducers (Not combined !) |
-| `Default value` customState | `DeepPartial`<`T`> |  undefined |  Custom state matching interface that extends State. |
+| `Default value` config | [GeneratorConfig](../interfaces/generatorconfig.md)<`T`> |  undefined |  Configuration arguments for the store generator. |
 
 **Returns:** [Vortex](vortex.md)
 
@@ -65,12 +68,26 @@ ___
 
 getContracts(): `ContractArtifact`[]
 
-*Defined in vortex.ts:122*
+*Defined in vortex.ts:153*
 
 Contracts getter
 
 **Returns:** `ContractArtifact`[]
 Array of loaded artifacts.
+
+___
+<a id="networks"></a>
+
+###  Networks
+
+getNetworks(): `number`[]
+
+*Defined in vortex.ts:173*
+
+Network Id Whitelist getter.
+
+**Returns:** `number`[]
+List of whitelisted network ids.
 
 ___
 <a id="store"></a>
@@ -79,7 +96,7 @@ ___
 
 getStore(): `Store`<`T`>
 
-*Defined in vortex.ts:131*
+*Defined in vortex.ts:162*
 
 Store getter
 
@@ -96,7 +113,7 @@ ___
 
 ▸ **addContract**(contract: *`ContractArtifact`*): `void`
 
-*Defined in vortex.ts:79*
+*Defined in vortex.ts:73*
 
 Add a new contract in contract list.
 
@@ -115,7 +132,7 @@ ___
 
 ▸ **addNetwork**(network_id: *`number`*): `void`
 
-*Defined in vortex.ts:91*
+*Defined in vortex.ts:85*
 
 Adds a network id to whitelist.
 
@@ -134,7 +151,7 @@ ___
 
 ▸ **addReducer**(field: *`string`*, reducer: *`Reducer`<`any`, `any`>*): `void`
 
-*Defined in vortex.ts:101*
+*Defined in vortex.ts:104*
 
 Add a new reducer in the Reducer Map.
 
@@ -148,15 +165,54 @@ Add a new reducer in the Reducer Map.
 **Returns:** `void`
 
 ___
+<a id="loadcontract"></a>
+
+###  loadContract
+
+▸ **loadContract**(contractName: *`string`*, contractAddress: *`string`*): `void`
+
+*Defined in vortex.ts:127*
+
+Load a new instance of a Smart Contract. Expect a new Feed element and the contracts section to get updated.
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| contractName | `string` |  - |
+| contractAddress | `string` |   |
+
+**Returns:** `void`
+
+___
 <a id="loadweb3"></a>
 
 ###  loadWeb3
 
 ▸ **loadWeb3**(): `void`
 
-*Defined in vortex.ts:66*
+*Defined in vortex.ts:60*
 
 Load Web3 instance from given source.
+
+**Returns:** `void`
+
+___
+<a id="networksof"></a>
+
+###  networksOf
+
+▸ **networksOf**(contract: *`ContractArtifact`*): `void`
+
+*Defined in vortex.ts:94*
+
+Takes a Truffle Contract Artifact and extracts all network ids where Contract has instances, adds them to whitelist
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| contract | `ContractArtifact` |  A Truffle Contract Artifact |
 
 **Returns:** `void`
 
@@ -167,7 +223,7 @@ ___
 
 ▸ **run**(): `void`
 
-*Defined in vortex.ts:50*
+*Defined in vortex.ts:48*
 
 Run the Vortex Redux Store.
 
@@ -180,7 +236,7 @@ ___
 
 ▸ **setCustomState**(customState: *`DeepPartial`<`T`>*): `void`
 
-*Defined in vortex.ts:113*
+*Defined in vortex.ts:116*
 
 Custom Initial State, useful when adding custom properties.
 
@@ -193,11 +249,30 @@ Custom Initial State, useful when adding custom properties.
 **Returns:** `void`
 
 ___
+<a id="subscribeaccount"></a>
+
+###  subscribeAccount
+
+▸ **subscribeAccount**(address: *`string`*): `void`
+
+*Defined in vortex.ts:140*
+
+Add a new contract to fetch pool.
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| address | `string` |  Address to fetch |
+
+**Returns:** `void`
+
+___
 <a id="factory"></a>
 
 ### `<Static>` factory
 
-▸ **factory**U(contracts: *`ContractArtifact`[]*, loader: *`Promise`<`any`>*, reducersMap?: *`ReducersMapObject`<`U`>*, customState?: *`DeepPartial`<`U`>*): [Vortex](vortex.md)<`U`>
+▸ **factory**U(contracts: *`ContractArtifact`[]*, loader: *`Promise`<`any`>*, config?: *[GeneratorConfig](../interfaces/generatorconfig.md)<`U`>*): [Vortex](vortex.md)<`U`>
 
 *Defined in vortex.ts:23*
 
@@ -210,8 +285,7 @@ ___
 | ------ | ------ | ------ |
 | contracts | `ContractArtifact`[] | - | 
 | loader | `Promise`<`any`> | - | 
-| `Default value` reducersMap | `ReducersMapObject`<`U`> |  undefined | 
-| `Default value` customState | `DeepPartial`<`U`> |  undefined | 
+| `Default value` config | [GeneratorConfig](../interfaces/generatorconfig.md)<`U`> |  undefined | 
 
 **Returns:** [Vortex](vortex.md)<`U`>
 

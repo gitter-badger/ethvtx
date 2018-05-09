@@ -8,7 +8,7 @@
 
 ## Indexable
 
-\[key: `string`\]:&nbsp;[TransactionState](../#transactionstate)
+\[key: `string`\]:&nbsp;[TransactionState](transactionstate.md)
 ## Index
 
 ---

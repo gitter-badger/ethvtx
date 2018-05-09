@@ -26,7 +26,7 @@
 
 ⊕ **new VortexContract**(artifact: *`ContractArtifact`*, address: *`string`*, coinbase: *`string`*, web3: *`any`*): [VortexContract](vortexcontract.md)
 
-*Defined in contracts/VortexContract.ts:76*
+*Defined in contracts/VortexContract.ts:87*
 
 **Parameters:**
 
@@ -49,7 +49,7 @@ ___
 
 ▸ **callSignature**(...methodArguments: *`any`[]*): `string`
 
-*Defined in contracts/VortexContract.ts:24*
+*Defined in contracts/VortexContract.ts:23*
 
 **Parameters:**
 

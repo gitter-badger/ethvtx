@@ -4,7 +4,9 @@
 
 ## Hierarchy
 
-**FeedNewContractState**
+ [FeedHeader](feedheader.md)
+
+**↳ FeedNewContractState**
 
 ## Index
 
@@ -25,7 +27,9 @@
 
 **● action**: *`string`*
 
-*Defined in stateInterface.ts:73*
+*Inherited from [FeedHeader](feedheader.md).[action](feedheader.md#action)*
+
+*Defined in stateInterface.ts:90*
 
 ___
 <a id="contract_address"></a>
@@ -34,7 +38,7 @@ ___
 
 **● contract_address**: *`string`*
 
-*Defined in stateInterface.ts:75*
+*Defined in stateInterface.ts:96*
 
 ___
 <a id="contract_name"></a>
@@ -43,7 +47,7 @@ ___
 
 **● contract_name**: *`string`*
 
-*Defined in stateInterface.ts:74*
+*Defined in stateInterface.ts:95*
 
 ___
 <a id="timestamp"></a>
@@ -52,7 +56,9 @@ ___
 
 **● timestamp**: *`number`*
 
-*Defined in stateInterface.ts:76*
+*Inherited from [FeedHeader](feedheader.md).[timestamp](feedheader.md#timestamp)*
+
+*Defined in stateInterface.ts:91*
 
 ___
 

@@ -1,6 +1,6 @@
-[VortΞx](../README.md) > [ContractLoadingAction](../interfaces/contractloadingaction.md)
+[VortΞx](../README.md) > [ContractLoadAction](../interfaces/contractloadaction.md)
 
-# Interface: ContractLoadingAction
+# Interface: ContractLoadAction
 
 ## Type parameters
 #### T 
@@ -8,15 +8,15 @@
 
  `Action`
 
-**↳ ContractLoadingAction**
+**↳ ContractLoadAction**
 
 ## Index
 
 ### Properties
 
-* [contractAddress](contractloadingaction.md#contractaddress)
-* [contractName](contractloadingaction.md#contractname)
-* [type](contractloadingaction.md#type)
+* [contractAddress](contractloadaction.md#contractaddress)
+* [contractName](contractloadaction.md#contractname)
+* [type](contractloadaction.md#type)
 
 ---
 
@@ -28,7 +28,7 @@
 
 **● contractAddress**: *`string`*
 
-*Defined in contracts/contracts.actions.ts:6*
+*Defined in contracts/contracts.actions.ts:139*
 
 ___
 <a id="contractname"></a>
@@ -37,7 +37,7 @@ ___
 
 **● contractName**: *`string`*
 
-*Defined in contracts/contracts.actions.ts:5*
+*Defined in contracts/contracts.actions.ts:138*
 
 ___
 <a id="type"></a>
