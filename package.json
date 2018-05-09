@@ -41,13 +41,14 @@
     "ts-jest": "^22.4.4",
     "tslint": "^5.9.1",
     "typedoc": "^0.11.1",
+    "typedoc-plugin-markdown": "^1.1.6",
     "web3": "^1.0.0-beta.34",
     "web3-typescript-typings": "^0.10.2"
   },
   "scripts": {
     "build": "tslint --project . && tsc",
     "test": "tslint --project . && jest --coverage --notify",
-    "doc": "rm -rf ./doc && tslint --project . && tsc && typedoc --out doc --mode file ./_sources/sources/ --readme ./README.md --name \"VortΞx\" --theme minimal --hideGenerator --target ES6 --exclude **/*.test.ts"
+    "doc": "rm -rf ./rtfd/reference && tslint --project . && tsc && typedoc --out ./rtfd/reference --mode file ./_sources/sources/ --name \"VortΞx\" --theme markdown --hideGenerator --target ES6 --exclude **/*.test.ts --readme 'none' --excludeExternals --excludePrivate"
   },
   "repository": {
     "type": "git",

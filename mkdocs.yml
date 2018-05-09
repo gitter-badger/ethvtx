@@ -1,0 +1,37 @@
+site_name: VortΞx
+theme: rtd-dropdown
+docs_dir: ./rtfd
+pages:
+  - 'Introduction': index.md
+  - 'Tutorial': tutorial.md
+  - 'Store Architecture': architecture/store.md
+  - 'Index': reference/README.md
+  - 'States':
+    - 'AccountConfigState': reference/interfaces/accountconfigstate.md
+    - 'AccountErrorState': reference/interfaces/accounterrorstate.md
+    - 'AccountInfoState': reference/interfaces/accountinfostate.md
+    - 'AccountStoreState': reference/interfaces/accountstorestate.md
+    - 'ContractAddressState': reference/interfaces/contractaddressesstate.md
+    - 'ContractInstanceState': reference/interfaces/contractinstancestate.md
+    - 'ContractStoreState': reference/interfaces/contractstorestate.md
+    - 'FeedNewAccountState': reference/interfaces/feednewaccountstate.md
+    - 'FeedNewContractState': reference/interfaces/feednewcontractstate.md
+    - 'FeedNewErrorState': reference/interfaces/feednewerrorstate.md
+    - 'FeedNewErrorErrorState': reference/interfaces/feednewerrorerrorstate.md
+    - 'FeedNewTransactionState': reference/interfaces/feednewtransactionstate.md
+    - 'RawTransactionArgumentState': reference/interfaces/rawtransactionargumentstate.md
+    - 'State': reference/interfaces/state.md
+    - 'TransactionArgumentState': reference/interfaces/transactionargumentstate.md
+    - 'TransactionBroadcastedState': reference/interfaces/transactionbroadcastedstate.md
+    - 'TransactionConfirmedState': reference/interfaces/transactionconfirmedstate.md
+    - 'TransactionErrorState': reference/interfaces/transactionerrorstate.md
+    - 'TransactionReceiptState': reference/interfaces/transactionreceiptstate.md
+    - 'TransactionState': reference/interfaces/transactionstate.md
+    - 'TransactionStoreState': reference/interfaces/transactionstorestate.md
+    - 'Web3LoadedState': reference/interfaces/web3loadedstate.md
+    - 'Web3LoadErrorState': reference/interfaces/web3loaderrorstate.md
+    - 'Web3LoadingState': reference/interfaces/web3loadingstate.md
+    - 'Web3NetworkErrorState': reference/interfaces/web3networkerrorstate.md
+  - 'Classes':
+    - 'Vortex': reference/classes/vortex.md
+    - 'VortexContract': reference/classes/vortexcontract.md

@@ -1,10 +1,5 @@
 # Store Architecture
 
-## Prelude
-
-This document defines how the Redux Store is going to store its data. 
-
-## Architecture
 
 #### Definitions
 
@@ -93,6 +88,7 @@ This document defines how the Redux Store is going to store its data.
 ```
 
 ###### `Contract Objects`
+
 ```javascript
 // deftype CONTRACT_LOADING
 {
@@ -102,7 +98,7 @@ This document defines how the Redux Store is going to store its data.
 // deftype CONTRACT_LOADED
 {
     status: 'CONTRACT_LOADED',
-    _: web3.eth.Contract
+    instance: VortexContract
 }
 
 // deftype CONTRACT_ERROR
@@ -128,6 +124,24 @@ This document defines how the Redux Store is going to store its data.
     contract_name: string,
     contract_address: string,
     timestamp: number
+}
+
+// deftype FEED_NEW_ERROR
+{
+    action: 'NEW_ERROR',
+    error: {
+        reason: any,
+        message: string,
+        when: string
+    }
+    timestamp: number
+}
+
+// deftype FEED_NEW_ACCOUNT
+{
+    action: 'NEW_ACCOUNT',
+    account: string,
+    coinbase: boolean
 }
 ```
 
@@ -188,64 +202,8 @@ This document defines how the Redux Store is going to store its data.
 	},
 	feed: [
 		...
-        FEED_NEW_TX | FEED_NEW_CONTRACT
+        FEED_NEW_TX | FEED_NEW_CONTRACT | FEED_NEW_ERROR | FEED_NEW_ACCOUNT
 		...
 	]
 }
 ```
-
-## `web3`
-
-This section handles web3 status. It fetches an instance of web3 from the browser and sets the status accordingly.
-
-#### `initialized`
-
-`true` if properly loaded, `false` of no web3 found or not on required network.
-
-#### `networkid`
-
-Current network Id
-
-#### `_`
-
-Web3 instance that got recovered from the browser.
-
-## `tx`
-
-This section stores all transaction in an object (mapping transaction hashes to their data).
-
-#### `${txHash}`
-
-Can be any transaction hash, will be set to `undefined` if no informations about the transaction exist.
-
-#### `status`
-
-An object of type `TX_STATUS_BROADCASTED`, `TX_STATUS_RECEIPT`, `TX_STATUS_CONFIRMED` or `TX_STATUS_ERROR`.
-
-#### `txParams`
-
-Params that the transaction was containing.
-
-## `contracts`
-
-This section stores all live smart contracts. Each contract has a mapping within that stores every instance loaded during the session, mapped on their addresses.
-
-#### `${contractName}`
-
-Solidity name of the contract.
-
-#### `artifact`
-
-Truffle Artifact generated when compiling contracts with truffle.
-
-#### `deployed`
-
-Special field, this one is the default instance found in the artifacts from truffle. It will also be mapped to its address. It is a [web3 contract instance](https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethcontract).
-
-#### `${address}`
-
-Contains instance of smart contract at specific address.
-
-## `feed`
-
-The feed will contain all the actions emitted by the user, with their types. A component that monitors transactions should plug itself on both tx and feedm and wait for new feed informations about transactions.

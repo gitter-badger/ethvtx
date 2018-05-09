@@ -1,3 +1,8 @@
+<!--
+  Title: Vortex
+  Description: And Ethereum Dapp React and Redux tool taking care of transactions, smart contracts and many more !
+  Author: mortimr
+  -->
 <div align="center" >
 <img width="25%" src="https://raw.githubusercontent.com/Horyus/vort_x/master/.assets/vortex.png">
 </div>
@@ -9,15 +14,16 @@
 
 ## Introduction
 
-VortΞx is an Ethereum Dapp redux store that handles transactions, smart contracts, events ... Very easy to use, it allows you to monitor transactions and store contracts in a Redux Store. It also handles web3 loading, and checks if wether or not we are on a valid network.
+VortΞx is an Ethereum Dapp redux store that handles transactions, smart contracts, accounts, method calls, web3 status ... Very easy to use with React, it will allow your Dapp to be more reactive (no need to refresh anything), and will make less requests with web3, for even better results.
 
-Transactions are added manually by their transaction hashes.
-Contracts Artifacts are loading upon construction, and deployed instances too.
-Runtime Contracts can be loaded if appropriate artifact was loaded. You can manage multiple contracts of the same type.
+## [Documentation](https://vort-x.readthedocs.io/)
 
-## Architecture Documentation
+## Installation
 
-* [Store](https://gitlab.com/FlexProject/vortex/blob/master/markdown/store.md)
-* [Actions](https://gitlab.com/FlexProject/vortex/blob/master/markdown/actions.md)
-* [Reducers](https://gitlab.com/FlexProject/vortex/blob/master/markdown/reducers.md)
-* [Saga](https://gitlab.com/FlexProject/vortex/blob/master/markdown/saga.md)
+```
+npm install --save vort_x vort_x-components
+```
+
+## [VortΞx Components](https://github.com/Horyus/vort_x-components)
+
+## [Usages Examples](https://github.com/Horyus/vort_x-demo)
