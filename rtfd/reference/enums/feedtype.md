@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [FeedType](../enums/feedtype.md)
+[Vortex](../README.md) > [FeedType](../enums/feedtype.md)
 
 # Enumeration: FeedType
 

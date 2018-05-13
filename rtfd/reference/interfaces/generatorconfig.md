@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [GeneratorConfig](../interfaces/generatorconfig.md)
+[Vortex](../README.md) > [GeneratorConfig](../interfaces/generatorconfig.md)
 
 # Interface: GeneratorConfig
 

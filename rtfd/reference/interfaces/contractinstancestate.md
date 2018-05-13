@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [ContractInstanceState](../interfaces/contractinstancestate.md)
+[Vortex](../README.md) > [ContractInstanceState](../interfaces/contractinstancestate.md)
 
 # Interface: ContractInstanceState
 

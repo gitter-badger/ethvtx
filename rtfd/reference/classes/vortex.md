@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [Vortex](../classes/vortex.md)
+[Vortex](../README.md) > [Vortex](../classes/vortex.md)
 
 # Class: Vortex
 

@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [TransactionStoreState](../interfaces/transactionstorestate.md)
+[Vortex](../README.md) > [TransactionStoreState](../interfaces/transactionstorestate.md)
 
 # Interface: TransactionStoreState
 

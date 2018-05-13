@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [ContractVarErrorReceivedAction](../interfaces/contractvarerrorreceivedaction.md)
+[Vortex](../README.md) > [ContractVarErrorReceivedAction](../interfaces/contractvarerrorreceivedaction.md)
 
 # Interface: ContractVarErrorReceivedAction
 
@@ -78,7 +78,7 @@ ___
 
 *Inherited from Action.type*
 
-*Defined in /Users/irotaru/Vortex/vortex/node_modules/redux/index.d.ts:20*
+*Defined in /Users/mortimr/FlexProject/Vortex/vortex/node_modules/redux/index.d.ts:20*
 
 ___
 

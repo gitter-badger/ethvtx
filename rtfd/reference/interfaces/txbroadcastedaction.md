@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [TxBroadcastedAction](../interfaces/txbroadcastedaction.md)
+[Vortex](../README.md) > [TxBroadcastedAction](../interfaces/txbroadcastedaction.md)
 
 # Interface: TxBroadcastedAction
 
@@ -50,7 +50,7 @@ ___
 
 *Inherited from Action.type*
 
-*Defined in /Users/irotaru/Vortex/vortex/node_modules/redux/index.d.ts:20*
+*Defined in /Users/mortimr/FlexProject/Vortex/vortex/node_modules/redux/index.d.ts:20*
 
 ___
 

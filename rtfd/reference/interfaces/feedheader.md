@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [FeedHeader](../interfaces/feedheader.md)
+[Vortex](../README.md) > [FeedHeader](../interfaces/feedheader.md)
 
 # Interface: FeedHeader
 

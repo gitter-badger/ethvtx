@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [ContractVarForceRefreshAction](../interfaces/contractvarforcerefreshaction.md)
+[Vortex](../README.md) > [ContractVarForceRefreshAction](../interfaces/contractvarforcerefreshaction.md)
 
 # Interface: ContractVarForceRefreshAction
 
@@ -68,7 +68,7 @@ ___
 
 *Inherited from Action.type*
 
-*Defined in /Users/irotaru/Vortex/vortex/node_modules/redux/index.d.ts:20*
+*Defined in /Users/mortimr/FlexProject/Vortex/vortex/node_modules/redux/index.d.ts:20*
 
 ___
 

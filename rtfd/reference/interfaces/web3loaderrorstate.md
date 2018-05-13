@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [Web3LoadErrorState](../interfaces/web3loaderrorstate.md)
+[Vortex](../README.md) > [Web3LoadErrorState](../interfaces/web3loaderrorstate.md)
 
 # Interface: Web3LoadErrorState
 

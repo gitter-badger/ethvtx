@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [Web3LoadErrorAction](../interfaces/web3loaderroraction.md)
+[Vortex](../README.md) > [Web3LoadErrorAction](../interfaces/web3loaderroraction.md)
 
 # Interface: Web3LoadErrorAction
 
@@ -38,7 +38,7 @@ ___
 
 *Inherited from Action.type*
 
-*Defined in /Users/irotaru/Vortex/vortex/node_modules/redux/index.d.ts:20*
+*Defined in /Users/mortimr/FlexProject/Vortex/vortex/node_modules/redux/index.d.ts:20*
 
 ___
 

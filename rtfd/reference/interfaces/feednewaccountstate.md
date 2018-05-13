@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [FeedNewAccountState](../interfaces/feednewaccountstate.md)
+[Vortex](../README.md) > [FeedNewAccountState](../interfaces/feednewaccountstate.md)
 
 # Interface: FeedNewAccountState
 

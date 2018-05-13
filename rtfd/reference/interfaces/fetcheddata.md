@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [FetchedData](../interfaces/fetcheddata.md)
+[Vortex](../README.md) > [FetchedData](../interfaces/fetcheddata.md)
 
 # Interface: FetchedData
 

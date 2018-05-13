@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [FeedNewErrorAction](../interfaces/feednewerroraction.md)
+[Vortex](../README.md) > [FeedNewErrorAction](../interfaces/feednewerroraction.md)
 
 # Interface: FeedNewErrorAction
 
@@ -49,7 +49,7 @@ ___
 
 *Inherited from Action.type*
 
-*Defined in /Users/irotaru/Vortex/vortex/node_modules/redux/index.d.ts:20*
+*Defined in /Users/mortimr/FlexProject/Vortex/vortex/node_modules/redux/index.d.ts:20*
 
 ___
 <a id="when"></a>

@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [TxSendAction](../interfaces/txsendaction.md)
+[Vortex](../README.md) > [TxSendAction](../interfaces/txsendaction.md)
 
 # Interface: TxSendAction
 
@@ -49,7 +49,7 @@ ___
 
 *Inherited from Action.type*
 
-*Defined in /Users/irotaru/Vortex/vortex/node_modules/redux/index.d.ts:20*
+*Defined in /Users/mortimr/FlexProject/Vortex/vortex/node_modules/redux/index.d.ts:20*
 
 ___
 <a id="web3"></a>
