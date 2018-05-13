@@ -1,5 +1,5 @@
 <div align="center" >
-<img width="25%" src="https://gitlab.com/FlexProject/vortex/raw/master/.assets/vortex.png">
+<img width="25%" src="https://gitlab.com/Horyus/vortex/vortex/raw/master/.assets/vortex.png">
 </div>
 
 Welcome to the Vortex documentation. This document will describe how you can harvest the potential of Redux+React in Dapps with the help of Vortex.

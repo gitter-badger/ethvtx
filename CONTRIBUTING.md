@@ -1,6 +1,6 @@
 # Contributing
 
-To contribute, head to the [gitlab](https://gitlab.com/FlexProject/vortex) version of this repository.
+To contribute, head to the [gitlab](https://gitlab.com/Horyus/vortex/vortex) version of this repository.
 When contributing to this repository, please first discuss the change you wish to make via issue,
 email, or any other method with the owners of this repository before making a change.
 
