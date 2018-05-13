@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [FeedNewContractState](../interfaces/feednewcontractstate.md)
+[Vortex](../README.md) > [FeedNewContractState](../interfaces/feednewcontractstate.md)
 
 # Interface: FeedNewContractState
 

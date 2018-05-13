@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [RawTransactionArgumentState](../interfaces/rawtransactionargumentstate.md)
+[Vortex](../README.md) > [RawTransactionArgumentState](../interfaces/rawtransactionargumentstate.md)
 
 # Interface: RawTransactionArgumentState
 

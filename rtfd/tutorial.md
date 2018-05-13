@@ -1,21 +1,21 @@
 # Tutorial
 
-This tutorial will explain how to use the VortΞx and VortΞx Components packages in a React Dapp.
-The first part will speak about how to use VortΞx in a React Dapp (if you want to manually instantiate it and connect your components to the store).
-The secont part will explain how to use the Generic VortΞx Components.
+This tutorial will explain how to use the Vortex and Vortex Components packages in a React Dapp.
+The first part will speak about how to use Vortex in a React Dapp (if you want to manually instantiate it and connect your components to the store).
+The secont part will explain how to use the Generic Vortex Components.
 
 ## Installing
 
-Both VortΞx and VortΞx Components are available on the public npm registry. You can simply run:
+Both Vortex and Vortex Components are available on the public npm registry. You can simply run:
 
 ```npm
 npm install --save vort_x vort_x-components
 ```
-## VortΞx
+## Vortex
 
-#### Creating a classic VortΞx instance
+#### Creating a classic Vortex instance
 
-Creating a [VortΞx](./reference/classes/vortex.md) instance is quite easy. Start by importing the Vortex class from the `vort_x` package.
+Creating a [Vortex](./reference/classes/vortex.md) instance is quite easy. Start by importing the Vortex class from the `vort_x` package.
 
 ```javascript
 // ES6 or TS
@@ -48,9 +48,9 @@ Your instance is ready to be run, but you can still tweak your store before runn
 
 You can recover this instance at any time by calling the static `get` method on Vortex (will only store the last instance, but you'll never need two instances of Vortex).
 
-#### Creating an extended VortΞx instance
+#### Creating an extended Vortex instance
 
-The VortΞx store is quite modular and allows you to plug your own reducers and set your starting state.
+The Vortex store is quite modular and allows you to plug your own reducers and set your starting state.
 Let's assume that you want to add a new entry `profile` in the store, and that you have created your actions and reducer.
 
 ```
@@ -123,12 +123,12 @@ Will give the order to load the web3 instance from the loader you have provided 
 #### Using in React
 
 Now, you might want to use Vortex in your React App. The best thing to do for you will be to read some [Redux Documentation](https://redux.js.org/basics).
-Then, you should have a look at the source code of the different [VortΞx Components](https://github.com/Horyus/vort_x-components) and [VortΞx Demo](https://github.com/Horyus/vort_x-demo), it will show you how to start an instance,
+Then, you should have a look at the source code of the different [Vortex Components](https://github.com/Horyus/vort_x-components) and [Vortex Demo](https://github.com/Horyus/vort_x-demo), it will show you how to start an instance,
 connect your components and make transactions. This will be a good training, and will maybe make you discover components that are already doing what you want to do.
 
 The first thing you should watch is the VortexGate component and how it is used in the demo. It's the component that will create the instance and provide it in its context, while also managing what should be rendered depending on web3 status.
 
-## VortΞx Components
+## Vortex Components
 
 ## [VortexGate](https://github.com/Horyus/vort_x-components/blob/master/src/components/vortex-components/vortex-gate/index.tsx)
 
@@ -327,7 +327,7 @@ export class Overlay extends Component {
                     </Button>
                     <SlidingPane
                         isOpen={ this.state.isPaneOpenLeft }
-                        title='VortΞx Transaction Summary'
+                        title='Vortex Transaction Summary'
                         from='left'
                         width={(Math.floor(window.innerWidth * 0.3)).toString() + "px"}
                         onRequestClose={ () => this.setState({ isPaneOpenLeft: false }) }>

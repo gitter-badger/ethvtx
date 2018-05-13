@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [TransactionConfirmedState](../interfaces/transactionconfirmedstate.md)
+[Vortex](../README.md) > [TransactionConfirmedState](../interfaces/transactionconfirmedstate.md)
 
 # Interface: TransactionConfirmedState
 

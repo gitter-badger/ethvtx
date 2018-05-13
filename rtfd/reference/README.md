@@ -1,5 +1,5 @@
 
-#  VortΞx
+#  Vortex
 
 ## Index
 

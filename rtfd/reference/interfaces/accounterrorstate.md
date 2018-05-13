@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [AccountErrorState](../interfaces/accounterrorstate.md)
+[Vortex](../README.md) > [AccountErrorState](../interfaces/accounterrorstate.md)
 
 # Interface: AccountErrorState
 

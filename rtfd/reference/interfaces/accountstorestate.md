@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [AccountStoreState](../interfaces/accountstorestate.md)
+[Vortex](../README.md) > [AccountStoreState](../interfaces/accountstorestate.md)
 
 # Interface: AccountStoreState
 

@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [ContractAddressesState](../interfaces/contractaddressesstate.md)
+[Vortex](../README.md) > [ContractAddressesState](../interfaces/contractaddressesstate.md)
 
 # Interface: ContractAddressesState
 

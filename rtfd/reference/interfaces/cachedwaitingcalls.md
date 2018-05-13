@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [CachedWaitingCalls](../interfaces/cachedwaitingcalls.md)
+[Vortex](../README.md) > [CachedWaitingCalls](../interfaces/cachedwaitingcalls.md)
 
 # Interface: CachedWaitingCalls
 

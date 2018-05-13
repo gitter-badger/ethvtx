@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [VortexContract](../classes/vortexcontract.md)
+[Vortex](../README.md) > [VortexContract](../classes/vortexcontract.md)
 
 # Class: VortexContract
 

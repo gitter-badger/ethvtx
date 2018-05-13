@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [FeedNewErrorErrorState](../interfaces/feednewerrorerrorstate.md)
+[Vortex](../README.md) > [FeedNewErrorErrorState](../interfaces/feednewerrorerrorstate.md)
 
 # Interface: FeedNewErrorErrorState
 

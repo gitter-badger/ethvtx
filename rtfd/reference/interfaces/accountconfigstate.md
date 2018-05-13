@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [AccountConfigState](../interfaces/accountconfigstate.md)
+[Vortex](../README.md) > [AccountConfigState](../interfaces/accountconfigstate.md)
 
 # Interface: AccountConfigState
 

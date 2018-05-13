@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [Web3LoadedAction](../interfaces/web3loadedaction.md)
+[Vortex](../README.md) > [Web3LoadedAction](../interfaces/web3loadedaction.md)
 
 # Interface: Web3LoadedAction
 
@@ -58,7 +58,7 @@ ___
 
 *Inherited from Action.type*
 
-*Defined in /Users/irotaru/Vortex/vortex/node_modules/redux/index.d.ts:20*
+*Defined in /Users/mortimr/FlexProject/Vortex/vortex/node_modules/redux/index.d.ts:20*
 
 ___
 

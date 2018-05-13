@@ -1,7 +1,7 @@
 {
   "name": "vort_x",
   "version": "1.0.0",
-  "description": "[VortΞx] is an Ethereum Dapp Redux Store that handles transactions, smart contracts, accounts, method calls ...",
+  "description": "Vortex is an Ethereum Dapp Redux Store that handles transactions, smart contracts, accounts, method calls ...",
   "main": "index.js",
   "directories": {
     "doc": "doc",
@@ -48,7 +48,7 @@
   "scripts": {
     "build": "tslint --project . && tsc",
     "test": "tslint --project . && jest --coverage --notify",
-    "doc": "rm -rf ./rtfd/reference && tslint --project . && tsc && typedoc --out ./rtfd/reference --mode file ./_sources/sources/ --name \"VortΞx\" --theme markdown --hideGenerator --target ES6 --exclude **/*.test.ts --readme 'none' --excludeExternals --excludePrivate"
+    "doc": "rm -rf ./rtfd/reference && tslint --project . && tsc && typedoc --out ./rtfd/reference --mode file ./_sources/sources/ --name \"Vortex\" --theme markdown --hideGenerator --target ES6 --exclude **/*.test.ts --readme 'none' --excludeExternals --excludePrivate"
   },
   "repository": {
     "type": "git",
@@ -64,9 +64,9 @@
     "wallet",
     "keypair",
     "blockchain",
-    "react"
+    "react",
+    "vortex"
   ],
-  "readme": "NPM_README.md",
   "author": "Iulian Rotaru",
   "license": "MIT",
   "bugs": {

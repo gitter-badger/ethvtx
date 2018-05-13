@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [ContractErrorAction](../interfaces/contracterroraction.md)
+[Vortex](../README.md) > [ContractErrorAction](../interfaces/contracterroraction.md)
 
 # Interface: ContractErrorAction
 
@@ -58,7 +58,7 @@ ___
 
 *Inherited from Action.type*
 
-*Defined in /Users/irotaru/Vortex/vortex/node_modules/redux/index.d.ts:20*
+*Defined in /Users/mortimr/FlexProject/Vortex/vortex/node_modules/redux/index.d.ts:20*
 
 ___
 

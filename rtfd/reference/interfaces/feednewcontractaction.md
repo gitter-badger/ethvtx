@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [FeedNewContractAction](../interfaces/feednewcontractaction.md)
+[Vortex](../README.md) > [FeedNewContractAction](../interfaces/feednewcontractaction.md)
 
 # Interface: FeedNewContractAction
 
@@ -48,7 +48,7 @@ ___
 
 *Inherited from Action.type*
 
-*Defined in /Users/irotaru/Vortex/vortex/node_modules/redux/index.d.ts:20*
+*Defined in /Users/mortimr/FlexProject/Vortex/vortex/node_modules/redux/index.d.ts:20*
 
 ___
 

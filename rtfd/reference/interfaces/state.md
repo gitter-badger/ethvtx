@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [State](../interfaces/state.md)
+[Vortex](../README.md) > [State](../interfaces/state.md)
 
 # Interface: State
 

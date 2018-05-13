@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [TransactionErrorState](../interfaces/transactionerrorstate.md)
+[Vortex](../README.md) > [TransactionErrorState](../interfaces/transactionerrorstate.md)
 
 # Interface: TransactionErrorState
 
