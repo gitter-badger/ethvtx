@@ -106,7 +106,7 @@ function* onLoadContractInitialize(action: Web3LoadedAction): SagaIterator {
                             break ;
                         }
                     }
-                    if (contract_instance && contract_instance.networks) {
+                    if (contract_instance && contract_instance.networks && contracts.config.config.preloaded_contracts.indexOf(contractNames[idx]) !== -1) {
                         if (contract_instance.networks[action.networkId] === undefined) {
                             console.warn("Contract " + contractNames[idx] + " has no instance on current network");
                             break;
