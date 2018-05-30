@@ -31,7 +31,7 @@
 
 *Inherited from [AccountConfigState](accountconfigstate.md).[refresh_rate](accountconfigstate.md#refresh_rate)*
 
-*Defined in stateInterface.ts:126*
+*Defined in stateInterface.ts:132*
 
 ___
 <a id="type"></a>
@@ -42,7 +42,7 @@ ___
 
 *Inherited from Action.type*
 
-*Defined in /Users/mortimr/FlexProject/Vortex/vortex/node_modules/redux/index.d.ts:20*
+*Defined in /Users/irotaru/Vortex/vortex/node_modules/redux/index.d.ts:20*
 
 ___
 

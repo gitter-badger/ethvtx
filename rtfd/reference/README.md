@@ -26,6 +26,7 @@
 * [AccountUpdateRequestAction](interfaces/accountupdaterequestaction.md)
 * [CachedWaitingCalls](interfaces/cachedwaitingcalls.md)
 * [ContractAddressesState](interfaces/contractaddressesstate.md)
+* [ContractArtifactState](interfaces/contractartifactstate.md)
 * [ContractErrorAction](interfaces/contracterroraction.md)
 * [ContractInstanceState](interfaces/contractinstancestate.md)
 * [ContractLoadAction](interfaces/contractloadaction.md)
@@ -36,6 +37,8 @@
 * [ContractVarErrorReceivedAction](interfaces/contractvarerrorreceivedaction.md)
 * [ContractVarForceRefreshAction](interfaces/contractvarforcerefreshaction.md)
 * [ContractVarReceivedAction](interfaces/contractvarreceivedaction.md)
+* [Contracts](interfaces/contracts.md)
+* [EmbarkContracts](interfaces/embarkcontracts.md)
 * [FeedHeader](interfaces/feedheader.md)
 * [FeedNewAccountAction](interfaces/feednewaccountaction.md)
 * [FeedNewAccountState](interfaces/feednewaccountstate.md)
@@ -58,6 +61,7 @@
 * [TransactionReceiptState](interfaces/transactionreceiptstate.md)
 * [TransactionState](interfaces/transactionstate.md)
 * [TransactionStoreState](interfaces/transactionstorestate.md)
+* [TruffleContracts](interfaces/trufflecontracts.md)
 * [TxBroadcastedAction](interfaces/txbroadcastedaction.md)
 * [TxConfirmedAction](interfaces/txconfirmedaction.md)
 * [TxErrorAction](interfaces/txerroraction.md)
@@ -152,7 +156,7 @@
 * [contracts](#contracts)
 * [feed](#feed)
 * [fetchAccount](#fetchaccount)
-* [forge](#generatestore)
+* [forge](#forge)
 * [getFeed](#getfeed)
 * [loadContract](#loadcontract)
 * [loopOnAccounts](#looponaccounts)
@@ -207,7 +211,7 @@ ___
 [AccountErrorState](interfaces/accounterrorstate.md)
 *
 
-*Defined in stateInterface.ts:133*
+*Defined in stateInterface.ts:139*
 
 ___
 <a id="contractactions"></a>
@@ -259,7 +263,7 @@ ___
 [FeedNewAccountState](interfaces/feednewaccountstate.md)
 *
 
-*Defined in stateInterface.ts:118*
+*Defined in stateInterface.ts:124*
 
 ___
 <a id="txactions"></a>
@@ -684,7 +688,7 @@ ___
 
 ▸ **ContractSagas**(): `any`
 
-*Defined in contracts/contracts.saga.ts:263*
+*Defined in contracts/contracts.saga.ts:287*
 
 **Returns:** `any`
 
@@ -1026,7 +1030,7 @@ ___
 
 ###  Web3Loaded
 
-▸ **Web3Loaded**(_: *`any`*, networkId: *`number`*, coinbase: *`string`*): [Web3LoadedAction](interfaces/web3loadedaction.md)
+▸ **Web3Loaded**(_: *`any`*, networkId: *`number` |`string`*, coinbase: *`string`*): [Web3LoadedAction](interfaces/web3loadedaction.md)
 
 *Defined in web3/web3.actions.ts:22*
 
@@ -1035,7 +1039,9 @@ ___
 | Param | Type |
 | ------ | ------ |
 | _ | `any` | 
-| networkId | `number` | 
+| networkId | `number` |
+`string`
+ | 
 | coinbase | `string` | 
 
 **Returns:** [Web3LoadedAction](interfaces/web3loadedaction.md)
@@ -1045,7 +1051,7 @@ ___
 
 ###  Web3NetworkError
 
-▸ **Web3NetworkError**(networkId: *`number`*): [Web3NetworkErrorAction](interfaces/web3networkerroraction.md)
+▸ **Web3NetworkError**(networkId: *`number` |`string`*): [Web3NetworkErrorAction](interfaces/web3networkerroraction.md)
 
 *Defined in web3/web3.actions.ts:46*
 
@@ -1053,7 +1059,9 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| networkId | `number` | 
+| networkId | `number` |
+`string`
+ | 
 
 **Returns:** [Web3NetworkErrorAction](interfaces/web3networkerroraction.md)
 
@@ -1064,7 +1072,7 @@ ___
 
 ▸ **Web3Sagas**(): `any`
 
-*Defined in web3/web3.sagas.ts:72*
+*Defined in web3/web3.sagas.ts:97*
 
 **Returns:** `any`
 
@@ -1104,7 +1112,7 @@ ___
 
 ▸ **callResolveWeb3**(action: *[Web3LoadAction](interfaces/web3loadaction.md)*): `SagaIterator`
 
-*Defined in web3/web3.sagas.ts:60*
+*Defined in web3/web3.sagas.ts:85*
 
 **Parameters:**
 
@@ -1155,7 +1163,7 @@ ___
 
 ▸ **contractCall**(action: *[ContractCallAction](#contractcallaction)*, tx: *`any`*, arg_signature: *`string`*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:123*
+*Defined in contracts/contracts.saga.ts:147*
 
 **Parameters:**
 
@@ -1228,7 +1236,7 @@ ___
 
 ▸ **contractSend**(action: *[ContractSendAction](interfaces/contractsendaction.md)*, tx: *`any`*, web3: *`any`*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:162*
+*Defined in contracts/contracts.saga.ts:186*
 
 **Parameters:**
 
@@ -1350,13 +1358,13 @@ ___
 **Returns:** `Promise`<`void`>
 
 ___
-<a id="generatestore"></a>
+<a id="forge"></a>
 
 ###  forge
 
-▸ **forge**T(contracts: *`any`[]*, config?: *[GeneratorConfig](interfaces/generatorconfig.md)<`T`>*): `Store`
+▸ **forge**T(contracts: *[EmbarkContracts](interfaces/embarkcontracts.md) |[TruffleContracts](interfaces/trufflecontracts.md)*, config?: *[GeneratorConfig](interfaces/generatorconfig.md)<`T`>*): `Store`
 
-*Defined in forge.ts:31*
+*Defined in forge.ts:46*
 
 **Type parameters:**
 
@@ -1365,7 +1373,9 @@ ___
 
 | Param | Type | Default value |
 | ------ | ------ | ------ |
-| contracts | `any`[] | - | 
+| contracts | [EmbarkContracts](interfaces/embarkcontracts.md) |
+[TruffleContracts](interfaces/trufflecontracts.md)
+ | - | 
 | `Default value` config | [GeneratorConfig](interfaces/generatorconfig.md)<`T`> |  undefined | 
 
 **Returns:** `Store`
@@ -1459,7 +1469,7 @@ ___
 
 ▸ **onContractCall**(action: *[ContractCallAction](#contractcallaction)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:143*
+*Defined in contracts/contracts.saga.ts:167*
 
 **Parameters:**
 
@@ -1476,7 +1486,7 @@ ___
 
 ▸ **onContractLoad**(action: *[ContractLoadAction](interfaces/contractloadaction.md)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:258*
+*Defined in contracts/contracts.saga.ts:282*
 
 **Parameters:**
 
@@ -1493,7 +1503,7 @@ ___
 
 ▸ **onContractSend**(action: *[ContractSendAction](interfaces/contractsendaction.md)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:242*
+*Defined in contracts/contracts.saga.ts:266*
 
 **Parameters:**
 
