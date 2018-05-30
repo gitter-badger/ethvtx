@@ -14,9 +14,8 @@
 
 ## Introduction
 
-VortΞx is an Ethereum Dapp redux store that handles transactions, smart contracts, accounts, method calls, web3 status ... Very easy to use with React, it will allow your Dapp to be more reactive (no need to refresh anything), and will make less requests with web3, for even better results.
+Vortex is an Ethereum Dapp redux store that handles transactions, smart contracts, accounts, method calls, web3 status ... Very easy to use with React, it will allow your Dapp to be more reactive (no need to refresh anything), and will make less requests with web3, for even better results.
 
-## [Documentation](https://vort-x.readthedocs.io/)
 
 ## Installation
 
@@ -24,6 +23,13 @@ VortΞx is an Ethereum Dapp redux store that handles transactions, smart contrac
 npm install --save vort_x vort_x-components
 ```
 
-## [VortΞx Components](https://github.com/Horyus/vort_x-components)
+----
 
-## [Usages Examples](https://github.com/Horyus/vort_x-demo)
+### [Documentation](https://vort-x.readthedocs.io/)
+
+### [Vortex Components](https://github.com/Horyus/vortex-components)
+
+### [Usages Examples](https://github.com/Horyus/vortex-demo)
+
+### [Contribution](./CONTRIBUTING.md)
+

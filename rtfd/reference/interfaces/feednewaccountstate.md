@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [FeedNewAccountState](../interfaces/feednewaccountstate.md)
+[Vortex](../README.md) > [FeedNewAccountState](../interfaces/feednewaccountstate.md)
 
 # Interface: FeedNewAccountState
 
@@ -27,7 +27,7 @@
 
 **● account**: *`string`*
 
-*Defined in stateInterface.ts:114*
+*Defined in stateInterface.ts:120*
 
 ___
 <a id="action"></a>
@@ -38,7 +38,7 @@ ___
 
 *Inherited from [FeedHeader](feedheader.md).[action](feedheader.md#action)*
 
-*Defined in stateInterface.ts:90*
+*Defined in stateInterface.ts:96*
 
 ___
 <a id="coinbase"></a>
@@ -47,7 +47,7 @@ ___
 
 **● coinbase**: *`boolean`*
 
-*Defined in stateInterface.ts:115*
+*Defined in stateInterface.ts:121*
 
 ___
 <a id="timestamp"></a>
@@ -58,7 +58,7 @@ ___
 
 *Inherited from [FeedHeader](feedheader.md).[timestamp](feedheader.md#timestamp)*
 
-*Defined in stateInterface.ts:91*
+*Defined in stateInterface.ts:97*
 
 ___
 

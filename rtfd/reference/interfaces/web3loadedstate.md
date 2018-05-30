@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [Web3LoadedState](../interfaces/web3loadedstate.md)
+[Vortex](../README.md) > [Web3LoadedState](../interfaces/web3loadedstate.md)
 
 # Interface: Web3LoadedState
 

@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [Web3LoadErrorAction](../interfaces/web3loaderroraction.md)
+[Vortex](../README.md) > [Web3LoadErrorAction](../interfaces/web3loaderroraction.md)
 
 # Interface: Web3LoadErrorAction
 

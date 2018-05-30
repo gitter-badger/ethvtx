@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [ContractVarForceRefreshAction](../interfaces/contractvarforcerefreshaction.md)
+[Vortex](../README.md) > [ContractVarForceRefreshAction](../interfaces/contractvarforcerefreshaction.md)
 
 # Interface: ContractVarForceRefreshAction
 

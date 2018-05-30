@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [Web3NetworkErrorState](../interfaces/web3networkerrorstate.md)
+[Vortex](../README.md) > [Web3NetworkErrorState](../interfaces/web3networkerrorstate.md)
 
 # Interface: Web3NetworkErrorState
 

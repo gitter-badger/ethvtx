@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [AccountAddAction](../interfaces/accountaddaction.md)
+[Vortex](../README.md) > [AccountAddAction](../interfaces/accountaddaction.md)
 
 # Interface: AccountAddAction
 

@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [ContractVarErrorReceivedAction](../interfaces/contractvarerrorreceivedaction.md)
+[Vortex](../README.md) > [ContractVarErrorReceivedAction](../interfaces/contractvarerrorreceivedaction.md)
 
 # Interface: ContractVarErrorReceivedAction
 

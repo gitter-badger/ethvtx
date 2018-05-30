@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [FeedNewErrorState](../interfaces/feednewerrorstate.md)
+[Vortex](../README.md) > [FeedNewErrorState](../interfaces/feednewerrorstate.md)
 
 # Interface: FeedNewErrorState
 
@@ -28,7 +28,7 @@
 
 *Inherited from [FeedHeader](feedheader.md).[action](feedheader.md#action)*
 
-*Defined in stateInterface.ts:90*
+*Defined in stateInterface.ts:96*
 
 ___
 <a id="error"></a>
@@ -37,7 +37,7 @@ ___
 
 **● error**: *[FeedNewErrorErrorState](feednewerrorerrorstate.md)*
 
-*Defined in stateInterface.ts:110*
+*Defined in stateInterface.ts:116*
 
 ___
 <a id="timestamp"></a>
@@ -48,7 +48,7 @@ ___
 
 *Inherited from [FeedHeader](feedheader.md).[timestamp](feedheader.md#timestamp)*
 
-*Defined in stateInterface.ts:91*
+*Defined in stateInterface.ts:97*
 
 ___
 

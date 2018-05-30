@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [Web3NetworkErrorAction](../interfaces/web3networkerroraction.md)
+[Vortex](../README.md) > [Web3NetworkErrorAction](../interfaces/web3networkerroraction.md)
 
 # Interface: Web3NetworkErrorAction
 
@@ -25,7 +25,9 @@
 
 ###  networkId
 
-**● networkId**: *`number`*
+**● networkId**: *`number` |
+`string`
+*
 
 *Defined in web3/web3.actions.ts:43*
 

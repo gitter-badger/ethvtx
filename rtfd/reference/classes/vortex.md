@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [Vortex](../classes/vortex.md)
+[Vortex](../README.md) > [Vortex](../classes/vortex.md)
 
 # Class: Vortex
 
@@ -42,7 +42,7 @@
 
 ###  constructor
 
-⊕ **new Vortex**(contracts: *`ContractArtifact`[]*, loader: *`Promise`<`any`>*, config?: *[GeneratorConfig](../interfaces/generatorconfig.md)<`T`>*): [Vortex](vortex.md)
+⊕ **new Vortex**(contracts: *[TruffleContracts](../interfaces/trufflecontracts.md) |[EmbarkContracts](../interfaces/embarkcontracts.md)*, loader: *`Promise`<`any`>*, config?: *[GeneratorConfig](../interfaces/generatorconfig.md)<`T`>*): [Vortex](vortex.md)
 
 *Defined in vortex.ts:29*
 
@@ -52,7 +52,9 @@ Instantiate a new Vorte instance. Accessing VortexInstance will give access to t
 
 | Param | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
-| contracts | `ContractArtifact`[] | - |  List of contract artifacts created by truffle. |
+| contracts | [TruffleContracts](../interfaces/trufflecontracts.md) |
+[EmbarkContracts](../interfaces/embarkcontracts.md)
+ | - |  Truffle or Embark Contracts configuration. |
 | loader | `Promise`<`any`> | - |  Promise that returns a web3 instance ready to be used. |
 | `Default value` config | [GeneratorConfig](../interfaces/generatorconfig.md)<`T`> |  undefined |  Configuration arguments for the store generator. |
 
@@ -66,13 +68,15 @@ ___
 
 ###  Contracts
 
-getContracts(): `ContractArtifact`[]
+getContracts(): [EmbarkContracts](../interfaces/embarkcontracts.md) |[TruffleContracts](../interfaces/trufflecontracts.md)
 
-*Defined in vortex.ts:153*
+*Defined in vortex.ts:163*
 
 Contracts getter
 
-**Returns:** `ContractArtifact`[]
+**Returns:** [EmbarkContracts](../interfaces/embarkcontracts.md) |
+[TruffleContracts](../interfaces/trufflecontracts.md)
+
 Array of loaded artifacts.
 
 ___
@@ -82,7 +86,7 @@ ___
 
 getNetworks(): `number`[]
 
-*Defined in vortex.ts:173*
+*Defined in vortex.ts:183*
 
 Network Id Whitelist getter.
 
@@ -96,7 +100,7 @@ ___
 
 getStore(): `Store`<`T`>
 
-*Defined in vortex.ts:162*
+*Defined in vortex.ts:172*
 
 Store getter
 
@@ -111,7 +115,7 @@ ___
 
 ###  addContract
 
-▸ **addContract**(contract: *`ContractArtifact`*): `void`
+▸ **addContract**(contract: *`any`*): `void`
 
 *Defined in vortex.ts:73*
 
@@ -121,7 +125,7 @@ Add a new contract in contract list.
 
 | Param | Type | Description |
 | ------ | ------ | ------ |
-| contract | `ContractArtifact` |  Contract to add. |
+| contract | `any` |  Contract to add. |
 
 **Returns:** `void`
 
@@ -132,7 +136,7 @@ ___
 
 ▸ **addNetwork**(network_id: *`number`*): `void`
 
-*Defined in vortex.ts:85*
+*Defined in vortex.ts:94*
 
 Adds a network id to whitelist.
 
@@ -151,7 +155,7 @@ ___
 
 ▸ **addReducer**(field: *`string`*, reducer: *`Reducer`<`any`, `any`>*): `void`
 
-*Defined in vortex.ts:104*
+*Defined in vortex.ts:114*
 
 Add a new reducer in the Reducer Map.
 
@@ -171,7 +175,7 @@ ___
 
 ▸ **loadContract**(contractName: *`string`*, contractAddress: *`string`*): `void`
 
-*Defined in vortex.ts:127*
+*Defined in vortex.ts:137*
 
 Load a new instance of a Smart Contract. Expect a new Feed element and the contracts section to get updated.
 
@@ -204,9 +208,9 @@ ___
 
 ▸ **networksOf**(contract: *`ContractArtifact`*): `void`
 
-*Defined in vortex.ts:94*
+*Defined in vortex.ts:104*
 
-Takes a Truffle Contract Artifact and extracts all network ids where Contract has instances, adds them to whitelist
+Takes a Truffle Contract Artifact and extracts all network ids where Contract has instances, adds them to whitelist If you are using Embark, Network checks will be done depending on your chains.json.
 
 **Parameters:**
 
@@ -236,7 +240,7 @@ ___
 
 ▸ **setCustomState**(customState: *`DeepPartial`<`T`>*): `void`
 
-*Defined in vortex.ts:116*
+*Defined in vortex.ts:126*
 
 Custom Initial State, useful when adding custom properties.
 
@@ -255,7 +259,7 @@ ___
 
 ▸ **subscribeAccount**(address: *`string`*): `void`
 
-*Defined in vortex.ts:140*
+*Defined in vortex.ts:150*
 
 Add a new contract to fetch pool.
 
@@ -272,7 +276,7 @@ ___
 
 ### `<Static>` factory
 
-▸ **factory**U(contracts: *`ContractArtifact`[]*, loader: *`Promise`<`any`>*, config?: *[GeneratorConfig](../interfaces/generatorconfig.md)<`U`>*): [Vortex](vortex.md)<`U`>
+▸ **factory**U(contracts: *[TruffleContracts](../interfaces/trufflecontracts.md) |[EmbarkContracts](../interfaces/embarkcontracts.md)*, loader: *`Promise`<`any`>*, config?: *[GeneratorConfig](../interfaces/generatorconfig.md)<`U`>*): [Vortex](vortex.md)<`U`>
 
 *Defined in vortex.ts:23*
 
@@ -283,7 +287,9 @@ ___
 
 | Param | Type | Default value |
 | ------ | ------ | ------ |
-| contracts | `ContractArtifact`[] | - | 
+| contracts | [TruffleContracts](../interfaces/trufflecontracts.md) |
+[EmbarkContracts](../interfaces/embarkcontracts.md)
+ | - | 
 | loader | `Promise`<`any`> | - | 
 | `Default value` config | [GeneratorConfig](../interfaces/generatorconfig.md)<`U`> |  undefined | 
 

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const generateStore_1 = require("./generateStore");
+const forge_1 = require("./forge");
 const web3_actions_1 = require("./web3/web3.actions");
 const contracts_actions_1 = require("./contracts/contracts.actions");
 const accounts_actions_1 = require("./accounts/accounts.actions");
@@ -9,7 +9,7 @@ class Vortex {
      * Instantiate a new Vorte instance.
      * Accessing VortexInstance will give access to the last instanciated Vortex.
      *
-     * @param {[]} contracts List of contract artifacts created by truffle.
+     * @param {[]} contracts Truffle or Embark Contracts configuration.
      * @param loader Promise that returns a web3 instance ready to be used.
      * @param {GeneratorConfig<T>} config Configuration arguments for the store generator.
      */
@@ -34,7 +34,7 @@ class Vortex {
      */
     run() {
         if (this._contracts) {
-            this._store = generateStore_1.generateStore(this._contracts, this._config);
+            this._store = forge_1.forge(this._contracts, this._config);
         }
         else {
             throw new Error("No Contracts Given");
@@ -59,9 +59,18 @@ class Vortex {
      */
     addContract(contract) {
         if (this._contracts === undefined) {
-            this._contracts = [];
+            throw new Error("Invalid Contracts !");
         }
-        this._contracts.push(contract);
+        switch (this._contracts.type) {
+            case 'truffle':
+                this._contracts.contracts.push(contract);
+                break;
+            case 'embark':
+                this._contracts.contracts.push(contract);
+                break;
+            default:
+                throw new Error("Invalid Contracts !");
+        }
     }
     /**
      * Adds a network id to whitelist.
@@ -73,6 +82,7 @@ class Vortex {
     }
     /**
      *  Takes a Truffle Contract Artifact and extracts all network ids where Contract has instances, adds them to whitelist
+     *  If you are using Embark, Network checks will be done depending on your chains.json.
      *
      * @param {any} contract A Truffle Contract Artifact
      */
@@ -130,7 +140,7 @@ class Vortex {
     /**
      * Contracts getter
      *
-     * @returns {ContractArtifact[]} Array of loaded artifacts.
+     * @returns {EmbarkContracts | TruffleContracts} Array of loaded artifacts.
      */
     get Contracts() {
         return (this._contracts);

@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [Web3LoadAction](../interfaces/web3loadaction.md)
+[Vortex](../README.md) > [Web3LoadAction](../interfaces/web3loadaction.md)
 
 # Interface: Web3LoadAction
 

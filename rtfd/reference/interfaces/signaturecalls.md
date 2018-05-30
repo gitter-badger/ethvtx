@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [SignatureCalls](../interfaces/signaturecalls.md)
+[Vortex](../README.md) > [SignatureCalls](../interfaces/signaturecalls.md)
 
 # Interface: SignatureCalls
 

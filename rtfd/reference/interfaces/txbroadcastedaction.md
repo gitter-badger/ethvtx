@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [TxBroadcastedAction](../interfaces/txbroadcastedaction.md)
+[Vortex](../README.md) > [TxBroadcastedAction](../interfaces/txbroadcastedaction.md)
 
 # Interface: TxBroadcastedAction
 

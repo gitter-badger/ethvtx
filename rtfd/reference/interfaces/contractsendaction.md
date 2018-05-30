@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [ContractSendAction](../interfaces/contractsendaction.md)
+[Vortex](../README.md) > [ContractSendAction](../interfaces/contractsendaction.md)
 
 # Interface: ContractSendAction
 

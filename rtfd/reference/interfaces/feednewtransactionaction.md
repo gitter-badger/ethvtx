@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [FeedNewTransactionAction](../interfaces/feednewtransactionaction.md)
+[Vortex](../README.md) > [FeedNewTransactionAction](../interfaces/feednewtransactionaction.md)
 
 # Interface: FeedNewTransactionAction
 

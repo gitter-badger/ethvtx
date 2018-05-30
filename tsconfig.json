@@ -16,7 +16,7 @@
     "./_sources/index.ts",
 
     "./_sources/sources/vortex.ts",
-    "./_sources/sources/generateStore.ts",
+    "./_sources/sources/forge.ts",
     "./_sources/sources/stateInterface.ts",
     "./_sources/sources/dummyReducer.ts",
     "./_sources/sources/sagas.ts",

@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [ContractStoreState](../interfaces/contractstorestate.md)
+[Vortex](../README.md) > [ContractStoreState](../interfaces/contractstorestate.md)
 
 # Interface: ContractStoreState
 
@@ -8,7 +8,9 @@
 
 ## Indexable
 
-\[key: `string`\]:&nbsp;[ContractAddressesState](contractaddressesstate.md)
+\[key: `string`\]:&nbsp;[ContractAddressesState](contractaddressesstate.md) |
+[ContractArtifactState](contractartifactstate.md)
+
 ## Index
 
 ---

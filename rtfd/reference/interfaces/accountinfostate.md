@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [AccountInfoState](../interfaces/accountinfostate.md)
+[Vortex](../README.md) > [AccountInfoState](../interfaces/accountinfostate.md)
 
 # Interface: AccountInfoState
 
@@ -23,7 +23,7 @@
 
 **● balance**: *`string`*
 
-*Defined in stateInterface.ts:121*
+*Defined in stateInterface.ts:127*
 
 ___
 <a id="coinbase"></a>
@@ -32,7 +32,7 @@ ___
 
 **● coinbase**: *`boolean`*
 
-*Defined in stateInterface.ts:122*
+*Defined in stateInterface.ts:128*
 
 ___
 

@@ -1,7 +1,7 @@
 {
   "name": "vort_x",
   "version": "1.0.0",
-  "description": "[VortΞx] is an Ethereum Dapp Redux Store that handles transactions, smart contracts, accounts, method calls ...",
+  "description": "Vortex is an Ethereum Dapp Redux Store that handles transactions, smart contracts, accounts, method calls ...",
   "main": "index.js",
   "directories": {
     "doc": "doc",
@@ -34,9 +34,11 @@
     "web3-utils": "^1.0.0-beta.34"
   },
   "devDependencies": {
+    "embark": "^3.0.6",
     "ganache-core": "^2.1.0",
     "jest": "^22.4.3",
     "linted": "0.0.2",
+    "live-plugin-manager": "^0.12.0",
     "truffle": "^4.1.7",
     "ts-jest": "^22.4.4",
     "tslint": "^5.9.1",
@@ -48,11 +50,11 @@
   "scripts": {
     "build": "tslint --project . && tsc",
     "test": "tslint --project . && jest --coverage --notify",
-    "doc": "rm -rf ./rtfd/reference && tslint --project . && tsc && typedoc --out ./rtfd/reference --mode file ./_sources/sources/ --name \"VortΞx\" --theme markdown --hideGenerator --target ES6 --exclude **/*.test.ts --readme 'none' --excludeExternals --excludePrivate"
+    "doc": "rm -rf ./rtfd/reference && tslint --project . && tsc && typedoc --out ./rtfd/reference --mode file ./_sources/sources/ --name \"Vortex\" --theme markdown --hideGenerator --target ES6 --exclude **/*.test.ts --readme 'none' --excludeExternals --excludePrivate"
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/FlexProject/vortex"
+    "url": "https://gitlab.com/Horyus/vortex/vortex"
   },
   "keywords": [
     "ethereum",
@@ -64,13 +66,13 @@
     "wallet",
     "keypair",
     "blockchain",
-    "react"
+    "react",
+    "vortex"
   ],
-  "readme": "NPM_README.md",
   "author": "Iulian Rotaru",
   "license": "MIT",
   "bugs": {
-    "url": "https://gitlab.com/FlexProject/vortex/issues"
+    "url": "https://gitlab.com/Horyus/vortex/vortex/issues"
   },
-  "homepage": "https://gitlab.com/FlexProject/vortex#README"
+  "homepage": "https://gitlab.com/Horyus/vortex/vortex#README"
 }

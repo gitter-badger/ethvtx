@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [TxErrorAction](../interfaces/txerroraction.md)
+[Vortex](../README.md) > [TxErrorAction](../interfaces/txerroraction.md)
 
 # Interface: TxErrorAction
 

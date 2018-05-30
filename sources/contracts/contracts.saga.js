@@ -79,19 +79,45 @@ function* loadContract(contractName, contractAddress, userAddress, web3) {
 function* onLoadContractInitialize(action) {
     const contracts = (yield effects_1.select()).contracts;
     const contractNames = Object.keys(contracts);
-    try {
-        for (let idx = 0; idx < contractNames.length; ++idx) {
-            if (contracts[contractNames[idx]].artifact.networks) {
-                if (contracts[contractNames[idx]].artifact.networks[action.networkId] === undefined) {
-                    console.warn("Contract " + contractNames[idx] + " has no instance on current network");
-                    break;
+    switch (contracts.config.type) {
+        case 'truffle':
+            try {
+                for (let idx = 0; idx < contractNames.length; ++idx) {
+                    let contract_instance = undefined;
+                    for (let save_contract_idx = 0; save_contract_idx < contracts.config.config.contracts.length; ++save_contract_idx) {
+                        if (contracts.config.config.contracts[save_contract_idx].contractName === contractNames[idx]) {
+                            contract_instance = contracts.config.config.contracts[save_contract_idx];
+                            break;
+                        }
+                    }
+                    if (contract_instance && contract_instance.networks && contracts.config.config.preloaded_contracts.indexOf(contractNames[idx]) !== -1) {
+                        if (contract_instance.networks[action.networkId] === undefined) {
+                            console.warn("Contract " + contractNames[idx] + " has no instance on current network");
+                            break;
+                        }
+                        yield* loadContract(contractNames[idx], contract_instance.networks[action.networkId].address.toLowerCase(), action.coinbase, action._);
+                    }
                 }
-                yield* loadContract(contractNames[idx], contracts[contractNames[idx]].artifact.networks[action.networkId].address.toLowerCase(), action.coinbase, action._);
             }
-        }
-    }
-    catch (e) {
-        yield effects_1.put(web3_actions_1.Web3LoadError(e));
+            catch (e) {
+                yield effects_1.put(web3_actions_1.Web3LoadError(e));
+            }
+            break;
+        case 'embark':
+            try {
+                const contract_infos = contracts.config.config.chains[action.networkId].contracts;
+                const to_preload = contracts.config.config.preloaded_contracts;
+                for (let idx = 0; idx < Object.keys(contract_infos).length; ++idx) {
+                    const infos = contract_infos[Object.keys(contract_infos)[idx]];
+                    if (to_preload.indexOf(infos.name) !== -1 && contracts[infos.name]) {
+                        yield* loadContract(infos.name, infos.address.toLowerCase(), action.coinbase, action._);
+                    }
+                }
+            }
+            catch (e) {
+                yield effects_1.put(web3_actions_1.Web3LoadError(e));
+            }
+            break;
     }
     const auto_refresh = yield effects_1.call(backgroundContractLoad);
     try {

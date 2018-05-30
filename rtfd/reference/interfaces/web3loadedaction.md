@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [Web3LoadedAction](../interfaces/web3loadedaction.md)
+[Vortex](../README.md) > [Web3LoadedAction](../interfaces/web3loadedaction.md)
 
 # Interface: Web3LoadedAction
 
@@ -45,7 +45,9 @@ ___
 
 ###  networkId
 
-**● networkId**: *`number`*
+**● networkId**: *`number` |
+`string`
+*
 
 *Defined in web3/web3.actions.ts:18*
 

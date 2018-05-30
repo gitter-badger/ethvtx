@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [FeedNewErrorAction](../interfaces/feednewerroraction.md)
+[Vortex](../README.md) > [FeedNewErrorAction](../interfaces/feednewerroraction.md)
 
 # Interface: FeedNewErrorAction
 

@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [AccountConfigState](../interfaces/accountconfigstate.md)
+[Vortex](../README.md) > [AccountConfigState](../interfaces/accountconfigstate.md)
 
 # Interface: AccountConfigState
 
@@ -24,7 +24,7 @@
 
 **● refresh_rate**: *`number`*
 
-*Defined in stateInterface.ts:126*
+*Defined in stateInterface.ts:132*
 
 ___
 

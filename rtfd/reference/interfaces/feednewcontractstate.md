@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [FeedNewContractState](../interfaces/feednewcontractstate.md)
+[Vortex](../README.md) > [FeedNewContractState](../interfaces/feednewcontractstate.md)
 
 # Interface: FeedNewContractState
 
@@ -29,7 +29,7 @@
 
 *Inherited from [FeedHeader](feedheader.md).[action](feedheader.md#action)*
 
-*Defined in stateInterface.ts:90*
+*Defined in stateInterface.ts:96*
 
 ___
 <a id="contract_address"></a>
@@ -38,7 +38,7 @@ ___
 
 **● contract_address**: *`string`*
 
-*Defined in stateInterface.ts:96*
+*Defined in stateInterface.ts:102*
 
 ___
 <a id="contract_name"></a>
@@ -47,7 +47,7 @@ ___
 
 **● contract_name**: *`string`*
 
-*Defined in stateInterface.ts:95*
+*Defined in stateInterface.ts:101*
 
 ___
 <a id="timestamp"></a>
@@ -58,7 +58,7 @@ ___
 
 *Inherited from [FeedHeader](feedheader.md).[timestamp](feedheader.md#timestamp)*
 
-*Defined in stateInterface.ts:91*
+*Defined in stateInterface.ts:97*
 
 ___
 

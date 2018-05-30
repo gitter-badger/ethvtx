@@ -5,4 +5,7 @@ doc
 .idea
 setup/truffle/build
 setup/truffle/test
+setup/embark/.embark
+setup/embark/dist
+setup/embark/chains.json
 site

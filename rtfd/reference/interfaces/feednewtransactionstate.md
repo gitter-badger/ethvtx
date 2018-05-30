@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [FeedNewTransactionState](../interfaces/feednewtransactionstate.md)
+[Vortex](../README.md) > [FeedNewTransactionState](../interfaces/feednewtransactionstate.md)
 
 # Interface: FeedNewTransactionState
 
@@ -28,7 +28,7 @@
 
 *Inherited from [FeedHeader](feedheader.md).[action](feedheader.md#action)*
 
-*Defined in stateInterface.ts:90*
+*Defined in stateInterface.ts:96*
 
 ___
 <a id="timestamp"></a>
@@ -39,7 +39,7 @@ ___
 
 *Inherited from [FeedHeader](feedheader.md).[timestamp](feedheader.md#timestamp)*
 
-*Defined in stateInterface.ts:91*
+*Defined in stateInterface.ts:97*
 
 ___
 <a id="transaction_hash"></a>
@@ -48,7 +48,7 @@ ___
 
 **● transaction_hash**: *`string`*
 
-*Defined in stateInterface.ts:100*
+*Defined in stateInterface.ts:106*
 
 ___
 

@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [TxConfirmedAction](../interfaces/txconfirmedaction.md)
+[Vortex](../README.md) > [TxConfirmedAction](../interfaces/txconfirmedaction.md)
 
 # Interface: TxConfirmedAction
 

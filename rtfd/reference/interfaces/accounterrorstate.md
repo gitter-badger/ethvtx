@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [AccountErrorState](../interfaces/accounterrorstate.md)
+[Vortex](../README.md) > [AccountErrorState](../interfaces/accounterrorstate.md)
 
 # Interface: AccountErrorState
 
@@ -22,7 +22,7 @@
 
 **● error**: *`any`*
 
-*Defined in stateInterface.ts:130*
+*Defined in stateInterface.ts:136*
 
 ___
 

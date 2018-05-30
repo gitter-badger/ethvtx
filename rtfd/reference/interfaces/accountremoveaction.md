@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [AccountRemoveAction](../interfaces/accountremoveaction.md)
+[Vortex](../README.md) > [AccountRemoveAction](../interfaces/accountremoveaction.md)
 
 # Interface: AccountRemoveAction
 

@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [AccountErrorAction](../interfaces/accounterroraction.md)
+[Vortex](../README.md) > [AccountErrorAction](../interfaces/accounterroraction.md)
 
 # Interface: AccountErrorAction
 

@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [TxReceiptAction](../interfaces/txreceiptaction.md)
+[Vortex](../README.md) > [TxReceiptAction](../interfaces/txreceiptaction.md)
 
 # Interface: TxReceiptAction
 

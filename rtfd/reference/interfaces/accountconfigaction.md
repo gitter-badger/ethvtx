@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [AccountConfigAction](../interfaces/accountconfigaction.md)
+[Vortex](../README.md) > [AccountConfigAction](../interfaces/accountconfigaction.md)
 
 # Interface: AccountConfigAction
 
@@ -31,7 +31,7 @@
 
 *Inherited from [AccountConfigState](accountconfigstate.md).[refresh_rate](accountconfigstate.md#refresh_rate)*
 
-*Defined in stateInterface.ts:126*
+*Defined in stateInterface.ts:132*
 
 ___
 <a id="type"></a>

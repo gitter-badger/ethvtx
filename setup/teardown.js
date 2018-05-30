@@ -7,6 +7,8 @@ const teardown = async () => {
     global.Server.close();
     console.log("# Closing Ganache server");
     Fs.unlinkSync("./setup/truffle/build/contracts/Migrations.json");
+    Fs.unlinkSync("./setup/embark/dist/contracts/SimpleStorage.json");
+    Fs.unlinkSync("./setup/embark/chains.json");
     console.log("# Removing Contract Artifacts");
     console.log("\n+--------------------------------------+");
     console.log("| Test Teardown Successful             |");

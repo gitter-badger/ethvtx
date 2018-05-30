@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [TxSendRawAction](../interfaces/txsendrawaction.md)
+[Vortex](../README.md) > [TxSendRawAction](../interfaces/txsendrawaction.md)
 
 # Interface: TxSendRawAction
 

@@ -1,4 +1,4 @@
-[VortΞx](../README.md) > [AccountUpdateRequestAction](../interfaces/accountupdaterequestaction.md)
+[Vortex](../README.md) > [AccountUpdateRequestAction](../interfaces/accountupdaterequestaction.md)
 
 # Interface: AccountUpdateRequestAction
 
