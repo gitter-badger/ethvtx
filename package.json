@@ -34,9 +34,11 @@
     "web3-utils": "^1.0.0-beta.34"
   },
   "devDependencies": {
+    "embark": "^3.0.6",
     "ganache-core": "^2.1.0",
     "jest": "^22.4.3",
     "linted": "0.0.2",
+    "live-plugin-manager": "^0.12.0",
     "truffle": "^4.1.7",
     "ts-jest": "^22.4.4",
     "tslint": "^5.9.1",

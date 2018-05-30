@@ -26,7 +26,7 @@
 
 **● accounts**: *[AccountStoreState](accountstorestate.md)*
 
-*Defined in stateInterface.ts:144*
+*Defined in stateInterface.ts:150*
 
 ___
 <a id="contracts"></a>
@@ -35,7 +35,7 @@ ___
 
 **● contracts**: *[ContractStoreState](contractstorestate.md)*
 
-*Defined in stateInterface.ts:142*
+*Defined in stateInterface.ts:148*
 
 ___
 <a id="feed"></a>
@@ -44,7 +44,7 @@ ___
 
 **● feed**: *[FeedState](../#feedstate)[]*
 
-*Defined in stateInterface.ts:143*
+*Defined in stateInterface.ts:149*
 
 ___
 <a id="tx"></a>
@@ -53,7 +53,7 @@ ___
 
 **● tx**: *[TransactionStoreState](transactionstorestate.md)*
 
-*Defined in stateInterface.ts:141*
+*Defined in stateInterface.ts:147*
 
 ___
 <a id="web3"></a>
@@ -62,7 +62,7 @@ ___
 
 **● web3**: *[Web3State](../#web3state)*
 
-*Defined in stateInterface.ts:140*
+*Defined in stateInterface.ts:146*
 
 ___
 

@@ -31,7 +31,7 @@
 
 **● action**: *`string`*
 
-*Defined in stateInterface.ts:90*
+*Defined in stateInterface.ts:96*
 
 ___
 <a id="timestamp"></a>
@@ -40,7 +40,7 @@ ___
 
 **● timestamp**: *`number`*
 
-*Defined in stateInterface.ts:91*
+*Defined in stateInterface.ts:97*
 
 ___
 

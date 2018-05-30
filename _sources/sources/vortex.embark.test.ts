@@ -1,19 +1,21 @@
 import {FeedNewContractState, FeedNewTransactionState, Web3LoadedState} from "./stateInterface";
+import EmbarkJS from 'Embark/EmbarkJS';
 
 declare var describe: any;
 declare var test: any;
 declare var expect: any;
 
 import {Vortex} from "./vortex";
-import * as Migrations from '../../setup/truffle/build/contracts/Migrations.json';
+import * as SimpleStorage from '../../setup/embark/dist/contracts/SimpleStorage.json';
+import * as Chains from '../../setup/embark/chains.json';
 import {FeedNewTransaction, FeedNewContract} from "./feed/feed.actions";
 import * as Web3 from "web3";
 
 let _web3;
+_web3 = new (<any>Web3)(new (<any>Web3).providers.HttpProvider("http://localhost:8546"));
 
 const getWeb3: Promise<any> = new Promise<any>((ok: (arg?: any) => void, ko: (arg?: any) => void): void => {
     try {
-        _web3 = new (<any>Web3)(new (<any>Web3).providers.HttpProvider("http://localhost:8546"));
         ok(_web3);
     } catch (e) {
         ko(e);
@@ -22,17 +24,21 @@ const getWeb3: Promise<any> = new Promise<any>((ok: (arg?: any) => void, ko: (ar
 
 describe("Vortex", () => {
     test('Instantiate', () => {
-        const vtx = Vortex.factory([Migrations], getWeb3);
-        expect(vtx.Contracts[0].contractName).toBe("Migrations");
+        const vtx = Vortex.factory({
+            type: "embark",
+            contracts: {
+                SimpleStorage: new _web3.eth.Contract(SimpleStorage.abi, "0xc7E4d433eb912f78244A54bac86ba757E4e8641F", {
+                    data: SimpleStorage.real_runtime_bytecode
+                })
+            },
+            preloaded_contracts: ["SimpleStorage"],
+            chains: Chains
+        }, getWeb3);
+        expect(vtx.Contracts.contracts["SimpleStorage"]).not.toBe(undefined);
     });
 
     test('Recover Instance', () => {
-        expect(Vortex.get().Contracts[0].contractName).toBe("Migrations");
-    });
-
-    test('Whitelist Networks from Migrations', () => {
-        Vortex.get().networksOf(Migrations);
-        expect(Vortex.get().Networks.length).toBe(1);
+        expect(Vortex.get().Contracts.contracts["SimpleStorage"]).not.toBe(undefined);
     });
 
     test('Run Instance', () => {
@@ -149,7 +155,7 @@ describe("Vortex", () => {
         const contractAddress = (<FeedNewContractState>state.feed[0]).contract_address;
         const contract = state.contracts[contractName][contractAddress].instance;
 
-        contract.vortex.setCompleted.vortexSend({from: coinbase}, 23).then((_txHash: string): void => {
+        contract.vortex.set.vortexSend({from: coinbase}, 23).then((_txHash: string): void => {
             let intervalId = setInterval(() => {
                 const state = Vortex.get().Store.getState();
                 switch (state.feed.length) {
@@ -173,12 +179,12 @@ describe("Vortex", () => {
     }, 10000);
 
     test('Load new instance of Migrations', (done: (arg?: any) => void) => {
-        Vortex.get().loadContract("Migrations", (<Web3LoadedState>Vortex.get().Store.getState().web3).coinbase);
+        Vortex.get().loadContract("SimpleStorage", (<Web3LoadedState>Vortex.get().Store.getState().web3).coinbase);
         let intervalId = setInterval(() => {
             const state = Vortex.get().Store.getState();
             switch (state.feed.length) {
                 case 9:
-                    if (state.feed[8].action === 'NEW_CONTRACT' && (<FeedNewContractState>state.feed[8]).contract_name === 'Migrations' && (<FeedNewContractState>state.feed[8]).contract_address === (<Web3LoadedState>Vortex.get().Store.getState().web3).coinbase)
+                    if (state.feed[8].action === 'NEW_CONTRACT' && (<FeedNewContractState>state.feed[8]).contract_name === 'SimpleStorage' && (<FeedNewContractState>state.feed[8]).contract_address === (<Web3LoadedState>Vortex.get().Store.getState().web3).coinbase)
                         done();
                     else
                         done(new Error("Invalid Feed element"));

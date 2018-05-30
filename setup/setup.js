@@ -36,10 +36,19 @@ const setup = async () => new Promise((ok, ko) => {
                             console.error(stdout);
                         if (stderr)
                             console.error(stderr);
-                        console.log("\n+--------------------------------------+");
-                        console.log("| Test Setup Successful                |");
-                        console.log("+--------------------------------------+\n");
-                        ok();
+                        exec("cd setup/embark && ../../node_modules/.bin/embark build && cd ../..", (err, stdout, stderr) => {
+                            if (err)
+                                ko(err);
+                            console.log("# Deployed Smart Contracts with Embark");
+                            if (stdout)
+                                console.error(stdout);
+                            if (stderr)
+                                console.error(stderr);
+                            console.log("\n+--------------------------------------+");
+                            console.log("| Test Setup Successful                |");
+                            console.log("+--------------------------------------+\n");
+                            ok();
+                        });
                     });
                 });
                 clearInterval(intervalId);

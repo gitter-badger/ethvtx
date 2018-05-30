@@ -8,7 +8,9 @@
 
 ## Indexable
 
-\[key: `string`\]:&nbsp;[ContractAddressesState](contractaddressesstate.md)
+\[key: `string`\]:&nbsp;[ContractAddressesState](contractaddressesstate.md) |
+[ContractArtifactState](contractartifactstate.md)
+
 ## Index
 
 ---
