@@ -1,7 +1,7 @@
 import ContractArtifact from 'truffle-contract-schema';
 import {DeepPartial, Reducer, ReducersMapObject, Store} from "redux";
 import {State} from "./stateInterface";
-import {generateStore, GeneratorConfig} from "./generateStore";
+import {EmbarkContracts, forge, GeneratorConfig, TruffleContracts} from "./forge";
 import {Web3Load} from "./web3/web3.actions";
 import {ContractLoad} from "./contracts/contracts.actions";
 import {AccountAdd} from "./accounts/accounts.actions";
@@ -10,7 +10,7 @@ export class Vortex<T extends State> {
 
     private readonly _web3_loader: Promise<any> = undefined;
 
-    private _contracts: ContractArtifact[] = undefined;
+    private _contracts: TruffleContracts | EmbarkContracts = undefined;
 
     private _config: GeneratorConfig<T> = {};
 
@@ -20,7 +20,7 @@ export class Vortex<T extends State> {
 
     private static _instance: Vortex<any> = undefined;
 
-    public static factory<U extends State = State>(contracts: ContractArtifact[], loader: Promise<any>, config: GeneratorConfig<U> = undefined): Vortex<U> {
+    public static factory<U extends State = State>(contracts: TruffleContracts | EmbarkContracts, loader: Promise<any>, config: GeneratorConfig<U> = undefined): Vortex<U> {
         return (Vortex._instance || (Vortex._instance = new Vortex<U>(contracts, loader, config)));
     }
 
@@ -32,11 +32,11 @@ export class Vortex<T extends State> {
      * Instantiate a new Vorte instance.
      * Accessing VortexInstance will give access to the last instanciated Vortex.
      *
-     * @param {[]} contracts List of contract artifacts created by truffle.
+     * @param {[]} contracts Truffle or Embark Contracts configuration.
      * @param loader Promise that returns a web3 instance ready to be used.
      * @param {GeneratorConfig<T>} config Configuration arguments for the store generator.
      */
-    constructor(contracts: ContractArtifact[], loader: Promise<any>, config: GeneratorConfig<T> = undefined) {
+    constructor(contracts: TruffleContracts | EmbarkContracts, loader: Promise<any>, config: GeneratorConfig<T> = undefined) {
         this._contracts = contracts;
         this._web3_loader = loader;
         this._config = config || {};
@@ -47,7 +47,7 @@ export class Vortex<T extends State> {
      */
     public run(): void {
         if (this._contracts) {
-            this._store = generateStore(this._contracts, this._config);
+            this._store = forge(this._contracts, this._config);
         } else {
             throw new Error("No Contracts Given");
         }
@@ -70,11 +70,20 @@ export class Vortex<T extends State> {
      *
      * @param {} contract Contract to add.
      */
-    public addContract(contract: ContractArtifact): void {
+    public addContract(contract: any): void {
         if (this._contracts === undefined) {
-            this._contracts = [] as ContractArtifact[];
+            throw new Error("Invalid Contracts !");
         }
-        this._contracts.push(contract);
+        switch (this._contracts.type) {
+            case 'truffle':
+                this._contracts.contracts.push(contract);
+                break ;
+            case 'embark':
+                this._contracts.contracts.push(contract);
+                break ;
+            default:
+                throw new Error("Invalid Contracts !");
+        }
     }
 
     /**
@@ -88,6 +97,7 @@ export class Vortex<T extends State> {
 
     /**
      *  Takes a Truffle Contract Artifact and extracts all network ids where Contract has instances, adds them to whitelist
+     *  If you are using Embark, Network checks will be done depending on your chains.json.
      *
      * @param {any} contract A Truffle Contract Artifact
      */
@@ -148,9 +158,9 @@ export class Vortex<T extends State> {
     /**
      * Contracts getter
      *
-     * @returns {ContractArtifact[]} Array of loaded artifacts.
+     * @returns {EmbarkContracts | TruffleContracts} Array of loaded artifacts.
      */
-    public get Contracts(): ContractArtifact[] {
+    public get Contracts(): EmbarkContracts | TruffleContracts {
         return (this._contracts);
     }
 

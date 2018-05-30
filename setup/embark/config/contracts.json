@@ -1,0 +1,22 @@
+{
+  "default": {
+    "deployment": {
+      "host": "localhost",
+      "port": 8546,
+      "type": "rpc"
+    },
+    "dappConnection": [
+      "$WEB3",
+      "http://localhost:8546"
+    ],
+    "gas": "auto",
+    "contracts": {
+      "SimpleStorage": {
+        "fromIndex": 0,
+        "args": [
+          100
+        ]
+      }
+    }
+  }
+}

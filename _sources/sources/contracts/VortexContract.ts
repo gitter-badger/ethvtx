@@ -30,17 +30,17 @@ export class VortexContract {
         const _this: any = this;
         const signature = VortexContract.callSignature(...methodArguments);
         const dispatch = Vortex.get().Store.dispatch;
-        _this.vortex = Vortex.get().Store.getState().contracts[_this.artifact.contractName][_this._address.toLowerCase()].instance.vortex;
+        _this.vortex = Vortex.get().Store.getState().contracts[_this.artifact.name][_this._address.toLowerCase()].instance.vortex;
         if ((_this.vortex[methodName])) {
             if (_this.vortex[methodName].vortexCache[signature]) {
                 if (!_this.vortex[methodName].vortexCache[signature].synced && !this._wating_calls[methodName + signature]) {
-                    dispatch(ContractCall(_this.artifact.contractName, _this.options.address, methodName, txArguments, undefined, ...methodArguments));
+                    dispatch(ContractCall(_this.artifact.name, _this.options.address, methodName, txArguments, undefined, ...methodArguments));
                     this._wating_calls[methodName + signature] = true;
                 } else if (_this.vortex[methodName].vortexCache[signature].synced && this._wating_calls[methodName + signature])
                     this._wating_calls[methodName + signature] = false;
             } else {
                 _this.vortex[methodName].vortexCache[signature] = {synced: false};
-                dispatch(ContractCall(_this.artifact.contractName, _this.options.address, methodName, txArguments, undefined, ...methodArguments));
+                dispatch(ContractCall(_this.artifact.name, _this.options.address, methodName, txArguments, undefined, ...methodArguments));
                 this._wating_calls[methodName + signature] = true;
             }
             return (_this.vortex[methodName].vortexCache[signature].data);
@@ -62,7 +62,7 @@ export class VortexContract {
             return (_ret);
         }
 
-        _this.vortex = Vortex.get().Store.getState().contracts[_this.artifact.contractName][_this._address.toLowerCase()].instance.vortex;
+        _this.vortex = Vortex.get().Store.getState().contracts[_this.artifact.name][_this._address.toLowerCase()].instance.vortex;
         const dispatch = Vortex.get().Store.dispatch;
 
         const signature = VortexContract.callSignature(...methodArguments);
@@ -73,14 +73,14 @@ export class VortexContract {
                 _this.vortex[methodName].vortexCache[signature].synced = false;
             }
             if (!_this.vortex[methodName].vortexCache[signature].synced) {
-                dispatch(ContractCall(_this.artifact.contractName, _this.options.address, methodName, txArguments, _resolvers, ...methodArguments));
+                dispatch(ContractCall(_this.artifact.name, _this.options.address, methodName, txArguments, _resolvers, ...methodArguments));
             } else {
                 return (new Promise<string>((ok: (arg: any) => void, ko: (arg: any) => void): void => {
                     ok(_this.vortex[methodName].vortexCache[signature].data);
                 }));
             }
         } else {
-            dispatch(ContractSend(_this.artifact.contractName, _this.options.address, methodName, txArguments, _resolvers, ...methodArguments));
+            dispatch(ContractSend(_this.artifact.name, _this.options.address, methodName, txArguments, _resolvers, ...methodArguments));
         }
 
         return (_ret);
@@ -90,7 +90,7 @@ export class VortexContract {
 
         const contract_instance = new web3.eth.Contract(artifact.abi, address, {
             from: coinbase,
-            data: artifact.deployedBytecode
+            data: artifact.bytecode
         });
 
         contract_instance.vortex = {};

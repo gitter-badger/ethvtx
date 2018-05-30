@@ -152,7 +152,7 @@
 * [contracts](#contracts)
 * [feed](#feed)
 * [fetchAccount](#fetchaccount)
-* [generateStore](#generatestore)
+* [forge](#generatestore)
 * [getFeed](#getfeed)
 * [loadContract](#loadcontract)
 * [loopOnAccounts](#looponaccounts)
@@ -387,7 +387,7 @@ ___
 
 **● window**: *`any`*
 
-*Defined in generateStore.ts:1*
+*Defined in forge.ts:1*
 
 ___
 
@@ -1352,11 +1352,11 @@ ___
 ___
 <a id="generatestore"></a>
 
-###  generateStore
+###  forge
 
-▸ **generateStore**T(contracts: *`any`[]*, config?: *[GeneratorConfig](interfaces/generatorconfig.md)<`T`>*): `Store`
+▸ **forge**T(contracts: *`any`[]*, config?: *[GeneratorConfig](interfaces/generatorconfig.md)<`T`>*): `Store`
 
-*Defined in generateStore.ts:31*
+*Defined in forge.ts:31*
 
 **Type parameters:**
 

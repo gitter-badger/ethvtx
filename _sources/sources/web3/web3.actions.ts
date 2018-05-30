@@ -15,11 +15,11 @@ export function Web3Load(loader: Promise<any>, networks: number[]): Web3LoadActi
 
 export interface Web3LoadedAction extends Action {
     _: any,
-    networkId: number,
+    networkId: number|string,
     coinbase: string
 }
 
-export function Web3Loaded(_: any, networkId: number, coinbase: string): Web3LoadedAction {
+export function Web3Loaded(_: any, networkId: number|string, coinbase: string): Web3LoadedAction {
     return ({
         type: 'LOADED_WEB3',
         _,
@@ -40,10 +40,10 @@ export function Web3LoadError(error: any): Web3LoadErrorAction {
 }
 
 export interface Web3NetworkErrorAction extends Action {
-    networkId: number
+    networkId: number|string
 }
 
-export function Web3NetworkError(networkId: number): Web3NetworkErrorAction {
+export function Web3NetworkError(networkId: number|string): Web3NetworkErrorAction {
     return ({
         type: 'NETWORK_ERROR_WEB3',
         networkId

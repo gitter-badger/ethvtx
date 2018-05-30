@@ -82,8 +82,14 @@ export interface ContractAddressesState {
     [key: string]: ContractInstanceState;
 }
 
+export interface ContractArtifactState {
+    abi: any,
+    bytecode: any,
+    name: string
+}
+
 export interface ContractStoreState {
-    [key: string]: ContractAddressesState;
+    [key: string]: ContractAddressesState | ContractArtifactState;
 }
 
 interface FeedHeader {

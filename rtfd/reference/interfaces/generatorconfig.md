@@ -26,7 +26,7 @@
 
 **● account_refresh_rate**: *`number`*
 
-*Defined in generateStore.ts:28*
+*Defined in forge.ts:28*
 
 ___
 <a id="custom_state"></a>
@@ -35,7 +35,7 @@ ___
 
 **● custom_state**: *`DeepPartial`<`T`>*
 
-*Defined in generateStore.ts:27*
+*Defined in forge.ts:27*
 
 ___
 <a id="reducer"></a>
@@ -44,7 +44,7 @@ ___
 
 **● reducer**: *`ReducersMapObject`<`T`>*
 
-*Defined in generateStore.ts:26*
+*Defined in forge.ts:26*
 
 ___
 

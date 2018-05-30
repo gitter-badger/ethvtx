@@ -1,4 +1,4 @@
-import {call, put, take, takeLatest} from 'redux-saga/effects';
+import {call, put, take, takeLatest, select} from 'redux-saga/effects';
 import {Unsubscribe} from "redux";
 import {Web3LoadAction, Web3Loaded, Web3LoadError, Web3NetworkError} from "./web3.actions";
 import {SagaIterator, eventChannel, END} from "redux-saga";
@@ -6,6 +6,7 @@ import {TxSend, TxSendRaw} from "../tx/tx.actions";
 import {Vortex} from "../vortex";
 
 function* resolveWeb3(action: Web3LoadAction): SagaIterator {
+    const config = (yield select()).contracts.config;
     return eventChannel((emit: (arg?: any) => void): Unsubscribe => {
 
         action.loader.then((web3: any): void => {
@@ -29,23 +30,47 @@ function* resolveWeb3(action: Web3LoadAction): SagaIterator {
                 Vortex.get().Store.dispatch(TxSend(txArgs, web3, resolvers));
                 return differed_return;
             };
-            web3.eth.getCoinbase().then((coinbase: string): void => {
-                web3.eth.net.getId().then((network_id: number): void => {
-                    if ((action.networks) && (action.networks.length) && (action.networks.indexOf(network_id) === -1)) {
-                        emit(Web3NetworkError(network_id));
+
+            switch (config.type) {
+                case 'truffle':
+                    web3.eth.getCoinbase().then((coinbase: string): void => {
+                        web3.eth.net.getId().then((network_id: number): void => {
+                            if ((action.networks) && (action.networks.length) && (action.networks.indexOf(network_id) === -1)) {
+                                emit(Web3NetworkError(network_id));
+                                emit(END);
+                            } else {
+                                emit(Web3Loaded(web3, network_id, coinbase));
+                                emit(END);
+                            }
+                        }).catch((reason: Error): void => {
+                            emit(Web3LoadError(reason));
+                            emit(END);
+                        });
+                    }).catch((reason: Error): void => {
+                        emit(Web3LoadError(reason));
                         emit(END);
-                    } else {
-                        emit(Web3Loaded(web3, network_id, coinbase));
+                    });
+                    break ;
+                case 'embark':
+                    web3.eth.getCoinbase().then((coinbase: string): void => {
+                        web3.eth.getBlock(0).then((zero: any): void => {
+                            if (!config.config.chains[zero.hash]) {
+                                emit(Web3NetworkError(zero.hash));
+                                emit(END);
+                            } else {
+                                emit(Web3Loaded(web3, zero.hash, coinbase));
+                                emit(END);
+                            }
+                        }).catch((reason: Error): void => {
+                            emit(Web3LoadError(reason));
+                            emit(END);
+                        });
+                    }).catch((reason: Error): void => {
+                        emit(Web3LoadError(reason));
                         emit(END);
-                    }
-                }).catch((reason: Error): void => {
-                    emit(Web3LoadError(reason));
-                    emit(END);
-                });
-            }).catch((reason: Error): void => {
-                emit(Web3LoadError(reason));
-                emit(END);
-            });
+                    });
+                    break ;
+            }
         }).catch((reason: any): void => {
             emit(Web3LoadError(reason));
             emit(END);

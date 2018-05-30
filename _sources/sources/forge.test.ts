@@ -4,7 +4,7 @@ declare var describe: any;
 declare var test: any;
 declare var expect: any;
 
-import {generateStore, GeneratorConfig} from './generateStore';
+import {forge, GeneratorConfig} from './forge';
 import * as Migrations from '../../setup/truffle/build/contracts/Migrations.json';
 import {Reducer, Action, DeepPartial, ReducersMapObject} from "redux";
 import {State} from "./stateInterface";
@@ -22,13 +22,17 @@ const getWeb3: Promise<any> = new Promise<any>((ok: (arg?: any) => void, ko: (ar
     }
 });
 
-describe("generateStore", () => {
+describe("forge", () => {
 
     describe("Normal State", () => {
         test("Instanciate with Normal State", () => {
 
 
-            store = generateStore([Migrations]);
+            store = forge({
+                type: 'truffle',
+                contracts: [Migrations],
+                preloaded_contracts: ["Migrations"]
+            });
             let state: State = store.getState();
             expect(state.web3.status).toBe("LOADING");
         });
@@ -69,7 +73,11 @@ describe("generateStore", () => {
                 testStateProperty: dummyreducer
             };
 
-            store = generateStore<testState>([Migrations], {
+            store = forge<testState>({
+                type: "truffle",
+                contracts: [Migrations],
+                preloaded_contracts: ["Migrations"]
+            }, {
                 reducer: reducermap,
                 custom_state: {testStateProperty: 23} as DeepPartial<testState>
             } as GeneratorConfig<testState>);
