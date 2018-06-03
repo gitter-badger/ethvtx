@@ -13,7 +13,8 @@ function forge(contracts, config = undefined) {
         contracts: {},
         tx: {},
         web3: {},
-        accounts: {}
+        accounts: {},
+        ipfs: {}
     };
     initialState.web3 = {
         status: 'LOADING'

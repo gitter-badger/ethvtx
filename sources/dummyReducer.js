@@ -5,5 +5,6 @@ exports.dummyReducer = {
     tx: {},
     contracts: {},
     feed: {},
-    accounts: {}
+    accounts: {},
+    ipfs: {}
 };
