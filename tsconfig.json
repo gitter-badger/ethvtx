@@ -41,6 +41,10 @@
 
     "./_sources/sources/accounts/accounts.actions.ts",
     "./_sources/sources/accounts/accounts.reducers.ts",
-    "./_sources/sources/accounts/accounts.saga.ts"
+    "./_sources/sources/accounts/accounts.saga.ts",
+
+    "./_sources/sources/ipfs/ipfs.actions.ts",
+    "./_sources/sources/ipfs/ipfs.reducers.ts",
+    "./_sources/sources/ipfs/ipfs.saga.ts"
   ]
 }
