@@ -32,3 +32,10 @@ function FeedNewAccount(account, coinbase) {
     };
 }
 exports.FeedNewAccount = FeedNewAccount;
+function FeedNewIPFSContent(ipfs_hash) {
+    return {
+        type: 'FEED_NEW_IPFS_CONTENT',
+        ipfs_hash
+    };
+}
+exports.FeedNewIPFSContent = FeedNewIPFSContent;

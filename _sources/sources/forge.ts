@@ -54,7 +54,8 @@ export function forge<T extends State = State>(contracts: EmbarkContracts | Truf
         contracts: {},
         tx: {},
         web3: {},
-        accounts: {}
+        accounts: {},
+        ipfs: {}
     } as DeepPartial<T>;
 
     (<Web3LoadingState>(<any>initialState).web3) = {

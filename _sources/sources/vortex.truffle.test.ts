@@ -1,13 +1,29 @@
-import {FeedNewContractState, FeedNewTransactionState, Web3LoadedState} from "./stateInterface";
+import {
+    FeedNewContractState,
+    FeedNewTransactionState,
+    IPFSContentState,
+    IPFSErrorState,
+    Web3LoadedState
+} from "./stateInterface";
 
 declare var describe: any;
 declare var test: any;
 declare var expect: any;
+declare var Buffer: any;
 
 import {Vortex} from "./vortex";
 import * as Migrations from '../../setup/truffle/build/contracts/Migrations.json';
 import {FeedNewTransaction, FeedNewContract} from "./feed/feed.actions";
 import * as Web3 from "web3";
+
+import * as IPFSApi from 'ipfs-api';
+import {IPFSLoad} from "./ipfs/ipfs.actions";
+const IPFS = IPFSApi('ipfs.infura.io', '5001', {protocol: 'https'});
+let IPFS_hash;
+const IPFS_fake_hash = "QmaoJEsqFkHETuCzGukYtfdJFCgNa2JKVNmdMbNdtRwszB";
+const IPFS_dir_hash = "QmTuXY7UC29GVEDEhzNHB3CJ7GD2GDBDhn9DNQoDdkWhDb";
+const to_ipfs = new Buffer("ABCDEF");
+
 
 let _web3;
 
@@ -29,6 +45,13 @@ describe("Vortex", () => {
         }, getWeb3);
         expect(vtx.Contracts.contracts[0].contractName).toBe("Migrations");
     });
+
+    test("IPFS Push", (done) => {
+        IPFS.files.add(to_ipfs).then((res) => {
+            IPFS_hash = res[0].hash;
+            done();
+        })
+    }, 60000);
 
     test('Recover Instance', () => {
         expect(Vortex.get().Contracts.contracts[0].contractName).toBe("Migrations");
@@ -177,9 +200,10 @@ describe("Vortex", () => {
             const state = Vortex.get().Store.getState();
             switch (state.feed.length) {
                 case 9:
-                    if (state.feed[8].action === 'NEW_CONTRACT' && (<FeedNewContractState>state.feed[8]).contract_name === 'Migrations' && (<FeedNewContractState>state.feed[8]).contract_address === (<Web3LoadedState>Vortex.get().Store.getState().web3).coinbase)
+                    if (state.feed[8].action === 'NEW_CONTRACT' && (<FeedNewContractState>state.feed[8]).contract_name === 'Migrations' && (<FeedNewContractState>state.feed[8]).contract_address === (<Web3LoadedState>Vortex.get().Store.getState().web3).coinbase) {
+                        clearInterval(intervalId);
                         done();
-                    else
+                    } else
                         done(new Error("Invalid Feed element"));
                     break ;
                 default:
@@ -187,5 +211,50 @@ describe("Vortex", () => {
             }
         }, 1000);
     }, 10000);
+
+    test('Recover IPFS hash previously uploaded', (done) => {
+        Vortex.get().Store.dispatch(IPFSLoad(IPFS_hash));
+        let intervalId = setInterval(() => {
+            const state = Vortex.get().Store.getState();
+            if (state.ipfs[IPFS_hash]) {
+                if ((<IPFSErrorState>state.ipfs[IPFS_hash]).error) {
+                    done((<IPFSErrorState>state.ipfs[IPFS_hash]).error);
+                } else if ((<IPFSContentState>state.ipfs[IPFS_hash]).content) {
+                    clearInterval(intervalId);
+                    done();
+                }
+            }
+        }, 1000);
+    }, 30000);
+
+    test('Recover False IPFS hash', (done) => {
+        Vortex.get().Store.dispatch(IPFSLoad(IPFS_fake_hash));
+        let intervalId = setInterval(() => {
+            const state = Vortex.get().Store.getState();
+            if (state.ipfs[IPFS_fake_hash]) {
+                if ((<IPFSErrorState>state.ipfs[IPFS_fake_hash]).error) {
+                    clearInterval(intervalId);
+                    done();
+                } else if ((<IPFSContentState>state.ipfs[IPFS_fake_hash]).content) {
+                    done(new Error("Should have thrown"));
+                }
+            }
+        }, 1000);
+    }, 300000);
+
+    test('Recover Dir IPFS hash', (done) => {
+        Vortex.get().Store.dispatch(IPFSLoad(IPFS_dir_hash));
+        let intervalId = setInterval(() => {
+            const state = Vortex.get().Store.getState();
+            if (state.ipfs[IPFS_dir_hash]) {
+                if ((<IPFSErrorState>state.ipfs[IPFS_dir_hash]).error) {
+                    done(new Error("Should have thrown"));
+                } else if ((<IPFSContentState>state.ipfs[IPFS_dir_hash]).content) {
+                    clearInterval(intervalId);
+                    done();
+                }
+            }
+        }, 1000);
+    }, 30000);
 
 });

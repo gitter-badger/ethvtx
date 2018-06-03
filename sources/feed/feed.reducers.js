@@ -45,6 +45,15 @@ exports.feed = (state = [], action) => {
             return [
                 ...state
             ];
+        case 'FEED_NEW_IPFS_CONTENT':
+            state.push({
+                action: 'NEW_IPFS_CONTENT',
+                ipfs_hash: action.ipfs_hash,
+                timestamp: Date.now()
+            });
+            return [
+                ...state
+            ];
         default:
             return state;
     }

@@ -52,4 +52,15 @@ export function FeedNewAccount(account: string, coinbase: boolean): FeedNewAccou
     } as FeedNewAccountAction;
 }
 
-export type FeedActions = FeedNewContractAction | FeedNewTransactionAction | FeedNewErrorAction | FeedNewAccountAction;
+export interface FeedNewIPFSContentAction extends Action {
+    ipfs_hash: string
+}
+
+export function FeedNewIPFSContent(ipfs_hash: string): FeedNewIPFSContentAction {
+    return {
+        type: 'FEED_NEW_IPFS_CONTENT',
+        ipfs_hash
+    } as FeedNewIPFSContentAction;
+}
+
+export type FeedActions = FeedNewContractAction | FeedNewTransactionAction | FeedNewErrorAction | FeedNewAccountAction | FeedNewIPFSContentAction;
