@@ -99,11 +99,15 @@ interface FeedHeader {
 
 export interface FeedNewContractState extends FeedHeader {
     contract_name: string,
-    contract_address: string,
+    contract_address: string
 }
 
 export interface FeedNewTransactionState extends FeedHeader {
-    transaction_hash: string,
+    transaction_hash: string
+}
+
+export interface FeedNewIPFSContentState extends FeedHeader {
+    ipfs_hash: string
 }
 
 export interface FeedNewErrorErrorState {
@@ -121,7 +125,7 @@ export interface FeedNewAccountState extends FeedHeader{
     coinbase: boolean
 }
 
-export type FeedState = FeedNewContractState | FeedNewTransactionState | FeedNewErrorState | FeedNewAccountState;
+export type FeedState = FeedNewContractState | FeedNewTransactionState | FeedNewErrorState | FeedNewAccountState | FeedNewIPFSContentState;
 
 export interface AccountInfoState {
     balance: string,
@@ -142,11 +146,24 @@ export interface AccountStoreState {
     [key:string]: AccountState
 }
 
+export interface IPFSContentState {
+    content: Buffer
+}
+
+export interface IPFSErrorState {
+    error: any
+}
+
+export interface IPFSStoreState {
+    [key:string]: IPFSContentState | IPFSErrorState
+}
+
 export interface State {
     web3: Web3State,
     tx: TransactionStoreState,
     contracts: ContractStoreState,
     feed: FeedState[],
-    accounts: AccountStoreState
+    accounts: AccountStoreState,
+    ipfs: IPFSStoreState
 }
 

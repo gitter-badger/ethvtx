@@ -1,4 +1,5 @@
 export {Vortex} from './sources/vortex';
+
 export {
     Web3LoadedState,
     Web3State,
@@ -27,9 +28,16 @@ export {
     AccountInfoState,
     AccountErrorState,
     AccountConfigState,
-    FeedNewAccountState
+    FeedNewAccountState,
+    FeedNewIPFSContentState,
+    IPFSStoreState,
+    IPFSErrorState,
+    IPFSContentState,
+    ContractArtifactState
 } from './sources/stateInterface';
+
 export {dummyReducer} from './sources/dummyReducer';
+
 export {
     Web3LoadedAction,
     Web3Actions,
@@ -41,6 +49,7 @@ export {
     Web3NetworkError,
     Web3NetworkErrorAction
 } from './sources/web3/web3.actions';
+
 export {
     TxBroadcastedAction,
     TxErrorAction,
@@ -57,6 +66,7 @@ export {
     TxSendRawAction,
     TxReceiptTxArgs
 } from './sources/tx/tx.actions';
+
 export {
     ContractLoadAction,
     ContractVarForceRefreshAction,
@@ -78,6 +88,7 @@ export {
     ContractVarForceRefresh,
     ContractVarReceived
 } from './sources/contracts/contracts.actions';
+
 export {
     FeedNewErrorAction,
     FeedNewTransaction,
@@ -89,9 +100,16 @@ export {
     FeedNewAccountAction,
     FeedNewAccount
 } from './sources/feed/feed.actions';
+
 export {
-    FeedType, FeedFilter, FeedFilterContracts, FeedFilterErrors, FeedFilterTransactions, FeedFilterAccounts
+    FeedType,
+    FeedFilter,
+    FeedFilterContracts,
+    FeedFilterErrors,
+    FeedFilterTransactions,
+    FeedFilterAccounts
 } from './sources/feed/feed.selectors';
+
 export {
     AccountActions,
     AccountUpdateRequestAction,
@@ -107,4 +125,15 @@ export {
     AccountUpdate,
     AccountUpdateRequest
 } from './sources/accounts/accounts.actions';
+
+export {
+    IPFSError,
+    IPFSLoad,
+    IPFSLoaded,
+    IPFSLoadAction,
+    IPFSLoadedAction,
+    IPFSErrorAction,
+    IPFSActions
+} from './sources/ipfs/ipfs.actions';
+
 export {VortexContract} from './sources/contracts/VortexContract';
