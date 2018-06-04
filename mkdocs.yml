@@ -6,6 +6,11 @@ pages:
   - 'Tutorial': tutorial.md
   - 'Store Architecture': architecture/store.md
   - 'Index': reference/README.md
+  - 'Interfaces':
+    - 'EmbarkContracts': reference/interfaces/embarkcontracts.md
+    - 'TruffleContracts': reference/interfaces/trufflecontracts.md
+  - 'Enums':
+    - 'FeedType': reference/enums/feedtype.md
   - 'States':
     - 'AccountConfigState': reference/interfaces/accountconfigstate.md
     - 'AccountErrorState': reference/interfaces/accounterrorstate.md
@@ -19,6 +24,10 @@ pages:
     - 'FeedNewErrorState': reference/interfaces/feednewerrorstate.md
     - 'FeedNewErrorErrorState': reference/interfaces/feednewerrorerrorstate.md
     - 'FeedNewTransactionState': reference/interfaces/feednewtransactionstate.md
+    - 'FeedNewIPFSContentState': reference/interfaces/feednewipfscontentstate.md
+    - 'IPFSContentState': reference/interfaces/ipfscontentstate.md
+    - 'IPFSErrorState': reference/interfaces/ipfserrorstate.md
+    - 'IPFSStoreState': reference/interfaces/ipfsstorestate.md
     - 'RawTransactionArgumentState': reference/interfaces/rawtransactionargumentstate.md
     - 'State': reference/interfaces/state.md
     - 'TransactionArgumentState': reference/interfaces/transactionargumentstate.md
