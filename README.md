@@ -115,7 +115,9 @@ import SimpleStorage from '../build/contracts/SimpleStorage.json'
 
 ### [Vortex Components](https://github.com/Horyus/vortex-components)
 
-### [Usages Examples](https://github.com/Horyus/vortex-demo)
+### [Embark Demonstration](https://github.com/Horyus/vortex-demo-embark)
+
+### [Truffle Demonstration](https://github.com/Horyus/vortex-demo)
 
 ### [Contribution](./CONTRIBUTING.md)
 
