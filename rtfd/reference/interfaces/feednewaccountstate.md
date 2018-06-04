@@ -27,7 +27,7 @@
 
 **● account**: *`string`*
 
-*Defined in stateInterface.ts:120*
+*Defined in stateInterface.ts:124*
 
 ___
 <a id="action"></a>
@@ -47,7 +47,7 @@ ___
 
 **● coinbase**: *`boolean`*
 
-*Defined in stateInterface.ts:121*
+*Defined in stateInterface.ts:125*
 
 ___
 <a id="timestamp"></a>

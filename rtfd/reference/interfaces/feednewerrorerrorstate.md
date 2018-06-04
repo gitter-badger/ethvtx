@@ -24,7 +24,7 @@
 
 **● message**: *`string`*
 
-*Defined in stateInterface.ts:111*
+*Defined in stateInterface.ts:115*
 
 ___
 <a id="reason"></a>
@@ -33,7 +33,7 @@ ___
 
 **● reason**: *`any`*
 
-*Defined in stateInterface.ts:110*
+*Defined in stateInterface.ts:114*
 
 ___
 <a id="when"></a>
@@ -42,7 +42,7 @@ ___
 
 **● when**: *`string`*
 
-*Defined in stateInterface.ts:112*
+*Defined in stateInterface.ts:116*
 
 ___
 

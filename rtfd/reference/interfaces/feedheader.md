@@ -10,6 +10,8 @@
 
 ↳  [FeedNewTransactionState](feednewtransactionstate.md)
 
+↳  [FeedNewIPFSContentState](feednewipfscontentstate.md)
+
 ↳  [FeedNewErrorState](feednewerrorstate.md)
 
 ↳  [FeedNewAccountState](feednewaccountstate.md)

@@ -12,7 +12,7 @@ Vortex is a Redux Store manager, that creates a Dapp-Ready store, and allows any
 
 ## Concepts
 
-Vortex is working around 5 major parts. Each part has its own actions and reducers and can be used to retrieved informations.
+Vortex is working around 6 major parts. Each part has its own actions and reducers and can be used to retrieved informations.
 
 The first part is **Web3** and will allow you to be alerted when the requested Web3 instance is actually loaded. Placed in the right component, you can decide if wether or not you have to load your app. This is what the VortexGate component is doing. The Web3 section will also give access to the loaded Web3 instance, and can check network compatibility (and report invalid network).
 
@@ -23,6 +23,8 @@ The third part is **Contract** and will store any requested contract. When creat
 The fourth part is **Feed** and will store a list of events. These events can be new contracts, new transactions, new errors or new accounts. This section is very useful if you want to manage a list of components that are connected to the different types of events. You will just have to filter the array on the specific feed event your are looking for, and your state will be updated as soon as there is change.
 
 The fifth part is **Accounts** and will store accounts in a map. These accounts are refreshed on specific timeout, or when transaction included them (`to` or `from`) is emitted from the client.
+
+The sixth part is **IPFS**, and will allow you to fetch data from an IPFS hash and store it inside Vortex Store. This also means that if you require the same hash multiple times, it will only fetch it once !
 
 # Components
 

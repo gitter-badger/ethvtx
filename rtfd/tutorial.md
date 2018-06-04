@@ -206,6 +206,75 @@ connect your components and make transactions. This will be a good training, and
 
 The first thing you should watch is the VortexGate component and how it is used in the demo. It's the component that will create the instance and provide it in its context, while also managing what should be rendered depending on web3 status.
 
+## Concepts
+
+#### Fetching data from IPFS
+
+This example shows how a component can dynamically fetch the IPFS hash given in props, and update itself as soon as a response is received.
+
+```
+import React from 'react';
+import IsIpfs from 'is-ipfs';
+import {connect} from "vort_x-components";
+import {IPFSLoad} from "vort_x";
+
+// This is the Container Class that will be connected to the store.
+// It will take as props an `ipfs_hash`, and will automatically fetch
+// the data.
+export class _FetchHash extends React.Component {
+    render() {
+        // Checks if hash is an IPFS Hash
+        if (IsIpfs.multihash(this.props.ipfs_hash)) {
+
+            // Checks if data has not been fetched.
+            if (!this.props.content) {
+
+                // Dispatches the action to load the hash.
+                this.props.IPFSLoad(this.props.ipfs_hash);
+
+                return (<code>FETCHING ...</code>)
+            } else {
+
+                // Checks if data is properly recovered.
+                if (this.props.content.content) {
+                    return (<code>{this.props.content.content.toString()}</code>)
+
+                // Or if an error occured while fetching.
+                } else if (this.props.content.error) {
+                    return (<div>
+                        <h1>Something went wrong :( Try text data and it will work (it gets random when trying to fetch directories)</h1>
+                        <code>{this.props.content.error.message}</code>
+                    </div>)
+                }
+            }
+        }
+        return (<div></div>)
+    }
+}
+
+// Very important to return the actual props, or the given arguments will be lost.
+const mapStateToProps = (state, ownProps) => {
+    return {
+        ...ownProps,
+        content: IsIpfs.multihash(ownProps.ipfs_hash) ? state.ipfs[ownProps.ipfs_hash] : undefined
+    }
+};
+
+// Nice feature from redux, gives you a method that automatically dispatches an action in your props.
+const mapDispatchToProps = (dispatch) => {
+    return {
+        IPFSLoad: (hash) => {dispatch(IPFSLoad(hash))}
+    }
+};
+
+export const FetchHash = connect(_FetchHash, mapStateToProps, mapDispatchToProps);
+```
+
+And you would use it like this
+```
+<FetchHash ipfs_hash="${YOUR IPFS HASH AS A STRING}"/>
+```
+
 ## Vortex Components
 
 ## [VortexGate](https://github.com/Horyus/vort_x-components/blob/master/src/components/vortex-components/vortex-gate/index.tsx)

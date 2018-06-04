@@ -47,10 +47,18 @@
 * [FeedNewErrorAction](interfaces/feednewerroraction.md)
 * [FeedNewErrorErrorState](interfaces/feednewerrorerrorstate.md)
 * [FeedNewErrorState](interfaces/feednewerrorstate.md)
+* [FeedNewIPFSContentAction](interfaces/feednewipfscontentaction.md)
+* [FeedNewIPFSContentState](interfaces/feednewipfscontentstate.md)
 * [FeedNewTransactionAction](interfaces/feednewtransactionaction.md)
 * [FeedNewTransactionState](interfaces/feednewtransactionstate.md)
 * [FetchedData](interfaces/fetcheddata.md)
 * [GeneratorConfig](interfaces/generatorconfig.md)
+* [IPFSContentState](interfaces/ipfscontentstate.md)
+* [IPFSErrorAction](interfaces/ipfserroraction.md)
+* [IPFSErrorState](interfaces/ipfserrorstate.md)
+* [IPFSLoadAction](interfaces/ipfsloadaction.md)
+* [IPFSLoadedAction](interfaces/ipfsloadedaction.md)
+* [IPFSStoreState](interfaces/ipfsstorestate.md)
 * [RawTransactionArgumentState](interfaces/rawtransactionargumentstate.md)
 * [SignatureCalls](interfaces/signaturecalls.md)
 * [State](interfaces/state.md)
@@ -86,6 +94,7 @@
 * [ContractCallAction](#contractcallaction)
 * [FeedActions](#feedactions)
 * [FeedState](#feedstate)
+* [IPFSActions](#ipfsactions)
 * [TxActions](#txactions)
 * [Web3Actions](#web3actions)
 * [Web3State](#web3state)
@@ -95,7 +104,9 @@
 * [FeedFilterAccounts](#feedfilteraccounts)
 * [FeedFilterContracts](#feedfiltercontracts)
 * [FeedFilterErrors](#feedfiltererrors)
+* [FeedFilterIPFSContent](#feedfilteripfscontent)
 * [FeedFilterTransactions](#feedfiltertransactions)
+* [IPFS](#ipfs)
 * [running](#running)
 * [toLower](#tolower)
 * [window](#window)
@@ -127,7 +138,15 @@
 * [FeedNewAccount](#feednewaccount)
 * [FeedNewContract](#feednewcontract)
 * [FeedNewError](#feednewerror)
+* [FeedNewIPFSContent](#feednewipfscontent)
 * [FeedNewTransaction](#feednewtransaction)
+* [IPFSError](#ipfserror)
+* [IPFSErrorReducer](#ipfserrorreducer)
+* [IPFSFetchData](#ipfsfetchdata)
+* [IPFSLoad](#ipfsload)
+* [IPFSLoaded](#ipfsloaded)
+* [IPFSLoadedReducer](#ipfsloadedreducer)
+* [IPFSSagas](#ipfssagas)
 * [TxBroadcasted](#txbroadcasted)
 * [TxConfirmed](#txconfirmed)
 * [TxError](#txerror)
@@ -158,6 +177,7 @@
 * [fetchAccount](#fetchaccount)
 * [forge](#forge)
 * [getFeed](#getfeed)
+* [ipfs](#ipfs)
 * [loadContract](#loadcontract)
 * [loopOnAccounts](#looponaccounts)
 * [onAccountAdd](#onaccountadd)
@@ -166,6 +186,7 @@
 * [onContractLoad](#oncontractload)
 * [onContractSend](#oncontractsend)
 * [onLoadContractInitialize](#onloadcontractinitialize)
+* [onLoadRequest](#onloadrequest)
 * [onUpdateRequest](#onupdaterequest)
 * [refreshLoop](#refreshloop)
 * [resolveWeb3](#resolveweb3)
@@ -211,7 +232,7 @@ ___
 [AccountErrorState](interfaces/accounterrorstate.md)
 *
 
-*Defined in stateInterface.ts:139*
+*Defined in stateInterface.ts:143*
 
 ___
 <a id="contractactions"></a>
@@ -247,10 +268,11 @@ ___
 **ΤFeedActions**: *[FeedNewContractAction](interfaces/feednewcontractaction.md) |
 [FeedNewTransactionAction](interfaces/feednewtransactionaction.md) |
 [FeedNewErrorAction](interfaces/feednewerroraction.md) |
-[FeedNewAccountAction](interfaces/feednewaccountaction.md)
+[FeedNewAccountAction](interfaces/feednewaccountaction.md) |
+[FeedNewIPFSContentAction](interfaces/feednewipfscontentaction.md)
 *
 
-*Defined in feed/feed.actions.ts:55*
+*Defined in feed/feed.actions.ts:66*
 
 ___
 <a id="feedstate"></a>
@@ -260,10 +282,23 @@ ___
 **ΤFeedState**: *[FeedNewContractState](interfaces/feednewcontractstate.md) |
 [FeedNewTransactionState](interfaces/feednewtransactionstate.md) |
 [FeedNewErrorState](interfaces/feednewerrorstate.md) |
-[FeedNewAccountState](interfaces/feednewaccountstate.md)
+[FeedNewAccountState](interfaces/feednewaccountstate.md) |
+[FeedNewIPFSContentState](interfaces/feednewipfscontentstate.md)
 *
 
-*Defined in stateInterface.ts:124*
+*Defined in stateInterface.ts:128*
+
+___
+<a id="ipfsactions"></a>
+
+###  IPFSActions
+
+**ΤIPFSActions**: *[IPFSLoadAction](interfaces/ipfsloadaction.md) |
+[IPFSLoadedAction](interfaces/ipfsloadedaction.md) |
+[IPFSErrorAction](interfaces/ipfserroraction.md)
+*
+
+*Defined in ipfs/ipfs.actions.ts:40*
 
 ___
 <a id="txactions"></a>
@@ -318,7 +353,7 @@ ___
     return feed.filter((elem: FeedState): boolean => !!((FeedTypeLinks[elem.action] ? FeedTypeLinks[elem.action] : -1) & FeedType.Accounts))
 })
 
-*Defined in feed/feed.selectors.ts:32*
+*Defined in feed/feed.selectors.ts:34*
 
 ___
 <a id="feedfiltercontracts"></a>
@@ -331,7 +366,7 @@ ___
     return feed.filter((elem: FeedState): boolean => !!((FeedTypeLinks[elem.action] ? FeedTypeLinks[elem.action] : -1) & FeedType.Contracts))
 })
 
-*Defined in feed/feed.selectors.ts:24*
+*Defined in feed/feed.selectors.ts:26*
 
 ___
 <a id="feedfiltererrors"></a>
@@ -344,7 +379,20 @@ ___
     return feed.filter((elem: FeedState): boolean => !!((FeedTypeLinks[elem.action] ? FeedTypeLinks[elem.action] : -1) & FeedType.Errors))
 })
 
-*Defined in feed/feed.selectors.ts:28*
+*Defined in feed/feed.selectors.ts:30*
+
+___
+<a id="feedfilteripfscontent"></a>
+
+### `<Const>` FeedFilterIPFSContent
+
+**● FeedFilterIPFSContent**: *`function` &
+`object`
+* =  createSelector(getFeed, (feed: FeedState[]): FeedState[] => {
+    return feed.filter((elem: FeedState): boolean => !!((FeedTypeLinks[elem.action] ? FeedTypeLinks[elem.action] : -1) & FeedType.IPFSContent))
+})
+
+*Defined in feed/feed.selectors.ts:38*
 
 ___
 <a id="feedfiltertransactions"></a>
@@ -357,7 +405,16 @@ ___
     return feed.filter((elem: FeedState): boolean => !!((FeedTypeLinks[elem.action] ? FeedTypeLinks[elem.action] : -1) & FeedType.Transactions))
 })
 
-*Defined in feed/feed.selectors.ts:20*
+*Defined in feed/feed.selectors.ts:22*
+
+___
+<a id="ipfs"></a>
+
+### `<Const>` IPFS
+
+**● IPFS**: *`any`* =  IPFSApi('ipfs.infura.io', '5001', {protocol: 'https'})
+
+*Defined in ipfs/ipfs.saga.ts:8*
 
 ___
 <a id="running"></a>
@@ -783,7 +840,7 @@ ___
 
 ▸ **FeedFilter**(type: *[FeedType](enums/feedtype.md)*): `any`
 
-*Defined in feed/feed.selectors.ts:36*
+*Defined in feed/feed.selectors.ts:42*
 
 **Parameters:**
 
@@ -849,6 +906,23 @@ ___
 **Returns:** [FeedNewErrorAction](interfaces/feednewerroraction.md)
 
 ___
+<a id="feednewipfscontent"></a>
+
+###  FeedNewIPFSContent
+
+▸ **FeedNewIPFSContent**(ipfs_hash: *`string`*): [FeedNewIPFSContentAction](interfaces/feednewipfscontentaction.md)
+
+*Defined in feed/feed.actions.ts:59*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| ipfs_hash | `string` | 
+
+**Returns:** [FeedNewIPFSContentAction](interfaces/feednewipfscontentaction.md)
+
+___
 <a id="feednewtransaction"></a>
 
 ###  FeedNewTransaction
@@ -864,6 +938,123 @@ ___
 | txHash | `string` | 
 
 **Returns:** [FeedNewTransactionAction](interfaces/feednewtransactionaction.md)
+
+___
+<a id="ipfserror"></a>
+
+###  IPFSError
+
+▸ **IPFSError**(hash: *`string`*, reason: *`any`*): [IPFSErrorAction](interfaces/ipfserroraction.md)
+
+*Defined in ipfs/ipfs.actions.ts:32*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| hash | `string` | 
+| reason | `any` | 
+
+**Returns:** [IPFSErrorAction](interfaces/ipfserroraction.md)
+
+___
+<a id="ipfserrorreducer"></a>
+
+### `<Const>` IPFSErrorReducer
+
+▸ **IPFSErrorReducer**(state: *[IPFSStoreState](interfaces/ipfsstorestate.md)*, action: *[IPFSErrorAction](interfaces/ipfserroraction.md)*): [IPFSStoreState](interfaces/ipfsstorestate.md)
+
+*Defined in ipfs/ipfs.reducers.ts:14*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| state | [IPFSStoreState](interfaces/ipfsstorestate.md) | 
+| action | [IPFSErrorAction](interfaces/ipfserroraction.md) | 
+
+**Returns:** [IPFSStoreState](interfaces/ipfsstorestate.md)
+
+___
+<a id="ipfsfetchdata"></a>
+
+###  IPFSFetchData
+
+▸ **IPFSFetchData**(action: *[IPFSLoadAction](interfaces/ipfsloadaction.md)*): `SagaIterator`
+
+*Defined in ipfs/ipfs.saga.ts:10*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| action | [IPFSLoadAction](interfaces/ipfsloadaction.md) | 
+
+**Returns:** `SagaIterator`
+
+___
+<a id="ipfsload"></a>
+
+###  IPFSLoad
+
+▸ **IPFSLoad**(hash: *`string`*): [IPFSLoadAction](interfaces/ipfsloadaction.md)
+
+*Defined in ipfs/ipfs.actions.ts:7*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| hash | `string` | 
+
+**Returns:** [IPFSLoadAction](interfaces/ipfsloadaction.md)
+
+___
+<a id="ipfsloaded"></a>
+
+###  IPFSLoaded
+
+▸ **IPFSLoaded**(hash: *`string`*, content: *`any`*): [IPFSLoadedAction](interfaces/ipfsloadedaction.md)
+
+*Defined in ipfs/ipfs.actions.ts:19*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| hash | `string` | 
+| content | `any` | 
+
+**Returns:** [IPFSLoadedAction](interfaces/ipfsloadedaction.md)
+
+___
+<a id="ipfsloadedreducer"></a>
+
+### `<Const>` IPFSLoadedReducer
+
+▸ **IPFSLoadedReducer**(state: *[IPFSStoreState](interfaces/ipfsstorestate.md)*, action: *[IPFSLoadedAction](interfaces/ipfsloadedaction.md)*): [IPFSStoreState](interfaces/ipfsstorestate.md)
+
+*Defined in ipfs/ipfs.reducers.ts:5*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| state | [IPFSStoreState](interfaces/ipfsstorestate.md) | 
+| action | [IPFSLoadedAction](interfaces/ipfsloadedaction.md) | 
+
+**Returns:** [IPFSStoreState](interfaces/ipfsstorestate.md)
+
+___
+<a id="ipfssagas"></a>
+
+###  IPFSSagas
+
+▸ **IPFSSagas**(): `any`
+
+*Defined in ipfs/ipfs.saga.ts:50*
+
+**Returns:** `any`
 
 ___
 <a id="txbroadcasted"></a>
@@ -1398,6 +1589,24 @@ ___
 **Returns:** [FeedState](#feedstate)[]
 
 ___
+<a id="ipfs"></a>
+
+### `<Const>` ipfs
+
+▸ **ipfs**(state?: *[IPFSStoreState](interfaces/ipfsstorestate.md)*, action: *[IPFSActions](#ipfsactions)*): [IPFSStoreState](interfaces/ipfsstorestate.md)
+
+*Defined in ipfs/ipfs.reducers.ts:23*
+
+**Parameters:**
+
+| Param | Type | Default value |
+| ------ | ------ | ------ |
+| `Default value` state | [IPFSStoreState](interfaces/ipfsstorestate.md) |  {} | 
+| action | [IPFSActions](#ipfsactions) | - | 
+
+**Returns:** [IPFSStoreState](interfaces/ipfsstorestate.md)
+
+___
 <a id="loadcontract"></a>
 
 ###  loadContract
@@ -1531,6 +1740,23 @@ ___
 **Returns:** `SagaIterator`
 
 ___
+<a id="onloadrequest"></a>
+
+###  onLoadRequest
+
+▸ **onLoadRequest**(action: *[IPFSLoadAction](interfaces/ipfsloadaction.md)*): `SagaIterator`
+
+*Defined in ipfs/ipfs.saga.ts:31*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| action | [IPFSLoadAction](interfaces/ipfsloadaction.md) | 
+
+**Returns:** `SagaIterator`
+
+___
 <a id="onupdaterequest"></a>
 
 ###  onUpdateRequest
@@ -1582,7 +1808,7 @@ ___
 
 ▸ **rootSaga**(): `any`
 
-*Defined in sagas.ts:7*
+*Defined in sagas.ts:8*
 
 **Returns:** `any`
 
@@ -1723,7 +1949,7 @@ ___
 
 **FeedTypeLinks**: *`object`*
 
-*Defined in feed/feed.selectors.ts:13*
+*Defined in feed/feed.selectors.ts:14*
 
 <a id="feedtypelinks.new_account"></a>
 
@@ -1731,7 +1957,7 @@ ___
 
 **● NEW_ACCOUNT**: *`number`* = 8
 
-*Defined in feed/feed.selectors.ts:17*
+*Defined in feed/feed.selectors.ts:18*
 
 ___
 <a id="feedtypelinks.new_contract"></a>
@@ -1740,7 +1966,7 @@ ___
 
 **● NEW_CONTRACT**: *`number`* = 2
 
-*Defined in feed/feed.selectors.ts:15*
+*Defined in feed/feed.selectors.ts:16*
 
 ___
 <a id="feedtypelinks.new_error"></a>
@@ -1749,7 +1975,16 @@ ___
 
 **● NEW_ERROR**: *`number`* = 4
 
-*Defined in feed/feed.selectors.ts:16*
+*Defined in feed/feed.selectors.ts:17*
+
+___
+<a id="feedtypelinks.new_ipfs_content"></a>
+
+####  NEW_IPFS_CONTENT
+
+**● NEW_IPFS_CONTENT**: *`number`* = 16
+
+*Defined in feed/feed.selectors.ts:19*
 
 ___
 <a id="feedtypelinks.new_transaction"></a>
@@ -1758,7 +1993,7 @@ ___
 
 **● NEW_TRANSACTION**: *`number`* = 1
 
-*Defined in feed/feed.selectors.ts:14*
+*Defined in feed/feed.selectors.ts:15*
 
 ___
 
@@ -1769,7 +2004,7 @@ ___
 
 **dummyReducer**: *`object`*
 
-*Defined in dummyReducer.ts:11*
+*Defined in dummyReducer.ts:12*
 
 <a id="dummyreducer.accounts"></a>
 
@@ -1777,7 +2012,7 @@ ___
 
 **● accounts**: *`function`* =  {} as Reducer<AccountStoreState>
 
-*Defined in dummyReducer.ts:16*
+*Defined in dummyReducer.ts:17*
 
 #### Type declaration
 ▸(state: *`S` |`undefined`*, action: *`A`*): `S`
@@ -1800,7 +2035,7 @@ ___
 
 **● contracts**: *`function`* =  {} as Reducer<ContractStoreState>
 
-*Defined in dummyReducer.ts:14*
+*Defined in dummyReducer.ts:15*
 
 #### Type declaration
 ▸(state: *`S` |`undefined`*, action: *`A`*): `S`
@@ -1823,7 +2058,30 @@ ___
 
 **● feed**: *`function`* =  {} as Reducer<FeedState[]>
 
-*Defined in dummyReducer.ts:15*
+*Defined in dummyReducer.ts:16*
+
+#### Type declaration
+▸(state: *`S` |`undefined`*, action: *`A`*): `S`
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| state | `S` |
+`undefined`
+ | 
+| action | `A` | 
+
+**Returns:** `S`
+
+___
+<a id="dummyreducer.ipfs"></a>
+
+####  ipfs
+
+**● ipfs**: *`function`* =  {} as Reducer<IPFSStoreState>
+
+*Defined in dummyReducer.ts:18*
 
 #### Type declaration
 ▸(state: *`S` |`undefined`*, action: *`A`*): `S`
@@ -1846,7 +2104,7 @@ ___
 
 **● tx**: *`function`* =  {} as Reducer<TransactionStoreState>
 
-*Defined in dummyReducer.ts:13*
+*Defined in dummyReducer.ts:14*
 
 #### Type declaration
 ▸(state: *`S` |`undefined`*, action: *`A`*): `S`
@@ -1869,7 +2127,7 @@ ___
 
 **● web3**: *`function`* =  {} as Reducer<Web3State>
 
-*Defined in dummyReducer.ts:12*
+*Defined in dummyReducer.ts:13*
 
 #### Type declaration
 ▸(state: *`S` |`undefined`*, action: *`A`*): `S`
@@ -1894,7 +2152,7 @@ ___
 
 **reducers**: *`object`*
 
-*Defined in reducers.ts:9*
+*Defined in reducers.ts:10*
 
 <a id="reducers.accounts"></a>
 
@@ -1902,7 +2160,7 @@ ___
 
 **● accounts**: *`function`*
 
-*Defined in reducers.ts:14*
+*Defined in reducers.ts:15*
 
 #### Type declaration
 ▸(state: *`S` |`undefined`*, action: *`A`*): `S`
@@ -1925,7 +2183,7 @@ ___
 
 **● contracts**: *`function`*
 
-*Defined in reducers.ts:12*
+*Defined in reducers.ts:13*
 
 #### Type declaration
 ▸(state: *`S` |`undefined`*, action: *`A`*): `S`
@@ -1948,7 +2206,30 @@ ___
 
 **● feed**: *`function`*
 
-*Defined in reducers.ts:13*
+*Defined in reducers.ts:14*
+
+#### Type declaration
+▸(state: *`S` |`undefined`*, action: *`A`*): `S`
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| state | `S` |
+`undefined`
+ | 
+| action | `A` | 
+
+**Returns:** `S`
+
+___
+<a id="reducers.ipfs"></a>
+
+####  ipfs
+
+**● ipfs**: *`function`*
+
+*Defined in reducers.ts:16*
 
 #### Type declaration
 ▸(state: *`S` |`undefined`*, action: *`A`*): `S`
@@ -1971,7 +2252,7 @@ ___
 
 **● tx**: *`function`*
 
-*Defined in reducers.ts:11*
+*Defined in reducers.ts:12*
 
 #### Type declaration
 ▸(state: *`S` |`undefined`*, action: *`A`*): `S`
@@ -1994,7 +2275,7 @@ ___
 
 **● web3**: *`function`*
 
-*Defined in reducers.ts:10*
+*Defined in reducers.ts:11*
 
 #### Type declaration
 ▸(state: *`S` |`undefined`*, action: *`A`*): `S`

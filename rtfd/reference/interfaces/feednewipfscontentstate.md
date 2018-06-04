@@ -1,20 +1,20 @@
-[Vortex](../README.md) > [FeedNewErrorState](../interfaces/feednewerrorstate.md)
+[Vortex](../README.md) > [FeedNewIPFSContentState](../interfaces/feednewipfscontentstate.md)
 
-# Interface: FeedNewErrorState
+# Interface: FeedNewIPFSContentState
 
 ## Hierarchy
 
  [FeedHeader](feedheader.md)
 
-**↳ FeedNewErrorState**
+**↳ FeedNewIPFSContentState**
 
 ## Index
 
 ### Properties
 
-* [action](feednewerrorstate.md#action)
-* [error](feednewerrorstate.md#error)
-* [timestamp](feednewerrorstate.md#timestamp)
+* [action](feednewipfscontentstate.md#action)
+* [ipfs_hash](feednewipfscontentstate.md#ipfs_hash)
+* [timestamp](feednewipfscontentstate.md#timestamp)
 
 ---
 
@@ -31,13 +31,13 @@
 *Defined in stateInterface.ts:96*
 
 ___
-<a id="error"></a>
+<a id="ipfs_hash"></a>
 
-###  error
+###  ipfs_hash
 
-**● error**: *[FeedNewErrorErrorState](feednewerrorerrorstate.md)*
+**● ipfs_hash**: *`string`*
 
-*Defined in stateInterface.ts:120*
+*Defined in stateInterface.ts:110*
 
 ___
 <a id="timestamp"></a>
