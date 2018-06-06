@@ -190,7 +190,7 @@
 * [onUpdateRequest](#onupdaterequest)
 * [refreshLoop](#refreshloop)
 * [resolveWeb3](#resolveweb3)
-* [rootSaga](#rootsaga)
+* [rootSagaBuilder](#rootsagabuilder)
 * [runForceRefreshRound](#runforcerefreshround)
 * [runForceRefreshRoundOn](#runforcerefreshroundon)
 * [sendRawTransaction](#sendrawtransaction)
@@ -1802,13 +1802,19 @@ ___
 **Returns:** `SagaIterator`
 
 ___
-<a id="rootsaga"></a>
+<a id="rootsagabuilder"></a>
 
-###  rootSaga
+### `<Const>` rootSagaBuilder
 
-▸ **rootSaga**(): `any`
+▸ **rootSagaBuilder**(...customSagas: *`any`[]*): `any`
 
 *Defined in sagas.ts:8*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| `Rest` customSagas | `any`[] | 
 
 **Returns:** `any`
 

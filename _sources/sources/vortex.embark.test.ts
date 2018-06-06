@@ -5,6 +5,8 @@ import {
     IPFSErrorState,
     Web3LoadedState
 } from "./stateInterface";
+import {SagaIterator} from "redux-saga";
+import {takeEvery} from "redux-saga/effects";
 
 declare var describe: any;
 declare var test: any;
@@ -37,9 +39,20 @@ const getWeb3: Promise<any> = new Promise<any>((ok: (arg?: any) => void, ko: (ar
     }
 });
 
+let sagaDone = {
+    done: null
+};
+
+function* onLoaded(action: any): SagaIterator {
+    sagaDone.done();
+}
+
+function* testSaga(): any {
+    yield takeEvery('LOAD_WEB3', onLoaded);
+}
+
 describe("Vortex", () => {
     test('Instantiate', () => {
-        console.log(global.caca);
         const vtx = Vortex.factory({
             type: "embark",
             contracts: {
@@ -49,7 +62,11 @@ describe("Vortex", () => {
             },
             preloaded_contracts: ["SimpleStorage"],
             chains: Chains
-        }, getWeb3);
+        }, getWeb3, {
+            custom_sagas: [
+                testSaga
+            ]
+        });
         expect(vtx.Contracts.contracts["SimpleStorage"]).not.toBe(undefined);
     });
 
@@ -68,9 +85,10 @@ describe("Vortex", () => {
         Vortex.get().run();
     });
 
-    test('Load Web3', () => {
+    test('Load Web3', (done) => {
+        sagaDone.done = done;
         Vortex.get().loadWeb3();
-    });
+    }, 10000);
 
     test('Check Coinbase Balance', (done) => {
         setTimeout((): void => {

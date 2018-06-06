@@ -18,6 +18,8 @@ import * as Web3 from "web3";
 
 import * as IPFSApi from 'ipfs-api';
 import {IPFSLoad} from "./ipfs/ipfs.actions";
+import {SagaIterator} from "redux-saga";
+import {takeEvery} from "redux-saga/effects";
 const IPFS = IPFSApi('ipfs.infura.io', '5001', {protocol: 'https'});
 let IPFS_hash;
 const IPFS_fake_hash = "QmaoJEsqFkHETuCzGukYtfdJFCgNa2JKVNmdMbNdtRwszB";
@@ -36,13 +38,29 @@ const getWeb3: Promise<any> = new Promise<any>((ok: (arg?: any) => void, ko: (ar
     }
 });
 
+let sagaDone = {
+    done: null
+};
+
+function* onLoaded(action: any): SagaIterator {
+    sagaDone.done();
+}
+
+function* testSaga(): any {
+    yield takeEvery('LOAD_WEB3', onLoaded);
+}
+
 describe("Vortex", () => {
     test('Instantiate', () => {
         const vtx = Vortex.factory({
             type: "truffle",
             contracts: [Migrations],
             preloaded_contracts: ["Migrations"]
-        }, getWeb3);
+        }, getWeb3, {
+            custom_sagas: [
+                testSaga
+            ]
+        });
         expect(vtx.Contracts.contracts[0].contractName).toBe("Migrations");
     });
 
@@ -61,7 +79,8 @@ describe("Vortex", () => {
         Vortex.get().run();
     });
 
-    test('Load Web3', () => {
+    test('Load Web3', (done) => {
+        sagaDone.done = done;
         Vortex.get().loadWeb3();
     });
 

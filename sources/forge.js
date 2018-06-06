@@ -65,11 +65,6 @@ function forge(contracts, config = undefined) {
         default:
             throw new Error("Unknown Ethereum Framework");
     }
-    for (let idx in contracts) {
-        (initialState.contracts[contracts[idx].contractName]) = {
-            artifact: contracts[idx]
-        };
-    }
     let combinedInitialState = Object.assign({}, (config ? config.custom_state : {}), initialState);
     let combinedReducer;
     if (config && config.reducer) {
@@ -83,7 +78,10 @@ function forge(contracts, config = undefined) {
     combinedReducer = redux_1.combineReducers(config.reducer);
     const sagaMiddleware = redux_saga_1.default();
     const store = redux_1.createStore(combinedReducer, combinedInitialState, composer(redux_1.applyMiddleware(sagaMiddleware)));
-    sagaMiddleware.run(sagas_1.default);
+    if (config && config.custom_sagas)
+        sagaMiddleware.run(sagas_1.rootSagaBuilder(...config.custom_sagas));
+    else
+        sagaMiddleware.run(sagas_1.rootSagaBuilder());
     return (store);
 }
 exports.forge = forge;
