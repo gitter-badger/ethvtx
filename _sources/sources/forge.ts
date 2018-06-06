@@ -14,18 +14,18 @@ import createSagaMiddleware, {SagaMiddleware} from 'redux-saga';
 import {
     AccountConfigState,
     AccountStoreState, ContractArtifactState,
-    ContractStoreState,
     FeedState,
     State,
     Web3LoadingState
 } from './stateInterface';
 import {reducers} from "./reducers";
-import rootSaga from './sagas';
+import {rootSagaBuilder} from './sagas';
 
 export interface GeneratorConfig<T> {
     reducer?: ReducersMapObject<T>,
     custom_state?: DeepPartial<T>,
-    account_refresh_rate?: number
+    account_refresh_rate?: number,
+    custom_sagas?: any[]
 }
 
 export interface Contracts {
@@ -137,7 +137,10 @@ export function forge<T extends State = State>(contracts: EmbarkContracts | Truf
 
     const store: Store<T> = createStore<T, any, any, any>(combinedReducer, combinedInitialState, composer(applyMiddleware(sagaMiddleware)));
 
-    sagaMiddleware.run(rootSaga);
+    if (config && config.custom_sagas)
+        sagaMiddleware.run(rootSagaBuilder(...config.custom_sagas));
+    else
+        sagaMiddleware.run(rootSagaBuilder());
 
     return (store);
 }
