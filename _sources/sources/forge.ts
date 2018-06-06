@@ -115,12 +115,6 @@ export function forge<T extends State = State>(contracts: EmbarkContracts | Truf
             throw new Error("Unknown Ethereum Framework");
     }
 
-    for (let idx in contracts) {
-        ((<ContractStoreState>(<any>initialState).contracts)[contracts[idx].contractName]) = {
-            artifact: contracts[idx]
-        };
-    }
-
     let combinedInitialState = {
         ...(<object>(config ? config.custom_state : {})),
         ...(<object>initialState)

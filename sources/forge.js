@@ -65,11 +65,6 @@ function forge(contracts, config = undefined) {
         default:
             throw new Error("Unknown Ethereum Framework");
     }
-    for (let idx in contracts) {
-        (initialState.contracts[contracts[idx].contractName]) = {
-            artifact: contracts[idx]
-        };
-    }
     let combinedInitialState = Object.assign({}, (config ? config.custom_state : {}), initialState);
     let combinedReducer;
     if (config && config.reducer) {
