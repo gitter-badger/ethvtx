@@ -2,7 +2,7 @@ declare var describe: any;
 declare var test: any;
 declare var expect: any;
 
-import {Web3Load, Web3Loaded, Web3LoadError, Web3NetworkError} from "./web3.actions";
+import {Web3Load, Web3Loaded, Web3LoadError, Web3Locked, Web3NetworkError} from "./web3.actions";
 import {web3} from './web3.reducers';
 
 let state = undefined;
@@ -32,6 +32,11 @@ describe("Web3 Reducers", () => {
         state = web3(state, Web3NetworkError(345));
         expect(state.network_id).toBe(345);
         expect(state.status).toBe("NETWORK_ERROR");
+    });
+
+    test("Web3Locked", () => {
+        state = web3(state, Web3Locked());
+        expect(state.status).toBe("LOCKED");
     });
 
 });

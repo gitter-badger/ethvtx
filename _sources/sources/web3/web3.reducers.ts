@@ -34,6 +34,12 @@ export const web3 : Reducer<Web3State, Web3Actions> = (state: Web3State = {statu
                 network_id: (<Web3NetworkErrorAction>action).networkId
             });
 
+        case 'LOCKED_WEB3':
+            return ({
+                ...state,
+                status: 'LOCKED'
+            });
+
         default:
             return state;
 

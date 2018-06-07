@@ -1,4 +1,4 @@
-import {Web3Load, Web3Loaded, Web3LoadError, Web3NetworkError} from "./web3.actions";
+import {Web3Load, Web3Loaded, Web3LoadError, Web3Locked, Web3NetworkError} from "./web3.actions";
 
 declare var describe: any;
 declare var test: any;
@@ -28,6 +28,11 @@ describe("Web3 Actions", () => {
         const ret = Web3NetworkError(1234);
         expect(ret.networkId).toBe(1234);
         expect(ret.type).toBe('NETWORK_ERROR_WEB3');
+    });
+
+    test("Web3Locked", () => {
+        const ret = Web3Locked();
+        expect(ret.type).toBe('LOCKED_WEB3');
     });
 
 });

@@ -50,4 +50,13 @@ export function Web3NetworkError(networkId: number|string): Web3NetworkErrorActi
     })
 }
 
-export type Web3Actions = Web3LoadAction | Web3LoadedAction | Web3LoadErrorAction | Web3NetworkErrorAction;
+export interface Web3LockedAction extends Action {
+}
+
+export function Web3Locked(): Web3LockedAction {
+    return ({
+        type: 'LOCKED_WEB3'
+    })
+}
+
+export type Web3Actions = Web3LoadAction | Web3LoadedAction | Web3LoadErrorAction | Web3NetworkErrorAction | Web3LockedAction;
