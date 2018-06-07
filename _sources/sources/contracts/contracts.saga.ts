@@ -33,7 +33,8 @@ export function runForceRefreshRoundOn(state: State, emit: (arg?: any) => void, 
     Object.keys(state.contracts[contractName][instance_address].instance.vortex).forEach((methodName: string): void => {
         if (state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache) {
             Object.keys(state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache).forEach((signature: string): void => {
-                if (state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache[signature].synced) {
+                if (state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache[signature].synced
+                    && !state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache[signature].disable_refresh) {
                     emit(ContractVarForceRefresh(contractName, instance_address, methodName, signature));
                 }
             })
