@@ -27,7 +27,7 @@ npm install --save vort_x vort_x-components
 
 ### For [Embark](https://embark.status.im) Users ...
 
-```js
+```jsx
 import {
     VortexGate,
     VortexWeb3Loaded,
@@ -73,7 +73,7 @@ import * as Chains from '../chains.json';
     </VortexWeb3NetworkError>
 
     <VortexWeb3Locked>
-        // Renders this is the wallet provider (Metamask, Mist) is locked
+        // Renders this if the wallet provider (Metamask, Mist) is locked
     </VortexWeb3Locked>
 
 </VortexGate>
@@ -81,7 +81,7 @@ import * as Chains from '../chains.json';
 
 ### ... and for [Truffle](https://embark.status.im) Users.
 
-```js
+```jsx
 import {
     VortexGate,
     VortexWeb3Loaded,
@@ -127,7 +127,7 @@ import SimpleStorage from '../build/contracts/SimpleStorage.json'
     </VortexWeb3NetworkError>
 
     <VortexWeb3Locked>
-        // Renders this is the wallet provider (Metamask, Mist) is locked
+        // Renders this if the wallet provider (Metamask, Mist) is locked
     </VortexWeb3Locked>
 
 </VortexGate>
