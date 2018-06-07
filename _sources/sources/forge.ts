@@ -20,6 +20,7 @@ import {
 } from './stateInterface';
 import {reducers} from "./reducers";
 import {rootSagaBuilder} from './sagas';
+import TruffleArtifact from 'truffle-contract-schema';
 
 export interface GeneratorConfig<T> {
     reducer?: ReducersMapObject<T>,
@@ -33,13 +34,13 @@ export interface Contracts {
 }
 
 export interface EmbarkContracts extends Contracts {
-    chains: any,
-    contracts: any,
+    chains?: any,
+    embark_contracts?: any,
     preloaded_contracts: string[]
 }
 
 export interface TruffleContracts extends Contracts {
-    contracts: any[]
+    truffle_contracts?: TruffleArtifact[]
     preloaded_contracts: string[]
 }
 
@@ -71,12 +72,12 @@ export function forge<T extends State = State>(contracts: EmbarkContracts | Truf
     switch (contracts.type) {
         case 'truffle':
             const truffle_contracts: TruffleContracts = <TruffleContracts>contracts;
-            for (let idx in truffle_contracts.contracts) {
-                ((<ContractArtifactState>(<any>initialState).contracts)[truffle_contracts.contracts[idx].contractName]) = {
+            for (let idx in truffle_contracts.truffle_contracts) {
+                ((<ContractArtifactState>(<any>initialState).contracts)[truffle_contracts.truffle_contracts[idx].contractName]) = {
                     artifact: {
-                        abi: truffle_contracts.contracts[idx].abi,
-                        bytecode: truffle_contracts.contracts[idx].deployedBytecode,
-                        name: truffle_contracts.contracts[idx].contractName
+                        abi: truffle_contracts.truffle_contracts[idx].abi,
+                        bytecode: truffle_contracts.truffle_contracts[idx].deployedBytecode,
+                        name: truffle_contracts.truffle_contracts[idx].contractName
                     }
                 };
             }
@@ -85,19 +86,19 @@ export function forge<T extends State = State>(contracts: EmbarkContracts | Truf
                 type: "truffle",
                 config: {
                     preloaded_contracts: truffle_contracts.preloaded_contracts,
-                    contracts: truffle_contracts.contracts
+                    contracts: truffle_contracts.truffle_contracts
                 }
             };
 
             break ;
         case 'embark':
             const embark_contracts: EmbarkContracts = <EmbarkContracts>contracts;
-            for (let idx in Object.keys(embark_contracts.contracts)) {
-                ((<ContractArtifactState>(<any>initialState).contracts)[Object.keys(embark_contracts.contracts)[idx]]) = {
+            for (let idx in Object.keys(embark_contracts.embark_contracts)) {
+                ((<ContractArtifactState>(<any>initialState).contracts)[Object.keys(embark_contracts.embark_contracts)[idx]]) = {
                     artifact: {
-                        abi: embark_contracts.contracts[Object.keys(embark_contracts.contracts)[idx]].options.jsonInterface,
-                        bytecode: embark_contracts.contracts[Object.keys(embark_contracts.contracts)[idx]].options.data,
-                        name: Object.keys(embark_contracts.contracts)[idx]
+                        abi: embark_contracts.embark_contracts[Object.keys(embark_contracts.embark_contracts)[idx]].options.jsonInterface,
+                        bytecode: embark_contracts.embark_contracts[Object.keys(embark_contracts.embark_contracts)[idx]].options.data,
+                        name: Object.keys(embark_contracts.embark_contracts)[idx]
                     }
                 };
             }

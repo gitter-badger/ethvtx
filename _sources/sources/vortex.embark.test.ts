@@ -55,7 +55,7 @@ describe("Vortex", () => {
     test('Instantiate', () => {
         const vtx = Vortex.factory({
             type: "embark",
-            contracts: {
+            embark_contracts: {
                 SimpleStorage: new _web3.eth.Contract(SimpleStorage.abi, "0xc7E4d433eb912f78244A54bac86ba757E4e8641F", {
                     data: SimpleStorage.real_runtime_bytecode
                 })
@@ -67,7 +67,7 @@ describe("Vortex", () => {
                 testSaga
             ]
         });
-        expect(vtx.Contracts.contracts["SimpleStorage"]).not.toBe(undefined);
+        expect(vtx.Contracts.embark_contracts["SimpleStorage"]).not.toBe(undefined);
     });
 
     test("IPFS Push", (done) => {
@@ -78,7 +78,7 @@ describe("Vortex", () => {
     }, 60000);
 
     test('Recover Instance', () => {
-        expect(Vortex.get().Contracts.contracts["SimpleStorage"]).not.toBe(undefined);
+        expect(Vortex.get().Contracts.embark_contracts["SimpleStorage"]).not.toBe(undefined);
     });
 
     test('Run Instance', () => {

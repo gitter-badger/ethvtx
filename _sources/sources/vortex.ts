@@ -6,11 +6,13 @@ import {Web3Load} from "./web3/web3.actions";
 import {ContractLoad} from "./contracts/contracts.actions";
 import {AccountAdd} from "./accounts/accounts.actions";
 
+interface ContractConfig extends EmbarkContracts, TruffleContracts {}
+
 export class Vortex<T extends State> {
 
     private readonly _web3_loader: Promise<any> = undefined;
 
-    private _contracts: TruffleContracts | EmbarkContracts = undefined;
+    private _contracts: ContractConfig = undefined;
 
     private _config: GeneratorConfig<T> = {};
 
@@ -20,7 +22,7 @@ export class Vortex<T extends State> {
 
     private static _instance: Vortex<any> = undefined;
 
-    public static factory<U extends State = State>(contracts: TruffleContracts | EmbarkContracts, loader: Promise<any>, config: GeneratorConfig<U> = undefined): Vortex<U> {
+    public static factory<U extends State = State>(contracts: ContractConfig, loader: Promise<any>, config: GeneratorConfig<U> = undefined): Vortex<U> {
         return (Vortex._instance || (Vortex._instance = new Vortex<U>(contracts, loader, config)));
     }
 
@@ -32,11 +34,11 @@ export class Vortex<T extends State> {
      * Instantiate a new Vorte instance.
      * Accessing VortexInstance will give access to the last instanciated Vortex.
      *
-     * @param {[]} contracts Truffle or Embark Contracts configuration.
+     * @param {ContractConfig} contracts Truffle or Embark Contracts configuration.
      * @param loader Promise that returns a web3 instance ready to be used.
      * @param {GeneratorConfig<T>} config Configuration arguments for the store generator.
      */
-    constructor(contracts: TruffleContracts | EmbarkContracts, loader: Promise<any>, config: GeneratorConfig<T> = undefined) {
+    constructor(contracts: ContractConfig, loader: Promise<any>, config: GeneratorConfig<T> = undefined) {
         this._contracts = contracts;
         this._web3_loader = loader;
         this._config = config || {};
@@ -76,10 +78,10 @@ export class Vortex<T extends State> {
         }
         switch (this._contracts.type) {
             case 'truffle':
-                this._contracts.contracts.push(contract);
+                this._contracts.truffle_contracts.push(contract);
                 break ;
             case 'embark':
-                this._contracts.contracts.push(contract);
+                this._contracts.embark_contracts.push(contract);
                 break ;
             default:
                 throw new Error("Invalid Contracts !");
@@ -158,9 +160,9 @@ export class Vortex<T extends State> {
     /**
      * Contracts getter
      *
-     * @returns {EmbarkContracts | TruffleContracts} Array of loaded artifacts.
+     * @returns {ContractConfig} Array of loaded artifacts.
      */
-    public get Contracts(): EmbarkContracts | TruffleContracts {
+    public get Contracts(): ContractConfig {
         return (this._contracts);
     }
 

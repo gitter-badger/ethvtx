@@ -26,12 +26,12 @@ function forge(contracts, config = undefined) {
     switch (contracts.type) {
         case 'truffle':
             const truffle_contracts = contracts;
-            for (let idx in truffle_contracts.contracts) {
-                (initialState.contracts[truffle_contracts.contracts[idx].contractName]) = {
+            for (let idx in truffle_contracts.truffle_contracts) {
+                (initialState.contracts[truffle_contracts.truffle_contracts[idx].contractName]) = {
                     artifact: {
-                        abi: truffle_contracts.contracts[idx].abi,
-                        bytecode: truffle_contracts.contracts[idx].deployedBytecode,
-                        name: truffle_contracts.contracts[idx].contractName
+                        abi: truffle_contracts.truffle_contracts[idx].abi,
+                        bytecode: truffle_contracts.truffle_contracts[idx].deployedBytecode,
+                        name: truffle_contracts.truffle_contracts[idx].contractName
                     }
                 };
             }
@@ -39,18 +39,18 @@ function forge(contracts, config = undefined) {
                 type: "truffle",
                 config: {
                     preloaded_contracts: truffle_contracts.preloaded_contracts,
-                    contracts: truffle_contracts.contracts
+                    contracts: truffle_contracts.truffle_contracts
                 }
             };
             break;
         case 'embark':
             const embark_contracts = contracts;
-            for (let idx in Object.keys(embark_contracts.contracts)) {
-                (initialState.contracts[Object.keys(embark_contracts.contracts)[idx]]) = {
+            for (let idx in Object.keys(embark_contracts.embark_contracts)) {
+                (initialState.contracts[Object.keys(embark_contracts.embark_contracts)[idx]]) = {
                     artifact: {
-                        abi: embark_contracts.contracts[Object.keys(embark_contracts.contracts)[idx]].options.jsonInterface,
-                        bytecode: embark_contracts.contracts[Object.keys(embark_contracts.contracts)[idx]].options.data,
-                        name: Object.keys(embark_contracts.contracts)[idx]
+                        abi: embark_contracts.embark_contracts[Object.keys(embark_contracts.embark_contracts)[idx]].options.jsonInterface,
+                        bytecode: embark_contracts.embark_contracts[Object.keys(embark_contracts.embark_contracts)[idx]].options.data,
+                        name: Object.keys(embark_contracts.embark_contracts)[idx]
                     }
                 };
             }

@@ -9,7 +9,7 @@ class Vortex {
      * Instantiate a new Vorte instance.
      * Accessing VortexInstance will give access to the last instanciated Vortex.
      *
-     * @param {[]} contracts Truffle or Embark Contracts configuration.
+     * @param {ContractConfig} contracts Truffle or Embark Contracts configuration.
      * @param loader Promise that returns a web3 instance ready to be used.
      * @param {GeneratorConfig<T>} config Configuration arguments for the store generator.
      */
@@ -63,10 +63,10 @@ class Vortex {
         }
         switch (this._contracts.type) {
             case 'truffle':
-                this._contracts.contracts.push(contract);
+                this._contracts.truffle_contracts.push(contract);
                 break;
             case 'embark':
-                this._contracts.contracts.push(contract);
+                this._contracts.embark_contracts.push(contract);
                 break;
             default:
                 throw new Error("Invalid Contracts !");
@@ -140,7 +140,7 @@ class Vortex {
     /**
      * Contracts getter
      *
-     * @returns {EmbarkContracts | TruffleContracts} Array of loaded artifacts.
+     * @returns {ContractConfig} Array of loaded artifacts.
      */
     get Contracts() {
         return (this._contracts);

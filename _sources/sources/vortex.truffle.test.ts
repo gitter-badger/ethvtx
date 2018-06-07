@@ -54,14 +54,14 @@ describe("Vortex", () => {
     test('Instantiate', () => {
         const vtx = Vortex.factory({
             type: "truffle",
-            contracts: [Migrations],
+            truffle_contracts: [Migrations],
             preloaded_contracts: ["Migrations"]
         }, getWeb3, {
             custom_sagas: [
                 testSaga
             ]
         });
-        expect(vtx.Contracts.contracts[0].contractName).toBe("Migrations");
+        expect(vtx.Contracts.truffle_contracts[0].contractName).toBe("Migrations");
     });
 
     test("IPFS Push", (done) => {
@@ -72,7 +72,7 @@ describe("Vortex", () => {
     }, 60000);
 
     test('Recover Instance', () => {
-        expect(Vortex.get().Contracts.contracts[0].contractName).toBe("Migrations");
+        expect(Vortex.get().Contracts.truffle_contracts[0].contractName).toBe("Migrations");
     });
 
     test('Run Instance', () => {
