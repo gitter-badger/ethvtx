@@ -141,7 +141,7 @@ import * as Chains from 'path/to/embark/dir/chains.json'
 
 // SAGAS
 function* onLoaded(action: any): SagaIterator {
-    sagaDone.done();
+    console.log("LOADED");
 }
 
 function* testSaga(): any {
