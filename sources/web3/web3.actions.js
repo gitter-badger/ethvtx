@@ -31,3 +31,9 @@ function Web3NetworkError(networkId) {
     });
 }
 exports.Web3NetworkError = Web3NetworkError;
+function Web3Locked() {
+    return ({
+        type: 'LOCKED_WEB3'
+    });
+}
+exports.Web3Locked = Web3Locked;

@@ -12,6 +12,8 @@ exports.web3 = (state = { status: 'LOADING' }, action) => {
             return (Object.assign({}, state, { status: 'LOAD_ERROR', error: action.error }));
         case 'NETWORK_ERROR_WEB3':
             return (Object.assign({}, state, { status: 'NETWORK_ERROR', network_id: action.networkId }));
+        case 'LOCKED_WEB3':
+            return (Object.assign({}, state, { status: 'LOCKED' }));
         default:
             return state;
     }
