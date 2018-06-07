@@ -19,7 +19,11 @@ export interface Web3NetworkErrorState {
     network_id: number
 }
 
-export type Web3State = Web3LoadingState | Web3LoadedState | Web3LoadErrorState | Web3NetworkErrorState;
+export interface Web3LockedState {
+    status: string
+}
+
+export type Web3State = Web3LoadingState | Web3LoadedState | Web3LoadErrorState | Web3NetworkErrorState | Web3LockedState;
 
 export interface TransactionBroadcastedState {
     type: string,

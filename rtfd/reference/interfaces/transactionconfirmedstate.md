@@ -26,7 +26,7 @@
 
 **● timestamp**: *`number`*
 
-*Defined in stateInterface.ts:42*
+*Defined in stateInterface.ts:46*
 
 ___
 <a id="transaction_confirmation_count"></a>
@@ -35,7 +35,7 @@ ___
 
 **● transaction_confirmation_count**: *`number`*
 
-*Defined in stateInterface.ts:41*
+*Defined in stateInterface.ts:45*
 
 ___
 <a id="transaction_hash"></a>
@@ -44,7 +44,7 @@ ___
 
 **● transaction_hash**: *`string`*
 
-*Defined in stateInterface.ts:39*
+*Defined in stateInterface.ts:43*
 
 ___
 <a id="transaction_receipt"></a>
@@ -53,7 +53,7 @@ ___
 
 **● transaction_receipt**: *`any`*
 
-*Defined in stateInterface.ts:40*
+*Defined in stateInterface.ts:44*
 
 ___
 <a id="type"></a>
@@ -62,7 +62,7 @@ ___
 
 **● type**: *`string`*
 
-*Defined in stateInterface.ts:38*
+*Defined in stateInterface.ts:42*
 
 ___
 

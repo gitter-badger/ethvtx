@@ -5,6 +5,7 @@ export {
     Web3State,
     Web3LoadErrorState,
     Web3LoadingState,
+    Web3LockedState,
     Web3NetworkErrorState,
     FeedState,
     FeedNewErrorState,
@@ -47,7 +48,9 @@ export {
     Web3LoadError,
     Web3LoadErrorAction,
     Web3NetworkError,
-    Web3NetworkErrorAction
+    Web3NetworkErrorAction,
+    Web3Locked,
+    Web3LockedAction
 } from './sources/web3/web3.actions';
 
 export {

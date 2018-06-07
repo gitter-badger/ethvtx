@@ -46,4 +46,5 @@ pages:
     - 'Web3LoadedState': reference/interfaces/web3loadedstate.md
     - 'Web3LoadErrorState': reference/interfaces/web3loaderrorstate.md
     - 'Web3LoadingState': reference/interfaces/web3loadingstate.md
+    - 'Web3LockedState': reference/interfaces/web3lockedstate.md
     - 'Web3NetworkErrorState': reference/interfaces/web3networkerrorstate.md

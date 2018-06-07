@@ -31,7 +31,7 @@
 
 *Inherited from [AccountConfigState](accountconfigstate.md).[refresh_rate](accountconfigstate.md#refresh_rate)*
 
-*Defined in stateInterface.ts:136*
+*Defined in stateInterface.ts:140*
 
 ___
 <a id="type"></a>

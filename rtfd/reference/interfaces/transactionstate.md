@@ -27,7 +27,7 @@
 [TransactionErrorState](transactionerrorstate.md)
 *
 
-*Defined in stateInterface.ts:67*
+*Defined in stateInterface.ts:71*
 
 ___
 <a id="transaction_arguments"></a>
@@ -38,7 +38,7 @@ ___
 [RawTransactionArgumentState](rawtransactionargumentstate.md)
 *
 
-*Defined in stateInterface.ts:68*
+*Defined in stateInterface.ts:72*
 
 ___
 

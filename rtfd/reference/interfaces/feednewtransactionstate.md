@@ -28,7 +28,7 @@
 
 *Inherited from [FeedHeader](feedheader.md).[action](feedheader.md#action)*
 
-*Defined in stateInterface.ts:96*
+*Defined in stateInterface.ts:100*
 
 ___
 <a id="timestamp"></a>
@@ -39,7 +39,7 @@ ___
 
 *Inherited from [FeedHeader](feedheader.md).[timestamp](feedheader.md#timestamp)*
 
-*Defined in stateInterface.ts:97*
+*Defined in stateInterface.ts:101*
 
 ___
 <a id="transaction_hash"></a>
@@ -48,7 +48,7 @@ ___
 
 **● transaction_hash**: *`string`*
 
-*Defined in stateInterface.ts:106*
+*Defined in stateInterface.ts:110*
 
 ___
 

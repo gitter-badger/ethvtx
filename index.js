@@ -9,6 +9,7 @@ exports.Web3Load = web3_actions_1.Web3Load;
 exports.Web3Loaded = web3_actions_1.Web3Loaded;
 exports.Web3LoadError = web3_actions_1.Web3LoadError;
 exports.Web3NetworkError = web3_actions_1.Web3NetworkError;
+exports.Web3Locked = web3_actions_1.Web3Locked;
 var tx_actions_1 = require("./sources/tx/tx.actions");
 exports.TxBroadcasted = tx_actions_1.TxBroadcasted;
 exports.TxConfirmed = tx_actions_1.TxConfirmed;
