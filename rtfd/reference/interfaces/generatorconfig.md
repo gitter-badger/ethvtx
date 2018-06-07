@@ -27,7 +27,7 @@
 
 **● account_refresh_rate**: *`number`*
 
-*Defined in forge.ts:27*
+*Defined in forge.ts:28*
 
 ___
 <a id="custom_sagas"></a>
@@ -36,7 +36,7 @@ ___
 
 **● custom_sagas**: *`any`[]*
 
-*Defined in forge.ts:28*
+*Defined in forge.ts:29*
 
 ___
 <a id="custom_state"></a>
@@ -45,7 +45,7 @@ ___
 
 **● custom_state**: *`DeepPartial`<`T`>*
 
-*Defined in forge.ts:26*
+*Defined in forge.ts:27*
 
 ___
 <a id="reducer"></a>
@@ -54,7 +54,7 @@ ___
 
 **● reducer**: *`ReducersMapObject`<`T`>*
 
-*Defined in forge.ts:25*
+*Defined in forge.ts:26*
 
 ___
 

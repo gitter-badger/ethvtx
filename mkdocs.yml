@@ -4,11 +4,17 @@ docs_dir: ./rtfd
 pages:
   - 'Introduction': index.md
   - 'Tutorial': tutorial.md
+  - 'React Tutorial': react.md
   - 'Store Architecture': architecture/store.md
   - 'Index': reference/README.md
+  - 'Classes':
+    - 'Vortex': reference/classes/vortex.md
+    - 'VortexContract': reference/classes/vortexcontract.md
   - 'Interfaces':
     - 'EmbarkContracts': reference/interfaces/embarkcontracts.md
     - 'TruffleContracts': reference/interfaces/trufflecontracts.md
+    - 'ContractConfig': reference/interfaces/contractconfig.md
+    - 'GeneratorConfig': reference/interfaces/generatorconfig.md
   - 'Enums':
     - 'FeedType': reference/enums/feedtype.md
   - 'States':
@@ -41,6 +47,3 @@ pages:
     - 'Web3LoadErrorState': reference/interfaces/web3loaderrorstate.md
     - 'Web3LoadingState': reference/interfaces/web3loadingstate.md
     - 'Web3NetworkErrorState': reference/interfaces/web3networkerrorstate.md
-  - 'Classes':
-    - 'Vortex': reference/classes/vortex.md
-    - 'VortexContract': reference/classes/vortexcontract.md

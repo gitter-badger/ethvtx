@@ -27,6 +27,7 @@
 * [CachedWaitingCalls](interfaces/cachedwaitingcalls.md)
 * [ContractAddressesState](interfaces/contractaddressesstate.md)
 * [ContractArtifactState](interfaces/contractartifactstate.md)
+* [ContractConfig](interfaces/contractconfig.md)
 * [ContractErrorAction](interfaces/contracterroraction.md)
 * [ContractInstanceState](interfaces/contractinstancestate.md)
 * [ContractLoadAction](interfaces/contractloadaction.md)
@@ -1555,7 +1556,7 @@ ___
 
 ▸ **forge**T(contracts: *[EmbarkContracts](interfaces/embarkcontracts.md) |[TruffleContracts](interfaces/trufflecontracts.md)*, config?: *[GeneratorConfig](interfaces/generatorconfig.md)<`T`>*): `Store`
 
-*Defined in forge.ts:46*
+*Defined in forge.ts:47*
 
 **Type parameters:**
 
