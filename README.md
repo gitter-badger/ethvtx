@@ -39,7 +39,7 @@ import * as Chains from '../chains.json';
 
 <VortexGate contracts={{
                 type: 'embark',
-                contracts: {
+                embark_contracts: {
                     SimpleStorage: SimpleStorageContractInstance
                 },
                 chains: Chains,
@@ -80,7 +80,7 @@ import SimpleStorage from '../build/contracts/SimpleStorage.json'
 
 <VortexGate contracts={{
                 type: 'truffle',
-                contracts: [
+                truffle_contracts: [
                     SimpleStorage
                 ],
                 preloaded_contracts: [
