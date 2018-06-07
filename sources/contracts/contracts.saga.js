@@ -21,7 +21,8 @@ function runForceRefreshRoundOn(state, emit, contractName, instance_address) {
     Object.keys(state.contracts[contractName][instance_address].instance.vortex).forEach((methodName) => {
         if (state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache) {
             Object.keys(state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache).forEach((signature) => {
-                if (state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache[signature].synced) {
+                if (state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache[signature].synced
+                    && !state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache[signature].disable_refresh) {
                     emit(contracts_actions_1.ContractVarForceRefresh(contractName, instance_address, methodName, signature));
                 }
             });

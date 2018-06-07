@@ -746,7 +746,7 @@ ___
 
 ▸ **ContractSagas**(): `any`
 
-*Defined in contracts/contracts.saga.ts:287*
+*Defined in contracts/contracts.saga.ts:288*
 
 **Returns:** `any`
 
@@ -1293,7 +1293,7 @@ ___
 
 ▸ **backgroundContractLoad**(): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:54*
+*Defined in contracts/contracts.saga.ts:55*
 
 **Returns:** `SagaIterator`
 
@@ -1355,7 +1355,7 @@ ___
 
 ▸ **contractCall**(action: *[ContractCallAction](#contractcallaction)*, tx: *`any`*, arg_signature: *`string`*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:147*
+*Defined in contracts/contracts.saga.ts:148*
 
 **Parameters:**
 
@@ -1428,7 +1428,7 @@ ___
 
 ▸ **contractSend**(action: *[ContractSendAction](interfaces/contractsendaction.md)*, tx: *`any`*, web3: *`any`*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:186*
+*Defined in contracts/contracts.saga.ts:187*
 
 **Parameters:**
 
@@ -1614,7 +1614,7 @@ ___
 
 ▸ **loadContract**(contractName: *`string`*, contractAddress: *`string`*, userAddress: *`string`*, web3: *`any`*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:69*
+*Defined in contracts/contracts.saga.ts:70*
 
 **Parameters:**
 
@@ -1679,7 +1679,7 @@ ___
 
 ▸ **onContractCall**(action: *[ContractCallAction](#contractcallaction)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:167*
+*Defined in contracts/contracts.saga.ts:168*
 
 **Parameters:**
 
@@ -1696,7 +1696,7 @@ ___
 
 ▸ **onContractLoad**(action: *[ContractLoadAction](interfaces/contractloadaction.md)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:282*
+*Defined in contracts/contracts.saga.ts:283*
 
 **Parameters:**
 
@@ -1713,7 +1713,7 @@ ___
 
 ▸ **onContractSend**(action: *[ContractSendAction](interfaces/contractsendaction.md)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:266*
+*Defined in contracts/contracts.saga.ts:267*
 
 **Parameters:**
 
@@ -1730,7 +1730,7 @@ ___
 
 ▸ **onLoadContractInitialize**(action: *[Web3LoadedAction](interfaces/web3loadedaction.md)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:95*
+*Defined in contracts/contracts.saga.ts:96*
 
 **Parameters:**
 
@@ -1826,7 +1826,7 @@ ___
 
 ▸ **runForceRefreshRound**(state: *[State](interfaces/state.md)*, emit: *`function`*): `void`
 
-*Defined in contracts/contracts.saga.ts:44*
+*Defined in contracts/contracts.saga.ts:45*
 
 **Parameters:**
 

@@ -21,6 +21,7 @@ class VortexContract {
                     _this.vortex[artifact.abi[abi_idx].name].vortexCall = this.vortexCall.bind(this, artifact.abi[abi_idx].name, abi_idx);
                     _this.vortex[artifact.abi[abi_idx].name].vortexCache = {};
                     _this.vortex[artifact.abi[abi_idx].name].vortexData = this.getData.bind(this, artifact.abi[abi_idx].name);
+                    _this.vortex[artifact.abi[abi_idx].name].vortexConstantData = this.getDataWithoutRefresh.bind(this, artifact.abi[abi_idx].name);
                 }
                 else
                     _this.vortex[artifact.abi[abi_idx].name] = {};
@@ -31,6 +32,28 @@ class VortexContract {
     static callSignature(...methodArguments) {
         return (sha1(JSON.stringify({ methodArguments })));
     }
+    getDataWithoutRefresh(methodName, txArguments, ...methodArguments) {
+        const _this = this;
+        const signature = VortexContract.callSignature(...methodArguments);
+        const dispatch = vortex_1.Vortex.get().Store.dispatch;
+        _this.vortex = vortex_1.Vortex.get().Store.getState().contracts[_this.artifact.name][_this._address.toLowerCase()].instance.vortex;
+        if ((_this.vortex[methodName])) {
+            if (_this.waiting_calls[methodName + signature] || _this.vortex[methodName].vortexCache[signature]) {
+                if (!_this.vortex[methodName].vortexCache[signature].disable_refresh)
+                    _this.vortex[methodName].vortexCache[signature] = { synced: true, disable_refresh: false };
+                if (this._wating_calls[methodName + signature] && _this.vortex[methodName].vortexCache[signature])
+                    this._wating_calls[methodName + signature] = false;
+                return (_this.vortex[methodName].vortexCache[signature].data);
+            }
+            else {
+                _this.vortex[methodName].vortexCache[signature] = { synced: false, disable_refresh: true };
+                dispatch(contracts_actions_1.ContractCall(_this.artifact.name, _this.options.address, methodName, txArguments, undefined, ...methodArguments));
+                this._wating_calls[methodName + signature] = true;
+            }
+            return (_this.vortex[methodName].vortexCache[signature].data);
+        }
+        return (undefined);
+    }
     getData(methodName, txArguments, ...methodArguments) {
         const _this = this;
         const signature = VortexContract.callSignature(...methodArguments);
@@ -38,6 +61,8 @@ class VortexContract {
         _this.vortex = vortex_1.Vortex.get().Store.getState().contracts[_this.artifact.name][_this._address.toLowerCase()].instance.vortex;
         if ((_this.vortex[methodName])) {
             if (_this.vortex[methodName].vortexCache[signature]) {
+                if (_this.vortex[methodName].vortexCache[signature].disable_refresh)
+                    _this.vortex[methodName].vortexCache[signature] = Object.assign({}, _this.vortex[methodName].vortexCache[signature], { disable_refresh: false });
                 if (!_this.vortex[methodName].vortexCache[signature].synced && !this._wating_calls[methodName + signature]) {
                     dispatch(contracts_actions_1.ContractCall(_this.artifact.name, _this.options.address, methodName, txArguments, undefined, ...methodArguments));
                     this._wating_calls[methodName + signature] = true;
@@ -46,7 +71,7 @@ class VortexContract {
                     this._wating_calls[methodName + signature] = false;
             }
             else {
-                _this.vortex[methodName].vortexCache[signature] = { synced: false };
+                _this.vortex[methodName].vortexCache[signature] = { synced: false, disable_refresh: false };
                 dispatch(contracts_actions_1.ContractCall(_this.artifact.name, _this.options.address, methodName, txArguments, undefined, ...methodArguments));
                 this._wating_calls[methodName + signature] = true;
             }
