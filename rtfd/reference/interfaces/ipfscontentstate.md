@@ -22,7 +22,7 @@
 
 **● content**: *`Buffer`*
 
-*Defined in stateInterface.ts:150*
+*Defined in stateInterface.ts:154*
 
 ___
 

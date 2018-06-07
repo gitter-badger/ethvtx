@@ -28,7 +28,7 @@
 
 **● data**: *`any`*
 
-*Defined in stateInterface.ts:56*
+*Defined in stateInterface.ts:60*
 
 ___
 <a id="from"></a>
@@ -37,7 +37,7 @@ ___
 
 **● from**: *`any`*
 
-*Defined in stateInterface.ts:53*
+*Defined in stateInterface.ts:57*
 
 ___
 <a id="gas"></a>
@@ -46,7 +46,7 @@ ___
 
 **● gas**: *`any`*
 
-*Defined in stateInterface.ts:57*
+*Defined in stateInterface.ts:61*
 
 ___
 <a id="gasprice"></a>
@@ -55,7 +55,7 @@ ___
 
 **● gasPrice**: *`any`*
 
-*Defined in stateInterface.ts:58*
+*Defined in stateInterface.ts:62*
 
 ___
 <a id="nonce"></a>
@@ -64,7 +64,7 @@ ___
 
 **● nonce**: *`any`*
 
-*Defined in stateInterface.ts:59*
+*Defined in stateInterface.ts:63*
 
 ___
 <a id="to"></a>
@@ -73,7 +73,7 @@ ___
 
 **● to**: *`any`*
 
-*Defined in stateInterface.ts:54*
+*Defined in stateInterface.ts:58*
 
 ___
 <a id="value"></a>
@@ -82,7 +82,7 @@ ___
 
 **● value**: *`any`*
 
-*Defined in stateInterface.ts:55*
+*Defined in stateInterface.ts:59*
 
 ___
 

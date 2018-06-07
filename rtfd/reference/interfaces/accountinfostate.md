@@ -23,7 +23,7 @@
 
 **● balance**: *`string`*
 
-*Defined in stateInterface.ts:131*
+*Defined in stateInterface.ts:135*
 
 ___
 <a id="coinbase"></a>
@@ -32,7 +32,7 @@ ___
 
 **● coinbase**: *`boolean`*
 
-*Defined in stateInterface.ts:132*
+*Defined in stateInterface.ts:136*
 
 ___
 

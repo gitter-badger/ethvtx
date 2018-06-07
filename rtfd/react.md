@@ -88,7 +88,7 @@ For Truffle
 import {App} from './main';
 import SimpleStorage from 'SimpleStorage';
 import Web3 from web3;
-import {VortexGate, VortexWeb3Loaded, VortexWeb3LoadError, VortexWeb3NetworkError, VortexWeb3Loading, VortexMetamaskLoader} from 'vort_x-components';
+import {VortexGate, VortexWeb3Loaded, VortexWeb3LoadError, VortexWeb3NetworkError, VortexWeb3Loading, VortexWeb3Locked, VortexMetamaskLoader} from 'vort_x-components';
 import React from 'react'
 
 class Main extends React.Component {
@@ -99,6 +99,7 @@ class Main extends React.Component {
                 truffle_contracts: [SimpleStorage],
                 preloaded_contracts: ["SimpleStorage"]
             } network_contracts={[SimpleStorageContract]} loader={VortexMetamaskLoader(Web3)}>
+
             <VortexWeb3Loaded>
                 <App/>
             </VortexWeb3Loaded>
@@ -116,6 +117,11 @@ class Main extends React.Component {
                 <h1>Oops!</h1>
                 <p>We could not find your smart contracts on the current network :(.<br/> Please check if you are on the good network !</p>
             </VortexWeb3NetworkError>
+
+            <VortexWeb3Locked>
+                <h1>Psst!</h1>
+                <p>Looks like someone forgot to unlock its wallet provider ;) !</p>
+            </VortexWeb3Locked>
 
         </VortexGate>
         );
@@ -129,7 +135,7 @@ import {App} from './main';
 import SimpleStorage from 'Embarks/contracts/SimpleStorage';
 import * as Chains from '/path/to/embark/dir/chains.json';
 import Web3 from web3;
-import {VortexGate, VortexWeb3Loaded, VortexWeb3LoadError, VortexWeb3NetworkError, VortexWeb3Loading, VortexMetamaskLoader} from 'vort_x-components';
+import {VortexGate, VortexWeb3Loaded, VortexWeb3LoadError, VortexWeb3NetworkError, VortexWeb3Loading, VortexWeb3Locked, VortexMetamaskLoader} from 'vort_x-components';
 import React from 'react'
 
 class Main extends React.Component {
@@ -143,6 +149,7 @@ class Main extends React.Component {
                 chains: Chains,
                 preloaded_contracts: ["SimpleStorage"]
             } loader={VortexMetamaskLoader(Web3)}>
+
             <VortexWeb3Loaded>
                 <App/>
             </VortexWeb3Loaded>
@@ -160,6 +167,11 @@ class Main extends React.Component {
                 <h1>Oops!</h1>
                 <p>We could not find your smart contracts on the current network :(.<br/> Please check if you are on the good network !</p>
             </VortexWeb3NetworkError>
+
+            <VortexWeb3Locked>
+                <h1>Psst!</h1>
+                <p>Looks like someone forgot to unlock its wallet provider ;) !</p>
+            </VortexWeb3Locked>
 
         </VortexGate>
         );

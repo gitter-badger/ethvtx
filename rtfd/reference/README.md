@@ -84,6 +84,8 @@
 * [Web3LoadedAction](interfaces/web3loadedaction.md)
 * [Web3LoadedState](interfaces/web3loadedstate.md)
 * [Web3LoadingState](interfaces/web3loadingstate.md)
+* [Web3LockedAction](interfaces/web3lockedaction.md)
+* [Web3LockedState](interfaces/web3lockedstate.md)
 * [Web3NetworkErrorAction](interfaces/web3networkerroraction.md)
 * [Web3NetworkErrorState](interfaces/web3networkerrorstate.md)
 
@@ -158,6 +160,7 @@
 * [Web3Load](#web3load)
 * [Web3LoadError](#web3loaderror)
 * [Web3Loaded](#web3loaded)
+* [Web3Locked](#web3locked)
 * [Web3NetworkError](#web3networkerror)
 * [Web3Sagas](#web3sagas)
 * [accounts](#accounts)
@@ -233,7 +236,7 @@ ___
 [AccountErrorState](interfaces/accounterrorstate.md)
 *
 
-*Defined in stateInterface.ts:143*
+*Defined in stateInterface.ts:147*
 
 ___
 <a id="contractactions"></a>
@@ -287,7 +290,7 @@ ___
 [FeedNewIPFSContentState](interfaces/feednewipfscontentstate.md)
 *
 
-*Defined in stateInterface.ts:128*
+*Defined in stateInterface.ts:132*
 
 ___
 <a id="ipfsactions"></a>
@@ -322,10 +325,11 @@ ___
 **ΤWeb3Actions**: *[Web3LoadAction](interfaces/web3loadaction.md) |
 [Web3LoadedAction](interfaces/web3loadedaction.md) |
 [Web3LoadErrorAction](interfaces/web3loaderroraction.md) |
-[Web3NetworkErrorAction](interfaces/web3networkerroraction.md)
+[Web3NetworkErrorAction](interfaces/web3networkerroraction.md) |
+[Web3LockedAction](interfaces/web3lockedaction.md)
 *
 
-*Defined in web3/web3.actions.ts:53*
+*Defined in web3/web3.actions.ts:62*
 
 ___
 <a id="web3state"></a>
@@ -335,10 +339,11 @@ ___
 **ΤWeb3State**: *[Web3LoadingState](interfaces/web3loadingstate.md) |
 [Web3LoadedState](interfaces/web3loadedstate.md) |
 [Web3LoadErrorState](interfaces/web3loaderrorstate.md) |
-[Web3NetworkErrorState](interfaces/web3networkerrorstate.md)
+[Web3NetworkErrorState](interfaces/web3networkerrorstate.md) |
+[Web3LockedState](interfaces/web3lockedstate.md)
 *
 
-*Defined in stateInterface.ts:22*
+*Defined in stateInterface.ts:26*
 
 ___
 
@@ -1239,6 +1244,17 @@ ___
 **Returns:** [Web3LoadedAction](interfaces/web3loadedaction.md)
 
 ___
+<a id="web3locked"></a>
+
+###  Web3Locked
+
+▸ **Web3Locked**(): [Web3LockedAction](interfaces/web3lockedaction.md)
+
+*Defined in web3/web3.actions.ts:56*
+
+**Returns:** [Web3LockedAction](interfaces/web3lockedaction.md)
+
+___
 <a id="web3networkerror"></a>
 
 ###  Web3NetworkError
@@ -1264,7 +1280,7 @@ ___
 
 ▸ **Web3Sagas**(): `any`
 
-*Defined in web3/web3.sagas.ts:97*
+*Defined in web3/web3.sagas.ts:107*
 
 **Returns:** `any`
 
@@ -1304,7 +1320,7 @@ ___
 
 ▸ **callResolveWeb3**(action: *[Web3LoadAction](interfaces/web3loadaction.md)*): `SagaIterator`
 
-*Defined in web3/web3.sagas.ts:85*
+*Defined in web3/web3.sagas.ts:95*
 
 **Parameters:**
 

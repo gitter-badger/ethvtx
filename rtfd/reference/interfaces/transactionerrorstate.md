@@ -25,7 +25,7 @@
 
 **● error**: *`any`*
 
-*Defined in stateInterface.ts:48*
+*Defined in stateInterface.ts:52*
 
 ___
 <a id="timestamp"></a>
@@ -34,7 +34,7 @@ ___
 
 **● timestamp**: *`number`*
 
-*Defined in stateInterface.ts:49*
+*Defined in stateInterface.ts:53*
 
 ___
 <a id="transaction_hash"></a>
@@ -43,7 +43,7 @@ ___
 
 **● transaction_hash**: *`string`*
 
-*Defined in stateInterface.ts:47*
+*Defined in stateInterface.ts:51*
 
 ___
 <a id="type"></a>
@@ -52,7 +52,7 @@ ___
 
 **● type**: *`string`*
 
-*Defined in stateInterface.ts:46*
+*Defined in stateInterface.ts:50*
 
 ___
 

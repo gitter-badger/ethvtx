@@ -24,7 +24,7 @@
 
 **● abi**: *`any`*
 
-*Defined in stateInterface.ts:86*
+*Defined in stateInterface.ts:90*
 
 ___
 <a id="bytecode"></a>
@@ -33,7 +33,7 @@ ___
 
 **● bytecode**: *`any`*
 
-*Defined in stateInterface.ts:87*
+*Defined in stateInterface.ts:91*
 
 ___
 <a id="name"></a>
@@ -42,7 +42,7 @@ ___
 
 **● name**: *`string`*
 
-*Defined in stateInterface.ts:88*
+*Defined in stateInterface.ts:92*
 
 ___
 

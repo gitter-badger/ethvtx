@@ -24,7 +24,7 @@
 
 **● timestamp**: *`number`*
 
-*Defined in stateInterface.ts:27*
+*Defined in stateInterface.ts:31*
 
 ___
 <a id="transaction_hash"></a>
@@ -33,7 +33,7 @@ ___
 
 **● transaction_hash**: *`string`*
 
-*Defined in stateInterface.ts:26*
+*Defined in stateInterface.ts:30*
 
 ___
 <a id="type"></a>
@@ -42,7 +42,7 @@ ___
 
 **● type**: *`string`*
 
-*Defined in stateInterface.ts:25*
+*Defined in stateInterface.ts:29*
 
 ___
 

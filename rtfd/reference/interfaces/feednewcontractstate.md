@@ -29,7 +29,7 @@
 
 *Inherited from [FeedHeader](feedheader.md).[action](feedheader.md#action)*
 
-*Defined in stateInterface.ts:96*
+*Defined in stateInterface.ts:100*
 
 ___
 <a id="contract_address"></a>
@@ -38,7 +38,7 @@ ___
 
 **● contract_address**: *`string`*
 
-*Defined in stateInterface.ts:102*
+*Defined in stateInterface.ts:106*
 
 ___
 <a id="contract_name"></a>
@@ -47,7 +47,7 @@ ___
 
 **● contract_name**: *`string`*
 
-*Defined in stateInterface.ts:101*
+*Defined in stateInterface.ts:105*
 
 ___
 <a id="timestamp"></a>
@@ -58,7 +58,7 @@ ___
 
 *Inherited from [FeedHeader](feedheader.md).[timestamp](feedheader.md#timestamp)*
 
-*Defined in stateInterface.ts:97*
+*Defined in stateInterface.ts:101*
 
 ___
 
