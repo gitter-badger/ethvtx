@@ -62,6 +62,24 @@ function forge(contracts, config = undefined) {
                 }
             };
             break;
+        case 'manual':
+            const manual_contract = contracts;
+            for (let idx in Object.keys(manual_contract.manual_contracts)) {
+                (initialState.contracts[Object.keys(manual_contract.manual_contracts)[idx]]) = {
+                    artifact: {
+                        abi: manual_contract.manual_contracts[Object.keys(manual_contract.manual_contracts)[idx]].abi,
+                        bytecode: manual_contract.manual_contracts[Object.keys(manual_contract.manual_contracts)[idx]].deployed_bytecode,
+                        name: Object.keys(manual_contract.manual_contracts)[idx]
+                    }
+                };
+            }
+            (initialState.contracts).config = {
+                type: 'manual',
+                config: {
+                    contracts: manual_contract.manual_contracts
+                }
+            };
+            break;
         default:
             throw new Error("Unknown Ethereum Framework");
     }

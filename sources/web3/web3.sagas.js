@@ -28,6 +28,7 @@ function* resolveWeb3(action) {
                 return differed_return;
             };
             switch (config.type) {
+                case 'manual':
                 case 'truffle':
                     web3.eth.getCoinbase().then((coinbase) => {
                         if (!coinbase || coinbase === "") {

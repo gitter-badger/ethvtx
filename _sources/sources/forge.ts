@@ -36,15 +36,29 @@ export interface Contracts {
 export interface EmbarkContracts extends Contracts {
     chains?: any,
     embark_contracts?: any,
-    preloaded_contracts: string[]
+    preloaded_contracts?: string[]
 }
 
 export interface TruffleContracts extends Contracts {
     truffle_contracts?: TruffleArtifact[]
-    preloaded_contracts: string[]
+    preloaded_contracts?: string[]
 }
 
-export function forge<T extends State = State>(contracts: EmbarkContracts | TruffleContracts, config: GeneratorConfig<T> = undefined): Store {
+export interface ManualContractArtifact {
+    abi: any,
+    at?: string,
+    deployed_bytecode?: string
+}
+
+export interface ManualContractArtifactMap {
+    [key:string]: ManualContractArtifact
+}
+
+export interface ManualContracts extends Contracts {
+    manual_contracts?: ManualContractArtifactMap
+}
+
+export function forge<T extends State = State>(contracts: EmbarkContracts | TruffleContracts | ManualContracts, config: GeneratorConfig<T> = undefined): Store {
 
     let composer = compose;
     if (window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
@@ -108,6 +122,26 @@ export function forge<T extends State = State>(contracts: EmbarkContracts | Truf
                 config: {
                     preloaded_contracts: embark_contracts.preloaded_contracts,
                     chains: embark_contracts.chains
+                }
+            };
+
+            break ;
+        case 'manual':
+            const manual_contract: ManualContracts = <ManualContracts>contracts;
+            for (let idx in Object.keys(manual_contract.manual_contracts)) {
+                ((<ContractArtifactState>(<any>initialState).contracts)[Object.keys(manual_contract.manual_contracts)[idx]]) = {
+                    artifact: {
+                        abi: manual_contract.manual_contracts[Object.keys(manual_contract.manual_contracts)[idx]].abi,
+                        bytecode: manual_contract.manual_contracts[Object.keys(manual_contract.manual_contracts)[idx]].deployed_bytecode,
+                        name: Object.keys(manual_contract.manual_contracts)[idx]
+                    }
+                }
+            }
+
+            ((<any>initialState).contracts).config = {
+                type: 'manual',
+                config: {
+                    contracts: manual_contract.manual_contracts
                 }
             };
 

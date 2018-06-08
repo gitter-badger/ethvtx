@@ -4,7 +4,7 @@ import {SagaIterator, eventChannel, END} from "redux-saga";
 import {Unsubscribe} from "redux";
 import {State, Web3LoadedState} from "../stateInterface";
 import {FeedNewContract, FeedNewError, FeedNewTransaction} from "../feed/feed.actions";
-import {Web3LoadedAction, Web3LoadError} from "../web3/web3.actions";
+import {Web3LoadedAction, Web3LoadError, Web3NetworkError} from "../web3/web3.actions";
 import {VortexContract} from "./VortexContract";
 import {
     ContractCallAction, ContractError, ContractLoadAction, ContractLoaded, ContractLoading, ContractSendAction,
@@ -93,6 +93,18 @@ function* loadContract(contractName: string, contractAddress: string, userAddres
     yield put(FeedNewContract(contractName, contractAddress));
 }
 
+const compareBytecode = (address: string, bytecode: string, web3: any): Promise<boolean> => {
+    return new Promise((ok: (arg: any) => void, ko: (arg: any) => void): void => {
+        web3.eth.getCode(address).then((remote_bytecode: string): void => {
+            if (remote_bytecode.indexOf('0x') === 0)
+                remote_bytecode = remote_bytecode.substr(2);
+            if (bytecode.indexOf('0x') === 0)
+                bytecode = bytecode.substr(2);
+            ok(bytecode.toLowerCase() === remote_bytecode.toLowerCase());
+        }).catch(ko);
+    });
+};
+
 function* onLoadContractInitialize(action: Web3LoadedAction): SagaIterator {
     const contracts = (yield select()).contracts;
     const contractNames = Object.keys(contracts);
@@ -123,7 +135,7 @@ function* onLoadContractInitialize(action: Web3LoadedAction): SagaIterator {
             try {
                 const contract_infos = contracts.config.config.chains[action.networkId].contracts;
                 const to_preload = contracts.config.config.preloaded_contracts;
-                for (let idx = 0; idx < Object.keys(contract_infos).length; ++ idx) {
+                for (let idx = 0; idx < Object.keys(contract_infos).length; ++idx) {
                     const infos = contract_infos[Object.keys(contract_infos)[idx]];
                     if (to_preload.indexOf(infos.name) !== -1 && contracts[infos.name]) {
                         yield* loadContract(infos.name, infos.address.toLowerCase(), action.coinbase, action._);
@@ -133,6 +145,25 @@ function* onLoadContractInitialize(action: Web3LoadedAction): SagaIterator {
                 yield put(Web3LoadError(e));
             }
             break ;
+        case 'manual':
+            try {
+                const config_contract = contracts.config.config.contracts;
+                for (let idx = 0; idx < Object.keys(config_contract).length; ++idx) {
+                    const infos = config_contract[Object.keys(config_contract)[idx]];
+                    if (infos.at) {
+                        if (infos.deployed_bytecode) {
+                            const status: boolean = yield call(compareBytecode, infos.at, infos.deployed_bytecode, action._);
+                            if (!status) {
+                                yield put(Web3NetworkError(action.networkId));
+                                break ;
+                            }
+                        }
+                        yield* loadContract(Object.keys(config_contract)[idx], infos.at.toLowerCase(), action.coinbase, action._);
+                    }
+                }
+            } catch (e) {
+                yield put(Web3LoadError(e));
+            }
     }
     const auto_refresh = yield call(backgroundContractLoad);
     try {

@@ -60,6 +60,9 @@
 * [IPFSLoadAction](interfaces/ipfsloadaction.md)
 * [IPFSLoadedAction](interfaces/ipfsloadedaction.md)
 * [IPFSStoreState](interfaces/ipfsstorestate.md)
+* [ManualContractArtifact](interfaces/manualcontractartifact.md)
+* [ManualContractArtifactMap](interfaces/manualcontractartifactmap.md)
+* [ManualContracts](interfaces/manualcontracts.md)
 * [RawTransactionArgumentState](interfaces/rawtransactionargumentstate.md)
 * [SignatureCalls](interfaces/signaturecalls.md)
 * [State](interfaces/state.md)
@@ -168,6 +171,7 @@
 * [callResolveWeb3](#callresolveweb3)
 * [callSendRawTransaction](#callsendrawtransaction)
 * [callSendTransaction](#callsendtransaction)
+* [compareBytecode](#comparebytecode)
 * [contractCall](#contractcall)
 * [contractErrorReducer](#contracterrorreducer)
 * [contractLoadedReducer](#contractloadedreducer)
@@ -751,7 +755,7 @@ ___
 
 ▸ **ContractSagas**(): `any`
 
-*Defined in contracts/contracts.saga.ts:288*
+*Defined in contracts/contracts.saga.ts:322*
 
 **Returns:** `any`
 
@@ -1280,7 +1284,7 @@ ___
 
 ▸ **Web3Sagas**(): `any`
 
-*Defined in web3/web3.sagas.ts:107*
+*Defined in web3/web3.sagas.ts:108*
 
 **Returns:** `any`
 
@@ -1320,7 +1324,7 @@ ___
 
 ▸ **callResolveWeb3**(action: *[Web3LoadAction](interfaces/web3loadaction.md)*): `SagaIterator`
 
-*Defined in web3/web3.sagas.ts:95*
+*Defined in web3/web3.sagas.ts:96*
 
 **Parameters:**
 
@@ -1365,13 +1369,32 @@ ___
 **Returns:** `SagaIterator`
 
 ___
+<a id="comparebytecode"></a>
+
+### `<Const>` compareBytecode
+
+▸ **compareBytecode**(address: *`string`*, bytecode: *`string`*, web3: *`any`*): `Promise`<`boolean`>
+
+*Defined in contracts/contracts.saga.ts:96*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| address | `string` | 
+| bytecode | `string` | 
+| web3 | `any` | 
+
+**Returns:** `Promise`<`boolean`>
+
+___
 <a id="contractcall"></a>
 
 ###  contractCall
 
 ▸ **contractCall**(action: *[ContractCallAction](#contractcallaction)*, tx: *`any`*, arg_signature: *`string`*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:148*
+*Defined in contracts/contracts.saga.ts:182*
 
 **Parameters:**
 
@@ -1444,7 +1467,7 @@ ___
 
 ▸ **contractSend**(action: *[ContractSendAction](interfaces/contractsendaction.md)*, tx: *`any`*, web3: *`any`*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:187*
+*Defined in contracts/contracts.saga.ts:221*
 
 **Parameters:**
 
@@ -1570,9 +1593,9 @@ ___
 
 ###  forge
 
-▸ **forge**T(contracts: *[EmbarkContracts](interfaces/embarkcontracts.md) |[TruffleContracts](interfaces/trufflecontracts.md)*, config?: *[GeneratorConfig](interfaces/generatorconfig.md)<`T`>*): `Store`
+▸ **forge**T(contracts: *[EmbarkContracts](interfaces/embarkcontracts.md) |[TruffleContracts](interfaces/trufflecontracts.md) |[ManualContracts](interfaces/manualcontracts.md)*, config?: *[GeneratorConfig](interfaces/generatorconfig.md)<`T`>*): `Store`
 
-*Defined in forge.ts:47*
+*Defined in forge.ts:61*
 
 **Type parameters:**
 
@@ -1582,7 +1605,8 @@ ___
 | Param | Type | Default value |
 | ------ | ------ | ------ |
 | contracts | [EmbarkContracts](interfaces/embarkcontracts.md) |
-[TruffleContracts](interfaces/trufflecontracts.md)
+[TruffleContracts](interfaces/trufflecontracts.md) |
+[ManualContracts](interfaces/manualcontracts.md)
  | - | 
 | `Default value` config | [GeneratorConfig](interfaces/generatorconfig.md)<`T`> |  undefined | 
 
@@ -1695,7 +1719,7 @@ ___
 
 ▸ **onContractCall**(action: *[ContractCallAction](#contractcallaction)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:168*
+*Defined in contracts/contracts.saga.ts:202*
 
 **Parameters:**
 
@@ -1712,7 +1736,7 @@ ___
 
 ▸ **onContractLoad**(action: *[ContractLoadAction](interfaces/contractloadaction.md)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:283*
+*Defined in contracts/contracts.saga.ts:317*
 
 **Parameters:**
 
@@ -1729,7 +1753,7 @@ ___
 
 ▸ **onContractSend**(action: *[ContractSendAction](interfaces/contractsendaction.md)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:267*
+*Defined in contracts/contracts.saga.ts:301*
 
 **Parameters:**
 
@@ -1746,7 +1770,7 @@ ___
 
 ▸ **onLoadContractInitialize**(action: *[Web3LoadedAction](interfaces/web3loadedaction.md)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:96*
+*Defined in contracts/contracts.saga.ts:111*
 
 **Parameters:**
 

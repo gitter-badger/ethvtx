@@ -77,6 +77,17 @@ function* loadContract(contractName, contractAddress, userAddress, web3) {
     yield effects_1.put(contracts_actions_1.ContractLoaded(contractName, contractAddress, vortex_contract));
     yield effects_1.put(feed_actions_1.FeedNewContract(contractName, contractAddress));
 }
+const compareBytecode = (address, bytecode, web3) => {
+    return new Promise((ok, ko) => {
+        web3.eth.getCode(address).then((remote_bytecode) => {
+            if (remote_bytecode.indexOf('0x') === 0)
+                remote_bytecode = remote_bytecode.substr(2);
+            if (bytecode.indexOf('0x') === 0)
+                bytecode = bytecode.substr(2);
+            ok(bytecode.toLowerCase() === remote_bytecode.toLowerCase());
+        }).catch(ko);
+    });
+};
 function* onLoadContractInitialize(action) {
     const contracts = (yield effects_1.select()).contracts;
     const contractNames = Object.keys(contracts);
@@ -119,6 +130,26 @@ function* onLoadContractInitialize(action) {
                 yield effects_1.put(web3_actions_1.Web3LoadError(e));
             }
             break;
+        case 'manual':
+            try {
+                const config_contract = contracts.config.config.contracts;
+                for (let idx = 0; idx < Object.keys(config_contract).length; ++idx) {
+                    const infos = config_contract[Object.keys(config_contract)[idx]];
+                    if (infos.at) {
+                        if (infos.deployed_bytecode) {
+                            const status = yield effects_1.call(compareBytecode, infos.at, infos.deployed_bytecode, action._);
+                            if (!status) {
+                                yield effects_1.put(web3_actions_1.Web3NetworkError(action.networkId));
+                                break;
+                            }
+                        }
+                        yield* loadContract(Object.keys(config_contract)[idx], infos.at.toLowerCase(), action.coinbase, action._);
+                    }
+                }
+            }
+            catch (e) {
+                yield effects_1.put(web3_actions_1.Web3LoadError(e));
+            }
     }
     const auto_refresh = yield effects_1.call(backgroundContractLoad);
     try {

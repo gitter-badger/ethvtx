@@ -2,13 +2,15 @@
 
 # Interface: ContractConfig
 
-This interface is only here to merge all configuration types into one interface. Have a look at each configuration separately ! For Embark users => [EmbarkContracts](embarkcontracts.md), and for Truffle ones => [TruffleContracts](trufflecontracts.md)
+This interface is only here to merge all configuration types into one interface. Have a look at each configuration separately ! For Embark users => [EmbarkContracts](embarkcontracts.md), for Truffle ones => [TruffleContracts](trufflecontracts.md), and for users that use no frameworks [ManualContracts](manualcontracts.md).
 
 ## Hierarchy
 
 ↳  [EmbarkContracts](embarkcontracts.md)
 
 ↳  [TruffleContracts](trufflecontracts.md)
+
+↳  [ManualContracts](manualcontracts.md)
 
 **↳ ContractConfig**
 
@@ -18,6 +20,7 @@ This interface is only here to merge all configuration types into one interface.
 
 * [chains](contractconfig.md#chains)
 * [embark_contracts](contractconfig.md#embark_contracts)
+* [manual_contracts](contractconfig.md#manual_contracts)
 * [preloaded_contracts](contractconfig.md#preloaded_contracts)
 * [truffle_contracts](contractconfig.md#truffle_contracts)
 * [type](contractconfig.md#type)
@@ -48,9 +51,20 @@ ___
 *Defined in forge.ts:38*
 
 ___
+<a id="manual_contracts"></a>
+
+### `<Optional>` manual_contracts
+
+**● manual_contracts**: *[ManualContractArtifactMap](manualcontractartifactmap.md)*
+
+*Inherited from [ManualContracts](manualcontracts.md).[manual_contracts](manualcontracts.md#manual_contracts)*
+
+*Defined in forge.ts:58*
+
+___
 <a id="preloaded_contracts"></a>
 
-###  preloaded_contracts
+### `<Optional>` preloaded_contracts
 
 **● preloaded_contracts**: *`string`[]*
 

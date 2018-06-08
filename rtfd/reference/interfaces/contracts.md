@@ -10,6 +10,8 @@
 
 ↳  [TruffleContracts](trufflecontracts.md)
 
+↳  [ManualContracts](manualcontracts.md)
+
 ## Index
 
 ### Properties

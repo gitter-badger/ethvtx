@@ -128,6 +128,67 @@ Your instance is ready to be run, but you can still tweak your store before runn
 
 You can recover this instance at any time by calling the static `get` method on Vortex (will only store the last instance, but you'll never need two instances of Vortex).
 
+#### Creating a classic Vortex instance without framework
+
+```javascript
+// ES6 or TS
+import { Vortex } from 'vort_x';
+// or
+const Vortex = require('vort_x').Vortex;
+```
+
+Then, call the factory constructor.
+
+```javascript
+import * as ABI from 'SimpleStorage.abi';
+import * as Address from 'SimpleStorage.address';
+import * as DeployedBytecode from 'SimpleStorage.bytecode';
+
+const web3_loader = new Promise((ok, ko) => {
+    try {
+        let web3 = // Recover your web3 instance as you want.
+        ok(web3);
+    } catch (e) {
+        ko(e);
+    }
+});
+
+const instance = Vortex.factory({
+        type: 'manual',
+        manual_contracts: {
+            SimpleStorage: {
+                abi: ABI,
+                at: Address,
+                deployed_bytecode: DeployedBytecode
+            }
+        }
+    }, web3_loader);
+```
+
+As a first argument, you will need to provide this object
+
+```javascript
+{
+   type: 'manual',
+   manual_contracts: {
+       SimpleStorage: {
+           abi: ABI,
+           at: Address,
+           deployed_bytecode: DeployedBytecode
+       }
+   }
+}
+```
+
+`type` here defines the framework being used. Here we use no framework, so `manual`.
+
+`manual_contracts` is an object filled with the minimum data needed to load contracts. `abi` is mandatory, `at` is optional but is required if you want your contract to
+get preloaded, `deployed_bytecode` is optional but required if you want network checks.
+
+Your instance is ready to be run, but you can still tweak your store before running it.
+
+You can recover this instance at any time by calling the static `get` method on Vortex (will only store the last instance, but you'll never need two instances of Vortex).
+
 #### Creating an extended Vortex instance
 
 The Vortex store is quite modular and allows you to plug your own reducers, sagas and set your starting state.

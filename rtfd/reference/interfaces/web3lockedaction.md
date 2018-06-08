@@ -28,7 +28,7 @@
 
 *Inherited from Action.type*
 
-*Defined in /Users/irotaru/Vortex/vortex/node_modules/redux/index.d.ts:20*
+*Defined in /Users/mortimr/Vortex/vortex/node_modules/redux/index.d.ts:20*
 
 ___
 

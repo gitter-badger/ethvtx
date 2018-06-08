@@ -21,7 +21,7 @@ function* IPFSFetchData(action) {
             emit(redux_saga_1.END);
         }).catch((e) => {
             emit(ipfs_actions_1.IPFSError(action.hash, e));
-            emit(feed_actions_1.FeedNewError(e, e.message, "[ipfs.saga.ts][IPFSFetchData] Trying to fetch ipfs hash"));
+            emit(feed_actions_1.FeedNewError(e, e.message, "[ipfs.saga.ts][IPFSFetchData] Trying to fetch ipfs hash " + action.hash));
             emit(redux_saga_1.END);
         });
         return (() => { });

@@ -66,7 +66,11 @@ class Vortex {
                 this._contracts.truffle_contracts.push(contract);
                 break;
             case 'embark':
+                // TODO Fix this
                 this._contracts.embark_contracts.push(contract);
+                break;
+            case 'manual':
+                // TODO Fix this
                 break;
             default:
                 throw new Error("Invalid Contracts !");
