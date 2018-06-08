@@ -8,7 +8,10 @@
 
 ## Indexable
 
-\[key: `string`\]:&nbsp;[AccountState](../#accountstate)
+\[key: `string`\]:&nbsp;[AccountInfoState](accountinfostate.md) |
+[AccountConfigState](accountconfigstate.md) |
+[AccountErrorState](accounterrorstate.md)
+
 ## Index
 
 ---

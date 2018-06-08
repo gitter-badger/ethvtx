@@ -18,6 +18,7 @@ pages:
   - 'Enums':
     - 'FeedType': reference/enums/feedtype.md
   - 'States':
+    - 'State': reference/interfaces/state.md
     - 'AccountConfigState': reference/interfaces/accountconfigstate.md
     - 'AccountErrorState': reference/interfaces/accounterrorstate.md
     - 'AccountInfoState': reference/interfaces/accountinfostate.md
@@ -25,6 +26,7 @@ pages:
     - 'ContractAddressState': reference/interfaces/contractaddressesstate.md
     - 'ContractInstanceState': reference/interfaces/contractinstancestate.md
     - 'ContractStoreState': reference/interfaces/contractstorestate.md
+    - 'ContractArtifactState': reference/interfaces/contractartifactstate.md
     - 'FeedNewAccountState': reference/interfaces/feednewaccountstate.md
     - 'FeedNewContractState': reference/interfaces/feednewcontractstate.md
     - 'FeedNewErrorState': reference/interfaces/feednewerrorstate.md
@@ -35,7 +37,6 @@ pages:
     - 'IPFSErrorState': reference/interfaces/ipfserrorstate.md
     - 'IPFSStoreState': reference/interfaces/ipfsstorestate.md
     - 'RawTransactionArgumentState': reference/interfaces/rawtransactionargumentstate.md
-    - 'State': reference/interfaces/state.md
     - 'TransactionArgumentState': reference/interfaces/transactionargumentstate.md
     - 'TransactionBroadcastedState': reference/interfaces/transactionbroadcastedstate.md
     - 'TransactionConfirmedState': reference/interfaces/transactionconfirmedstate.md

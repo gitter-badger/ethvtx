@@ -1949,9 +1949,9 @@ ___
 
 ### `<Const>` web3
 
-▸ **web3**(state?: *[Web3State](#web3state)*, action: *[Web3Actions](#web3actions)*): [Web3State](#web3state)
+▸ **web3**(state?: *[Web3State](#web3state)*, action: *[Web3Actions](#web3actions)*): [Web3LoadingState](interfaces/web3loadingstate.md) |[Web3LoadedState](interfaces/web3loadedstate.md) |[Web3LoadErrorState](interfaces/web3loaderrorstate.md) |[Web3NetworkErrorState](interfaces/web3networkerrorstate.md) |[Web3LockedState](interfaces/web3lockedstate.md)
 
-*Defined in web3/web3.reducers.ts:5*
+*Defined in web3/web3.reducers.ts:12*
 
 **Parameters:**
 
@@ -1960,7 +1960,11 @@ ___
 | `Default value` state | [Web3State](#web3state) |  {status: &#x27;LOADING&#x27;} | 
 | action | [Web3Actions](#web3actions) | - | 
 
-**Returns:** [Web3State](#web3state)
+**Returns:** [Web3LoadingState](interfaces/web3loadingstate.md) |
+[Web3LoadedState](interfaces/web3loadedstate.md) |
+[Web3LoadErrorState](interfaces/web3loaderrorstate.md) |
+[Web3NetworkErrorState](interfaces/web3networkerrorstate.md) |
+[Web3LockedState](interfaces/web3lockedstate.md)
 
 ___
 
