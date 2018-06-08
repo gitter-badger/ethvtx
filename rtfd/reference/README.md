@@ -755,7 +755,7 @@ ___
 
 ▸ **ContractSagas**(): `any`
 
-*Defined in contracts/contracts.saga.ts:322*
+*Defined in contracts/contracts.saga.ts:319*
 
 **Returns:** `any`
 
@@ -1394,7 +1394,7 @@ ___
 
 ▸ **contractCall**(action: *[ContractCallAction](#contractcallaction)*, tx: *`any`*, arg_signature: *`string`*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:182*
+*Defined in contracts/contracts.saga.ts:179*
 
 **Parameters:**
 
@@ -1467,7 +1467,7 @@ ___
 
 ▸ **contractSend**(action: *[ContractSendAction](interfaces/contractsendaction.md)*, tx: *`any`*, web3: *`any`*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:221*
+*Defined in contracts/contracts.saga.ts:218*
 
 **Parameters:**
 
@@ -1719,7 +1719,7 @@ ___
 
 ▸ **onContractCall**(action: *[ContractCallAction](#contractcallaction)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:202*
+*Defined in contracts/contracts.saga.ts:199*
 
 **Parameters:**
 
@@ -1736,7 +1736,7 @@ ___
 
 ▸ **onContractLoad**(action: *[ContractLoadAction](interfaces/contractloadaction.md)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:317*
+*Defined in contracts/contracts.saga.ts:314*
 
 **Parameters:**
 
@@ -1753,7 +1753,7 @@ ___
 
 ▸ **onContractSend**(action: *[ContractSendAction](interfaces/contractsendaction.md)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:301*
+*Defined in contracts/contracts.saga.ts:298*
 
 **Parameters:**
 
@@ -1770,7 +1770,7 @@ ___
 
 ▸ **onLoadContractInitialize**(action: *[Web3LoadedAction](interfaces/web3loadedaction.md)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:111*
+*Defined in contracts/contracts.saga.ts:108*
 
 **Parameters:**
 
