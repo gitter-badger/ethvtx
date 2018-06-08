@@ -94,17 +94,14 @@ function* loadContract(contractName: string, contractAddress: string, userAddres
 }
 
 const compareBytecode = (address: string, bytecode: string, web3: any): Promise<boolean> => {
-    return new Promise(async (ok: (arg: any) => void, ko: (arg: any) => void): Promise<void> => {
-        try {
-            let remote_bytecode = await web3.eth.getCode(address);
+    return new Promise((ok: (arg: any) => void, ko: (arg: any) => void): void => {
+        web3.eth.getCode(address).then((remote_bytecode: string): void => {
             if (remote_bytecode.indexOf('0x') === 0)
                 remote_bytecode = remote_bytecode.substr(2);
             if (bytecode.indexOf('0x') === 0)
                 bytecode = bytecode.substr(2);
             ok(bytecode.toLowerCase() === remote_bytecode.toLowerCase());
-        } catch (e) {
-            ko(e);
-        }
+        }).catch(ko);
     });
 };
 

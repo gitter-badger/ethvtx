@@ -78,18 +78,14 @@ function* loadContract(contractName, contractAddress, userAddress, web3) {
     yield effects_1.put(feed_actions_1.FeedNewContract(contractName, contractAddress));
 }
 const compareBytecode = (address, bytecode, web3) => {
-    return new Promise(async (ok, ko) => {
-        try {
-            let remote_bytecode = await web3.eth.getCode(address);
+    return new Promise((ok, ko) => {
+        web3.eth.getCode(address).then((remote_bytecode) => {
             if (remote_bytecode.indexOf('0x') === 0)
                 remote_bytecode = remote_bytecode.substr(2);
             if (bytecode.indexOf('0x') === 0)
                 bytecode = bytecode.substr(2);
             ok(bytecode.toLowerCase() === remote_bytecode.toLowerCase());
-        }
-        catch (e) {
-            ko(e);
-        }
+        }).catch(ko);
     });
 };
 function* onLoadContractInitialize(action) {
