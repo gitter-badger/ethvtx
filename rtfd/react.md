@@ -98,7 +98,7 @@ class Main extends React.Component {
                 type: 'truffle',
                 truffle_contracts: [SimpleStorage],
                 preloaded_contracts: ["SimpleStorage"]
-            } network_contracts={[SimpleStorageContract]} loader={VortexMetamaskLoader(Web3)}>
+            } network_contracts={[SimpleStorage]} loader={VortexMetamaskLoader(Web3)}>
 
             <VortexWeb3Loaded>
                 <App/>
@@ -179,6 +179,59 @@ class Main extends React.Component {
 }
 ```
 
+For manual contracts
+```javascript
+import {App} from './main';
+import Web3 from web3;
+import {VortexGate, VortexWeb3Loaded, VortexWeb3LoadError, VortexWeb3NetworkError, VortexWeb3Loading, VortexWeb3Locked, VortexMetamaskLoader} from 'vort_x-components';
+import React from 'react'
+import ABI from './SimpleStorage.abi';
+import Address from './SimpleStorage.address';
+import DeployedBytecode from './SimpleStorage.bytecode';
+
+class Main extends React.Component {
+    render() {
+        return (
+        <VortexGate contracts={
+                type: 'manual',
+                manual_contracts: {
+                    SimpleStorage: {
+                        abi: ABI,
+                        at: Address,
+                        deployed_bytecode: DeployedBytecode
+                    }
+                },
+            } loader={VortexMetamaskLoader(Web3)}>
+
+            <VortexWeb3Loaded>
+                <App/>
+            </VortexWeb3Loaded>
+
+            <VortexWeb3Loading>
+                <h1>Loading ... </h1>
+            </VortexWeb3Loading>
+
+            <VortexWeb3LoadError>
+                <h1>Oops!</h1>
+                <p>Looks like there is a problem with your Web3. Check that you unlocked your account, that Web3 is properly connected to a network and that your loader resolves a web3@1.0.0+ version of Web3 !</p>
+            </VortexWeb3LoadError>
+
+            <VortexWeb3NetworkError>
+                <h1>Oops!</h1>
+                <p>We could not find your smart contracts on the current network :(.<br/> Please check if you are on the good network !</p>
+            </VortexWeb3NetworkError>
+
+            <VortexWeb3Locked>
+                <h1>Psst!</h1>
+                <p>Looks like someone forgot to unlock its wallet provider ;) !</p>
+            </VortexWeb3Locked>
+
+        </VortexGate>
+        );
+    }
+}
+```
+
 You must provide the 4 components or the VortexGate won't load. Depending on how Web3 is resolved, one of the four following components will be rendered.
 
 ###### Props
@@ -189,7 +242,56 @@ The Web3 loader that will be passed to Vortex. VortexMetamaskLoader is an helper
 
 * **contracts** (mandatory)
 
-The Contracts you want to load. You have to provide the proper configuration depending on what framework you are using (Truffle or Embark).
+The Contracts you want to load. You have to provide the proper configuration depending on what framework you are using (Truffle or Embark) or with `manual` mode.
+
+For Embark
+```js
+{
+type: 'embark',
+embark_contracts: {
+    SimpleStorage: SimpleStorageInstance
+},
+// Contracts that you usually load with Embark. The key you give will be the contract name in the store.
+chains: Chains,
+// Content of chains.json file (be careful to keep same names between contracts there and in embark_contracts)
+preloaded_contracts: ["SimpleStorage"]
+// Name of contracts you would like to load automatically. Will Check inside Chains to see if there is a deployed instance
+// of the required contracts on the current network.
+}
+```
+
+For Truffle
+```js
+{
+type: 'truffle',
+truffle_contracts: [SimpleStorage],
+// Truffle Artifacts
+preloaded_contracts: ["SimpleStorage"]
+// Name of contracts you want to load automatically.
+}
+
+network_contracts={[SimpleStorage]}
+// This additional prop, only used with Truffle, will add the networks found inside the given
+// Truffle artifacts to the network whitelist.
+```
+
+For Manual
+```js
+{
+type: 'manual',
+manual_contracts: {
+    SimpleStorage: {
+        abi: ABI,
+        // ABI is mandatory.
+        at: Address,
+        // Address of the contract. This is optional, but preloading will happen only if it is set.
+        deployed_bytecode: DeployedBytecode
+        // Bytecode of the contract. This is optional, and will be used for network checks (verify that
+        // contracts you try to preload are trully present or not on the current network)
+    }
+},
+}
+```
 
 * **network_contracts**
 
