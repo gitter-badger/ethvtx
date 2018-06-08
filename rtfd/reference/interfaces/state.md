@@ -43,7 +43,7 @@ ___
 
 ###  feed
 
-**● feed**: *[FeedState](../#feedstate)[]*
+**● feed**: *([FeedNewContractState](feednewcontractstate.md) |[FeedNewTransactionState](feednewtransactionstate.md) |[FeedNewErrorState](feednewerrorstate.md) |[FeedNewAccountState](feednewaccountstate.md) |[FeedNewIPFSContentState](feednewipfscontentstate.md))[]*
 
 *Defined in stateInterface.ts:169*
 
@@ -70,7 +70,12 @@ ___
 
 ###  web3
 
-**● web3**: *[Web3State](../#web3state)*
+**● web3**: *[Web3LoadingState](web3loadingstate.md) |
+[Web3LoadedState](web3loadedstate.md) |
+[Web3LoadErrorState](web3loaderrorstate.md) |
+[Web3NetworkErrorState](web3networkerrorstate.md) |
+[Web3LockedState](web3lockedstate.md)
+*
 
 *Defined in stateInterface.ts:166*
 

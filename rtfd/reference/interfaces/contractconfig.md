@@ -2,6 +2,8 @@
 
 # Interface: ContractConfig
 
+This interface is only here to merge all configuration types into one interface. Have a look at each configuration separately ! For Embark users => [EmbarkContracts](embarkcontracts.md), and for Truffle ones => [TruffleContracts](trufflecontracts.md)
+
 ## Hierarchy
 
 ↳  [EmbarkContracts](embarkcontracts.md)
