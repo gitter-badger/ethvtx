@@ -140,3 +140,13 @@ export {
 } from './sources/ipfs/ipfs.actions';
 
 export {VortexContract} from './sources/contracts/VortexContract';
+
+export {
+    EmbarkContracts,
+    ManualContracts,
+    ManualContractArtifactMap,
+    ManualContractArtifact,
+    TruffleContracts,
+    Contracts,
+    GeneratorConfig
+} from './sources/forge'

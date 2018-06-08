@@ -32,6 +32,7 @@ function* resolveWeb3(action: Web3LoadAction): SagaIterator {
             };
 
             switch (config.type) {
+                case 'manual':
                 case 'truffle':
                     web3.eth.getCoinbase().then((coinbase: string): void => {
                         if (!coinbase || coinbase === "") {

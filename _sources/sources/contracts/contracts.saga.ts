@@ -123,7 +123,7 @@ function* onLoadContractInitialize(action: Web3LoadedAction): SagaIterator {
             try {
                 const contract_infos = contracts.config.config.chains[action.networkId].contracts;
                 const to_preload = contracts.config.config.preloaded_contracts;
-                for (let idx = 0; idx < Object.keys(contract_infos).length; ++ idx) {
+                for (let idx = 0; idx < Object.keys(contract_infos).length; ++idx) {
                     const infos = contract_infos[Object.keys(contract_infos)[idx]];
                     if (to_preload.indexOf(infos.name) !== -1 && contracts[infos.name]) {
                         yield* loadContract(infos.name, infos.address.toLowerCase(), action.coinbase, action._);
@@ -133,6 +133,21 @@ function* onLoadContractInitialize(action: Web3LoadedAction): SagaIterator {
                 yield put(Web3LoadError(e));
             }
             break ;
+        case 'manual':
+            try {
+                const config_contract = contracts.config.config.contracts;
+                for (let idx = 0; idx < Object.keys(config_contract).length; ++idx) {
+                    const infos = config_contract[Object.keys(config_contract)[idx]];
+                    if (infos.at) {
+                        yield* loadContract(Object.keys(config_contract)[idx], infos.at.toLowerCase(), action.coinbase, action._);
+                        if (infos.deployed_bytecode) {
+                            // TODO Check if online has this one too !
+                        }
+                    }
+                }
+            } catch (e) {
+                yield put(Web3LoadError(e));
+            }
     }
     const auto_refresh = yield call(backgroundContractLoad);
     try {

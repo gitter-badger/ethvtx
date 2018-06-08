@@ -1,16 +1,17 @@
 import ContractArtifact from 'truffle-contract-schema';
 import {DeepPartial, Reducer, ReducersMapObject, Store} from "redux";
 import {State} from "./stateInterface";
-import {EmbarkContracts, forge, GeneratorConfig, TruffleContracts} from "./forge";
+import {EmbarkContracts, forge, GeneratorConfig, ManualContracts, TruffleContracts} from "./forge";
 import {Web3Load} from "./web3/web3.actions";
 import {ContractLoad} from "./contracts/contracts.actions";
 import {AccountAdd} from "./accounts/accounts.actions";
 
 /**
  * This interface is only here to merge all configuration types into one interface. Have a look at each configuration
- * separately ! For Embark users => {@link EmbarkContracts}, and for Truffle ones => {@link TruffleContracts}
+ * separately ! For Embark users => {@link EmbarkContracts}, for Truffle ones => {@link TruffleContracts}, and for
+ * users that use no frameworks {@link ManualContracts}.
  */
-interface ContractConfig extends EmbarkContracts, TruffleContracts {}
+interface ContractConfig extends EmbarkContracts, TruffleContracts, ManualContracts {}
 
 export class Vortex<T extends State> {
 
@@ -85,7 +86,11 @@ export class Vortex<T extends State> {
                 this._contracts.truffle_contracts.push(contract);
                 break ;
             case 'embark':
+                // TODO Fix this
                 this._contracts.embark_contracts.push(contract);
+                break ;
+            case 'manual':
+                // TODO Fix this
                 break ;
             default:
                 throw new Error("Invalid Contracts !");
