@@ -21,7 +21,7 @@ function* IPFSFetchData(action: IPFSLoadAction): SagaIterator {
             emit(END);
         }).catch((e: any) => {
             emit(IPFSError(action.hash, e));
-            emit(FeedNewError(e, e.message, "[ipfs.saga.ts][IPFSFetchData] Trying to fetch ipfs hash"));
+            emit(FeedNewError(e, e.message, "[ipfs.saga.ts][IPFSFetchData] Trying to fetch ipfs hash " + action.hash));
             emit(END);
         });
         return ((): void => {})

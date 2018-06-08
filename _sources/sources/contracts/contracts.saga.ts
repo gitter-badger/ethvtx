@@ -4,7 +4,7 @@ import {SagaIterator, eventChannel, END} from "redux-saga";
 import {Unsubscribe} from "redux";
 import {State, Web3LoadedState} from "../stateInterface";
 import {FeedNewContract, FeedNewError, FeedNewTransaction} from "../feed/feed.actions";
-import {Web3LoadedAction, Web3LoadError} from "../web3/web3.actions";
+import {Web3LoadedAction, Web3LoadError, Web3NetworkError} from "../web3/web3.actions";
 import {VortexContract} from "./VortexContract";
 import {
     ContractCallAction, ContractError, ContractLoadAction, ContractLoaded, ContractLoading, ContractSendAction,
@@ -93,6 +93,21 @@ function* loadContract(contractName: string, contractAddress: string, userAddres
     yield put(FeedNewContract(contractName, contractAddress));
 }
 
+const compareBytecode = (address: string, bytecode: string, web3: any): Promise<boolean> => {
+    return new Promise(async (ok: (arg: any) => void, ko: (arg: any) => void): Promise<void> => {
+        try {
+            let remote_bytecode = await web3.eth.getCode(address);
+            if (remote_bytecode.indexOf('0x') === 0)
+                remote_bytecode = remote_bytecode.substr(2);
+            if (bytecode.indexOf('0x') === 0)
+                bytecode = bytecode.substr(2);
+            ok(bytecode.toLowerCase() === remote_bytecode.toLowerCase());
+        } catch (e) {
+            ko(e);
+        }
+    });
+};
+
 function* onLoadContractInitialize(action: Web3LoadedAction): SagaIterator {
     const contracts = (yield select()).contracts;
     const contractNames = Object.keys(contracts);
@@ -139,10 +154,14 @@ function* onLoadContractInitialize(action: Web3LoadedAction): SagaIterator {
                 for (let idx = 0; idx < Object.keys(config_contract).length; ++idx) {
                     const infos = config_contract[Object.keys(config_contract)[idx]];
                     if (infos.at) {
-                        yield* loadContract(Object.keys(config_contract)[idx], infos.at.toLowerCase(), action.coinbase, action._);
                         if (infos.deployed_bytecode) {
-                            // TODO Check if online has this one too !
+                            const status: boolean = yield call(compareBytecode, infos.at, infos.deployed_bytecode, action._);
+                            if (!status) {
+                                yield put(Web3NetworkError(action.networkId));
+                                break ;
+                            }
                         }
+                        yield* loadContract(Object.keys(config_contract)[idx], infos.at.toLowerCase(), action.coinbase, action._);
                     }
                 }
             } catch (e) {
