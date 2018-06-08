@@ -119,6 +119,22 @@ function* onLoadContractInitialize(action) {
                 yield effects_1.put(web3_actions_1.Web3LoadError(e));
             }
             break;
+        case 'manual':
+            try {
+                const config_contract = contracts.config.config.contracts;
+                for (let idx = 0; idx < Object.keys(config_contract).length; ++idx) {
+                    const infos = config_contract[Object.keys(config_contract)[idx]];
+                    if (infos.at) {
+                        yield* loadContract(Object.keys(config_contract)[idx], infos.at.toLowerCase(), action.coinbase, action._);
+                        if (infos.deployed_bytecode) {
+                            // TODO Check if online has this one too !
+                        }
+                    }
+                }
+            }
+            catch (e) {
+                yield effects_1.put(web3_actions_1.Web3LoadError(e));
+            }
     }
     const auto_refresh = yield effects_1.call(backgroundContractLoad);
     try {
