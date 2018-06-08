@@ -1,8 +1,15 @@
 import {Reducer} from "redux";
-import {Web3State} from "../stateInterface";
+import {
+    Web3LoadedState,
+    Web3LoadErrorState,
+    Web3LoadingState,
+    Web3LockedState,
+    Web3NetworkErrorState,
+    Web3State
+} from "../stateInterface";
 import {Web3Actions, Web3LoadedAction, Web3LoadErrorAction, Web3NetworkErrorAction} from "./web3.actions";
 
-export const web3 : Reducer<Web3State, Web3Actions> = (state: Web3State = {status: 'LOADING'}, action: Web3Actions): Web3State => {
+export const web3 : Reducer<Web3State, Web3Actions> = (state: Web3State = {status: 'LOADING'}, action: Web3Actions): Web3LoadingState | Web3LoadedState | Web3LoadErrorState | Web3NetworkErrorState | Web3LockedState => {
 
     switch (action.type) {
 

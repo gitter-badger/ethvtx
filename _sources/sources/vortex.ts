@@ -6,6 +6,10 @@ import {Web3Load} from "./web3/web3.actions";
 import {ContractLoad} from "./contracts/contracts.actions";
 import {AccountAdd} from "./accounts/accounts.actions";
 
+/**
+ * This interface is only here to merge all configuration types into one interface. Have a look at each configuration
+ * separately ! For Embark users => {@link EmbarkContracts}, and for Truffle ones => {@link TruffleContracts}
+ */
 interface ContractConfig extends EmbarkContracts, TruffleContracts {}
 
 export class Vortex<T extends State> {

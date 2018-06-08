@@ -147,7 +147,7 @@ export interface AccountErrorState {
 export type AccountState = AccountInfoState | AccountConfigState | AccountErrorState;
 
 export interface AccountStoreState {
-    [key:string]: AccountState
+    [key:string]: AccountInfoState | AccountConfigState | AccountErrorState
 }
 
 export interface IPFSContentState {
@@ -163,10 +163,10 @@ export interface IPFSStoreState {
 }
 
 export interface State {
-    web3: Web3State,
+    web3: Web3LoadingState | Web3LoadedState | Web3LoadErrorState | Web3NetworkErrorState | Web3LockedState,
     tx: TransactionStoreState,
     contracts: ContractStoreState,
-    feed: FeedState[],
+    feed: (FeedNewContractState | FeedNewTransactionState | FeedNewErrorState | FeedNewAccountState | FeedNewIPFSContentState)[],
     accounts: AccountStoreState,
     ipfs: IPFSStoreState
 }
