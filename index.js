@@ -50,5 +50,6 @@ var ipfs_actions_1 = require("./sources/ipfs/ipfs.actions");
 exports.IPFSError = ipfs_actions_1.IPFSError;
 exports.IPFSLoad = ipfs_actions_1.IPFSLoad;
 exports.IPFSLoaded = ipfs_actions_1.IPFSLoaded;
+exports.IPFSConnect = ipfs_actions_1.IPFSConnect;
 var VortexContract_1 = require("./sources/contracts/VortexContract");
 exports.VortexContract = VortexContract_1.VortexContract;
