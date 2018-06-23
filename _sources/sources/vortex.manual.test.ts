@@ -179,8 +179,8 @@ describe("Vortex", () => {
         const contractName = (<FeedNewContractState>state.feed[0]).contract_name;
         const contractAddress = (<FeedNewContractState>state.feed[0]).contract_address.toLowerCase();
         const contract = state.contracts[contractName][contractAddress].instance;
-        contract.vortex.owner.vortexCall({}).then((res: any): void => {
-            if (contract.vortex.owner.vortexData({}) === res) {
+        contract.vortexMethods.owner.call().then((res: any): void => {
+            if (contract.vortexMethods.owner.data() === res) {
                 done();
             }
         }).catch((e: any): void => {
@@ -195,7 +195,7 @@ describe("Vortex", () => {
         const contractAddress = (<FeedNewContractState>state.feed[0]).contract_address;
         const contract = state.contracts[contractName][contractAddress].instance;
 
-        contract.vortex.setCompleted.vortexSend({from: coinbase}, 23).then((_txHash: string): void => {
+        contract.vortexMethods.setCompleted.send(23, {from: coinbase}).then((_txHash: string): void => {
             let intervalId = setInterval(() => {
                 const state = Vortex.get().Store.getState();
                 switch (state.feed.length) {
