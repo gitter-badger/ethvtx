@@ -15,7 +15,7 @@ function* IPFSFetchData(action: IPFSLoadAction): SagaIterator {
                 if (result[idx].content) {
                     emit(IPFSLoaded(action.hash, result[idx].content));
                 } else {
-                    emit(IPFSLoaded(action.hash, null));
+                    emit(IPFSLoaded(result[idx].path, null));
                 }
                 emit(FeedNewIPFSContent(action.hash));
             }

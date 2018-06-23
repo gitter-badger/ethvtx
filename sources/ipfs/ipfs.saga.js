@@ -15,7 +15,7 @@ function* IPFSFetchData(action) {
                     emit(ipfs_actions_1.IPFSLoaded(action.hash, result[idx].content));
                 }
                 else {
-                    emit(ipfs_actions_1.IPFSLoaded(action.hash, null));
+                    emit(ipfs_actions_1.IPFSLoaded(result[idx].path, null));
                 }
                 emit(feed_actions_1.FeedNewIPFSContent(action.hash));
             }
