@@ -636,12 +636,12 @@ class ContractCallReturnContainer extends React.Component {
 class ContractsContainer extends React.Component {
     constructor(props) {
         super(props);
-        this.props.contract.instance.vortex.get.vortexData({from: this.props.web3.coinbase});
+        this.props.contract.instance.vortexMethods.get.data({from: this.props.web3.coinbase});
         const mapStateToProps = (state) => {
             return {
-                result: state.contracts[this.props.contract_name][this.props.contract_address].instance.vortex.get.vortexData({from: this.props.web3.coinbase}),
+                result: state.contracts[this.props.contract_name][this.props.contract_address].instance.vortexMethods.get.data({from: this.props.web3.coinbase}),
                 update: (newValue) => {
-                    this.props.contract.instance.vortex.set.vortexSend({from: this.props.web3.coinbase, gas: 20000000}, newValue);
+                    this.props.contract.instance.vortexMethods.set.send(newValue, {from: this.props.web3.coinbase, gas: 20000000});
                 }
             }
         };
@@ -655,9 +655,9 @@ class ContractsContainer extends React.Component {
                 <Panel.Body>
                     <VortexMethodCallList container={CallContainer} element={SingleCall} methodName="times" contractName={this.props.contract_name} contractAddress={this.props.contract_address} arguments={
                         [
-                            [{from: this.props.web3.coinbase}, 2],
-                            [{from: this.props.web3.coinbase}, 3],
-                            [{from: this.props.web3.coinbase}, 4]
+                            [2, {from: this.props.web3.coinbase}],
+                            [3, {from: this.props.web3.coinbase}],
+                            [4, {from: this.props.web3.coinbase}]
                         ]
                     }/>
                     <this.resultContainer/>
@@ -742,15 +742,15 @@ Name of method to call
 
 * **arguments** (mandatory)
 
-An array of arrays of arguments. The first argument for each call should be the transaction arguments (`from`, `to`, etc...)
+An array of calls.
 
 For a method `times` taking one `uint` argument, you will have this
 
 ```
 [
-    [{from: this.props.web3.coinbase}, 2],
-    [{from: this.props.web3.coinbase}, 3],
-    [{from: this.props.web3.coinbase}, 4]
+    [2, {from: this.props.web3.coinbase}],
+    [3, {from: this.props.web3.coinbase}],
+    [4, {from: this.props.web3.coinbase}]
 ]
 ```
 
