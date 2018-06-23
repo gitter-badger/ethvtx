@@ -1595,7 +1595,7 @@ ___
 
 ▸ **forge**T(contracts: *[EmbarkContracts](interfaces/embarkcontracts.md) |[TruffleContracts](interfaces/trufflecontracts.md) |[ManualContracts](interfaces/manualcontracts.md)*, config?: *[GeneratorConfig](interfaces/generatorconfig.md)<`T`>*): `Store`
 
-*Defined in forge.ts:61*
+*Defined in forge.ts:62*
 
 **Type parameters:**
 

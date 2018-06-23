@@ -27,7 +27,7 @@
 
 **● manual_contracts**: *[ManualContractArtifactMap](manualcontractartifactmap.md)*
 
-*Defined in forge.ts:58*
+*Defined in forge.ts:59*
 
 ___
 <a id="type"></a>

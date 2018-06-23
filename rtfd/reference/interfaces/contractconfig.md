@@ -21,6 +21,7 @@ This interface is only here to merge all configuration types into one interface.
 * [chains](contractconfig.md#chains)
 * [embark_contracts](contractconfig.md#embark_contracts)
 * [manual_contracts](contractconfig.md#manual_contracts)
+* [network_contracts](contractconfig.md#network_contracts)
 * [preloaded_contracts](contractconfig.md#preloaded_contracts)
 * [truffle_contracts](contractconfig.md#truffle_contracts)
 * [type](contractconfig.md#type)
@@ -59,7 +60,18 @@ ___
 
 *Inherited from [ManualContracts](manualcontracts.md).[manual_contracts](manualcontracts.md#manual_contracts)*
 
-*Defined in forge.ts:58*
+*Defined in forge.ts:59*
+
+___
+<a id="network_contracts"></a>
+
+### `<Optional>` network_contracts
+
+**● network_contracts**: *`TruffleArtifact`[]*
+
+*Inherited from [TruffleContracts](trufflecontracts.md).[network_contracts](trufflecontracts.md#network_contracts)*
+
+*Defined in forge.ts:45*
 
 ___
 <a id="preloaded_contracts"></a>

@@ -68,7 +68,7 @@ ___
 
 getContracts(): [ContractConfig](../interfaces/contractconfig.md)
 
-*Defined in vortex.ts:174*
+*Defined in vortex.ts:179*
 
 Contracts getter
 
@@ -82,7 +82,7 @@ ___
 
 getNetworks(): `number`[]
 
-*Defined in vortex.ts:194*
+*Defined in vortex.ts:199*
 
 Network Id Whitelist getter.
 
@@ -96,7 +96,7 @@ ___
 
 getStore(): `Store`<`T`>
 
-*Defined in vortex.ts:183*
+*Defined in vortex.ts:188*
 
 Store getter
 
@@ -113,7 +113,7 @@ ___
 
 ▸ **addContract**(contract: *`any`*): `void`
 
-*Defined in vortex.ts:80*
+*Defined in vortex.ts:85*
 
 Add a new contract in contract list.
 
@@ -132,7 +132,7 @@ ___
 
 ▸ **addNetwork**(network_id: *`number`*): `void`
 
-*Defined in vortex.ts:105*
+*Defined in vortex.ts:110*
 
 Adds a network id to whitelist.
 
@@ -151,7 +151,7 @@ ___
 
 ▸ **addReducer**(field: *`string`*, reducer: *`Reducer`<`any`, `any`>*): `void`
 
-*Defined in vortex.ts:125*
+*Defined in vortex.ts:130*
 
 Add a new reducer in the Reducer Map.
 
@@ -171,7 +171,7 @@ ___
 
 ▸ **loadContract**(contractName: *`string`*, contractAddress: *`string`*): `void`
 
-*Defined in vortex.ts:148*
+*Defined in vortex.ts:153*
 
 Load a new instance of a Smart Contract. Expect a new Feed element and the contracts section to get updated.
 
@@ -191,7 +191,7 @@ ___
 
 ▸ **loadWeb3**(): `void`
 
-*Defined in vortex.ts:67*
+*Defined in vortex.ts:72*
 
 Load Web3 instance from given source.
 
@@ -204,7 +204,7 @@ ___
 
 ▸ **networksOf**(contract: *`ContractArtifact`*): `void`
 
-*Defined in vortex.ts:115*
+*Defined in vortex.ts:120*
 
 Takes a Truffle Contract Artifact and extracts all network ids where Contract has instances, adds them to whitelist If you are using Embark, Network checks will be done depending on your chains.json.
 
@@ -236,7 +236,7 @@ ___
 
 ▸ **setCustomState**(customState: *`DeepPartial`<`T`>*): `void`
 
-*Defined in vortex.ts:137*
+*Defined in vortex.ts:142*
 
 Custom Initial State, useful when adding custom properties.
 
@@ -255,7 +255,7 @@ ___
 
 ▸ **subscribeAccount**(address: *`string`*): `void`
 
-*Defined in vortex.ts:161*
+*Defined in vortex.ts:166*
 
 Add a new contract to fetch pool.
 
