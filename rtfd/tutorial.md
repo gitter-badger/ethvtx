@@ -46,7 +46,17 @@ const instance = Vortex.factory({
         truffle_contracts: [SimpleStorage, MySmartContract],
         preloaded_contracts: ["SimpleStorage"],
         network_contracts: [SimpleStorage]
-    }, web3_loader);
+    },
+    web3_loader,
+    {
+        ipfs_config: {
+            host: 'url',
+            port: '5001',
+            options: {
+                protocol: 'https'
+            }
+        }
+    });
 ```
 
 As a first argument, you will need to provide this object
@@ -68,6 +78,10 @@ As a first argument, you will need to provide this object
 
 `network_contracts` is an arrau of **Truffle** artifacts, and will be used to determine network compatibility based only
 on the network of the given contracts.
+
+`web3_loader` is a custom web3 fetcher.
+
+And the last argument is the configuration.
 
 Your instance is ready to be run, but you can still tweak your store before running it.
 
@@ -106,7 +120,17 @@ const instance = Vortex.factory({
         },
         chains: Chains,
         preloaded_contracts: ["SimpleStorage"]
-    }, web3_loader);
+    },
+    web3_loader,
+    {
+        ipfs_config: {
+            host: 'url',
+            port: '5001',
+            options: {
+                protocol: 'https'
+            }
+        }
+    });
 ```
 
 As a first argument, you will need to provide this object
@@ -128,6 +152,10 @@ As a first argument, you will need to provide this object
 `embark_contracts` is an object filled with contracts instance from Embark.
 
 `preloaded_contracts` is an array of contract names you want to load when instantiating.
+
+`web3_loader` is a custom web3 fetcher.
+
+And the last argument is the configuration (which is optional).
 
 Your instance is ready to be run, but you can still tweak your store before running it.
 
@@ -167,7 +195,17 @@ const instance = Vortex.factory({
                 deployed_bytecode: DeployedBytecode
             }
         }
-    }, web3_loader);
+    },
+    web3_loader,
+    {
+        ipfs_config: {
+            host: 'url',
+            port: '5001',
+            options: {
+                protocol: 'https'
+            }
+        }
+    });
 ```
 
 As a first argument, you will need to provide this object
@@ -248,7 +286,14 @@ const instance = Vortex.factory({
     }, web3_loader, {
         reducer: {profile: profile_reducer},
         custom_state: initial_state,
-        custom_sagas: loaded_sagas
+        custom_sagas: loaded_sagas,
+        ipfs_config: {
+            host: 'ipfs.infura.io',
+            port: '5001',
+            options: {
+                protocol: 'https'
+            }
+        }
     });
 ```
 
@@ -259,6 +304,8 @@ Configuration options are:
 * **reducer**: An object containing the reducers you want to merge with the Vortex Store. Default: `undefined`
 * **custom_state**: An object defining your initial state, that will be merged with the Vortex initial state. Default: `undefined`
 * **account_refresh_rate**: A refresh rate (in ms) for account balance refresh. Default: `5000`
+* **custom_sagas**: Custom sagas you want to add to the already existing `redux-saga` middleware.
+* **ipfs_config**: Configuration for the ipfs endpoint.
 
 #### Preparing before running
 

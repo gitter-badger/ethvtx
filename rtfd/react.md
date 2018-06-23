@@ -99,7 +99,14 @@ class Main extends React.Component {
                 truffle_contracts: [SimpleStorage],
                 preloaded_contracts: ["SimpleStorage"],
                 network_contracts: [SimpleStorage]
-            }  loader={VortexMetamaskLoader(Web3)}>
+            }  loader={VortexMetamaskLoader(Web3)}
+               ipfs_config={{
+                    host: 'ipfs.infura.io',
+                    port: '5001',
+                    options: {
+                        protocol: 'https'
+                    }
+               }}>
 
             <VortexWeb3Loaded>
                 <App/>
@@ -149,7 +156,14 @@ class Main extends React.Component {
                 },
                 chains: Chains,
                 preloaded_contracts: ["SimpleStorage"]
-            } loader={VortexMetamaskLoader(Web3)}>
+            } loader={VortexMetamaskLoader(Web3)}
+              ipfs_config={{
+                    host: 'ipfs.infura.io',
+                    port: '5001',
+                    options: {
+                        protocol: 'https'
+                    }
+              }}>
 
             <VortexWeb3Loaded>
                 <App/>
@@ -202,7 +216,14 @@ class Main extends React.Component {
                         deployed_bytecode: DeployedBytecode
                     }
                 },
-            } loader={VortexMetamaskLoader(Web3)}>
+            } loader={VortexMetamaskLoader(Web3)}
+              ipfs_config={{
+                    host: 'ipfs.infura.io',
+                    port: '5001',
+                    options: {
+                        protocol: 'https'
+                    }
+              }}>
 
             <VortexWeb3Loaded>
                 <App/>
@@ -304,7 +325,11 @@ Custom initial state, useful if you define your own reducers/sagas.
 
 Custom sagas you want to add to the existing ones.
 
-**reducers_map**, **custom_state** and **custom_sagas** are only forwarded to the [Vortex](/tutorial/#vortex) instance.
+* **ipfs_config**
+
+Configuration for the IPFS endpoint (without it, no connection will be made)
+
+**reducers_map**, **custom_state** , **ipfs_config** and **custom_sagas** are only forwarded to the [Vortex](/tutorial/#vortex) instance.
 
 ## [VortexAccount](https://github.com/Horyus/vort_x-components/blob/master/src/components/vortex-components/vortex-account/index.tsx)
 

@@ -27,7 +27,7 @@
 
 **● accounts**: *[AccountStoreState](accountstorestate.md)*
 
-*Defined in stateInterface.ts:170*
+*Defined in stateInterface.ts:176*
 
 ___
 <a id="contracts"></a>
@@ -36,7 +36,7 @@ ___
 
 **● contracts**: *[ContractStoreState](contractstorestate.md)*
 
-*Defined in stateInterface.ts:168*
+*Defined in stateInterface.ts:174*
 
 ___
 <a id="feed"></a>
@@ -45,7 +45,7 @@ ___
 
 **● feed**: *([FeedNewContractState](feednewcontractstate.md) |[FeedNewTransactionState](feednewtransactionstate.md) |[FeedNewErrorState](feednewerrorstate.md) |[FeedNewAccountState](feednewaccountstate.md) |[FeedNewIPFSContentState](feednewipfscontentstate.md))[]*
 
-*Defined in stateInterface.ts:169*
+*Defined in stateInterface.ts:175*
 
 ___
 <a id="ipfs"></a>
@@ -54,7 +54,7 @@ ___
 
 **● ipfs**: *[IPFSStoreState](ipfsstorestate.md)*
 
-*Defined in stateInterface.ts:171*
+*Defined in stateInterface.ts:177*
 
 ___
 <a id="tx"></a>
@@ -63,7 +63,7 @@ ___
 
 **● tx**: *[TransactionStoreState](transactionstorestate.md)*
 
-*Defined in stateInterface.ts:167*
+*Defined in stateInterface.ts:173*
 
 ___
 <a id="web3"></a>
@@ -77,7 +77,7 @@ ___
 [Web3LockedState](web3lockedstate.md)
 *
 
-*Defined in stateInterface.ts:166*
+*Defined in stateInterface.ts:172*
 
 ___
 

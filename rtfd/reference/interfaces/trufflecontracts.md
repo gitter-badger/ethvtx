@@ -29,7 +29,7 @@
 
 **● network_contracts**: *`TruffleArtifact`[]*
 
-*Defined in forge.ts:45*
+*Defined in forge.ts:52*
 
 ___
 <a id="preloaded_contracts"></a>
@@ -38,7 +38,7 @@ ___
 
 **● preloaded_contracts**: *`string`[]*
 
-*Defined in forge.ts:44*
+*Defined in forge.ts:51*
 
 ___
 <a id="truffle_contracts"></a>
@@ -47,7 +47,7 @@ ___
 
 **● truffle_contracts**: *`TruffleArtifact`[]*
 
-*Defined in forge.ts:43*
+*Defined in forge.ts:50*
 
 ___
 <a id="type"></a>
@@ -58,7 +58,7 @@ ___
 
 *Inherited from [Contracts](contracts.md).[type](contracts.md#type)*
 
-*Defined in forge.ts:33*
+*Defined in forge.ts:40*
 
 ___
 

@@ -15,6 +15,7 @@
 * [account_refresh_rate](generatorconfig.md#account_refresh_rate)
 * [custom_sagas](generatorconfig.md#custom_sagas)
 * [custom_state](generatorconfig.md#custom_state)
+* [ipfs_config](generatorconfig.md#ipfs_config)
 * [reducer](generatorconfig.md#reducer)
 
 ---
@@ -27,7 +28,7 @@
 
 **● account_refresh_rate**: *`number`*
 
-*Defined in forge.ts:28*
+*Defined in forge.ts:34*
 
 ___
 <a id="custom_sagas"></a>
@@ -36,7 +37,7 @@ ___
 
 **● custom_sagas**: *`any`[]*
 
-*Defined in forge.ts:29*
+*Defined in forge.ts:35*
 
 ___
 <a id="custom_state"></a>
@@ -45,7 +46,16 @@ ___
 
 **● custom_state**: *`DeepPartial`<`T`>*
 
-*Defined in forge.ts:27*
+*Defined in forge.ts:33*
+
+___
+<a id="ipfs_config"></a>
+
+### `<Optional>` ipfs_config
+
+**● ipfs_config**: *[IPFSConfig](ipfsconfig.md)*
+
+*Defined in forge.ts:36*
 
 ___
 <a id="reducer"></a>
@@ -54,7 +64,7 @@ ___
 
 **● reducer**: *`ReducersMapObject`<`T`>*
 
-*Defined in forge.ts:26*
+*Defined in forge.ts:32*
 
 ___
 

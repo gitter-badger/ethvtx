@@ -54,6 +54,9 @@
 * [FeedNewTransactionState](interfaces/feednewtransactionstate.md)
 * [FetchedData](interfaces/fetcheddata.md)
 * [GeneratorConfig](interfaces/generatorconfig.md)
+* [IPFSConfig](interfaces/ipfsconfig.md)
+* [IPFSConfigState](interfaces/ipfsconfigstate.md)
+* [IPFSConnectAction](interfaces/ipfsconnectaction.md)
 * [IPFSContentState](interfaces/ipfscontentstate.md)
 * [IPFSErrorAction](interfaces/ipfserroraction.md)
 * [IPFSErrorState](interfaces/ipfserrorstate.md)
@@ -112,7 +115,6 @@
 * [FeedFilterErrors](#feedfiltererrors)
 * [FeedFilterIPFSContent](#feedfilteripfscontent)
 * [FeedFilterTransactions](#feedfiltertransactions)
-* [IPFS](#ipfs)
 * [TransactionArgumentList](#transactionargumentlist)
 * [running](#running)
 * [toLower](#tolower)
@@ -147,6 +149,8 @@
 * [FeedNewError](#feednewerror)
 * [FeedNewIPFSContent](#feednewipfscontent)
 * [FeedNewTransaction](#feednewtransaction)
+* [IPFSConnect](#ipfsconnect)
+* [IPFSConnectReducer](#ipfsconnectreducer)
 * [IPFSError](#ipfserror)
 * [IPFSErrorReducer](#ipfserrorreducer)
 * [IPFSFetchData](#ipfsfetchdata)
@@ -186,6 +190,7 @@
 * [fetchAccount](#fetchaccount)
 * [forge](#forge)
 * [getFeed](#getfeed)
+* [initializeRequest](#initializerequest)
 * [ipfs](#ipfs)
 * [loadContract](#loadcontract)
 * [loopOnAccounts](#looponaccounts)
@@ -304,10 +309,11 @@ ___
 
 **ΤIPFSActions**: *[IPFSLoadAction](interfaces/ipfsloadaction.md) |
 [IPFSLoadedAction](interfaces/ipfsloadedaction.md) |
-[IPFSErrorAction](interfaces/ipfserroraction.md)
+[IPFSErrorAction](interfaces/ipfserroraction.md) |
+[IPFSConnectAction](interfaces/ipfsconnectaction.md)
 *
 
-*Defined in ipfs/ipfs.actions.ts:40*
+*Defined in ipfs/ipfs.actions.ts:51*
 
 ___
 <a id="txactions"></a>
@@ -417,15 +423,6 @@ ___
 })
 
 *Defined in feed/feed.selectors.ts:22*
-
-___
-<a id="ipfs"></a>
-
-### `<Const>` IPFS
-
-**● IPFS**: *`any`* =  IPFSApi('ipfs.infura.io', '5001', {protocol: 'https'})
-
-*Defined in ipfs/ipfs.saga.ts:8*
 
 ___
 <a id="transactionargumentlist"></a>
@@ -968,6 +965,41 @@ ___
 **Returns:** [FeedNewTransactionAction](interfaces/feednewtransactionaction.md)
 
 ___
+<a id="ipfsconnect"></a>
+
+###  IPFSConnect
+
+▸ **IPFSConnect**(instance: *`any`*): [IPFSConnectAction](interfaces/ipfsconnectaction.md)
+
+*Defined in ipfs/ipfs.actions.ts:44*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| instance | `any` | 
+
+**Returns:** [IPFSConnectAction](interfaces/ipfsconnectaction.md)
+
+___
+<a id="ipfsconnectreducer"></a>
+
+### `<Const>` IPFSConnectReducer
+
+▸ **IPFSConnectReducer**(state: *[IPFSStoreState](interfaces/ipfsstorestate.md)*, action: *[IPFSConnectAction](interfaces/ipfsconnectaction.md)*): [IPFSStoreState](interfaces/ipfsstorestate.md)
+
+*Defined in ipfs/ipfs.reducers.ts:23*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| state | [IPFSStoreState](interfaces/ipfsstorestate.md) | 
+| action | [IPFSConnectAction](interfaces/ipfsconnectaction.md) | 
+
+**Returns:** [IPFSStoreState](interfaces/ipfsstorestate.md)
+
+___
 <a id="ipfserror"></a>
 
 ###  IPFSError
@@ -1080,7 +1112,7 @@ ___
 
 ▸ **IPFSSagas**(): `any`
 
-*Defined in ipfs/ipfs.saga.ts:50*
+*Defined in ipfs/ipfs.saga.ts:73*
 
 **Returns:** `any`
 
@@ -1613,7 +1645,7 @@ ___
 
 ▸ **forge**T(contracts: *[EmbarkContracts](interfaces/embarkcontracts.md) |[TruffleContracts](interfaces/trufflecontracts.md) |[ManualContracts](interfaces/manualcontracts.md)*, config?: *[GeneratorConfig](interfaces/generatorconfig.md)<`T`>*): `Store`
 
-*Defined in forge.ts:62*
+*Defined in forge.ts:69*
 
 **Type parameters:**
 
@@ -1648,13 +1680,30 @@ ___
 **Returns:** [FeedState](#feedstate)[]
 
 ___
+<a id="initializerequest"></a>
+
+###  initializeRequest
+
+▸ **initializeRequest**(action: *[Web3LoadedAction](interfaces/web3loadedaction.md)*): `SagaIterator`
+
+*Defined in ipfs/ipfs.saga.ts:59*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| action | [Web3LoadedAction](interfaces/web3loadedaction.md) | 
+
+**Returns:** `SagaIterator`
+
+___
 <a id="ipfs"></a>
 
 ### `<Const>` ipfs
 
 ▸ **ipfs**(state?: *[IPFSStoreState](interfaces/ipfsstorestate.md)*, action: *[IPFSActions](#ipfsactions)*): [IPFSStoreState](interfaces/ipfsstorestate.md)
 
-*Defined in ipfs/ipfs.reducers.ts:23*
+*Defined in ipfs/ipfs.reducers.ts:34*
 
 **Parameters:**
 
@@ -1805,7 +1854,7 @@ ___
 
 ▸ **onLoadRequest**(action: *[IPFSLoadAction](interfaces/ipfsloadaction.md)*): `SagaIterator`
 
-*Defined in ipfs/ipfs.saga.ts:31*
+*Defined in ipfs/ipfs.saga.ts:32*
 
 **Parameters:**
 
