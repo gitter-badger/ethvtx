@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- `ipfs_config` can be given as config argument to Vortex, and will allow endpoint customization
+
 ### Changed
 - Contract vortex methods are now under `vortexMethods` field (previously was `vortex`)
 - Contract static call is now under `call` field (previously was `vortexCall`)
@@ -17,6 +20,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 -   state[name][address].instance.vortex.set.vortexSend({from: coinbase}, 12);
 +   state[name][address].instance.vortexMethods.set.send(12, {from: coinbase});
 ```
+
+- Internal IPFS mechanisms got improved
 
 [Unreleased]: https://github.com/Horyus/vortex
 
