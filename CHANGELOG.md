@@ -4,7 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## Unreleased
+## [1.0.1-delta.0]
 ### Added
 - `ipfs_config` can be given as config argument to Vortex, and will allow endpoint customization
 
@@ -23,6 +24,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Internal IPFS mechanisms got improved
 
-[Unreleased]: https://github.com/Horyus/vortex
+[Unreleased]: https://github.com/Horyus/vortex/compare/1.0.1-charlie.1...1.0.1-delta.0
 
 
