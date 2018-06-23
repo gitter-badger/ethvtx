@@ -34,6 +34,7 @@ export {
     IPFSStoreState,
     IPFSErrorState,
     IPFSContentState,
+    IPFSConfigState,
     ContractArtifactState
 } from './sources/stateInterface';
 
@@ -136,7 +137,9 @@ export {
     IPFSLoadAction,
     IPFSLoadedAction,
     IPFSErrorAction,
-    IPFSActions
+    IPFSActions,
+    IPFSConnectAction,
+    IPFSConnect
 } from './sources/ipfs/ipfs.actions';
 
 export {VortexContract} from './sources/contracts/VortexContract';
@@ -148,5 +151,6 @@ export {
     ManualContractArtifact,
     TruffleContracts,
     Contracts,
-    GeneratorConfig
+    GeneratorConfig,
+    IPFSConfig
 } from './sources/forge'

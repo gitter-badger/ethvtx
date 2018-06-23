@@ -22,11 +22,18 @@ import {reducers} from "./reducers";
 import {rootSagaBuilder} from './sagas';
 import TruffleArtifact from 'truffle-contract-schema';
 
+export interface IPFSConfig {
+    host: string,
+    port: string,
+    options?: any
+}
+
 export interface GeneratorConfig<T> {
     reducer?: ReducersMapObject<T>,
     custom_state?: DeepPartial<T>,
     account_refresh_rate?: number,
-    custom_sagas?: any[]
+    custom_sagas?: any[],
+    ipfs_config?: IPFSConfig
 }
 
 export interface Contracts {
@@ -83,6 +90,11 @@ export function forge<T extends State = State>(contracts: EmbarkContracts | Truf
     };
 
     (<FeedState[]>(<any>initialState).feed) = [] as FeedState[];
+
+    (<any>initialState.ipfs.config) = {
+        config: config ? (config.ipfs_config || undefined) : undefined,
+        active: false
+    };
 
     switch (contracts.type) {
         case 'truffle':
