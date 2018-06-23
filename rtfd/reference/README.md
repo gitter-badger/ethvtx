@@ -113,6 +113,7 @@
 * [FeedFilterIPFSContent](#feedfilteripfscontent)
 * [FeedFilterTransactions](#feedfiltertransactions)
 * [IPFS](#ipfs)
+* [TransactionArgumentList](#transactionargumentlist)
 * [running](#running)
 * [toLower](#tolower)
 * [window](#window)
@@ -425,6 +426,23 @@ ___
 **● IPFS**: *`any`* =  IPFSApi('ipfs.infura.io', '5001', {protocol: 'https'})
 
 *Defined in ipfs/ipfs.saga.ts:8*
+
+___
+<a id="transactionargumentlist"></a>
+
+### `<Const>` TransactionArgumentList
+
+**● TransactionArgumentList**: *`string`[]* =  [
+    "from",
+    "to",
+    "gas",
+    "gasPrice",
+    "value",
+    "data",
+    "nonce"
+]
+
+*Defined in contracts/VortexContract.ts:7*
 
 ___
 <a id="running"></a>

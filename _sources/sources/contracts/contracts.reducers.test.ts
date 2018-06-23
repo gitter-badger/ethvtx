@@ -45,9 +45,9 @@ describe("Contracts Reducers", (): void => {
     test("ContractError", (): void => {
         state = contracts(state, ContractError(contractName, contractAddress, contractInstance));
         state[contractName][contractAddress].instance = {
-            vortex: {
+            vortexMethods: {
                 [contractMethod]: {
-                    vortexCache: {
+                    cache: {
                         [contractMethod]: {
                             synced: false
                         }
@@ -60,12 +60,12 @@ describe("Contracts Reducers", (): void => {
 
     test("ContractVarReceived", (): void => {
         state = contracts(state, ContractVarReceived(contractName, contractAddress, contractMethod, contractMethod, contractInstance));
-        expect(state[contractName][contractAddress].instance.vortex[contractMethod].vortexCache[contractMethod].data.test).toBe('TEST');
+        expect(state[contractName][contractAddress].instance.vortexMethods[contractMethod].cache[contractMethod].data.test).toBe('TEST');
     });
 
     test("ContractVarErrorReceived", (): void => {
         state = contracts(state, ContractVarErrorReceived(contractName, contractAddress, contractMethod, contractMethod, contractInstance));
-        expect(state[contractName][contractAddress].instance.vortex[contractMethod].vortexCache[contractMethod].error.test).toBe('TEST');
+        expect(state[contractName][contractAddress].instance.vortexMethods[contractMethod].cache[contractMethod].error.test).toBe('TEST');
     });
 
 });

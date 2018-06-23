@@ -30,11 +30,11 @@ const toLower: string[] = [
 ];
 
 export function runForceRefreshRoundOn(state: State, emit: (arg?: any) => void, contractName: string, instance_address: string): void {
-    Object.keys(state.contracts[contractName][instance_address].instance.vortex).forEach((methodName: string): void => {
-        if (state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache) {
-            Object.keys(state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache).forEach((signature: string): void => {
-                if (state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache[signature].synced
-                    && !state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache[signature].disable_refresh) {
+    Object.keys(state.contracts[contractName][instance_address].instance.vortexMethods).forEach((methodName: string): void => {
+        if (state.contracts[contractName][instance_address].instance.vortexMethods[methodName].cache) {
+            Object.keys(state.contracts[contractName][instance_address].instance.vortexMethods[methodName].cache).forEach((signature: string): void => {
+                if (state.contracts[contractName][instance_address].instance.vortexMethods[methodName].cache[signature].synced
+                    && !state.contracts[contractName][instance_address].instance.vortexMethods[methodName].cache[signature].disable_refresh) {
                     emit(ContractVarForceRefresh(contractName, instance_address, methodName, signature));
                 }
             })
@@ -202,7 +202,7 @@ function* onContractCall(action: ContractCallAction): SagaIterator {
     const current_contract = contracts[action.contractName][action.contractAddress].instance;
     const arg_signature = VortexContract.callSignature(...action.methodArgs);
 
-    if (!current_contract.vortex[action.methodName].vortexCache[arg_signature].synced) {
+    if (!current_contract.vortexMethods[action.methodName].cache[arg_signature].synced) {
         const ctcall = yield call(contractCall, action, current_contract.methods[action.methodName](...action.methodArgs), arg_signature);
         try {
             while (true) {

@@ -24,7 +24,7 @@
 
 **● data**: *`any`*
 
-*Defined in contracts/VortexContract.ts:8*
+*Defined in contracts/VortexContract.ts:18*
 
 ___
 <a id="error"></a>
@@ -33,7 +33,7 @@ ___
 
 **● error**: *`any`*
 
-*Defined in contracts/VortexContract.ts:10*
+*Defined in contracts/VortexContract.ts:20*
 
 ___
 <a id="synced"></a>
@@ -42,7 +42,7 @@ ___
 
 **● synced**: *`boolean`*
 
-*Defined in contracts/VortexContract.ts:9*
+*Defined in contracts/VortexContract.ts:19*
 
 ___
 
