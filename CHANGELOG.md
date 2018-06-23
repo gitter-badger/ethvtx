@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Contract static call is now under `data` field (previously was `vortexData`)
 - Transaction arguments are now last argument (like in web3) for `call`, `send` and `data` of every contract
 - Basically:
+
 ```diff
 -   state[name][address].instance.vortex.set.vortexSend({from: coinbase}, 12);
 +   state[name][address].instance.vortexMethods.set.send(12, {from: coinbase});
