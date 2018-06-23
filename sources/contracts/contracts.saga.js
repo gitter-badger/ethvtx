@@ -18,11 +18,11 @@ const toLower = [
     "value"
 ];
 function runForceRefreshRoundOn(state, emit, contractName, instance_address) {
-    Object.keys(state.contracts[contractName][instance_address].instance.vortex).forEach((methodName) => {
-        if (state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache) {
-            Object.keys(state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache).forEach((signature) => {
-                if (state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache[signature].synced
-                    && !state.contracts[contractName][instance_address].instance.vortex[methodName].vortexCache[signature].disable_refresh) {
+    Object.keys(state.contracts[contractName][instance_address].instance.vortexMethods).forEach((methodName) => {
+        if (state.contracts[contractName][instance_address].instance.vortexMethods[methodName].cache) {
+            Object.keys(state.contracts[contractName][instance_address].instance.vortexMethods[methodName].cache).forEach((signature) => {
+                if (state.contracts[contractName][instance_address].instance.vortexMethods[methodName].cache[signature].synced
+                    && !state.contracts[contractName][instance_address].instance.vortexMethods[methodName].cache[signature].disable_refresh) {
                     emit(contracts_actions_1.ContractVarForceRefresh(contractName, instance_address, methodName, signature));
                 }
             });
@@ -183,7 +183,7 @@ function* onContractCall(action) {
     const contracts = (yield effects_1.select()).contracts;
     const current_contract = contracts[action.contractName][action.contractAddress].instance;
     const arg_signature = VortexContract_1.VortexContract.callSignature(...action.methodArgs);
-    if (!current_contract.vortex[action.methodName].vortexCache[arg_signature].synced) {
+    if (!current_contract.vortexMethods[action.methodName].cache[arg_signature].synced) {
         const ctcall = yield effects_1.call(contractCall, action, current_contract.methods[action.methodName](...action.methodArgs), arg_signature);
         try {
             while (true) {
