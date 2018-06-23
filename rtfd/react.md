@@ -97,8 +97,9 @@ class Main extends React.Component {
         <VortexGate contracts={
                 type: 'truffle',
                 truffle_contracts: [SimpleStorage],
-                preloaded_contracts: ["SimpleStorage"]
-            } network_contracts={[SimpleStorage]} loader={VortexMetamaskLoader(Web3)}>
+                preloaded_contracts: ["SimpleStorage"],
+                network_contracts: [SimpleStorage]
+            }  loader={VortexMetamaskLoader(Web3)}>
 
             <VortexWeb3Loaded>
                 <App/>
@@ -268,11 +269,9 @@ truffle_contracts: [SimpleStorage],
 // Truffle Artifacts
 preloaded_contracts: ["SimpleStorage"]
 // Name of contracts you want to load automatically.
+network_contracts: [SimpleStorage]
+// Contract where Vortex will look for network informations, to determine if we are on a good network.
 }
-
-network_contracts={[SimpleStorage]}
-// This additional prop, only used with Truffle, will add the networks found inside the given
-// Truffle artifacts to the network whitelist.
 ```
 
 For Manual
@@ -292,12 +291,6 @@ manual_contracts: {
 },
 }
 ```
-
-* **network_contracts**
-
-The Contracts that will be passed to the `networksOf` method of Vortex.
-
-/!\ This only works for Truffle, Embark manages contract instances with the `chains.json` file.
 
 * **reducers_map**
 

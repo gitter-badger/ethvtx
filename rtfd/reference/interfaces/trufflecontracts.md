@@ -14,6 +14,7 @@
 
 ### Properties
 
+* [network_contracts](trufflecontracts.md#network_contracts)
 * [preloaded_contracts](trufflecontracts.md#preloaded_contracts)
 * [truffle_contracts](trufflecontracts.md#truffle_contracts)
 * [type](trufflecontracts.md#type)
@@ -22,6 +23,15 @@
 
 ## Properties
 
+<a id="network_contracts"></a>
+
+### `<Optional>` network_contracts
+
+**● network_contracts**: *`TruffleArtifact`[]*
+
+*Defined in forge.ts:45*
+
+___
 <a id="preloaded_contracts"></a>
 
 ### `<Optional>` preloaded_contracts

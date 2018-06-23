@@ -55,7 +55,8 @@ describe("Vortex", () => {
         const vtx = Vortex.factory({
             type: "truffle",
             truffle_contracts: [Migrations],
-            preloaded_contracts: ["Migrations"]
+            preloaded_contracts: ["Migrations"],
+            network_contracts: [Migrations]
         }, getWeb3, {
             custom_sagas: [
                 testSaga
