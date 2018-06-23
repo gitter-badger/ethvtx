@@ -54,6 +54,11 @@ export class Vortex<T extends State> {
      */
     public run(): void {
         if (this._contracts) {
+            if (this._contracts.type === 'truffle' && this._contracts.network_contracts) {
+                for (let idx = 0; idx < this._contracts.network_contracts.length; ++idx) {
+                    this.networksOf(this._contracts.network_contracts[idx]);
+                }
+            }
             this._store = forge(this._contracts, this._config);
         } else {
             throw new Error("No Contracts Given");

@@ -41,7 +41,8 @@ export interface EmbarkContracts extends Contracts {
 
 export interface TruffleContracts extends Contracts {
     truffle_contracts?: TruffleArtifact[]
-    preloaded_contracts?: string[]
+    preloaded_contracts?: string[],
+    network_contracts?: TruffleArtifact[]
 }
 
 export interface ManualContractArtifact {

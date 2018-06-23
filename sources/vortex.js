@@ -34,6 +34,11 @@ class Vortex {
      */
     run() {
         if (this._contracts) {
+            if (this._contracts.type === 'truffle' && this._contracts.network_contracts) {
+                for (let idx = 0; idx < this._contracts.network_contracts.length; ++idx) {
+                    this.networksOf(this._contracts.network_contracts[idx]);
+                }
+            }
             this._store = forge_1.forge(this._contracts, this._config);
         }
         else {
