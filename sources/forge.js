@@ -23,6 +23,10 @@ function forge(contracts, config = undefined) {
         refresh_rate: config ? (config.account_refresh_rate || 5000) : 5000
     };
     initialState.feed = [];
+    initialState.ipfs.config = {
+        config: config ? (config.ipfs_config || undefined) : undefined,
+        active: false
+    };
     switch (contracts.type) {
         case 'truffle':
             const truffle_contracts = contracts;

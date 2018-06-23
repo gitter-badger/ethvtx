@@ -65,7 +65,14 @@ describe("Vortex", () => {
         }, getWeb3, {
             custom_sagas: [
                 testSaga
-            ]
+            ],
+            ipfs_config: {
+                host: 'ipfs.infura.io',
+                port: '5001',
+                options: {
+                    protocol: 'https'
+                }
+            }
         });
         expect(vtx.Contracts.embark_contracts["SimpleStorage"]).not.toBe(undefined);
     });

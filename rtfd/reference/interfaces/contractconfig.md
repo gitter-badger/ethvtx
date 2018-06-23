@@ -38,7 +38,7 @@ This interface is only here to merge all configuration types into one interface.
 
 *Inherited from [EmbarkContracts](embarkcontracts.md).[chains](embarkcontracts.md#chains)*
 
-*Defined in forge.ts:37*
+*Defined in forge.ts:44*
 
 ___
 <a id="embark_contracts"></a>
@@ -49,7 +49,7 @@ ___
 
 *Inherited from [EmbarkContracts](embarkcontracts.md).[embark_contracts](embarkcontracts.md#embark_contracts)*
 
-*Defined in forge.ts:38*
+*Defined in forge.ts:45*
 
 ___
 <a id="manual_contracts"></a>
@@ -60,7 +60,7 @@ ___
 
 *Inherited from [ManualContracts](manualcontracts.md).[manual_contracts](manualcontracts.md#manual_contracts)*
 
-*Defined in forge.ts:59*
+*Defined in forge.ts:66*
 
 ___
 <a id="network_contracts"></a>
@@ -71,7 +71,7 @@ ___
 
 *Inherited from [TruffleContracts](trufflecontracts.md).[network_contracts](trufflecontracts.md#network_contracts)*
 
-*Defined in forge.ts:45*
+*Defined in forge.ts:52*
 
 ___
 <a id="preloaded_contracts"></a>
@@ -84,7 +84,7 @@ ___
 
 *Overrides [TruffleContracts](trufflecontracts.md).[preloaded_contracts](trufflecontracts.md#preloaded_contracts)*
 
-*Defined in forge.ts:39*
+*Defined in forge.ts:46*
 
 ___
 <a id="truffle_contracts"></a>
@@ -95,7 +95,7 @@ ___
 
 *Inherited from [TruffleContracts](trufflecontracts.md).[truffle_contracts](trufflecontracts.md#truffle_contracts)*
 
-*Defined in forge.ts:43*
+*Defined in forge.ts:50*
 
 ___
 <a id="type"></a>
@@ -108,7 +108,7 @@ ___
 
 *Overrides [Contracts](contracts.md).[type](contracts.md#type)*
 
-*Defined in forge.ts:33*
+*Defined in forge.ts:40*
 
 ___
 

@@ -158,8 +158,14 @@ export interface IPFSErrorState {
     error: any
 }
 
+export interface IPFSConfigState {
+    config: any,
+    instance: any,
+    active: boolean
+}
+
 export interface IPFSStoreState {
-    [key:string]: IPFSContentState | IPFSErrorState
+    [key:string]: IPFSContentState | IPFSErrorState | IPFSConfigState
 }
 
 export interface State {

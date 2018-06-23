@@ -37,4 +37,15 @@ export function IPFSError(hash: string, reason: any): IPFSErrorAction {
     };
 }
 
-export type IPFSActions = IPFSLoadAction | IPFSLoadedAction | IPFSErrorAction;
+export interface IPFSConnectAction extends Action {
+    instance: any
+}
+
+export function IPFSConnect(instance: any): IPFSConnectAction {
+    return {
+        type: 'IPFS_CONNECT',
+        instance
+    };
+}
+
+export type IPFSActions = IPFSLoadAction | IPFSLoadedAction | IPFSErrorAction | IPFSConnectAction;

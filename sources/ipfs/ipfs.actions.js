@@ -23,3 +23,10 @@ function IPFSError(hash, reason) {
     };
 }
 exports.IPFSError = IPFSError;
+function IPFSConnect(instance) {
+    return {
+        type: 'IPFS_CONNECT',
+        instance
+    };
+}
+exports.IPFSConnect = IPFSConnect;
