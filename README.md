@@ -14,7 +14,7 @@
 
 ## Introduction
 
-Vortex is an Ethereum Dapp redux store that handles transactions, smart contracts, accounts, method calls, web3 status ... Very easy to use with React, it will allow your Dapp to be more reactive (no need to refresh anything), and will make less requests with web3, for even better results.
+Vortex is an Ethereum Dapp redux store that handles transactions, smart contracts, accounts, method calls, web3 status ... Very easy to use with React, it will allow your Dapp to be more reactive (no need to refresh anything), and will make less requests with web3, for even better results. You can also fetch IPFS data and cache it into the redux store.
 
 
 ## Installation
@@ -45,16 +45,25 @@ import * as Chains from '../chains.json';
 ...
 
 
-<VortexGate contracts={{
-                type: 'embark',
-                embark_contracts: {
-                    SimpleStorage: SimpleStorageContractInstance
-                },
-                chains: Chains,
-                preloaded_contracts: [
-                    "SimpleStorage"
-                ]
-            }} loader={VortexMetamaskLoader(Web3)}>
+<VortexGate
+    contracts={{
+        type: 'embark',
+        embark_contracts: {
+            SimpleStorage: SimpleStorageContract
+        },
+        chains: Chains,
+        preloaded_contracts: [
+            "SimpleStorage"
+        ]
+    }}
+    loader={VortexMetamaskLoader(Web3)}
+    ipfs_config={{
+        host: 'ipfs.infura.io',
+        port: '5001',
+        options: {
+            protocol: 'https'
+        }
+    }}>
 
     <VortexWeb3Loaded>
         // Renders this when everything went well.
@@ -98,17 +107,21 @@ import SimpleStorage from '../build/contracts/SimpleStorage.json'
 ...
 
 
-<VortexGate contracts={{
-                type: 'truffle',
-                truffle_contracts: [
-                    SimpleStorage
-                ],
-                preloaded_contracts: [
-                    "SimpleStorage"
-                ]
-            }} network_contracts={SimpleStorage} loader={VortexMetamaskLoader(Web3)}>
-            // network_contracts defines the reference networks. If we are on a network where we can't find the
-            // contracts you gave as arguments, it will be treated as a NetworkError.
+<VortexGate
+    contracts={{
+        type: 'truffle',
+        truffle_contracts: [SimpleStorage],
+        preloaded_contracts: ["SimpleStorage"],
+        network_contracts: [SimpleStorage]
+    }}
+    loader={VortexMetamaskLoader(Web3)}
+    ipfs_config={{
+        host: 'ipfs.infura.io',
+        port: '5001',
+        options: {
+            protocol: 'https'
+        }
+    }}>
 
     <VortexWeb3Loaded>
         // Renders this when everything went well.
