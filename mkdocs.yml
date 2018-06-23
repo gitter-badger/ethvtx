@@ -15,6 +15,7 @@ pages:
     - 'TruffleContracts': reference/interfaces/trufflecontracts.md
     - 'ContractConfig': reference/interfaces/contractconfig.md
     - 'GeneratorConfig': reference/interfaces/generatorconfig.md
+    - 'IPFSConfig': reference/interfaces/ipfsconfig.md
   - 'Enums':
     - 'FeedType': reference/enums/feedtype.md
   - 'States':
@@ -36,6 +37,7 @@ pages:
     - 'IPFSContentState': reference/interfaces/ipfscontentstate.md
     - 'IPFSErrorState': reference/interfaces/ipfserrorstate.md
     - 'IPFSStoreState': reference/interfaces/ipfsstorestate.md
+    - 'IPFSConfigState': reference/interfaces/ipfsconfigstate.md
     - 'RawTransactionArgumentState': reference/interfaces/rawtransactionargumentstate.md
     - 'TransactionArgumentState': reference/interfaces/transactionargumentstate.md
     - 'TransactionBroadcastedState': reference/interfaces/transactionbroadcastedstate.md
