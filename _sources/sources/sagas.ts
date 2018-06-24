@@ -4,14 +4,16 @@ import {TxSagas} from "./tx/tx.sagas";
 import {ContractSagas} from "./contracts/contracts.saga";
 import {AccountSagas} from "./accounts/accounts.saga";
 import {IPFSSagas} from "./ipfs/ipfs.saga";
+import {BacklinkSagas} from "./backlink/backlink.sagas";
 
 export const rootSagaBuilder = (...customSagas: any[]): any => {
 
-    const sagas = ([Web3Sagas, TxSagas, ContractSagas, AccountSagas, IPFSSagas, ...customSagas]).filter((elem: any): boolean => !!elem).map((elem: any): ForkEffect => {
-        return fork(elem);
-    });
+    return function* rootSaga(dispatch: (arg: any) => void): any {
 
-    return function* rootSaga(): any {
+        const sagas = ([Web3Sagas, TxSagas, ContractSagas.bind(null, dispatch), AccountSagas, IPFSSagas, BacklinkSagas.bind(null, dispatch), ...customSagas]).filter((elem: any): boolean => !!elem).map((elem: any): ForkEffect => {
+            return fork(elem);
+        });
+
         yield all(sagas)
     }
 

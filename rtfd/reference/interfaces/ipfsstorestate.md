@@ -8,9 +8,7 @@
 
 ## Indexable
 
-\[key: `string`\]:&nbsp;[IPFSContentState](ipfscontentstate.md) |
-[IPFSErrorState](ipfserrorstate.md) |
-[IPFSConfigState](ipfsconfigstate.md)
+\[key: `string`\]:&nbsp; [IPFSContentState](ipfscontentstate.md) &#124; [IPFSErrorState](ipfserrorstate.md) &#124; [IPFSConfigState](ipfsconfigstate.md)
 
 ## Index
 

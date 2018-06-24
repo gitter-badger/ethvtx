@@ -90,3 +90,18 @@ function ContractLoad(contractName, contractAddress) {
     };
 }
 exports.ContractLoad = ContractLoad;
+function ContractPreloadDone(recap) {
+    return {
+        type: 'CONTRACT_PRELOAD_DONE',
+        recap
+    };
+}
+exports.ContractPreloadDone = ContractPreloadDone;
+function ContractCompleteRefresh(contract_name, contract_address) {
+    return {
+        type: 'CONTRACT_COMPLETE_REFRESH',
+        contract_name,
+        contract_address
+    };
+}
+exports.ContractCompleteRefresh = ContractCompleteRefresh;

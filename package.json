@@ -37,11 +37,13 @@
     "web3-utils": "^1.0.0-beta.34"
   },
   "devDependencies": {
-    "embark": "^3.0.6",
-    "ganache-core": "^2.1.0",
+    "embark": "^3.1.1",
+    "ganache-core": "^2.1.2",
     "jest": "^22.4.3",
     "linted": "0.0.2",
     "live-plugin-manager": "^0.12.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
     "truffle": "^4.1.7",
     "ts-jest": "^22.4.4",
     "tslint": "^5.9.1",
@@ -52,7 +54,7 @@
   },
   "scripts": {
     "build": "tslint --project . && tsc",
-    "test": "tslint --project . && jest --coverage --notify",
+    "test": "tslint --project . && jest --coverage --notify --runInBand",
     "doc": "rm -rf ./rtfd/reference && tslint --project . && tsc && typedoc --out ./rtfd/reference --mode file ./_sources/sources/ --name \"Vortex\" --theme markdown --hideGenerator --target ES6 --exclude **/*.test.ts --readme 'none' --excludeExternals --excludePrivate"
   },
   "repository": {

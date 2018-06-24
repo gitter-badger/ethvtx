@@ -45,8 +45,7 @@ ___
 
 ###  networkId
 
-**● networkId**: *`number` |
-`string`
+**● networkId**: * `number` &#124; `string`
 *
 
 *Defined in web3/web3.actions.ts:18*
@@ -60,7 +59,7 @@ ___
 
 *Inherited from Action.type*
 
-*Defined in /Users/mortimr/Vortex/vortex/node_modules/redux/index.d.ts:20*
+*Defined in /Users/irotaru/Vortex/vortex/node_modules/redux/index.d.ts:20*
 
 ___
 

@@ -67,6 +67,12 @@ describe("Vortex", () => {
                 options: {
                     protocol: 'https'
                 }
+            },
+            backlink_config: {
+                url: {
+                    "mainnet": "wss://mainnet.infura.io/ws",
+                    "default": "ws://localhost:8546/ws"
+                }
             }
         });
         expect(vtx.Contracts.truffle_contracts[0].contractName).toBe("Migrations");
@@ -102,7 +108,7 @@ describe("Vortex", () => {
         _web3.eth.getAccounts().then(acc => {
             Vortex.get().subscribeAccount(acc[1]);
             setTimeout((): void => {
-                done(expect(Vortex.get().Store.getState().accounts[acc[1]]).not.toBe(undefined));
+                done(expect(Vortex.get().Store.getState().accounts[acc[1].toLowerCase()]).not.toBe(undefined));
             }, 1000);
         });
     });
