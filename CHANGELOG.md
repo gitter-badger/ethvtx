@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.0.1-delta.0]
 ### Added
 - `ipfs_config` can be given as config argument to Vortex, and will allow endpoint customization
+- `backlink_config` can be given as config argument to Vortex, and will allow backlink endpoint customization
+- Ability to enable Backlink, and have dynamic data update (NO MORE POLLING)
+- Accounts are refreshed only when a transaction to/from them is caught
+- Contracts constant data is refreshed only when a transaction to them is caught
 
 ### Changed
 - Contract vortex methods are now under `vortexMethods` field (previously was `vortex`)
