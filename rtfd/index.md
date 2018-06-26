@@ -10,6 +10,7 @@ As a Dapp developer, I went to some hackathons with a clear idea in mind: show t
 
 Vortex is a Redux Store manager, that creates a Dapp-Ready store, and allows anyone to plug its own reducers and make them interact with the ones already existing. This store will allow you to keep your contracts and transactions informations across your whole application. Perfectly suited for React, components can be "mounted" on specific contracts or transactions and get updated as soon as we have new informations coming. No need for polling, everything is handled in the Redux Sagas.
 
+
 ## Concepts
 
 Vortex is working around 6 major parts. Each part has its own actions and reducers and can be used to retrieved informations.
@@ -25,6 +26,8 @@ The fourth part is **Feed** and will store a list of events. These events can be
 The fifth part is **Accounts** and will store accounts in a map. These accounts are refreshed on specific timeout, or when transaction included them (`to` or `from`) is emitted from the client.
 
 The sixth part is **IPFS**, and will allow you to fetch data from an IPFS hash and store it inside Vortex Store. This also means that if you require the same hash multiple times, it will only fetch it once !
+
+The seventh, and most interesting aspects of Vortex, is the **Backlink**. This is an additional connection to an Ethereum node, but it handles no transactions, and is a websocket connection (very important). The difference between an **HTTP** and a **WebSocket** connection is that the **WebSocket** allows bi-directional packets. This means you can receive a packet at any moment from the node. This is very very useful to get informations about the transactions happening live, and allows us to fetch updates about your contract data ONLY when we know that a transaction involving your account or contract has been added on a new block.
 
 # Components
 

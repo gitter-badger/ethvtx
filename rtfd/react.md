@@ -83,6 +83,70 @@ VortexGate is the core component and should be the topmost component of your App
 
 [Usage Example](https://github.com/Horyus/vort_x-demo/blob/master/src/App.js#L22)
 
+For Embark
+```javascript
+import {App} from './main';
+import SimpleStorage from 'Embarks/contracts/SimpleStorage';
+import * as Chains from '/path/to/embark/dir/chains.json';
+import Web3 from web3;
+import {VortexGate, VortexWeb3Loaded, VortexWeb3LoadError, VortexWeb3NetworkError, VortexWeb3Loading, VortexWeb3Locked, VortexMetamaskLoader} from 'vort_x-components';
+import React from 'react'
+
+class Main extends React.Component {
+    render() {
+        return (
+        <VortexGate contracts={
+                type: 'embark',
+                embark_contracts: {
+                    SimpleStorage: SimpleStorage
+                },
+                chains: Chains,
+                preloaded_contracts: ["SimpleStorage"]
+            } loader={VortexMetamaskLoader(Web3)}
+              ipfs_config={{
+                    host: 'ipfs.infura.io',
+                    port: '5001',
+                    options: {
+                        protocol: 'https'
+                    }
+              }}
+              backlink_config={{
+                   url: {
+                       "mainnet": "wss://mainnet.infura.io/ws",
+                       "default": "ws://localhost:8545/ws"
+                   }
+              }}>
+
+            <VortexWeb3Loaded>
+                <App/>
+            </VortexWeb3Loaded>
+
+            <VortexWeb3Loading>
+                <h1>Loading ... </h1>
+            </VortexWeb3Loading>
+
+            <VortexWeb3LoadError>
+                <h1>Oops!</h1>
+                <p>Looks like there is a problem with your Web3. Check that you unlocked your account, that Web3 is properly connected to a network and that your loader resolves a web3@1.0.0+ version of Web3 !</p>
+            </VortexWeb3LoadError>
+
+            <VortexWeb3NetworkError>
+                <h1>Oops!</h1>
+                <p>We could not find your smart contracts on the current network :(.<br/> Please check if you are on the good network !</p>
+            </VortexWeb3NetworkError>
+
+            <VortexWeb3Locked>
+                <h1>Psst!</h1>
+                <p>Looks like someone forgot to unlock its wallet provider ;) !</p>
+            </VortexWeb3Locked>
+
+        </VortexGate>
+        );
+    }
+}
+```
+
+
 For Truffle
 ```javascript
 import {App} from './main';
@@ -105,6 +169,12 @@ class Main extends React.Component {
                     port: '5001',
                     options: {
                         protocol: 'https'
+                    }
+               }}
+               backlink_config={{
+                    url: {
+                        "mainnet": "wss://mainnet.infura.io/ws",
+                        "default": "ws://localhost:8545/ws"
                     }
                }}>
 
@@ -137,62 +207,6 @@ class Main extends React.Component {
 }
 ```
 
-For Embark
-```javascript
-import {App} from './main';
-import SimpleStorage from 'Embarks/contracts/SimpleStorage';
-import * as Chains from '/path/to/embark/dir/chains.json';
-import Web3 from web3;
-import {VortexGate, VortexWeb3Loaded, VortexWeb3LoadError, VortexWeb3NetworkError, VortexWeb3Loading, VortexWeb3Locked, VortexMetamaskLoader} from 'vort_x-components';
-import React from 'react'
-
-class Main extends React.Component {
-    render() {
-        return (
-        <VortexGate contracts={
-                type: 'embark',
-                embark_contracts: {
-                    SimpleStorage: SimpleStorage
-                },
-                chains: Chains,
-                preloaded_contracts: ["SimpleStorage"]
-            } loader={VortexMetamaskLoader(Web3)}
-              ipfs_config={{
-                    host: 'ipfs.infura.io',
-                    port: '5001',
-                    options: {
-                        protocol: 'https'
-                    }
-              }}>
-
-            <VortexWeb3Loaded>
-                <App/>
-            </VortexWeb3Loaded>
-
-            <VortexWeb3Loading>
-                <h1>Loading ... </h1>
-            </VortexWeb3Loading>
-
-            <VortexWeb3LoadError>
-                <h1>Oops!</h1>
-                <p>Looks like there is a problem with your Web3. Check that you unlocked your account, that Web3 is properly connected to a network and that your loader resolves a web3@1.0.0+ version of Web3 !</p>
-            </VortexWeb3LoadError>
-
-            <VortexWeb3NetworkError>
-                <h1>Oops!</h1>
-                <p>We could not find your smart contracts on the current network :(.<br/> Please check if you are on the good network !</p>
-            </VortexWeb3NetworkError>
-
-            <VortexWeb3Locked>
-                <h1>Psst!</h1>
-                <p>Looks like someone forgot to unlock its wallet provider ;) !</p>
-            </VortexWeb3Locked>
-
-        </VortexGate>
-        );
-    }
-}
-```
 
 For manual contracts
 ```javascript
@@ -223,6 +237,12 @@ class Main extends React.Component {
                     options: {
                         protocol: 'https'
                     }
+              }}
+              backlink_config={{
+                   url: {
+                       "mainnet": "wss://mainnet.infura.io/ws",
+                       "default": "ws://localhost:8545/ws"
+                   }
               }}>
 
             <VortexWeb3Loaded>
@@ -328,6 +348,10 @@ Custom sagas you want to add to the existing ones.
 * **ipfs_config**
 
 Configuration for the IPFS endpoint (without it, no connection will be made)
+
+* **backlink_config**
+
+An endpoint to connect the websocket backlink. You must configure it per network, and give an endpoint for the networks your app is going to use.
 
 **reducers_map**, **custom_state** , **ipfs_config** and **custom_sagas** are only forwarded to the [Vortex](/tutorial/#vortex) instance.
 
