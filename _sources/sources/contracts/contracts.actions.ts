@@ -147,4 +147,33 @@ export function ContractLoad(contractName: string, contractAddress: string): Con
     } as ContractLoadAction;
 }
 
+export interface ContractLoadInfos {
+    name: string,
+    address: string
+}
+
+export interface ContractPreloadDoneAction extends Action {
+    recap: ContractLoadInfos[]
+}
+
+export function ContractPreloadDone(recap: ContractLoadInfos[]): ContractPreloadDoneAction {
+    return {
+        type: 'CONTRACT_PRELOAD_DONE',
+        recap
+    } as ContractPreloadDoneAction;
+}
+
+export interface ContractCompleteRefreshAction extends Action {
+    contract_name: string,
+    contract_address: string
+}
+
+export function ContractCompleteRefresh(contract_name: string, contract_address: string): ContractCompleteRefreshAction {
+    return {
+        type: 'CONTRACT_COMPLETE_REFRESH',
+        contract_name,
+        contract_address
+    } as ContractCompleteRefreshAction;
+}
+
 export type ContractActions = ContractLoadingAction | ContractLoadedAction | ContractErrorAction | ContractCallAction | ContractSendAction | ContractVarReceivedAction | ContractVarErrorReceivedAction | ContractVarForceRefreshAction;

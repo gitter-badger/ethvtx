@@ -1,6 +1,7 @@
 import {Reducer, ReducersMapObject} from "redux";
 import {
     AccountStoreState,
+    BacklinkState,
     ContractStoreState,
     FeedState,
     IPFSStoreState,
@@ -15,5 +16,6 @@ export const dummyReducer: ReducersMapObject<State> = {
     contracts: {} as Reducer<ContractStoreState>,
     feed: {} as Reducer<FeedState[]>,
     accounts: {} as Reducer<AccountStoreState>,
-    ipfs: {} as Reducer<IPFSStoreState>
+    ipfs: {} as Reducer<IPFSStoreState>,
+    backlink: {} as Reducer<BacklinkState>
 };

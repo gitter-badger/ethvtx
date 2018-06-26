@@ -11,6 +11,7 @@
 ### Properties
 
 * [accounts](state.md#accounts)
+* [backlink](state.md#backlink)
 * [contracts](state.md#contracts)
 * [feed](state.md#feed)
 * [ipfs](state.md#ipfs)
@@ -27,7 +28,16 @@
 
 **● accounts**: *[AccountStoreState](accountstorestate.md)*
 
-*Defined in stateInterface.ts:176*
+*Defined in stateInterface.ts:203*
+
+___
+<a id="backlink"></a>
+
+###  backlink
+
+**● backlink**: *[BacklinkState](backlinkstate.md)*
+
+*Defined in stateInterface.ts:205*
 
 ___
 <a id="contracts"></a>
@@ -36,16 +46,16 @@ ___
 
 **● contracts**: *[ContractStoreState](contractstorestate.md)*
 
-*Defined in stateInterface.ts:174*
+*Defined in stateInterface.ts:201*
 
 ___
 <a id="feed"></a>
 
 ###  feed
 
-**● feed**: *([FeedNewContractState](feednewcontractstate.md) |[FeedNewTransactionState](feednewtransactionstate.md) |[FeedNewErrorState](feednewerrorstate.md) |[FeedNewAccountState](feednewaccountstate.md) |[FeedNewIPFSContentState](feednewipfscontentstate.md))[]*
+**● feed**: *( [FeedNewContractState](feednewcontractstate.md) &#124; [FeedNewTransactionState](feednewtransactionstate.md) &#124; [FeedNewErrorState](feednewerrorstate.md) &#124; [FeedNewAccountState](feednewaccountstate.md) &#124; [FeedNewIPFSContentState](feednewipfscontentstate.md))[]*
 
-*Defined in stateInterface.ts:175*
+*Defined in stateInterface.ts:202*
 
 ___
 <a id="ipfs"></a>
@@ -54,7 +64,7 @@ ___
 
 **● ipfs**: *[IPFSStoreState](ipfsstorestate.md)*
 
-*Defined in stateInterface.ts:177*
+*Defined in stateInterface.ts:204*
 
 ___
 <a id="tx"></a>
@@ -63,21 +73,17 @@ ___
 
 **● tx**: *[TransactionStoreState](transactionstorestate.md)*
 
-*Defined in stateInterface.ts:173*
+*Defined in stateInterface.ts:200*
 
 ___
 <a id="web3"></a>
 
 ###  web3
 
-**● web3**: *[Web3LoadingState](web3loadingstate.md) |
-[Web3LoadedState](web3loadedstate.md) |
-[Web3LoadErrorState](web3loaderrorstate.md) |
-[Web3NetworkErrorState](web3networkerrorstate.md) |
-[Web3LockedState](web3lockedstate.md)
+**● web3**: * [Web3LoadingState](web3loadingstate.md) &#124; [Web3LoadedState](web3loadedstate.md) &#124; [Web3LoadErrorState](web3loaderrorstate.md) &#124; [Web3NetworkErrorState](web3networkerrorstate.md) &#124; [Web3LockedState](web3lockedstate.md)
 *
 
-*Defined in stateInterface.ts:172*
+*Defined in stateInterface.ts:199*
 
 ___
 

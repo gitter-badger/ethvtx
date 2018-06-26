@@ -16,6 +16,7 @@ pages:
     - 'ContractConfig': reference/interfaces/contractconfig.md
     - 'GeneratorConfig': reference/interfaces/generatorconfig.md
     - 'IPFSConfig': reference/interfaces/ipfsconfig.md
+    - 'BacklinkConfig': reference/interfaces/backlinkconfig.md
   - 'Enums':
     - 'FeedType': reference/enums/feedtype.md
   - 'States':
@@ -24,6 +25,11 @@ pages:
     - 'AccountErrorState': reference/interfaces/accounterrorstate.md
     - 'AccountInfoState': reference/interfaces/accountinfostate.md
     - 'AccountStoreState': reference/interfaces/accountstorestate.md
+    - 'BacklinkConfigState': reference/interfaces/backlinkconfigstate.md
+    - 'BacklinkHookState': reference/interfaces/backlinkhookstate.md
+    - 'BacklinkNetworkUrlMaps': reference/interfaces/backlinknetworkurlmaps.md
+    - 'BacklinkState': reference/interfaces/backlinkstate.md
+    - 'BacklinkSubscriptionHookState': reference/interfaces/backlinksubscriptionhookstate.md
     - 'ContractAddressState': reference/interfaces/contractaddressesstate.md
     - 'ContractInstanceState': reference/interfaces/contractinstancestate.md
     - 'ContractStoreState': reference/interfaces/contractstorestate.md

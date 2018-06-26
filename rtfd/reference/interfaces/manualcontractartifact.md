@@ -24,7 +24,7 @@
 
 **● abi**: *`any`*
 
-*Defined in forge.ts:56*
+*Defined in forge.ts:60*
 
 ___
 <a id="at"></a>
@@ -33,7 +33,7 @@ ___
 
 **● at**: *`string`*
 
-*Defined in forge.ts:57*
+*Defined in forge.ts:61*
 
 ___
 <a id="deployed_bytecode"></a>
@@ -42,7 +42,7 @@ ___
 
 **● deployed_bytecode**: *`string`*
 
-*Defined in forge.ts:58*
+*Defined in forge.ts:62*
 
 ___
 

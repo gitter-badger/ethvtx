@@ -13,7 +13,7 @@ import {
 import createSagaMiddleware, {SagaMiddleware} from 'redux-saga';
 import {
     AccountConfigState,
-    AccountStoreState, ContractArtifactState,
+    AccountStoreState, BacklinkConfigState, BacklinkState, ContractArtifactState,
     FeedState,
     State,
     Web3LoadingState
@@ -28,13 +28,17 @@ export interface IPFSConfig {
     options?: any
 }
 
+export interface BacklinkConfig extends BacklinkConfigState {}
+
 export interface GeneratorConfig<T> {
     reducer?: ReducersMapObject<T>,
     custom_state?: DeepPartial<T>,
     account_refresh_rate?: number,
     custom_sagas?: any[],
-    ipfs_config?: IPFSConfig
+    ipfs_config?: IPFSConfig,
+    backlink_config?: BacklinkConfig
 }
+
 
 export interface Contracts {
     type: string;
@@ -78,7 +82,8 @@ export function forge<T extends State = State>(contracts: EmbarkContracts | Truf
         tx: {},
         web3: {},
         accounts: {},
-        ipfs: {}
+        ipfs: {},
+        backlink: {}
     } as DeepPartial<T>;
 
     (<Web3LoadingState>(<any>initialState).web3) = {
@@ -90,6 +95,18 @@ export function forge<T extends State = State>(contracts: EmbarkContracts | Truf
     };
 
     (<FeedState[]>(<any>initialState).feed) = [] as FeedState[];
+
+    if (config && config.backlink_config) {
+        (<DeepPartial<BacklinkState>>(<any>initialState).backlink) = {
+            config: config.backlink_config,
+            status: 'LOADING',
+            hooks: {}
+        } as DeepPartial<BacklinkState>;
+    } else {
+        (<DeepPartial<BacklinkState>>(<any>initialState).backlink) = {
+            status: 'DISABLED'
+        } as DeepPartial<BacklinkState>;
+    }
 
     (<any>initialState.ipfs.config) = {
         config: config ? (config.ipfs_config || undefined) : undefined,
@@ -186,9 +203,9 @@ export function forge<T extends State = State>(contracts: EmbarkContracts | Truf
     const store: Store<T> = createStore<T, any, any, any>(combinedReducer, combinedInitialState, composer(applyMiddleware(sagaMiddleware)));
 
     if (config && config.custom_sagas)
-        sagaMiddleware.run(rootSagaBuilder(...config.custom_sagas));
+        sagaMiddleware.run(rootSagaBuilder(...config.custom_sagas), store.dispatch);
     else
-        sagaMiddleware.run(rootSagaBuilder());
+        sagaMiddleware.run(rootSagaBuilder(), store.dispatch);
 
     return (store);
 }

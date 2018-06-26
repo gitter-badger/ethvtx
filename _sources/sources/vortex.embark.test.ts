@@ -56,8 +56,8 @@ describe("Vortex", () => {
         const vtx = Vortex.factory({
             type: "embark",
             embark_contracts: {
-                SimpleStorage: new _web3.eth.Contract(SimpleStorage.abi, "0xc7E4d433eb912f78244A54bac86ba757E4e8641F", {
-                    data: SimpleStorage.real_runtime_bytecode
+                SimpleStorage: new _web3.eth.Contract(SimpleStorage.abiDefinition, "0xc7E4d433eb912f78244A54bac86ba757E4e8641F", {
+                    data: SimpleStorage.realRuntimeBytecode
                 })
             },
             preloaded_contracts: ["SimpleStorage"],
@@ -71,6 +71,12 @@ describe("Vortex", () => {
                 port: '5001',
                 options: {
                     protocol: 'https'
+                }
+            },
+            backlink_config: {
+                url: {
+                    "mainnet": "wss://mainnet.infura.io/ws",
+                    "default": "ws://localhost:8546/ws"
                 }
             }
         });
@@ -107,7 +113,7 @@ describe("Vortex", () => {
         _web3.eth.getAccounts().then(acc => {
             Vortex.get().subscribeAccount(acc[1]);
             setTimeout((): void => {
-                done(expect(Vortex.get().Store.getState().accounts[acc[1]]).not.toBe(undefined));
+                done(expect(Vortex.get().Store.getState().accounts[acc[1].toLowerCase()]).not.toBe(undefined));
             }, 1000);
         });
     });

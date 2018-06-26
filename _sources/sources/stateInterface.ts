@@ -168,12 +168,40 @@ export interface IPFSStoreState {
     [key:string]: IPFSContentState | IPFSErrorState | IPFSConfigState
 }
 
+export interface BacklinkNetworkUrlMaps {
+    [key: string]: string
+}
+
+export interface BacklinkConfigState {
+    url: BacklinkNetworkUrlMaps
+}
+
+export interface BacklinkSubscriptionHookState {
+    trigger: (tx: any, dispatch: (arg: any) => void) => void,
+    from: boolean,
+    to: boolean
+}
+
+export interface BacklinkHookState {
+    [key: string]: BacklinkSubscriptionHookState[]
+}
+
+export interface BacklinkState {
+    config: BacklinkConfigState,
+    status: string,
+    error: any,
+    instance: any,
+    url: string,
+    hooks: BacklinkHookState
+}
+
 export interface State {
     web3: Web3LoadingState | Web3LoadedState | Web3LoadErrorState | Web3NetworkErrorState | Web3LockedState,
     tx: TransactionStoreState,
     contracts: ContractStoreState,
     feed: (FeedNewContractState | FeedNewTransactionState | FeedNewErrorState | FeedNewAccountState | FeedNewIPFSContentState)[],
     accounts: AccountStoreState,
-    ipfs: IPFSStoreState
+    ipfs: IPFSStoreState,
+    backlink: BacklinkState
 }
 

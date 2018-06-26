@@ -14,7 +14,8 @@ function forge(contracts, config = undefined) {
         tx: {},
         web3: {},
         accounts: {},
-        ipfs: {}
+        ipfs: {},
+        backlink: {}
     };
     initialState.web3 = {
         status: 'LOADING'
@@ -23,6 +24,18 @@ function forge(contracts, config = undefined) {
         refresh_rate: config ? (config.account_refresh_rate || 5000) : 5000
     };
     initialState.feed = [];
+    if (config && config.backlink_config) {
+        initialState.backlink = {
+            config: config.backlink_config,
+            status: 'LOADING',
+            hooks: {}
+        };
+    }
+    else {
+        initialState.backlink = {
+            status: 'DISABLED'
+        };
+    }
     initialState.ipfs.config = {
         config: config ? (config.ipfs_config || undefined) : undefined,
         active: false
@@ -101,9 +114,9 @@ function forge(contracts, config = undefined) {
     const sagaMiddleware = redux_saga_1.default();
     const store = redux_1.createStore(combinedReducer, combinedInitialState, composer(redux_1.applyMiddleware(sagaMiddleware)));
     if (config && config.custom_sagas)
-        sagaMiddleware.run(sagas_1.rootSagaBuilder(...config.custom_sagas));
+        sagaMiddleware.run(sagas_1.rootSagaBuilder(...config.custom_sagas), store.dispatch);
     else
-        sagaMiddleware.run(sagas_1.rootSagaBuilder());
+        sagaMiddleware.run(sagas_1.rootSagaBuilder(), store.dispatch);
     return (store);
 }
 exports.forge = forge;

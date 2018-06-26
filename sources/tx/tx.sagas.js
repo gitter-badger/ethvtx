@@ -16,6 +16,7 @@ const toLower = [
 ];
 function* sendTransaction(action) {
     let transaction_hash;
+    const state = yield effects_1.select();
     return redux_saga_1.eventChannel((emit) => {
         let _transactionEvents = undefined;
         try {
@@ -35,12 +36,14 @@ function* sendTransaction(action) {
                 emit(tx_actions_1.TxBroadcasted(_transaction_hash, action.txArgs));
             })
                 .on('confirmation', (_amount, _receipt) => {
-                emit(tx_actions_1.TxConfirmed(transaction_hash, _receipt, _amount));
-                if (!(_amount % 5) || _amount < 5) {
-                    if (action.txArgs.from)
-                        emit(accounts_actions_1.AccountUpdateRequest(action.txArgs.from));
-                    if (action.txArgs.to)
-                        emit(accounts_actions_1.AccountUpdateRequest(action.txArgs.to));
+                if (state.backlink.status !== 'CONNECTED' && state.backlink.status !== 'LOADING') {
+                    emit(tx_actions_1.TxConfirmed(transaction_hash, _receipt, _amount));
+                    if (!(_amount % 5) || _amount < 5) {
+                        if (action.txArgs.from)
+                            emit(accounts_actions_1.AccountUpdateRequest(action.txArgs.from));
+                        if (action.txArgs.to)
+                            emit(accounts_actions_1.AccountUpdateRequest(action.txArgs.to));
+                    }
                 }
                 if (_amount >= 24)
                     emit(redux_saga_1.END);

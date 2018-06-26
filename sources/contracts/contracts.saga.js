@@ -89,11 +89,14 @@ const compareBytecode = (address, bytecode, web3) => {
     });
 };
 function* onLoadContractInitialize(action) {
-    const contracts = (yield effects_1.select()).contracts;
+    const state = (yield effects_1.select());
+    const contracts = state.contracts;
+    const backlink = state.backlink;
     const contractNames = Object.keys(contracts);
     switch (contracts.config.type) {
         case 'truffle':
             try {
+                const recap = [];
                 for (let idx = 0; idx < contractNames.length; ++idx) {
                     let contract_instance = undefined;
                     for (let save_contract_idx = 0; save_contract_idx < contracts.config.config.contracts.length; ++save_contract_idx) {
@@ -108,8 +111,10 @@ function* onLoadContractInitialize(action) {
                             break;
                         }
                         yield* loadContract(contractNames[idx], contract_instance.networks[action.networkId].address.toLowerCase(), action.coinbase, action._);
+                        recap.push({ name: contractNames[idx], address: contract_instance.networks[action.networkId].address.toLowerCase() });
                     }
                 }
+                yield effects_1.put(contracts_actions_1.ContractPreloadDone(recap));
             }
             catch (e) {
                 yield effects_1.put(web3_actions_1.Web3LoadError(e));
@@ -119,12 +124,15 @@ function* onLoadContractInitialize(action) {
             try {
                 const contract_infos = contracts.config.config.chains[action.networkId].contracts;
                 const to_preload = contracts.config.config.preloaded_contracts;
+                const recap = [];
                 for (let idx = 0; idx < Object.keys(contract_infos).length; ++idx) {
                     const infos = contract_infos[Object.keys(contract_infos)[idx]];
                     if (to_preload.indexOf(infos.name) !== -1 && contracts[infos.name]) {
                         yield* loadContract(infos.name, infos.address.toLowerCase(), action.coinbase, action._);
+                        recap.push({ name: infos.name, address: infos.address.toLowerCase() });
                     }
                 }
+                yield effects_1.put(contracts_actions_1.ContractPreloadDone(recap));
             }
             catch (e) {
                 yield effects_1.put(web3_actions_1.Web3LoadError(e));
@@ -133,6 +141,7 @@ function* onLoadContractInitialize(action) {
         case 'manual':
             try {
                 const config_contract = contracts.config.config.contracts;
+                const recap = [];
                 for (let idx = 0; idx < Object.keys(config_contract).length; ++idx) {
                     const infos = config_contract[Object.keys(config_contract)[idx]];
                     if (infos.at) {
@@ -144,22 +153,26 @@ function* onLoadContractInitialize(action) {
                             }
                         }
                         yield* loadContract(Object.keys(config_contract)[idx], infos.at.toLowerCase(), action.coinbase, action._);
+                        recap.push({ name: Object.keys(config_contract)[idx], address: infos.at.toLowerCase() });
                     }
                 }
+                yield effects_1.put(contracts_actions_1.ContractPreloadDone(recap));
             }
             catch (e) {
                 yield effects_1.put(web3_actions_1.Web3LoadError(e));
             }
     }
-    const auto_refresh = yield effects_1.call(backgroundContractLoad);
-    try {
-        while (true) {
-            const time_to_update = yield effects_1.take(auto_refresh);
-            yield effects_1.put(time_to_update);
+    if (backlink.status !== 'CONNECTED' && backlink.status !== 'LOADING') {
+        const auto_refresh = yield effects_1.call(backgroundContractLoad);
+        try {
+            while (true) {
+                const time_to_update = yield effects_1.take(auto_refresh);
+                yield effects_1.put(time_to_update);
+            }
         }
-    }
-    finally {
-        auto_refresh.close();
+        finally {
+            auto_refresh.close();
+        }
     }
 }
 function* contractCall(action, tx, arg_signature) {
@@ -219,12 +232,14 @@ function* contractSend(action, tx, web3) {
             })
                 .on('confirmation', (_amount, _receipt) => {
                 emit(tx_actions_1.TxConfirmed(transaction_hash, _receipt, _amount));
-                if (!(_amount % 5) || _amount < 5) {
-                    runForceRefreshRoundOn(state, emit, action.contractName, action.contractAddress);
-                    if (action.transactionArgs.from)
-                        emit(accounts_actions_1.AccountUpdateRequest(action.transactionArgs.from));
-                    if (action.transactionArgs.to)
-                        emit(accounts_actions_1.AccountUpdateRequest(action.transactionArgs.to));
+                if (state.backlink.status !== 'CONNECTED' && state.backlink.status !== 'LOADING') {
+                    if (!(_amount % 5) || _amount < 5) {
+                        runForceRefreshRoundOn(state, emit, action.contractName, action.contractAddress);
+                        if (action.transactionArgs.from)
+                            emit(accounts_actions_1.AccountUpdateRequest(action.transactionArgs.from));
+                        if (action.transactionArgs.to)
+                            emit(accounts_actions_1.AccountUpdateRequest(action.transactionArgs.to));
+                    }
                 }
                 if (_amount >= 24)
                     emit(redux_saga_1.END);
@@ -291,10 +306,16 @@ function* onContractLoad(action) {
     const { coinbase, _ } = (yield effects_1.select()).web3;
     yield* loadContract(action.contractName, action.contractAddress, coinbase, _);
 }
-function* ContractSagas() {
+function* onContractCompleteRefresh(dispatch, action) {
+    const state = yield effects_1.select();
+    runForceRefreshRoundOn(state, dispatch, action.contract_name, action.contract_address);
+}
+function* ContractSagas(dispatch) {
     yield effects_1.takeLatest('LOADED_WEB3', onLoadContractInitialize);
     yield effects_1.takeEvery('CONTRACT_LOAD', onContractLoad);
     yield effects_1.takeEvery('CONTRACT_CALL', onContractCall);
     yield effects_1.takeEvery('CONTRACT_SEND', onContractSend);
+    const boundOnContractCompleteRefresh = onContractCompleteRefresh.bind(null, dispatch);
+    yield effects_1.takeEvery('CONTRACT_COMPLETE_REFRESH', boundOnContractCompleteRefresh);
 }
 exports.ContractSagas = ContractSagas;

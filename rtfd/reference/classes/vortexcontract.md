@@ -32,10 +32,10 @@
 
 | Param | Type |
 | ------ | ------ |
-| artifact | `ContractArtifact` | 
-| address | `string` | 
-| coinbase | `string` | 
-| web3 | `any` | 
+| artifact | `ContractArtifact` |
+| address | `string` |
+| coinbase | `string` |
+| web3 | `any` |
 
 **Returns:** [VortexContract](vortexcontract.md)
 
@@ -55,7 +55,7 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| `Rest` methodArguments | `any`[] | 
+| `Rest` methodArguments | `any`[] |
 
 **Returns:** `string`
 

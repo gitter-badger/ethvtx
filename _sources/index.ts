@@ -35,7 +35,12 @@ export {
     IPFSErrorState,
     IPFSContentState,
     IPFSConfigState,
-    ContractArtifactState
+    ContractArtifactState,
+    BacklinkConfigState,
+    BacklinkHookState,
+    BacklinkNetworkUrlMaps,
+    BacklinkState,
+    BacklinkSubscriptionHookState
 } from './sources/stateInterface';
 
 export {dummyReducer} from './sources/dummyReducer';
@@ -90,7 +95,12 @@ export {
     ContractSendAction,
     ContractVarErrorReceived,
     ContractVarForceRefresh,
-    ContractVarReceived
+    ContractVarReceived,
+    ContractCompleteRefresh,
+    ContractCompleteRefreshAction,
+    ContractLoadInfos,
+    ContractPreloadDone,
+    ContractPreloadDoneAction
 } from './sources/contracts/contracts.actions';
 
 export {
@@ -102,7 +112,9 @@ export {
     FeedActions,
     FeedNewError,
     FeedNewAccountAction,
-    FeedNewAccount
+    FeedNewAccount,
+    FeedNewIPFSContent,
+    FeedNewIPFSContentAction
 } from './sources/feed/feed.actions';
 
 export {
@@ -111,7 +123,8 @@ export {
     FeedFilterContracts,
     FeedFilterErrors,
     FeedFilterTransactions,
-    FeedFilterAccounts
+    FeedFilterAccounts,
+    FeedFilterIPFSContent
 } from './sources/feed/feed.selectors';
 
 export {
@@ -152,5 +165,6 @@ export {
     TruffleContracts,
     Contracts,
     GeneratorConfig,
-    IPFSConfig
+    IPFSConfig,
+    BacklinkConfig
 } from './sources/forge'

@@ -41,7 +41,8 @@ const web3_loader = new Promise((ok, ko) => {
     }
 });
 
-const instance = Vortex.factory({
+const instance = Vortex.factory(
+    {
         type: 'truffle',
         truffle_contracts: [SimpleStorage, MySmartContract],
         preloaded_contracts: ["SimpleStorage"],
@@ -54,6 +55,12 @@ const instance = Vortex.factory({
             port: '5001',
             options: {
                 protocol: 'https'
+            }
+        },
+        backlink_config: {
+            url: {
+                "mainnet": "wss://mainnet.infura.io/ws",
+                "default": "ws://localhost:8545/ws"
             }
         }
     });
@@ -129,6 +136,12 @@ const instance = Vortex.factory({
             options: {
                 protocol: 'https'
             }
+        },
+        backlink_config: {
+             url: {
+                 "mainnet": "wss://mainnet.infura.io/ws",
+                 "default": "ws://localhost:8545/ws"
+             }
         }
     });
 ```
@@ -204,6 +217,12 @@ const instance = Vortex.factory({
             options: {
                 protocol: 'https'
             }
+        },
+        backlink_config: {
+             url: {
+                 "mainnet": "wss://mainnet.infura.io/ws",
+                 "default": "ws://localhost:8545/ws"
+             }
         }
     });
 ```
@@ -293,6 +312,12 @@ const instance = Vortex.factory({
             options: {
                 protocol: 'https'
             }
+        },
+        backlink_config: {
+             url: {
+                 "mainnet": "wss://mainnet.infura.io/ws",
+                 "default": "ws://localhost:8545/ws"
+             }
         }
     });
 ```
@@ -306,6 +331,7 @@ Configuration options are:
 * **account_refresh_rate**: A refresh rate (in ms) for account balance refresh. Default: `5000`
 * **custom_sagas**: Custom sagas you want to add to the already existing `redux-saga` middleware.
 * **ipfs_config**: Configuration for the ipfs endpoint.
+* **backlink_config**: Configuration for the backlink endpoint.
 
 #### Preparing before running
 

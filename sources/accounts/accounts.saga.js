@@ -52,28 +52,31 @@ function* refreshLoop() {
     });
 }
 function* onAccountInit() {
-    const coinbase = (yield effects_1.select()).web3.coinbase;
+    const state = (yield effects_1.select());
+    const coinbase = state.web3.coinbase;
     yield effects_1.put(accounts_actions_1.AccountAdd(coinbase, true));
-    const refresh_loop = yield effects_1.call(refreshLoop);
-    try {
-        while (true) {
-            const event = yield effects_1.take(refresh_loop);
-            yield effects_1.put(event);
+    if (state.backlink.status !== 'CONNECTED' && state.backlink.status !== 'LOADING') {
+        const refresh_loop = yield effects_1.call(refreshLoop);
+        try {
+            while (true) {
+                const event = yield effects_1.take(refresh_loop);
+                yield effects_1.put(event);
+            }
         }
-    }
-    finally {
-        refresh_loop.close();
+        finally {
+            refresh_loop.close();
+        }
     }
 }
 function* singleFetch(action, new_address, coinbase) {
     return redux_saga_1.eventChannel((emit) => {
-        fetchAccount(action.address, coinbase, emit).then(() => {
+        fetchAccount(action.address.toLowerCase(), coinbase, emit).then(() => {
             if (new_address) {
-                emit(feed_actions_1.FeedNewAccount(action.address, coinbase));
+                emit(feed_actions_1.FeedNewAccount(action.address.toLowerCase(), coinbase));
             }
             emit(redux_saga_1.END);
         }).catch((e) => {
-            emit(accounts_actions_1.AccountError(action.address, e));
+            emit(accounts_actions_1.AccountError(action.address.toLowerCase(), e));
             emit(feed_actions_1.FeedNewError(e, e.message, "[accounts.sagas.ts][singleFetch] Trying to fetch account informations."));
             emit(redux_saga_1.END);
         });

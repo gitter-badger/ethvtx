@@ -283,9 +283,9 @@ ___
 
 | Param | Type | Default value |
 | ------ | ------ | ------ |
-| contracts | [ContractConfig](../interfaces/contractconfig.md) | - | 
-| loader | `Promise`<`any`> | - | 
-| `Default value` config | [GeneratorConfig](../interfaces/generatorconfig.md)<`U`> |  undefined | 
+| contracts | [ContractConfig](../interfaces/contractconfig.md) | - |
+| loader | `Promise`<`any`> | - |
+| `Default value` config | [GeneratorConfig](../interfaces/generatorconfig.md)<`U`> |  undefined |
 
 **Returns:** [Vortex](vortex.md)<`U`>
 

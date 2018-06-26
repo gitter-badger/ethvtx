@@ -24,15 +24,33 @@
 * [AccountStoreState](interfaces/accountstorestate.md)
 * [AccountUpdateAction](interfaces/accountupdateaction.md)
 * [AccountUpdateRequestAction](interfaces/accountupdaterequestaction.md)
+* [BacklinkConfig](interfaces/backlinkconfig.md)
+* [BacklinkConfigState](interfaces/backlinkconfigstate.md)
+* [BacklinkConnectAction](interfaces/backlinkconnectaction.md)
+* [BacklinkConnectedAction](interfaces/backlinkconnectedaction.md)
+* [BacklinkCreateHookAction](interfaces/backlinkcreatehookaction.md)
+* [BacklinkDisableAction](interfaces/backlinkdisableaction.md)
+* [BacklinkDisconnectAction](interfaces/backlinkdisconnectaction.md)
+* [BacklinkDisconnectedAction](interfaces/backlinkdisconnectedaction.md)
+* [BacklinkErrorAction](interfaces/backlinkerroraction.md)
+* [BacklinkHookState](interfaces/backlinkhookstate.md)
+* [BacklinkNetworkUrlMaps](interfaces/backlinknetworkurlmaps.md)
+* [BacklinkNewBlockEventAction](interfaces/backlinknewblockeventaction.md)
+* [BacklinkRemoveHookAction](interfaces/backlinkremovehookaction.md)
+* [BacklinkState](interfaces/backlinkstate.md)
+* [BacklinkSubscriptionHookState](interfaces/backlinksubscriptionhookstate.md)
 * [CachedWaitingCalls](interfaces/cachedwaitingcalls.md)
 * [ContractAddressesState](interfaces/contractaddressesstate.md)
 * [ContractArtifactState](interfaces/contractartifactstate.md)
+* [ContractCompleteRefreshAction](interfaces/contractcompleterefreshaction.md)
 * [ContractConfig](interfaces/contractconfig.md)
 * [ContractErrorAction](interfaces/contracterroraction.md)
 * [ContractInstanceState](interfaces/contractinstancestate.md)
 * [ContractLoadAction](interfaces/contractloadaction.md)
+* [ContractLoadInfos](interfaces/contractloadinfos.md)
 * [ContractLoadedAction](interfaces/contractloadedaction.md)
 * [ContractLoadingAction](interfaces/contractloadingaction.md)
+* [ContractPreloadDoneAction](interfaces/contractpreloaddoneaction.md)
 * [ContractSendAction](interfaces/contractsendaction.md)
 * [ContractStoreState](interfaces/contractstorestate.md)
 * [ContractVarErrorReceivedAction](interfaces/contractvarerrorreceivedaction.md)
@@ -99,6 +117,7 @@
 
 * [AccountActions](#accountactions)
 * [AccountState](#accountstate)
+* [BacklinkActions](#backlinkactions)
 * [ContractActions](#contractactions)
 * [ContractCallAction](#contractcallaction)
 * [FeedActions](#feedactions)
@@ -133,11 +152,29 @@
 * [AccountUpdate](#accountupdate)
 * [AccountUpdateReducer](#accountupdatereducer)
 * [AccountUpdateRequest](#accountupdaterequest)
+* [BacklinkConnect](#backlinkconnect)
+* [BacklinkConnected](#backlinkconnected)
+* [BacklinkConnectedReducer](#backlinkconnectedreducer)
+* [BacklinkCreateHook](#backlinkcreatehook)
+* [BacklinkCreateHookReducer](#backlinkcreatehookreducer)
+* [BacklinkDisable](#backlinkdisable)
+* [BacklinkDisableReducer](#backlinkdisablereducer)
+* [BacklinkDisconnect](#backlinkdisconnect)
+* [BacklinkDisconnected](#backlinkdisconnected)
+* [BacklinkDisconnectedReducer](#backlinkdisconnectedreducer)
+* [BacklinkError](#backlinkerror)
+* [BacklinkErrorReducer](#backlinkerrorreducer)
+* [BacklinkNewBlockEvent](#backlinknewblockevent)
+* [BacklinkRemoveHook](#backlinkremovehook)
+* [BacklinkRemoveHookReducer](#backlinkremovehookreducer)
+* [BacklinkSagas](#backlinksagas)
 * [ContractCall](#contractcall)
+* [ContractCompleteRefresh](#contractcompleterefresh)
 * [ContractError](#contracterror)
 * [ContractLoad](#contractload)
 * [ContractLoaded](#contractloaded)
 * [ContractLoading](#contractloading)
+* [ContractPreloadDone](#contractpreloaddone)
 * [ContractSagas](#contractsagas)
 * [ContractSend](#contractsend)
 * [ContractVarErrorReceived](#contractvarerrorreceived)
@@ -173,6 +210,7 @@
 * [Web3Sagas](#web3sagas)
 * [accounts](#accounts)
 * [backgroundContractLoad](#backgroundcontractload)
+* [backlink](#backlink)
 * [callResolveWeb3](#callresolveweb3)
 * [callSendRawTransaction](#callsendrawtransaction)
 * [callSendTransaction](#callsendtransaction)
@@ -188,6 +226,7 @@
 * [contracts](#contracts)
 * [feed](#feed)
 * [fetchAccount](#fetchaccount)
+* [fetchBlockCallTriggers](#fetchblockcalltriggers)
 * [forge](#forge)
 * [getFeed](#getfeed)
 * [initializeRequest](#initializerequest)
@@ -196,12 +235,18 @@
 * [loopOnAccounts](#looponaccounts)
 * [onAccountAdd](#onaccountadd)
 * [onAccountInit](#onaccountinit)
+* [onBacklinkInit](#onbacklinkinit)
 * [onContractCall](#oncontractcall)
+* [onContractCompleteRefresh](#oncontractcompleterefresh)
 * [onContractLoad](#oncontractload)
 * [onContractSend](#oncontractsend)
 * [onLoadContractInitialize](#onloadcontractinitialize)
 * [onLoadRequest](#onloadrequest)
+* [onNewAccount](#onnewaccount)
+* [onNewBlock](#onnewblock)
+* [onNewContract](#onnewcontract)
 * [onUpdateRequest](#onupdaterequest)
+* [recursiveBackwardFetcher](#recursivebackwardfetcher)
 * [refreshLoop](#refreshloop)
 * [resolveWeb3](#resolveweb3)
 * [rootSagaBuilder](#rootsagabuilder)
@@ -211,12 +256,14 @@
 * [sendTransaction](#sendtransaction)
 * [singleFetch](#singlefetch)
 * [tx](#tx)
+* [updateManager](#updatemanager)
 * [web3](#web3)
 
 ### Object literals
 
 * [FeedTypeLinks](#feedtypelinks)
 * [dummyReducer](#dummyreducer)
+* [networkNames](#networknames)
 * [reducers](#reducers)
 
 ---
@@ -227,11 +274,7 @@
 
 ###  AccountActions
 
-**ΤAccountActions**: *[AccountAddAction](interfaces/accountaddaction.md) |
-[AccountRemoveAction](interfaces/accountremoveaction.md) |
-[AccountUpdateAction](interfaces/accountupdateaction.md) |
-[AccountErrorAction](interfaces/accounterroraction.md) |
-[AccountConfigAction](interfaces/accountconfigaction.md)
+**ΤAccountActions**: * [AccountAddAction](interfaces/accountaddaction.md) &#124; [AccountRemoveAction](interfaces/accountremoveaction.md) &#124; [AccountUpdateAction](interfaces/accountupdateaction.md) &#124; [AccountErrorAction](interfaces/accounterroraction.md) &#124; [AccountConfigAction](interfaces/accountconfigaction.md)
 *
 
 *Defined in accounts/accounts.actions.ts:77*
@@ -241,29 +284,30 @@ ___
 
 ###  AccountState
 
-**ΤAccountState**: *[AccountInfoState](interfaces/accountinfostate.md) |
-[AccountConfigState](interfaces/accountconfigstate.md) |
-[AccountErrorState](interfaces/accounterrorstate.md)
+**ΤAccountState**: * [AccountInfoState](interfaces/accountinfostate.md) &#124; [AccountConfigState](interfaces/accountconfigstate.md) &#124; [AccountErrorState](interfaces/accounterrorstate.md)
 *
 
 *Defined in stateInterface.ts:147*
+
+___
+<a id="backlinkactions"></a>
+
+###  BacklinkActions
+
+**ΤBacklinkActions**: * [BacklinkConnectAction](interfaces/backlinkconnectaction.md) &#124; [BacklinkConnectedAction](interfaces/backlinkconnectedaction.md) &#124; [BacklinkErrorAction](interfaces/backlinkerroraction.md) &#124; [BacklinkDisconnectAction](interfaces/backlinkdisconnectaction.md) &#124; [BacklinkDisconnectedAction](interfaces/backlinkdisconnectedaction.md) &#124; [BacklinkDisableAction](interfaces/backlinkdisableaction.md) &#124; [BacklinkCreateHookAction](interfaces/backlinkcreatehookaction.md) &#124; [BacklinkRemoveHookAction](interfaces/backlinkremovehookaction.md) &#124; [BacklinkNewBlockEventAction](interfaces/backlinknewblockeventaction.md)
+*
+
+*Defined in backlink/backlink.actions.ts:101*
 
 ___
 <a id="contractactions"></a>
 
 ###  ContractActions
 
-**ΤContractActions**: *[ContractLoadingAction](interfaces/contractloadingaction.md) |
-[ContractLoadedAction](interfaces/contractloadedaction.md) |
-[ContractErrorAction](interfaces/contracterroraction.md) |
-[ContractCallAction](#contractcallaction) |
-[ContractSendAction](interfaces/contractsendaction.md) |
-[ContractVarReceivedAction](interfaces/contractvarreceivedaction.md) |
-[ContractVarErrorReceivedAction](interfaces/contractvarerrorreceivedaction.md) |
-[ContractVarForceRefreshAction](interfaces/contractvarforcerefreshaction.md)
+**ΤContractActions**: * [ContractLoadingAction](interfaces/contractloadingaction.md) &#124; [ContractLoadedAction](interfaces/contractloadedaction.md) &#124; [ContractErrorAction](interfaces/contracterroraction.md) &#124; [ContractCallAction](#contractcallaction) &#124; [ContractSendAction](interfaces/contractsendaction.md) &#124; [ContractVarReceivedAction](interfaces/contractvarreceivedaction.md) &#124; [ContractVarErrorReceivedAction](interfaces/contractvarerrorreceivedaction.md) &#124; [ContractVarForceRefreshAction](interfaces/contractvarforcerefreshaction.md)
 *
 
-*Defined in contracts/contracts.actions.ts:150*
+*Defined in contracts/contracts.actions.ts:179*
 
 ___
 <a id="contractcallaction"></a>
@@ -279,11 +323,7 @@ ___
 
 ###  FeedActions
 
-**ΤFeedActions**: *[FeedNewContractAction](interfaces/feednewcontractaction.md) |
-[FeedNewTransactionAction](interfaces/feednewtransactionaction.md) |
-[FeedNewErrorAction](interfaces/feednewerroraction.md) |
-[FeedNewAccountAction](interfaces/feednewaccountaction.md) |
-[FeedNewIPFSContentAction](interfaces/feednewipfscontentaction.md)
+**ΤFeedActions**: * [FeedNewContractAction](interfaces/feednewcontractaction.md) &#124; [FeedNewTransactionAction](interfaces/feednewtransactionaction.md) &#124; [FeedNewErrorAction](interfaces/feednewerroraction.md) &#124; [FeedNewAccountAction](interfaces/feednewaccountaction.md) &#124; [FeedNewIPFSContentAction](interfaces/feednewipfscontentaction.md)
 *
 
 *Defined in feed/feed.actions.ts:66*
@@ -293,11 +333,7 @@ ___
 
 ###  FeedState
 
-**ΤFeedState**: *[FeedNewContractState](interfaces/feednewcontractstate.md) |
-[FeedNewTransactionState](interfaces/feednewtransactionstate.md) |
-[FeedNewErrorState](interfaces/feednewerrorstate.md) |
-[FeedNewAccountState](interfaces/feednewaccountstate.md) |
-[FeedNewIPFSContentState](interfaces/feednewipfscontentstate.md)
+**ΤFeedState**: * [FeedNewContractState](interfaces/feednewcontractstate.md) &#124; [FeedNewTransactionState](interfaces/feednewtransactionstate.md) &#124; [FeedNewErrorState](interfaces/feednewerrorstate.md) &#124; [FeedNewAccountState](interfaces/feednewaccountstate.md) &#124; [FeedNewIPFSContentState](interfaces/feednewipfscontentstate.md)
 *
 
 *Defined in stateInterface.ts:132*
@@ -307,10 +343,7 @@ ___
 
 ###  IPFSActions
 
-**ΤIPFSActions**: *[IPFSLoadAction](interfaces/ipfsloadaction.md) |
-[IPFSLoadedAction](interfaces/ipfsloadedaction.md) |
-[IPFSErrorAction](interfaces/ipfserroraction.md) |
-[IPFSConnectAction](interfaces/ipfsconnectaction.md)
+**ΤIPFSActions**: * [IPFSLoadAction](interfaces/ipfsloadaction.md) &#124; [IPFSLoadedAction](interfaces/ipfsloadedaction.md) &#124; [IPFSErrorAction](interfaces/ipfserroraction.md) &#124; [IPFSConnectAction](interfaces/ipfsconnectaction.md)
 *
 
 *Defined in ipfs/ipfs.actions.ts:51*
@@ -320,10 +353,7 @@ ___
 
 ###  TxActions
 
-**ΤTxActions**: *[TxBroadcastedAction](interfaces/txbroadcastedaction.md) |
-[TxReceiptAction](interfaces/txreceiptaction.md) |
-[TxConfirmedAction](interfaces/txconfirmedaction.md) |
-[TxErrorAction](interfaces/txerroraction.md)
+**ΤTxActions**: * [TxBroadcastedAction](interfaces/txbroadcastedaction.md) &#124; [TxReceiptAction](interfaces/txreceiptaction.md) &#124; [TxConfirmedAction](interfaces/txconfirmedaction.md) &#124; [TxErrorAction](interfaces/txerroraction.md)
 *
 
 *Defined in tx/tx.actions.ts:100*
@@ -333,11 +363,7 @@ ___
 
 ###  Web3Actions
 
-**ΤWeb3Actions**: *[Web3LoadAction](interfaces/web3loadaction.md) |
-[Web3LoadedAction](interfaces/web3loadedaction.md) |
-[Web3LoadErrorAction](interfaces/web3loaderroraction.md) |
-[Web3NetworkErrorAction](interfaces/web3networkerroraction.md) |
-[Web3LockedAction](interfaces/web3lockedaction.md)
+**ΤWeb3Actions**: * [Web3LoadAction](interfaces/web3loadaction.md) &#124; [Web3LoadedAction](interfaces/web3loadedaction.md) &#124; [Web3LoadErrorAction](interfaces/web3loaderroraction.md) &#124; [Web3NetworkErrorAction](interfaces/web3networkerroraction.md) &#124; [Web3LockedAction](interfaces/web3lockedaction.md)
 *
 
 *Defined in web3/web3.actions.ts:62*
@@ -347,11 +373,7 @@ ___
 
 ###  Web3State
 
-**ΤWeb3State**: *[Web3LoadingState](interfaces/web3loadingstate.md) |
-[Web3LoadedState](interfaces/web3loadedstate.md) |
-[Web3LoadErrorState](interfaces/web3loaderrorstate.md) |
-[Web3NetworkErrorState](interfaces/web3networkerrorstate.md) |
-[Web3LockedState](interfaces/web3lockedstate.md)
+**ΤWeb3State**: * [Web3LoadingState](interfaces/web3loadingstate.md) &#124; [Web3LoadedState](interfaces/web3loadedstate.md) &#124; [Web3LoadErrorState](interfaces/web3loaderrorstate.md) &#124; [Web3NetworkErrorState](interfaces/web3networkerrorstate.md) &#124; [Web3LockedState](interfaces/web3lockedstate.md)
 *
 
 *Defined in stateInterface.ts:26*
@@ -364,8 +386,7 @@ ___
 
 ### `<Const>` FeedFilterAccounts
 
-**● FeedFilterAccounts**: *`function` &
-`object`
+**● FeedFilterAccounts**: * `function` & `object`
 * =  createSelector(getFeed, (feed: FeedState[]): FeedState[] => {
     return feed.filter((elem: FeedState): boolean => !!((FeedTypeLinks[elem.action] ? FeedTypeLinks[elem.action] : -1) & FeedType.Accounts))
 })
@@ -377,8 +398,7 @@ ___
 
 ### `<Const>` FeedFilterContracts
 
-**● FeedFilterContracts**: *`function` &
-`object`
+**● FeedFilterContracts**: * `function` & `object`
 * =  createSelector(getFeed, (feed: FeedState[]): FeedState[] => {
     return feed.filter((elem: FeedState): boolean => !!((FeedTypeLinks[elem.action] ? FeedTypeLinks[elem.action] : -1) & FeedType.Contracts))
 })
@@ -390,8 +410,7 @@ ___
 
 ### `<Const>` FeedFilterErrors
 
-**● FeedFilterErrors**: *`function` &
-`object`
+**● FeedFilterErrors**: * `function` & `object`
 * =  createSelector(getFeed, (feed: FeedState[]): FeedState[] => {
     return feed.filter((elem: FeedState): boolean => !!((FeedTypeLinks[elem.action] ? FeedTypeLinks[elem.action] : -1) & FeedType.Errors))
 })
@@ -403,8 +422,7 @@ ___
 
 ### `<Const>` FeedFilterIPFSContent
 
-**● FeedFilterIPFSContent**: *`function` &
-`object`
+**● FeedFilterIPFSContent**: * `function` & `object`
 * =  createSelector(getFeed, (feed: FeedState[]): FeedState[] => {
     return feed.filter((elem: FeedState): boolean => !!((FeedTypeLinks[elem.action] ? FeedTypeLinks[elem.action] : -1) & FeedType.IPFSContent))
 })
@@ -416,8 +434,7 @@ ___
 
 ### `<Const>` FeedFilterTransactions
 
-**● FeedFilterTransactions**: *`function` &
-`object`
+**● FeedFilterTransactions**: * `function` & `object`
 * =  createSelector(getFeed, (feed: FeedState[]): FeedState[] => {
     return feed.filter((elem: FeedState): boolean => !!((FeedTypeLinks[elem.action] ? FeedTypeLinks[elem.action] : -1) & FeedType.Transactions))
 })
@@ -464,7 +481,7 @@ ___
 ]
 
 *Defined in tx/tx.sagas.ts:17*
-*Defined in contracts/contracts.saga.ts:24*
+*Defined in contracts/contracts.saga.ts:31*
 
 ___
 <a id="window"></a>
@@ -491,8 +508,8 @@ ___
 
 | Param | Type | Default value |
 | ------ | ------ | ------ |
-| address | `string` | - | 
-| `Default value` coinbase | `boolean` | false | 
+| address | `string` | - |
+| `Default value` coinbase | `boolean` | false |
 
 **Returns:** [AccountAddAction](interfaces/accountaddaction.md)
 
@@ -509,7 +526,7 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| config | [AccountConfigState](interfaces/accountconfigstate.md) | 
+| config | [AccountConfigState](interfaces/accountconfigstate.md) |
 
 **Returns:** [AccountConfigAction](interfaces/accountconfigaction.md)
 
@@ -526,8 +543,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| state | [AccountStoreState](interfaces/accountstorestate.md) | 
-| action | [AccountConfigAction](interfaces/accountconfigaction.md) | 
+| state | [AccountStoreState](interfaces/accountstorestate.md) |
+| action | [AccountConfigAction](interfaces/accountconfigaction.md) |
 
 **Returns:** [AccountStoreState](interfaces/accountstorestate.md)
 
@@ -544,8 +561,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| address | `string` | 
-| error | `any` | 
+| address | `string` |
+| error | `any` |
 
 **Returns:** [AccountErrorAction](interfaces/accounterroraction.md)
 
@@ -562,8 +579,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| state | [AccountStoreState](interfaces/accountstorestate.md) | 
-| action | [AccountErrorAction](interfaces/accounterroraction.md) | 
+| state | [AccountStoreState](interfaces/accountstorestate.md) |
+| action | [AccountErrorAction](interfaces/accounterroraction.md) |
 
 **Returns:** [AccountStoreState](interfaces/accountstorestate.md)
 
@@ -580,7 +597,7 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| address | `string` | 
+| address | `string` |
 
 **Returns:** [AccountRemoveAction](interfaces/accountremoveaction.md)
 
@@ -597,8 +614,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| state | [AccountStoreState](interfaces/accountstorestate.md) | 
-| action | [AccountRemoveAction](interfaces/accountremoveaction.md) | 
+| state | [AccountStoreState](interfaces/accountstorestate.md) |
+| action | [AccountRemoveAction](interfaces/accountremoveaction.md) |
 
 **Returns:** [AccountStoreState](interfaces/accountstorestate.md)
 
@@ -609,7 +626,7 @@ ___
 
 ▸ **AccountSagas**(): `any`
 
-*Defined in accounts/accounts.saga.ts:134*
+*Defined in accounts/accounts.saga.ts:139*
 
 **Returns:** `any`
 
@@ -626,9 +643,9 @@ ___
 
 | Param | Type | Default value |
 | ------ | ------ | ------ |
-| address | `string` | - | 
-| balance | `string` | - | 
-| `Default value` coinbase | `boolean` | false | 
+| address | `string` | - |
+| balance | `string` | - |
+| `Default value` coinbase | `boolean` | false |
 
 **Returns:** [AccountUpdateAction](interfaces/accountupdateaction.md)
 
@@ -645,8 +662,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| state | [AccountStoreState](interfaces/accountstorestate.md) | 
-| action | [AccountUpdateAction](interfaces/accountupdateaction.md) | 
+| state | [AccountStoreState](interfaces/accountstorestate.md) |
+| action | [AccountUpdateAction](interfaces/accountupdateaction.md) |
 
 **Returns:** [AccountStoreState](interfaces/accountstorestate.md)
 
@@ -663,9 +680,273 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| address | `string` | 
+| address | `string` |
 
 **Returns:** [AccountUpdateRequestAction](interfaces/accountupdaterequestaction.md)
+
+___
+<a id="backlinkconnect"></a>
+
+### `<Const>` BacklinkConnect
+
+▸ **BacklinkConnect**(url: *`string`*): [BacklinkConnectAction](interfaces/backlinkconnectaction.md)
+
+*Defined in backlink/backlink.actions.ts:7*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| url | `string` |
+
+**Returns:** [BacklinkConnectAction](interfaces/backlinkconnectaction.md)
+
+___
+<a id="backlinkconnected"></a>
+
+### `<Const>` BacklinkConnected
+
+▸ **BacklinkConnected**(instance: *`any`*, url: *`string`*): [BacklinkConnectedAction](interfaces/backlinkconnectedaction.md)
+
+*Defined in backlink/backlink.actions.ts:19*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| instance | `any` |
+| url | `string` |
+
+**Returns:** [BacklinkConnectedAction](interfaces/backlinkconnectedaction.md)
+
+___
+<a id="backlinkconnectedreducer"></a>
+
+### `<Const>` BacklinkConnectedReducer
+
+▸ **BacklinkConnectedReducer**(state: *[BacklinkState](interfaces/backlinkstate.md)*, action: *[BacklinkConnectedAction](interfaces/backlinkconnectedaction.md)*): [BacklinkState](interfaces/backlinkstate.md)
+
+*Defined in backlink/backlink.reducers.ts:11*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| state | [BacklinkState](interfaces/backlinkstate.md) |
+| action | [BacklinkConnectedAction](interfaces/backlinkconnectedaction.md) |
+
+**Returns:** [BacklinkState](interfaces/backlinkstate.md)
+
+___
+<a id="backlinkcreatehook"></a>
+
+### `<Const>` BacklinkCreateHook
+
+▸ **BacklinkCreateHook**(address: *`string`*, from: *`boolean`*, to: *`boolean`*, trigger: *`function`*): [BacklinkCreateHookAction](interfaces/backlinkcreatehookaction.md)
+
+*Defined in backlink/backlink.actions.ts:69*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| address | `string` |
+| from | `boolean` |
+| to | `boolean` |
+| trigger | `function` |
+
+**Returns:** [BacklinkCreateHookAction](interfaces/backlinkcreatehookaction.md)
+
+___
+<a id="backlinkcreatehookreducer"></a>
+
+### `<Const>` BacklinkCreateHookReducer
+
+▸ **BacklinkCreateHookReducer**(state: *[BacklinkState](interfaces/backlinkstate.md)*, action: *[BacklinkCreateHookAction](interfaces/backlinkcreatehookaction.md)*): [BacklinkState](interfaces/backlinkstate.md)
+
+*Defined in backlink/backlink.reducers.ts:45*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| state | [BacklinkState](interfaces/backlinkstate.md) |
+| action | [BacklinkCreateHookAction](interfaces/backlinkcreatehookaction.md) |
+
+**Returns:** [BacklinkState](interfaces/backlinkstate.md)
+
+___
+<a id="backlinkdisable"></a>
+
+### `<Const>` BacklinkDisable
+
+▸ **BacklinkDisable**(): [BacklinkDisableAction](interfaces/backlinkdisableaction.md)
+
+*Defined in backlink/backlink.actions.ts:56*
+
+**Returns:** [BacklinkDisableAction](interfaces/backlinkdisableaction.md)
+
+___
+<a id="backlinkdisablereducer"></a>
+
+### `<Const>` BacklinkDisableReducer
+
+▸ **BacklinkDisableReducer**(state: *[BacklinkState](interfaces/backlinkstate.md)*, action: *[BacklinkDisableAction](interfaces/backlinkdisableaction.md)*): [BacklinkState](interfaces/backlinkstate.md)
+
+*Defined in backlink/backlink.reducers.ts:37*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| state | [BacklinkState](interfaces/backlinkstate.md) |
+| action | [BacklinkDisableAction](interfaces/backlinkdisableaction.md) |
+
+**Returns:** [BacklinkState](interfaces/backlinkstate.md)
+
+___
+<a id="backlinkdisconnect"></a>
+
+### `<Const>` BacklinkDisconnect
+
+▸ **BacklinkDisconnect**(): [BacklinkDisconnectAction](interfaces/backlinkdisconnectaction.md)
+
+*Defined in backlink/backlink.actions.ts:40*
+
+**Returns:** [BacklinkDisconnectAction](interfaces/backlinkdisconnectaction.md)
+
+___
+<a id="backlinkdisconnected"></a>
+
+### `<Const>` BacklinkDisconnected
+
+▸ **BacklinkDisconnected**(): [BacklinkDisconnectedAction](interfaces/backlinkdisconnectedaction.md)
+
+*Defined in backlink/backlink.actions.ts:48*
+
+**Returns:** [BacklinkDisconnectedAction](interfaces/backlinkdisconnectedaction.md)
+
+___
+<a id="backlinkdisconnectedreducer"></a>
+
+### `<Const>` BacklinkDisconnectedReducer
+
+▸ **BacklinkDisconnectedReducer**(state: *[BacklinkState](interfaces/backlinkstate.md)*, action: *[BacklinkErrorAction](interfaces/backlinkerroraction.md)*): [BacklinkState](interfaces/backlinkstate.md)
+
+*Defined in backlink/backlink.reducers.ts:29*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| state | [BacklinkState](interfaces/backlinkstate.md) |
+| action | [BacklinkErrorAction](interfaces/backlinkerroraction.md) |
+
+**Returns:** [BacklinkState](interfaces/backlinkstate.md)
+
+___
+<a id="backlinkerror"></a>
+
+### `<Const>` BacklinkError
+
+▸ **BacklinkError**(error: *`any`*): [BacklinkErrorAction](interfaces/backlinkerroraction.md)
+
+*Defined in backlink/backlink.actions.ts:31*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| error | `any` |
+
+**Returns:** [BacklinkErrorAction](interfaces/backlinkerroraction.md)
+
+___
+<a id="backlinkerrorreducer"></a>
+
+### `<Const>` BacklinkErrorReducer
+
+▸ **BacklinkErrorReducer**(state: *[BacklinkState](interfaces/backlinkstate.md)*, action: *[BacklinkErrorAction](interfaces/backlinkerroraction.md)*): [BacklinkState](interfaces/backlinkstate.md)
+
+*Defined in backlink/backlink.reducers.ts:20*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| state | [BacklinkState](interfaces/backlinkstate.md) |
+| action | [BacklinkErrorAction](interfaces/backlinkerroraction.md) |
+
+**Returns:** [BacklinkState](interfaces/backlinkstate.md)
+
+___
+<a id="backlinknewblockevent"></a>
+
+### `<Const>` BacklinkNewBlockEvent
+
+▸ **BacklinkNewBlockEvent**(block: *`any`*): [BacklinkNewBlockEventAction](interfaces/backlinknewblockeventaction.md)
+
+*Defined in backlink/backlink.actions.ts:94*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| block | `any` |
+
+**Returns:** [BacklinkNewBlockEventAction](interfaces/backlinknewblockeventaction.md)
+
+___
+<a id="backlinkremovehook"></a>
+
+### `<Const>` BacklinkRemoveHook
+
+▸ **BacklinkRemoveHook**(address: *`string`*): [BacklinkRemoveHookAction](interfaces/backlinkremovehookaction.md)
+
+*Defined in backlink/backlink.actions.ts:83*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| address | `string` |
+
+**Returns:** [BacklinkRemoveHookAction](interfaces/backlinkremovehookaction.md)
+
+___
+<a id="backlinkremovehookreducer"></a>
+
+### `<Const>` BacklinkRemoveHookReducer
+
+▸ **BacklinkRemoveHookReducer**(state: *[BacklinkState](interfaces/backlinkstate.md)*, action: *[BacklinkRemoveHookAction](interfaces/backlinkremovehookaction.md)*): [BacklinkState](interfaces/backlinkstate.md)
+
+*Defined in backlink/backlink.reducers.ts:66*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| state | [BacklinkState](interfaces/backlinkstate.md) |
+| action | [BacklinkRemoveHookAction](interfaces/backlinkremovehookaction.md) |
+
+**Returns:** [BacklinkState](interfaces/backlinkstate.md)
+
+___
+<a id="backlinksagas"></a>
+
+###  BacklinkSagas
+
+▸ **BacklinkSagas**(dispatch: *`function`*): `any`
+
+*Defined in backlink/backlink.sagas.ts:186*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| dispatch | `function` |
+
+**Returns:** `any`
 
 ___
 <a id="contractcall"></a>
@@ -680,14 +961,32 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| contractName | `string` | 
-| contractAddress | `string` | 
-| methodName | `string` | 
-| transactionArgs | [TransactionArgumentState](interfaces/transactionargumentstate.md) | 
-| resolvers | `any` | 
-| `Rest` methodArgs | `any`[] | 
+| contractName | `string` |
+| contractAddress | `string` |
+| methodName | `string` |
+| transactionArgs | [TransactionArgumentState](interfaces/transactionargumentstate.md) |
+| resolvers | `any` |
+| `Rest` methodArgs | `any`[] |
 
 **Returns:** [ContractCallAction](#contractcallaction)
+
+___
+<a id="contractcompleterefresh"></a>
+
+###  ContractCompleteRefresh
+
+▸ **ContractCompleteRefresh**(contract_name: *`string`*, contract_address: *`string`*): [ContractCompleteRefreshAction](interfaces/contractcompleterefreshaction.md)
+
+*Defined in contracts/contracts.actions.ts:171*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| contract_name | `string` |
+| contract_address | `string` |
+
+**Returns:** [ContractCompleteRefreshAction](interfaces/contractcompleterefreshaction.md)
 
 ___
 <a id="contracterror"></a>
@@ -702,9 +1001,9 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| contractName | `string` | 
-| contractAddress | `string` | 
-| error | `any` | 
+| contractName | `string` |
+| contractAddress | `string` |
+| error | `any` |
 
 **Returns:** [ContractErrorAction](interfaces/contracterroraction.md)
 
@@ -721,8 +1020,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| contractName | `string` | 
-| contractAddress | `string` | 
+| contractName | `string` |
+| contractAddress | `string` |
 
 **Returns:** [ContractLoadAction](interfaces/contractloadaction.md)
 
@@ -739,9 +1038,9 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| contractName | `string` | 
-| contractAddress | `string` | 
-| contractInstance | `any` | 
+| contractName | `string` |
+| contractAddress | `string` |
+| contractInstance | `any` |
 
 **Returns:** [ContractLoadedAction](interfaces/contractloadedaction.md)
 
@@ -758,19 +1057,42 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| contractName | `string` | 
-| contractAddress | `string` | 
+| contractName | `string` |
+| contractAddress | `string` |
 
 **Returns:** [ContractLoadingAction](interfaces/contractloadingaction.md)
+
+___
+<a id="contractpreloaddone"></a>
+
+###  ContractPreloadDone
+
+▸ **ContractPreloadDone**(recap: *[ContractLoadInfos](interfaces/contractloadinfos.md)[]*): [ContractPreloadDoneAction](interfaces/contractpreloaddoneaction.md)
+
+*Defined in contracts/contracts.actions.ts:159*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| recap | [ContractLoadInfos](interfaces/contractloadinfos.md)[] |
+
+**Returns:** [ContractPreloadDoneAction](interfaces/contractpreloaddoneaction.md)
 
 ___
 <a id="contractsagas"></a>
 
 ###  ContractSagas
 
-▸ **ContractSagas**(): `any`
+▸ **ContractSagas**(dispatch: *`function`*): `any`
 
-*Defined in contracts/contracts.saga.ts:319*
+*Defined in contracts/contracts.saga.ts:345*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| dispatch | `function` |
 
 **Returns:** `any`
 
@@ -787,12 +1109,12 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| contractName | `string` | 
-| contractAddress | `string` | 
-| methodName | `string` | 
-| transactionArgs | [TransactionArgumentState](interfaces/transactionargumentstate.md) | 
-| resolvers | `any` | 
-| `Rest` methodArgs | `any`[] | 
+| contractName | `string` |
+| contractAddress | `string` |
+| methodName | `string` |
+| transactionArgs | [TransactionArgumentState](interfaces/transactionargumentstate.md) |
+| resolvers | `any` |
+| `Rest` methodArgs | `any`[] |
 
 **Returns:** [ContractSendAction](interfaces/contractsendaction.md)
 
@@ -809,11 +1131,11 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| contractName | `string` | 
-| contractAddress | `string` | 
-| methodName | `string` | 
-| methodHash | `string` | 
-| error | `any` | 
+| contractName | `string` |
+| contractAddress | `string` |
+| methodName | `string` |
+| methodHash | `string` |
+| error | `any` |
 
 **Returns:** [ContractVarErrorReceivedAction](interfaces/contractvarerrorreceivedaction.md)
 
@@ -830,10 +1152,10 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| contractName | `string` | 
-| contractAddress | `string` | 
-| methodName | `string` | 
-| methodHash | `string` | 
+| contractName | `string` |
+| contractAddress | `string` |
+| methodName | `string` |
+| methodHash | `string` |
 
 **Returns:** [ContractVarForceRefreshAction](interfaces/contractvarforcerefreshaction.md)
 
@@ -850,11 +1172,11 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| contractName | `string` | 
-| contractAddress | `string` | 
-| methodName | `string` | 
-| methodHash | `string` | 
-| result | `any` | 
+| contractName | `string` |
+| contractAddress | `string` |
+| methodName | `string` |
+| methodHash | `string` |
+| result | `any` |
 
 **Returns:** [ContractVarReceivedAction](interfaces/contractvarreceivedaction.md)
 
@@ -871,7 +1193,7 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| type | [FeedType](enums/feedtype.md) | 
+| type | [FeedType](enums/feedtype.md) |
 
 **Returns:** `any`
 
@@ -888,8 +1210,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| account | `string` | 
-| coinbase | `boolean` | 
+| account | `string` |
+| coinbase | `boolean` |
 
 **Returns:** [FeedNewAccountAction](interfaces/feednewaccountaction.md)
 
@@ -906,8 +1228,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| contractName | `string` | 
-| address | `string` | 
+| contractName | `string` |
+| address | `string` |
 
 **Returns:** [FeedNewContractAction](interfaces/feednewcontractaction.md)
 
@@ -924,9 +1246,9 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| reason | `any` | 
-| message | `string` | 
-| when | `string` | 
+| reason | `any` |
+| message | `string` |
+| when | `string` |
 
 **Returns:** [FeedNewErrorAction](interfaces/feednewerroraction.md)
 
@@ -943,7 +1265,7 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| ipfs_hash | `string` | 
+| ipfs_hash | `string` |
 
 **Returns:** [FeedNewIPFSContentAction](interfaces/feednewipfscontentaction.md)
 
@@ -960,7 +1282,7 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| txHash | `string` | 
+| txHash | `string` |
 
 **Returns:** [FeedNewTransactionAction](interfaces/feednewtransactionaction.md)
 
@@ -977,7 +1299,7 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| instance | `any` | 
+| instance | `any` |
 
 **Returns:** [IPFSConnectAction](interfaces/ipfsconnectaction.md)
 
@@ -994,8 +1316,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| state | [IPFSStoreState](interfaces/ipfsstorestate.md) | 
-| action | [IPFSConnectAction](interfaces/ipfsconnectaction.md) | 
+| state | [IPFSStoreState](interfaces/ipfsstorestate.md) |
+| action | [IPFSConnectAction](interfaces/ipfsconnectaction.md) |
 
 **Returns:** [IPFSStoreState](interfaces/ipfsstorestate.md)
 
@@ -1012,8 +1334,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| hash | `string` | 
-| reason | `any` | 
+| hash | `string` |
+| reason | `any` |
 
 **Returns:** [IPFSErrorAction](interfaces/ipfserroraction.md)
 
@@ -1030,8 +1352,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| state | [IPFSStoreState](interfaces/ipfsstorestate.md) | 
-| action | [IPFSErrorAction](interfaces/ipfserroraction.md) | 
+| state | [IPFSStoreState](interfaces/ipfsstorestate.md) |
+| action | [IPFSErrorAction](interfaces/ipfserroraction.md) |
 
 **Returns:** [IPFSStoreState](interfaces/ipfsstorestate.md)
 
@@ -1048,7 +1370,7 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| action | [IPFSLoadAction](interfaces/ipfsloadaction.md) | 
+| action | [IPFSLoadAction](interfaces/ipfsloadaction.md) |
 
 **Returns:** `SagaIterator`
 
@@ -1065,7 +1387,7 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| hash | `string` | 
+| hash | `string` |
 
 **Returns:** [IPFSLoadAction](interfaces/ipfsloadaction.md)
 
@@ -1082,8 +1404,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| hash | `string` | 
-| content | `any` | 
+| hash | `string` |
+| content | `any` |
 
 **Returns:** [IPFSLoadedAction](interfaces/ipfsloadedaction.md)
 
@@ -1100,8 +1422,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| state | [IPFSStoreState](interfaces/ipfsstorestate.md) | 
-| action | [IPFSLoadedAction](interfaces/ipfsloadedaction.md) | 
+| state | [IPFSStoreState](interfaces/ipfsstorestate.md) |
+| action | [IPFSLoadedAction](interfaces/ipfsloadedaction.md) |
 
 **Returns:** [IPFSStoreState](interfaces/ipfsstorestate.md)
 
@@ -1121,7 +1443,7 @@ ___
 
 ###  TxBroadcasted
 
-▸ **TxBroadcasted**(txHash: *`string`*, txArgs: *[TransactionArgumentState](interfaces/transactionargumentstate.md) |[RawTransactionArgumentState](interfaces/rawtransactionargumentstate.md)*): [TxBroadcastedAction](interfaces/txbroadcastedaction.md)
+▸ **TxBroadcasted**(txHash: *`string`*, txArgs: * [TransactionArgumentState](interfaces/transactionargumentstate.md) &#124; [RawTransactionArgumentState](interfaces/rawtransactionargumentstate.md)*): [TxBroadcastedAction](interfaces/txbroadcastedaction.md)
 
 *Defined in tx/tx.actions.ts:39*
 
@@ -1129,10 +1451,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| txHash | `string` | 
-| txArgs | [TransactionArgumentState](interfaces/transactionargumentstate.md) |
-[RawTransactionArgumentState](interfaces/rawtransactionargumentstate.md)
- | 
+| txHash | `string` |
+| txArgs |  [TransactionArgumentState](interfaces/transactionargumentstate.md) &#124; [RawTransactionArgumentState](interfaces/rawtransactionargumentstate.md)|
 
 **Returns:** [TxBroadcastedAction](interfaces/txbroadcastedaction.md)
 
@@ -1149,9 +1469,9 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| txHash | `string` | 
-| confirmationReceipt | `any` | 
-| confirmationCount | `number` | 
+| txHash | `string` |
+| confirmationReceipt | `any` |
+| confirmationCount | `number` |
 
 **Returns:** [TxConfirmedAction](interfaces/txconfirmedaction.md)
 
@@ -1168,8 +1488,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| txHash | `string` | 
-| error | `any` | 
+| txHash | `string` |
+| error | `any` |
 
 **Returns:** [TxErrorAction](interfaces/txerroraction.md)
 
@@ -1186,9 +1506,9 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| txHash | `string` | 
-| receipt | `any` | 
-| txArgs | [TxReceiptTxArgs](interfaces/txreceipttxargs.md) | 
+| txHash | `string` |
+| receipt | `any` |
+| txArgs | [TxReceiptTxArgs](interfaces/txreceipttxargs.md) |
 
 **Returns:** [TxReceiptAction](interfaces/txreceiptaction.md)
 
@@ -1199,7 +1519,7 @@ ___
 
 ▸ **TxSagas**(): `any`
 
-*Defined in tx/tx.sagas.ts:207*
+*Defined in tx/tx.sagas.ts:209*
 
 **Returns:** `any`
 
@@ -1216,9 +1536,9 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| txArgs | [TransactionArgumentState](interfaces/transactionargumentstate.md) | 
-| web3 | `any` | 
-| resolvers | `any` | 
+| txArgs | [TransactionArgumentState](interfaces/transactionargumentstate.md) |
+| web3 | `any` |
+| resolvers | `any` |
 
 **Returns:** [TxSendAction](interfaces/txsendaction.md)
 
@@ -1235,9 +1555,9 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| signedTx | `string` | 
-| web3 | `any` | 
-| resolvers | `any` | 
+| signedTx | `string` |
+| web3 | `any` |
+| resolvers | `any` |
 
 **Returns:** [TxSendRawAction](interfaces/txsendrawaction.md)
 
@@ -1254,8 +1574,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| loader | `Promise`<`any`> | 
-| networks | `number`[] | 
+| loader | `Promise`<`any`> |
+| networks | `number`[] |
 
 **Returns:** [Web3LoadAction](interfaces/web3loadaction.md)
 
@@ -1272,7 +1592,7 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| error | `any` | 
+| error | `any` |
 
 **Returns:** [Web3LoadErrorAction](interfaces/web3loaderroraction.md)
 
@@ -1281,7 +1601,7 @@ ___
 
 ###  Web3Loaded
 
-▸ **Web3Loaded**(_: *`any`*, networkId: *`number` |`string`*, coinbase: *`string`*): [Web3LoadedAction](interfaces/web3loadedaction.md)
+▸ **Web3Loaded**(_: *`any`*, networkId: * `number` &#124; `string`*, coinbase: *`string`*): [Web3LoadedAction](interfaces/web3loadedaction.md)
 
 *Defined in web3/web3.actions.ts:22*
 
@@ -1289,11 +1609,9 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| _ | `any` | 
-| networkId | `number` |
-`string`
- | 
-| coinbase | `string` | 
+| _ | `any` |
+| networkId |  `number` &#124; `string`|
+| coinbase | `string` |
 
 **Returns:** [Web3LoadedAction](interfaces/web3loadedaction.md)
 
@@ -1313,7 +1631,7 @@ ___
 
 ###  Web3NetworkError
 
-▸ **Web3NetworkError**(networkId: *`number` |`string`*): [Web3NetworkErrorAction](interfaces/web3networkerroraction.md)
+▸ **Web3NetworkError**(networkId: * `number` &#124; `string`*): [Web3NetworkErrorAction](interfaces/web3networkerroraction.md)
 
 *Defined in web3/web3.actions.ts:46*
 
@@ -1321,9 +1639,7 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| networkId | `number` |
-`string`
- | 
+| networkId |  `number` &#124; `string`|
 
 **Returns:** [Web3NetworkErrorAction](interfaces/web3networkerroraction.md)
 
@@ -1351,8 +1667,8 @@ ___
 
 | Param | Type | Default value |
 | ------ | ------ | ------ |
-| `Default value` state | [AccountStoreState](interfaces/accountstorestate.md) |  {} as AccountStoreState | 
-| action | [AccountActions](#accountactions) | - | 
+| `Default value` state | [AccountStoreState](interfaces/accountstorestate.md) |  {} as AccountStoreState |
+| action | [AccountActions](#accountactions) | - |
 
 **Returns:** [AccountStoreState](interfaces/accountstorestate.md)
 
@@ -1363,9 +1679,27 @@ ___
 
 ▸ **backgroundContractLoad**(): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:55*
+*Defined in contracts/contracts.saga.ts:62*
 
 **Returns:** `SagaIterator`
+
+___
+<a id="backlink"></a>
+
+### `<Const>` backlink
+
+▸ **backlink**(state?: *[BacklinkState](interfaces/backlinkstate.md)*, action: *[BacklinkActions](#backlinkactions)*): [BacklinkState](interfaces/backlinkstate.md)
+
+*Defined in backlink/backlink.reducers.ts:76*
+
+**Parameters:**
+
+| Param | Type | Default value |
+| ------ | ------ | ------ |
+| `Default value` state | [BacklinkState](interfaces/backlinkstate.md) |  {status: &#x27;DISABLED&#x27;} as BacklinkState |
+| action | [BacklinkActions](#backlinkactions) | - |
+
+**Returns:** [BacklinkState](interfaces/backlinkstate.md)
 
 ___
 <a id="callresolveweb3"></a>
@@ -1380,7 +1714,7 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| action | [Web3LoadAction](interfaces/web3loadaction.md) | 
+| action | [Web3LoadAction](interfaces/web3loadaction.md) |
 
 **Returns:** `SagaIterator`
 
@@ -1391,13 +1725,13 @@ ___
 
 ▸ **callSendRawTransaction**(action: *[TxSendRawAction](interfaces/txsendrawaction.md)*): `SagaIterator`
 
-*Defined in tx/tx.sagas.ts:196*
+*Defined in tx/tx.sagas.ts:198*
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| action | [TxSendRawAction](interfaces/txsendrawaction.md) | 
+| action | [TxSendRawAction](interfaces/txsendrawaction.md) |
 
 **Returns:** `SagaIterator`
 
@@ -1408,13 +1742,13 @@ ___
 
 ▸ **callSendTransaction**(action: *[TxSendAction](interfaces/txsendaction.md)*): `SagaIterator`
 
-*Defined in tx/tx.sagas.ts:103*
+*Defined in tx/tx.sagas.ts:105*
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| action | [TxSendAction](interfaces/txsendaction.md) | 
+| action | [TxSendAction](interfaces/txsendaction.md) |
 
 **Returns:** `SagaIterator`
 
@@ -1425,15 +1759,15 @@ ___
 
 ▸ **compareBytecode**(address: *`string`*, bytecode: *`string`*, web3: *`any`*): `Promise`<`boolean`>
 
-*Defined in contracts/contracts.saga.ts:96*
+*Defined in contracts/contracts.saga.ts:102*
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| address | `string` | 
-| bytecode | `string` | 
-| web3 | `any` | 
+| address | `string` |
+| bytecode | `string` |
+| web3 | `any` |
 
 **Returns:** `Promise`<`boolean`>
 
@@ -1444,15 +1778,15 @@ ___
 
 ▸ **contractCall**(action: *[ContractCallAction](#contractcallaction)*, tx: *`any`*, arg_signature: *`string`*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:179*
+*Defined in contracts/contracts.saga.ts:198*
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| action | [ContractCallAction](#contractcallaction) | 
-| tx | `any` | 
-| arg_signature | `string` | 
+| action | [ContractCallAction](#contractcallaction) |
+| tx | `any` |
+| arg_signature | `string` |
 
 **Returns:** `SagaIterator`
 
@@ -1469,8 +1803,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| state | [ContractStoreState](interfaces/contractstorestate.md) | 
-| action | [ContractErrorAction](interfaces/contracterroraction.md) | 
+| state | [ContractStoreState](interfaces/contractstorestate.md) |
+| action | [ContractErrorAction](interfaces/contracterroraction.md) |
 
 **Returns:** [ContractStoreState](interfaces/contractstorestate.md)
 
@@ -1487,8 +1821,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| state | [ContractStoreState](interfaces/contractstorestate.md) | 
-| action | [ContractLoadedAction](interfaces/contractloadedaction.md) | 
+| state | [ContractStoreState](interfaces/contractstorestate.md) |
+| action | [ContractLoadedAction](interfaces/contractloadedaction.md) |
 
 **Returns:** [ContractStoreState](interfaces/contractstorestate.md)
 
@@ -1505,8 +1839,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| state | [ContractStoreState](interfaces/contractstorestate.md) | 
-| action | [ContractLoadingAction](interfaces/contractloadingaction.md) | 
+| state | [ContractStoreState](interfaces/contractstorestate.md) |
+| action | [ContractLoadingAction](interfaces/contractloadingaction.md) |
 
 **Returns:** [ContractStoreState](interfaces/contractstorestate.md)
 
@@ -1517,15 +1851,15 @@ ___
 
 ▸ **contractSend**(action: *[ContractSendAction](interfaces/contractsendaction.md)*, tx: *`any`*, web3: *`any`*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:218*
+*Defined in contracts/contracts.saga.ts:237*
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| action | [ContractSendAction](interfaces/contractsendaction.md) | 
-| tx | `any` | 
-| web3 | `any` | 
+| action | [ContractSendAction](interfaces/contractsendaction.md) |
+| tx | `any` |
+| web3 | `any` |
 
 **Returns:** `SagaIterator`
 
@@ -1542,8 +1876,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| state | [ContractStoreState](interfaces/contractstorestate.md) | 
-| action | [ContractVarErrorReceivedAction](interfaces/contractvarerrorreceivedaction.md) | 
+| state | [ContractStoreState](interfaces/contractstorestate.md) |
+| action | [ContractVarErrorReceivedAction](interfaces/contractvarerrorreceivedaction.md) |
 
 **Returns:** [ContractStoreState](interfaces/contractstorestate.md)
 
@@ -1560,8 +1894,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| state | [ContractStoreState](interfaces/contractstorestate.md) | 
-| action | [ContractVarForceRefreshAction](interfaces/contractvarforcerefreshaction.md) | 
+| state | [ContractStoreState](interfaces/contractstorestate.md) |
+| action | [ContractVarForceRefreshAction](interfaces/contractvarforcerefreshaction.md) |
 
 **Returns:** [ContractStoreState](interfaces/contractstorestate.md)
 
@@ -1578,8 +1912,8 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| state | [ContractStoreState](interfaces/contractstorestate.md) | 
-| action | [ContractVarReceivedAction](interfaces/contractvarreceivedaction.md) | 
+| state | [ContractStoreState](interfaces/contractstorestate.md) |
+| action | [ContractVarReceivedAction](interfaces/contractvarreceivedaction.md) |
 
 **Returns:** [ContractStoreState](interfaces/contractstorestate.md)
 
@@ -1596,8 +1930,8 @@ ___
 
 | Param | Type | Default value |
 | ------ | ------ | ------ |
-| `Default value` state | [ContractStoreState](interfaces/contractstorestate.md) |  {} | 
-| action | [ContractActions](#contractactions) | - | 
+| `Default value` state | [ContractStoreState](interfaces/contractstorestate.md) |  {} |
+| action | [ContractActions](#contractactions) | - |
 
 **Returns:** [ContractStoreState](interfaces/contractstorestate.md)
 
@@ -1614,8 +1948,8 @@ ___
 
 | Param | Type | Default value |
 | ------ | ------ | ------ |
-| `Default value` state | [FeedState](#feedstate)[] |  [] as FeedState[] | 
-| action | [FeedActions](#feedactions) | - | 
+| `Default value` state | [FeedState](#feedstate)[] |  [] as FeedState[] |
+| action | [FeedActions](#feedactions) | - |
 
 **Returns:** [FeedState](#feedstate)[]
 
@@ -1632,20 +1966,38 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| address | `string` | 
-| coinbase | `boolean` | 
-| emit | `function` | 
+| address | `string` |
+| coinbase | `boolean` |
+| emit | `function` |
 
 **Returns:** `Promise`<`void`>
+
+___
+<a id="fetchblockcalltriggers"></a>
+
+###  fetchBlockCallTriggers
+
+▸ **fetchBlockCallTriggers**(height: *`number`*, dispatch: *`function`*): `SagaIterator`
+
+*Defined in backlink/backlink.sagas.ts:153*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| height | `number` |
+| dispatch | `function` |
+
+**Returns:** `SagaIterator`
 
 ___
 <a id="forge"></a>
 
 ###  forge
 
-▸ **forge**T(contracts: *[EmbarkContracts](interfaces/embarkcontracts.md) |[TruffleContracts](interfaces/trufflecontracts.md) |[ManualContracts](interfaces/manualcontracts.md)*, config?: *[GeneratorConfig](interfaces/generatorconfig.md)<`T`>*): `Store`
+▸ **forge**T(contracts: * [EmbarkContracts](interfaces/embarkcontracts.md) &#124; [TruffleContracts](interfaces/trufflecontracts.md) &#124; [ManualContracts](interfaces/manualcontracts.md)*, config?: *[GeneratorConfig](interfaces/generatorconfig.md)<`T`>*): `Store`
 
-*Defined in forge.ts:69*
+*Defined in forge.ts:73*
 
 **Type parameters:**
 
@@ -1654,11 +2006,8 @@ ___
 
 | Param | Type | Default value |
 | ------ | ------ | ------ |
-| contracts | [EmbarkContracts](interfaces/embarkcontracts.md) |
-[TruffleContracts](interfaces/trufflecontracts.md) |
-[ManualContracts](interfaces/manualcontracts.md)
- | - | 
-| `Default value` config | [GeneratorConfig](interfaces/generatorconfig.md)<`T`> |  undefined | 
+| contracts |  [EmbarkContracts](interfaces/embarkcontracts.md) &#124; [TruffleContracts](interfaces/trufflecontracts.md) &#124; [ManualContracts](interfaces/manualcontracts.md)| - |
+| `Default value` config | [GeneratorConfig](interfaces/generatorconfig.md)<`T`> |  undefined |
 
 **Returns:** `Store`
 
@@ -1675,7 +2024,7 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| state | [State](interfaces/state.md) | 
+| state | [State](interfaces/state.md) |
 
 **Returns:** [FeedState](#feedstate)[]
 
@@ -1692,7 +2041,7 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| action | [Web3LoadedAction](interfaces/web3loadedaction.md) | 
+| action | [Web3LoadedAction](interfaces/web3loadedaction.md) |
 
 **Returns:** `SagaIterator`
 
@@ -1709,8 +2058,8 @@ ___
 
 | Param | Type | Default value |
 | ------ | ------ | ------ |
-| `Default value` state | [IPFSStoreState](interfaces/ipfsstorestate.md) |  {} | 
-| action | [IPFSActions](#ipfsactions) | - | 
+| `Default value` state | [IPFSStoreState](interfaces/ipfsstorestate.md) |  {} |
+| action | [IPFSActions](#ipfsactions) | - |
 
 **Returns:** [IPFSStoreState](interfaces/ipfsstorestate.md)
 
@@ -1721,16 +2070,16 @@ ___
 
 ▸ **loadContract**(contractName: *`string`*, contractAddress: *`string`*, userAddress: *`string`*, web3: *`any`*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:70*
+*Defined in contracts/contracts.saga.ts:76*
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| contractName | `string` | 
-| contractAddress | `string` | 
-| userAddress | `string` | 
-| web3 | `any` | 
+| contractName | `string` |
+| contractAddress | `string` |
+| userAddress | `string` |
+| web3 | `any` |
 
 **Returns:** `SagaIterator`
 
@@ -1747,7 +2096,7 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| emit | `function` | 
+| emit | `function` |
 
 **Returns:** `Promise`<`void`>
 
@@ -1758,13 +2107,13 @@ ___
 
 ▸ **onAccountAdd**(action: *[AccountAddAction](interfaces/accountaddaction.md)*): `SagaIterator`
 
-*Defined in accounts/accounts.saga.ts:107*
+*Defined in accounts/accounts.saga.ts:112*
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| action | [AccountAddAction](interfaces/accountaddaction.md) | 
+| action | [AccountAddAction](interfaces/accountaddaction.md) |
 
 **Returns:** `SagaIterator`
 
@@ -1780,19 +2129,54 @@ ___
 **Returns:** `SagaIterator`
 
 ___
+<a id="onbacklinkinit"></a>
+
+###  onBacklinkInit
+
+▸ **onBacklinkInit**(action: *[Web3LoadedAction](interfaces/web3loadedaction.md)*): `SagaIterator`
+
+*Defined in backlink/backlink.sagas.ts:67*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| action | [Web3LoadedAction](interfaces/web3loadedaction.md) |
+
+**Returns:** `SagaIterator`
+
+___
 <a id="oncontractcall"></a>
 
 ###  onContractCall
 
 ▸ **onContractCall**(action: *[ContractCallAction](#contractcallaction)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:199*
+*Defined in contracts/contracts.saga.ts:218*
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| action | [ContractCallAction](#contractcallaction) | 
+| action | [ContractCallAction](#contractcallaction) |
+
+**Returns:** `SagaIterator`
+
+___
+<a id="oncontractcompleterefresh"></a>
+
+###  onContractCompleteRefresh
+
+▸ **onContractCompleteRefresh**(dispatch: *`function`*, action: *[ContractCompleteRefreshAction](interfaces/contractcompleterefreshaction.md)*): `SagaIterator`
+
+*Defined in contracts/contracts.saga.ts:340*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| dispatch | `function` |
+| action | [ContractCompleteRefreshAction](interfaces/contractcompleterefreshaction.md) |
 
 **Returns:** `SagaIterator`
 
@@ -1803,13 +2187,13 @@ ___
 
 ▸ **onContractLoad**(action: *[ContractLoadAction](interfaces/contractloadaction.md)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:314*
+*Defined in contracts/contracts.saga.ts:335*
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| action | [ContractLoadAction](interfaces/contractloadaction.md) | 
+| action | [ContractLoadAction](interfaces/contractloadaction.md) |
 
 **Returns:** `SagaIterator`
 
@@ -1820,13 +2204,13 @@ ___
 
 ▸ **onContractSend**(action: *[ContractSendAction](interfaces/contractsendaction.md)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:298*
+*Defined in contracts/contracts.saga.ts:319*
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| action | [ContractSendAction](interfaces/contractsendaction.md) | 
+| action | [ContractSendAction](interfaces/contractsendaction.md) |
 
 **Returns:** `SagaIterator`
 
@@ -1837,13 +2221,13 @@ ___
 
 ▸ **onLoadContractInitialize**(action: *[Web3LoadedAction](interfaces/web3loadedaction.md)*): `SagaIterator`
 
-*Defined in contracts/contracts.saga.ts:108*
+*Defined in contracts/contracts.saga.ts:114*
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| action | [Web3LoadedAction](interfaces/web3loadedaction.md) | 
+| action | [Web3LoadedAction](interfaces/web3loadedaction.md) |
 
 **Returns:** `SagaIterator`
 
@@ -1860,7 +2244,59 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| action | [IPFSLoadAction](interfaces/ipfsloadaction.md) | 
+| action | [IPFSLoadAction](interfaces/ipfsloadaction.md) |
+
+**Returns:** `SagaIterator`
+
+___
+<a id="onnewaccount"></a>
+
+###  onNewAccount
+
+▸ **onNewAccount**(action: *[AccountAddAction](interfaces/accountaddaction.md)*): `SagaIterator`
+
+*Defined in backlink/backlink.sagas.ts:99*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| action | [AccountAddAction](interfaces/accountaddaction.md) |
+
+**Returns:** `SagaIterator`
+
+___
+<a id="onnewblock"></a>
+
+###  onNewBlock
+
+▸ **onNewBlock**(dispatch: *`function`*, action: *[BacklinkNewBlockEventAction](interfaces/backlinknewblockeventaction.md)*): `SagaIterator`
+
+*Defined in backlink/backlink.sagas.ts:168*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| dispatch | `function` |
+| action | [BacklinkNewBlockEventAction](interfaces/backlinknewblockeventaction.md) |
+
+**Returns:** `SagaIterator`
+
+___
+<a id="onnewcontract"></a>
+
+###  onNewContract
+
+▸ **onNewContract**(action: *[ContractLoadedAction](interfaces/contractloadedaction.md)*): `SagaIterator`
+
+*Defined in backlink/backlink.sagas.ts:93*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| action | [ContractLoadedAction](interfaces/contractloadedaction.md) |
 
 **Returns:** `SagaIterator`
 
@@ -1871,15 +2307,38 @@ ___
 
 ▸ **onUpdateRequest**(action: *[AccountUpdateRequestAction](interfaces/accountupdaterequestaction.md)*): `SagaIterator`
 
-*Defined in accounts/accounts.saga.ts:119*
+*Defined in accounts/accounts.saga.ts:124*
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| action | [AccountUpdateRequestAction](interfaces/accountupdaterequestaction.md) | 
+| action | [AccountUpdateRequestAction](interfaces/accountupdaterequestaction.md) |
 
 **Returns:** `SagaIterator`
+
+___
+<a id="recursivebackwardfetcher"></a>
+
+###  recursiveBackwardFetcher
+
+▸ **recursiveBackwardFetcher**(web3: *`any`*, block: *`any`*, height: *`number`*, depth: *`number`*, emit: *`function`*, hooks: *[BacklinkHookState](interfaces/backlinkhookstate.md)*, dispatch: *`function`*): `void`
+
+*Defined in backlink/backlink.sagas.ts:105*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| web3 | `any` |
+| block | `any` |
+| height | `number` |
+| depth | `number` |
+| emit | `function` |
+| hooks | [BacklinkHookState](interfaces/backlinkhookstate.md) |
+| dispatch | `function` |
+
+**Returns:** `void`
 
 ___
 <a id="refreshloop"></a>
@@ -1905,7 +2364,7 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| action | [Web3LoadAction](interfaces/web3loadaction.md) | 
+| action | [Web3LoadAction](interfaces/web3loadaction.md) |
 
 **Returns:** `SagaIterator`
 
@@ -1916,13 +2375,13 @@ ___
 
 ▸ **rootSagaBuilder**(...customSagas: *`any`[]*): `any`
 
-*Defined in sagas.ts:8*
+*Defined in sagas.ts:9*
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| `Rest` customSagas | `any`[] | 
+| `Rest` customSagas | `any`[] |
 
 **Returns:** `any`
 
@@ -1933,14 +2392,14 @@ ___
 
 ▸ **runForceRefreshRound**(state: *[State](interfaces/state.md)*, emit: *`function`*): `void`
 
-*Defined in contracts/contracts.saga.ts:45*
+*Defined in contracts/contracts.saga.ts:52*
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| state | [State](interfaces/state.md) | 
-| emit | `function` | 
+| state | [State](interfaces/state.md) |
+| emit | `function` |
 
 **Returns:** `void`
 
@@ -1951,16 +2410,16 @@ ___
 
 ▸ **runForceRefreshRoundOn**(state: *[State](interfaces/state.md)*, emit: *`function`*, contractName: *`string`*, instance_address: *`string`*): `void`
 
-*Defined in contracts/contracts.saga.ts:32*
+*Defined in contracts/contracts.saga.ts:39*
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| state | [State](interfaces/state.md) | 
-| emit | `function` | 
-| contractName | `string` | 
-| instance_address | `string` | 
+| state | [State](interfaces/state.md) |
+| emit | `function` |
+| contractName | `string` |
+| instance_address | `string` |
 
 **Returns:** `void`
 
@@ -1971,13 +2430,13 @@ ___
 
 ▸ **sendRawTransaction**(action: *[TxSendRawAction](interfaces/txsendrawaction.md)*): `SagaIterator`
 
-*Defined in tx/tx.sagas.ts:115*
+*Defined in tx/tx.sagas.ts:117*
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| action | [TxSendRawAction](interfaces/txsendrawaction.md) | 
+| action | [TxSendRawAction](interfaces/txsendrawaction.md) |
 
 **Returns:** `SagaIterator`
 
@@ -1994,7 +2453,7 @@ ___
 
 | Param | Type |
 | ------ | ------ |
-| action | [TxSendAction](interfaces/txsendaction.md) | 
+| action | [TxSendAction](interfaces/txsendaction.md) |
 
 **Returns:** `SagaIterator`
 
@@ -2005,15 +2464,15 @@ ___
 
 ▸ **singleFetch**(action: *[AccountAddAction](interfaces/accountaddaction.md)*, new_address: *`boolean`*, coinbase: *`boolean`*): `SagaIterator`
 
-*Defined in accounts/accounts.saga.ts:86*
+*Defined in accounts/accounts.saga.ts:91*
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| action | [AccountAddAction](interfaces/accountaddaction.md) | 
-| new_address | `boolean` | 
-| coinbase | `boolean` | 
+| action | [AccountAddAction](interfaces/accountaddaction.md) |
+| new_address | `boolean` |
+| coinbase | `boolean` |
 
 **Returns:** `SagaIterator`
 
@@ -2030,17 +2489,35 @@ ___
 
 | Param | Type | Default value |
 | ------ | ------ | ------ |
-| `Default value` state | [TransactionStoreState](interfaces/transactionstorestate.md) |  {} as TransactionStoreState | 
-| action | [TxActions](#txactions) | - | 
+| `Default value` state | [TransactionStoreState](interfaces/transactionstorestate.md) |  {} as TransactionStoreState |
+| action | [TxActions](#txactions) | - |
 
 **Returns:** [TransactionStoreState](interfaces/transactionstorestate.md)
+
+___
+<a id="updatemanager"></a>
+
+###  updateManager
+
+▸ **updateManager**(action: *[Web3LoadedAction](interfaces/web3loadedaction.md)*, backlink: *[BacklinkState](interfaces/backlinkstate.md)*): `SagaIterator`
+
+*Defined in backlink/backlink.sagas.ts:24*
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| action | [Web3LoadedAction](interfaces/web3loadedaction.md) |
+| backlink | [BacklinkState](interfaces/backlinkstate.md) |
+
+**Returns:** `SagaIterator`
 
 ___
 <a id="web3"></a>
 
 ### `<Const>` web3
 
-▸ **web3**(state?: *[Web3State](#web3state)*, action: *[Web3Actions](#web3actions)*): [Web3LoadingState](interfaces/web3loadingstate.md) |[Web3LoadedState](interfaces/web3loadedstate.md) |[Web3LoadErrorState](interfaces/web3loaderrorstate.md) |[Web3NetworkErrorState](interfaces/web3networkerrorstate.md) |[Web3LockedState](interfaces/web3lockedstate.md)
+▸ **web3**(state?: *[Web3State](#web3state)*, action: *[Web3Actions](#web3actions)*):  [Web3LoadingState](interfaces/web3loadingstate.md) &#124; [Web3LoadedState](interfaces/web3loadedstate.md) &#124; [Web3LoadErrorState](interfaces/web3loaderrorstate.md) &#124; [Web3NetworkErrorState](interfaces/web3networkerrorstate.md) &#124; [Web3LockedState](interfaces/web3lockedstate.md)
 
 *Defined in web3/web3.reducers.ts:12*
 
@@ -2048,14 +2525,10 @@ ___
 
 | Param | Type | Default value |
 | ------ | ------ | ------ |
-| `Default value` state | [Web3State](#web3state) |  {status: &#x27;LOADING&#x27;} | 
-| action | [Web3Actions](#web3actions) | - | 
+| `Default value` state | [Web3State](#web3state) |  {status: &#x27;LOADING&#x27;} |
+| action | [Web3Actions](#web3actions) | - |
 
-**Returns:** [Web3LoadingState](interfaces/web3loadingstate.md) |
-[Web3LoadedState](interfaces/web3loadedstate.md) |
-[Web3LoadErrorState](interfaces/web3loaderrorstate.md) |
-[Web3NetworkErrorState](interfaces/web3networkerrorstate.md) |
-[Web3LockedState](interfaces/web3lockedstate.md)
+**Returns:**  [Web3LoadingState](interfaces/web3loadingstate.md) &#124; [Web3LoadedState](interfaces/web3loadedstate.md) &#124; [Web3LoadErrorState](interfaces/web3loaderrorstate.md) &#124; [Web3NetworkErrorState](interfaces/web3networkerrorstate.md) &#124; [Web3LockedState](interfaces/web3lockedstate.md)
 
 ___
 
@@ -2122,7 +2595,7 @@ ___
 
 **dummyReducer**: *`object`*
 
-*Defined in dummyReducer.ts:12*
+*Defined in dummyReducer.ts:13*
 
 <a id="dummyreducer.accounts"></a>
 
@@ -2130,19 +2603,38 @@ ___
 
 **● accounts**: *`function`* =  {} as Reducer<AccountStoreState>
 
-*Defined in dummyReducer.ts:17*
+*Defined in dummyReducer.ts:18*
 
 #### Type declaration
-▸(state: *`S` |`undefined`*, action: *`A`*): `S`
+▸(state: * `S` &#124; `undefined`*, action: *`A`*): `S`
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| state | `S` |
-`undefined`
- | 
-| action | `A` | 
+| state |  `S` &#124; `undefined`|
+| action | `A` |
+
+**Returns:** `S`
+
+___
+<a id="dummyreducer.backlink"></a>
+
+####  backlink
+
+**● backlink**: *`function`* =  {} as Reducer<BacklinkState>
+
+*Defined in dummyReducer.ts:20*
+
+#### Type declaration
+▸(state: * `S` &#124; `undefined`*, action: *`A`*): `S`
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| state |  `S` &#124; `undefined`|
+| action | `A` |
 
 **Returns:** `S`
 
@@ -2153,19 +2645,17 @@ ___
 
 **● contracts**: *`function`* =  {} as Reducer<ContractStoreState>
 
-*Defined in dummyReducer.ts:15*
+*Defined in dummyReducer.ts:16*
 
 #### Type declaration
-▸(state: *`S` |`undefined`*, action: *`A`*): `S`
+▸(state: * `S` &#124; `undefined`*, action: *`A`*): `S`
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| state | `S` |
-`undefined`
- | 
-| action | `A` | 
+| state |  `S` &#124; `undefined`|
+| action | `A` |
 
 **Returns:** `S`
 
@@ -2176,19 +2666,17 @@ ___
 
 **● feed**: *`function`* =  {} as Reducer<FeedState[]>
 
-*Defined in dummyReducer.ts:16*
+*Defined in dummyReducer.ts:17*
 
 #### Type declaration
-▸(state: *`S` |`undefined`*, action: *`A`*): `S`
+▸(state: * `S` &#124; `undefined`*, action: *`A`*): `S`
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| state | `S` |
-`undefined`
- | 
-| action | `A` | 
+| state |  `S` &#124; `undefined`|
+| action | `A` |
 
 **Returns:** `S`
 
@@ -2199,19 +2687,17 @@ ___
 
 **● ipfs**: *`function`* =  {} as Reducer<IPFSStoreState>
 
-*Defined in dummyReducer.ts:18*
+*Defined in dummyReducer.ts:19*
 
 #### Type declaration
-▸(state: *`S` |`undefined`*, action: *`A`*): `S`
+▸(state: * `S` &#124; `undefined`*, action: *`A`*): `S`
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| state | `S` |
-`undefined`
- | 
-| action | `A` | 
+| state |  `S` &#124; `undefined`|
+| action | `A` |
 
 **Returns:** `S`
 
@@ -2222,19 +2708,17 @@ ___
 
 **● tx**: *`function`* =  {} as Reducer<TransactionStoreState>
 
-*Defined in dummyReducer.ts:14*
+*Defined in dummyReducer.ts:15*
 
 #### Type declaration
-▸(state: *`S` |`undefined`*, action: *`A`*): `S`
+▸(state: * `S` &#124; `undefined`*, action: *`A`*): `S`
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| state | `S` |
-`undefined`
- | 
-| action | `A` | 
+| state |  `S` &#124; `undefined`|
+| action | `A` |
 
 **Returns:** `S`
 
@@ -2245,21 +2729,65 @@ ___
 
 **● web3**: *`function`* =  {} as Reducer<Web3State>
 
-*Defined in dummyReducer.ts:13*
+*Defined in dummyReducer.ts:14*
 
 #### Type declaration
-▸(state: *`S` |`undefined`*, action: *`A`*): `S`
+▸(state: * `S` &#124; `undefined`*, action: *`A`*): `S`
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| state | `S` |
-`undefined`
- | 
-| action | `A` | 
+| state |  `S` &#124; `undefined`|
+| action | `A` |
 
 **Returns:** `S`
+
+___
+
+___
+<a id="networknames"></a>
+
+### `<Const>` networkNames
+
+**networkNames**: *`object`*
+
+*Defined in backlink/backlink.sagas.ts:17*
+
+<a id="networknames.1"></a>
+
+####  1
+
+**● 1**: *`string`* = "mainnet"
+
+*Defined in backlink/backlink.sagas.ts:18*
+
+___
+<a id="networknames.3"></a>
+
+####  3
+
+**● 3**: *`string`* = "ropsten"
+
+*Defined in backlink/backlink.sagas.ts:19*
+
+___
+<a id="networknames.4"></a>
+
+####  4
+
+**● 4**: *`string`* = "rinkeby"
+
+*Defined in backlink/backlink.sagas.ts:21*
+
+___
+<a id="networknames.42"></a>
+
+####  42
+
+**● 42**: *`string`* = "kovan"
+
+*Defined in backlink/backlink.sagas.ts:20*
 
 ___
 
@@ -2270,7 +2798,7 @@ ___
 
 **reducers**: *`object`*
 
-*Defined in reducers.ts:10*
+*Defined in reducers.ts:11*
 
 <a id="reducers.accounts"></a>
 
@@ -2278,19 +2806,38 @@ ___
 
 **● accounts**: *`function`*
 
-*Defined in reducers.ts:15*
+*Defined in reducers.ts:16*
 
 #### Type declaration
-▸(state: *`S` |`undefined`*, action: *`A`*): `S`
+▸(state: * `S` &#124; `undefined`*, action: *`A`*): `S`
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| state | `S` |
-`undefined`
- | 
-| action | `A` | 
+| state |  `S` &#124; `undefined`|
+| action | `A` |
+
+**Returns:** `S`
+
+___
+<a id="reducers.backlink"></a>
+
+####  backlink
+
+**● backlink**: *`function`*
+
+*Defined in reducers.ts:18*
+
+#### Type declaration
+▸(state: * `S` &#124; `undefined`*, action: *`A`*): `S`
+
+**Parameters:**
+
+| Param | Type |
+| ------ | ------ |
+| state |  `S` &#124; `undefined`|
+| action | `A` |
 
 **Returns:** `S`
 
@@ -2301,19 +2848,17 @@ ___
 
 **● contracts**: *`function`*
 
-*Defined in reducers.ts:13*
+*Defined in reducers.ts:14*
 
 #### Type declaration
-▸(state: *`S` |`undefined`*, action: *`A`*): `S`
+▸(state: * `S` &#124; `undefined`*, action: *`A`*): `S`
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| state | `S` |
-`undefined`
- | 
-| action | `A` | 
+| state |  `S` &#124; `undefined`|
+| action | `A` |
 
 **Returns:** `S`
 
@@ -2324,19 +2869,17 @@ ___
 
 **● feed**: *`function`*
 
-*Defined in reducers.ts:14*
+*Defined in reducers.ts:15*
 
 #### Type declaration
-▸(state: *`S` |`undefined`*, action: *`A`*): `S`
+▸(state: * `S` &#124; `undefined`*, action: *`A`*): `S`
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| state | `S` |
-`undefined`
- | 
-| action | `A` | 
+| state |  `S` &#124; `undefined`|
+| action | `A` |
 
 **Returns:** `S`
 
@@ -2347,19 +2890,17 @@ ___
 
 **● ipfs**: *`function`*
 
-*Defined in reducers.ts:16*
+*Defined in reducers.ts:17*
 
 #### Type declaration
-▸(state: *`S` |`undefined`*, action: *`A`*): `S`
+▸(state: * `S` &#124; `undefined`*, action: *`A`*): `S`
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| state | `S` |
-`undefined`
- | 
-| action | `A` | 
+| state |  `S` &#124; `undefined`|
+| action | `A` |
 
 **Returns:** `S`
 
@@ -2370,19 +2911,17 @@ ___
 
 **● tx**: *`function`*
 
-*Defined in reducers.ts:12*
+*Defined in reducers.ts:13*
 
 #### Type declaration
-▸(state: *`S` |`undefined`*, action: *`A`*): `S`
+▸(state: * `S` &#124; `undefined`*, action: *`A`*): `S`
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| state | `S` |
-`undefined`
- | 
-| action | `A` | 
+| state |  `S` &#124; `undefined`|
+| action | `A` |
 
 **Returns:** `S`
 
@@ -2393,19 +2932,17 @@ ___
 
 **● web3**: *`function`*
 
-*Defined in reducers.ts:11*
+*Defined in reducers.ts:12*
 
 #### Type declaration
-▸(state: *`S` |`undefined`*, action: *`A`*): `S`
+▸(state: * `S` &#124; `undefined`*, action: *`A`*): `S`
 
 **Parameters:**
 
 | Param | Type |
 | ------ | ------ |
-| state | `S` |
-`undefined`
- | 
-| action | `A` | 
+| state |  `S` &#124; `undefined`|
+| action | `A` |
 
 **Returns:** `S`
 

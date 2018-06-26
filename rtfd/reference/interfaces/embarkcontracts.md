@@ -29,7 +29,7 @@
 
 **● chains**: *`any`*
 
-*Defined in forge.ts:44*
+*Defined in forge.ts:48*
 
 ___
 <a id="embark_contracts"></a>
@@ -38,7 +38,7 @@ ___
 
 **● embark_contracts**: *`any`*
 
-*Defined in forge.ts:45*
+*Defined in forge.ts:49*
 
 ___
 <a id="preloaded_contracts"></a>
@@ -47,7 +47,7 @@ ___
 
 **● preloaded_contracts**: *`string`[]*
 
-*Defined in forge.ts:46*
+*Defined in forge.ts:50*
 
 ___
 <a id="type"></a>
@@ -58,7 +58,7 @@ ___
 
 *Inherited from [Contracts](contracts.md).[type](contracts.md#type)*
 
-*Defined in forge.ts:40*
+*Defined in forge.ts:44*
 
 ___
 

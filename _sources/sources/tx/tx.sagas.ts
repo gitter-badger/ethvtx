@@ -24,7 +24,7 @@ const toLower: string[] = [
 
 function* sendTransaction(action: TxSendAction): SagaIterator {
     let transaction_hash: string;
-
+    const state = yield select();
 
     return eventChannel((emit: (arg?: any) => void): Unsubscribe => {
         let _transactionEvents = undefined;
@@ -45,12 +45,14 @@ function* sendTransaction(action: TxSendAction): SagaIterator {
                     emit(TxBroadcasted(_transaction_hash, action.txArgs));
                 })
                 .on('confirmation', (_amount: number, _receipt: any): void => {
-                    emit(TxConfirmed(transaction_hash, _receipt, _amount));
-                    if (!(_amount % 5) || _amount < 5) {
-                        if (action.txArgs.from)
-                            emit(AccountUpdateRequest(action.txArgs.from));
-                        if (action.txArgs.to)
-                            emit(AccountUpdateRequest(action.txArgs.to));
+                    if (state.backlink.status !== 'CONNECTED' && state.backlink.status !== 'LOADING') {
+                        emit(TxConfirmed(transaction_hash, _receipt, _amount));
+                        if (!(_amount % 5) || _amount < 5) {
+                            if (action.txArgs.from)
+                                emit(AccountUpdateRequest(action.txArgs.from));
+                            if (action.txArgs.to)
+                                emit(AccountUpdateRequest(action.txArgs.to));
+                        }
                     }
                     if (_amount >= 24)
                         emit(END);

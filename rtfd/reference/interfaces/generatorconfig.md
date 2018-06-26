@@ -13,6 +13,7 @@
 ### Properties
 
 * [account_refresh_rate](generatorconfig.md#account_refresh_rate)
+* [backlink_config](generatorconfig.md#backlink_config)
 * [custom_sagas](generatorconfig.md#custom_sagas)
 * [custom_state](generatorconfig.md#custom_state)
 * [ipfs_config](generatorconfig.md#ipfs_config)
@@ -28,7 +29,16 @@
 
 **● account_refresh_rate**: *`number`*
 
-*Defined in forge.ts:34*
+*Defined in forge.ts:36*
+
+___
+<a id="backlink_config"></a>
+
+### `<Optional>` backlink_config
+
+**● backlink_config**: *[BacklinkConfig](backlinkconfig.md)*
+
+*Defined in forge.ts:39*
 
 ___
 <a id="custom_sagas"></a>
@@ -37,7 +47,7 @@ ___
 
 **● custom_sagas**: *`any`[]*
 
-*Defined in forge.ts:35*
+*Defined in forge.ts:37*
 
 ___
 <a id="custom_state"></a>
@@ -46,7 +56,7 @@ ___
 
 **● custom_state**: *`DeepPartial`<`T`>*
 
-*Defined in forge.ts:33*
+*Defined in forge.ts:35*
 
 ___
 <a id="ipfs_config"></a>
@@ -55,7 +65,7 @@ ___
 
 **● ipfs_config**: *[IPFSConfig](ipfsconfig.md)*
 
-*Defined in forge.ts:36*
+*Defined in forge.ts:38*
 
 ___
 <a id="reducer"></a>
@@ -64,7 +74,7 @@ ___
 
 **● reducer**: *`ReducersMapObject`<`T`>*
 
-*Defined in forge.ts:32*
+*Defined in forge.ts:34*
 
 ___
 
