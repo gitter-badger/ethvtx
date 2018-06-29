@@ -3,6 +3,7 @@ import {
     AccountStoreState,
     BacklinkState,
     ContractStoreState,
+    EventState,
     FeedState,
     IPFSStoreState,
     State,
@@ -17,5 +18,6 @@ export const dummyReducer: ReducersMapObject<State> = {
     feed: {} as Reducer<FeedState[]>,
     accounts: {} as Reducer<AccountStoreState>,
     ipfs: {} as Reducer<IPFSStoreState>,
-    backlink: {} as Reducer<BacklinkState>
+    backlink: {} as Reducer<BacklinkState>,
+    event: {} as Reducer<EventState>
 };

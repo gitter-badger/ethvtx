@@ -13,7 +13,12 @@ import {
 import createSagaMiddleware, {SagaMiddleware} from 'redux-saga';
 import {
     AccountConfigState,
-    AccountStoreState, BacklinkConfigState, BacklinkState, ContractArtifactState,
+    AccountStoreState,
+    BacklinkConfigState,
+    BacklinkState,
+    ContractArtifactState,
+    EventFeedElementState, EventState,
+    EventSubscriptionState,
     FeedState,
     State,
     Web3LoadingState
@@ -112,6 +117,11 @@ export function forge<T extends State = State>(contracts: EmbarkContracts | Truf
         config: config ? (config.ipfs_config || undefined) : undefined,
         active: false
     };
+
+    initialState.event = {
+        event_feed: [] as DeepPartial<EventFeedElementState>,
+        subscriptions: {} as DeepPartial<EventSubscriptionState>
+    } as DeepPartial<T['event']>;
 
     switch (contracts.type) {
         case 'truffle':

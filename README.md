@@ -23,6 +23,7 @@ Vortex is an Ethereum Dapp redux store that handles transactions, smart contract
 * Track the balance of your account
 * Keep constant data from your contracts in your cache
 * The Backlink will refresh all your data ONLY when trully necessary (NO MORE POLLING)
+* Support for Solidity Events
 * Access all this data accross your React Components
 * Use [already built components](https://github.com/Horyus/vortex-components)
 * Make your Dapp simply incredible !

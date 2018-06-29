@@ -54,6 +54,7 @@
   },
   "scripts": {
     "build": "tslint --project . && tsc",
+    "postinstall": "npm run build",
     "test": "tslint --project . && jest --coverage --notify --runInBand",
     "doc": "rm -rf ./rtfd/reference && tslint --project . && tsc && typedoc --out ./rtfd/reference --mode file ./_sources/sources/ --name \"Vortex\" --theme markdown --hideGenerator --target ES6 --exclude **/*.test.ts --readme 'none' --excludeExternals --excludePrivate"
   },

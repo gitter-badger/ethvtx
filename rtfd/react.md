@@ -75,6 +75,19 @@ And you would use it like this
 <FetchHash ipfs_hash="${YOUR IPFS HASH AS A STRING}"/>
 ```
 
+#### Subscribing to an Event
+
+To subscribe to an Event, you have to call
+```jsx
+import {Vortex} from 'vort_x';
+
+...
+
+Vortex.get().subscribeEvent('eventName', 'ContractName', contract_address);
+
+This will work only if you have configured the backlink properly, and if the backlink managed to establish a websocket connection. Any new event is added into `state.event.event_feed`.
+```
+
 ## Vortex Components
 
 ## [VortexGate](https://github.com/Horyus/vort_x-components/blob/master/src/components/vortex-components/vortex-gate/index.tsx)

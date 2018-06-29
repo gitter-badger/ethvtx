@@ -29,6 +29,8 @@ The sixth part is **IPFS**, and will allow you to fetch data from an IPFS hash a
 
 The seventh, and most interesting aspects of Vortex, is the **Backlink**. This is an additional connection to an Ethereum node, but it handles no transactions, and is a websocket connection (very important). The difference between an **HTTP** and a **WebSocket** connection is that the **WebSocket** allows bi-directional packets. This means you can receive a packet at any moment from the node. This is very very useful to get informations about the transactions happening live, and allows us to fetch updates about your contract data ONLY when we know that a transaction involving your account or contract has been added on a new block.
 
+The eighth is **Event**, and requires **Backlink** to be properly configured. This part will allow you to get notified when a new Event is broadcasted from a specific contract you are specifying.
+
 # Components
 
 With Vortex comes [Vortex Components](./tutorial.md#vortexgate), a set of React Components and Providers that will help you and guide you while using Vortex. You can directly use them to develop your app as they are very generic, or you can simply look at their code to understand how to use Vortex. Aynway, Vortex should be very easy to use for anyone that is familiar with Redux.

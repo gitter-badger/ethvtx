@@ -343,7 +343,7 @@ function* onContractCompleteRefresh(dispatch: (arg: any) => void, action: Contra
 }
 
 export function* ContractSagas(dispatch: (arg: any) => void): any {
-    yield takeLatest('LOADED_WEB3', onLoadContractInitialize);
+    yield takeLatest('LOADED_WEB3_BACKLINK', onLoadContractInitialize);
     yield takeEvery('CONTRACT_LOAD', onContractLoad);
     yield takeEvery('CONTRACT_CALL', onContractCall);
     yield takeEvery('CONTRACT_SEND', onContractSend);

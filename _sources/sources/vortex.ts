@@ -5,6 +5,7 @@ import {EmbarkContracts, forge, GeneratorConfig, ManualContracts, TruffleContrac
 import {Web3Load} from "./web3/web3.actions";
 import {ContractLoad} from "./contracts/contracts.actions";
 import {AccountAdd} from "./accounts/accounts.actions";
+import {EventAdd} from "./event/event.actions";
 
 /**
  * This interface is only here to merge all configuration types into one interface. Have a look at each configuration
@@ -99,6 +100,23 @@ export class Vortex<T extends State> {
                 break ;
             default:
                 throw new Error("Invalid Contracts !");
+        }
+    }
+
+    /**
+     * Adds a new Event to subscription pool.
+     *
+     * @param {string} event_name Name of the event you want to subscribe to.
+     * @param {string} contract_name Name of the contract where the event is triggered.
+     * @param {string} contract_address Address of contract instance.
+     * @param {string} args Additional arguments for Events
+     */
+    public subscribeEvent(event_name: string, contract_name: string, contract_address: string, ...args: string[]): void {
+        if (this._store) {
+            console.log("ADDING EVENT");
+            this._store.dispatch(EventAdd(contract_name, contract_address, event_name, args));
+        } else {
+            throw new Error("Call run before.");
         }
     }
 

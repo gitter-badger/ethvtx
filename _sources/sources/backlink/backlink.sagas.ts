@@ -14,6 +14,7 @@ import {
 import {Unsubscribe} from "redux";
 import {BacklinkHookState, BacklinkState} from "../stateInterface";
 import {ContractCompleteRefresh} from "../contracts/contracts.actions";
+import {Web3BacklinkLoaded} from "../web3/web3.actions";
 const networkNames = {
     1: 'mainnet',
     3: 'ropsten',
@@ -33,6 +34,7 @@ function *updateManager(action: Web3LoadedAction, backlink: BacklinkState): Saga
             }
             instance = new (<any>Web3)(new (<any>Web3).providers.WebsocketProvider(url));
             emit(BacklinkConnected(instance, url));
+            emit(Web3BacklinkLoaded(action._, action.networkId, action.coinbase));
 
             try {
                 instance.eth.subscribe('newBlockHeaders', (error: Error, result: any): void => {
@@ -185,7 +187,6 @@ function* onNewBlock(dispatch: (arg: any) => void, action: BacklinkNewBlockEvent
 
 export function* BacklinkSagas(dispatch: (arg: any) => void): any {
     yield takeLatest('LOADED_WEB3', onBacklinkInit);
-
     yield takeEvery('CONTRACT_LOADED', onNewContract);
     yield takeEvery('ACCOUNT_ADD', onNewAccount);
     const boundOnNewBlock = onNewBlock.bind(null, dispatch);
