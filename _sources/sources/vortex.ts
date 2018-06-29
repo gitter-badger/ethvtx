@@ -113,7 +113,6 @@ export class Vortex<T extends State> {
      */
     public subscribeEvent(event_name: string, contract_name: string, contract_address: string, ...args: string[]): void {
         if (this._store) {
-            console.log("ADDING EVENT");
             this._store.dispatch(EventAdd(contract_name, contract_address, event_name, args));
         } else {
             throw new Error("Call run before.");

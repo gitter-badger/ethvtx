@@ -1,6 +1,6 @@
 {
   "name": "vort_x",
-  "version": "1.0.1-delta.1",
+  "version": "1.0.1-delta.2",
   "description": "Vortex is an Ethereum Dapp Redux Store that handles transactions, smart contracts, accounts, method calls ...",
   "main": "./index.js",
   "browser": "./index.js",
@@ -54,7 +54,7 @@
   },
   "scripts": {
     "build": "tslint --project . && tsc",
-    "postinstall": "npm run build",
+    "postinstall": "tsc",
     "test": "tslint --project . && jest --coverage --notify --runInBand",
     "doc": "rm -rf ./rtfd/reference && tslint --project . && tsc && typedoc --out ./rtfd/reference --mode file ./_sources/sources/ --name \"Vortex\" --theme markdown --hideGenerator --target ES6 --exclude **/*.test.ts --readme 'none' --excludeExternals --excludePrivate"
   },
