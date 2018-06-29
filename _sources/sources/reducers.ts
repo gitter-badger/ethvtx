@@ -7,6 +7,7 @@ import {contracts} from './contracts/contracts.reducers';
 import {accounts} from './accounts/accounts.reducers';
 import {ipfs} from "./ipfs/ipfs.reducers";
 import {backlink} from "./backlink/backlink.reducers";
+import {event} from "./event/event.reducers";
 
 export const reducers: ReducersMapObject<State> = {
     web3,
@@ -15,5 +16,6 @@ export const reducers: ReducersMapObject<State> = {
     feed,
     accounts,
     ipfs,
-    backlink
+    backlink,
+    event
 };

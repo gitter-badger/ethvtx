@@ -137,7 +137,7 @@ function *onUpdateRequest(action: AccountUpdateRequestAction): SagaIterator {
 }
 
 export function* AccountSagas(): any {
-    yield takeLatest('LOADED_WEB3', onAccountInit);
+    yield takeLatest('LOADED_WEB3_BACKLINK', onAccountInit);
     yield takeEvery('ACCOUNT_ADD', onAccountAdd);
     yield takeEvery('ACCOUNT_UPDATE_REQUEST', onUpdateRequest);
 }

@@ -17,6 +17,7 @@ pages:
     - 'GeneratorConfig': reference/interfaces/generatorconfig.md
     - 'IPFSConfig': reference/interfaces/ipfsconfig.md
     - 'BacklinkConfig': reference/interfaces/backlinkconfig.md
+    - 'EventFilterConfig': reference/interfaces/eventfilterconfig.md
   - 'Enums':
     - 'FeedType': reference/enums/feedtype.md
   - 'States':
@@ -34,6 +35,9 @@ pages:
     - 'ContractInstanceState': reference/interfaces/contractinstancestate.md
     - 'ContractStoreState': reference/interfaces/contractstorestate.md
     - 'ContractArtifactState': reference/interfaces/contractartifactstate.md
+    - 'EventFeedElementState': reference/interfaces/eventfeedelementstate.md
+    - 'EventSubscriptionState': reference/interfaces/eventsubscriptionstate.md
+    - 'EventState': reference/interfaces/eventstate.md
     - 'FeedNewAccountState': reference/interfaces/feednewaccountstate.md
     - 'FeedNewContractState': reference/interfaces/feednewcontractstate.md
     - 'FeedNewErrorState': reference/interfaces/feednewerrorstate.md

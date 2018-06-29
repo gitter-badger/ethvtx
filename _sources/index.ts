@@ -40,7 +40,10 @@ export {
     BacklinkHookState,
     BacklinkNetworkUrlMaps,
     BacklinkState,
-    BacklinkSubscriptionHookState
+    BacklinkSubscriptionHookState,
+    EventState,
+    EventSubscriptionState,
+    EventFeedElementState
 } from './sources/stateInterface';
 
 export {dummyReducer} from './sources/dummyReducer';
@@ -154,6 +157,45 @@ export {
     IPFSConnectAction,
     IPFSConnect
 } from './sources/ipfs/ipfs.actions';
+
+export {
+    BacklinkNewBlockEventAction,
+    BacklinkError,
+    BacklinkNewBlockEvent,
+    BacklinkActions,
+    BacklinkConnect,
+    BacklinkConnectAction,
+    BacklinkConnected,
+    BacklinkConnectedAction,
+    BacklinkCreateHook,
+    BacklinkCreateHookAction,
+    BacklinkDisable,
+    BacklinkDisableAction,
+    BacklinkDisconnect,
+    BacklinkDisconnectAction,
+    BacklinkDisconnected,
+    BacklinkDisconnectedAction,
+    BacklinkErrorAction,
+    BacklinkRemoveHook,
+    BacklinkRemoveHookAction
+} from './sources/backlink/backlink.actions';
+
+export {
+    EventBroadcastedAction,
+    EventRemoveAction,
+    EventInsertSubscriptionAction,
+    EventActions,
+    EventAddAction,
+    EventAdd,
+    EventBroadcasted,
+    EventInsertSubscription,
+    EventRemove
+} from './sources/event/event.actions';
+
+export {
+    EventFilterConfig,
+    EventFilter
+} from './sources/event/event.selectors';
 
 export {VortexContract} from './sources/contracts/VortexContract';
 

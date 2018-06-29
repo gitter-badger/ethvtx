@@ -195,6 +195,22 @@ export interface BacklinkState {
     hooks: BacklinkHookState
 }
 
+export interface EventSubscriptionState {
+    [key: string]: any
+}
+
+export interface EventFeedElementState {
+    event_name: string,
+    contract_name: string,
+    contract_address: string,
+    args: any
+}
+
+export interface EventState {
+    event_feed: EventFeedElementState[],
+    subscriptions: EventSubscriptionState
+}
+
 export interface State {
     web3: Web3LoadingState | Web3LoadedState | Web3LoadErrorState | Web3NetworkErrorState | Web3LockedState,
     tx: TransactionStoreState,
@@ -202,6 +218,7 @@ export interface State {
     feed: (FeedNewContractState | FeedNewTransactionState | FeedNewErrorState | FeedNewAccountState | FeedNewIPFSContentState)[],
     accounts: AccountStoreState,
     ipfs: IPFSStoreState,
-    backlink: BacklinkState
+    backlink: BacklinkState,
+    event: EventState
 }
 

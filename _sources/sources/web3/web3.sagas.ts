@@ -1,12 +1,20 @@
 import {call, put, take, takeLatest, select} from 'redux-saga/effects';
 import {Unsubscribe} from "redux";
-import {Web3LoadAction, Web3Loaded, Web3LoadError, Web3Locked, Web3NetworkError} from "./web3.actions";
+import {
+    Web3BacklinkLoaded,
+    Web3LoadAction,
+    Web3Loaded,
+    Web3LoadError,
+    Web3Locked,
+    Web3NetworkError
+} from "./web3.actions";
 import {SagaIterator, eventChannel, END} from "redux-saga";
 import {TxSend, TxSendRaw} from "../tx/tx.actions";
 import {Vortex} from "../vortex";
 
 function* resolveWeb3(action: Web3LoadAction): SagaIterator {
-    const config = (yield select()).contracts.config;
+    const state = (yield select());
+    const config = state.contracts.config;
     return eventChannel((emit: (arg?: any) => void): Unsubscribe => {
 
         action.loader.then((web3: any): void => {
@@ -45,6 +53,9 @@ function* resolveWeb3(action: Web3LoadAction): SagaIterator {
                                     emit(END);
                                 } else {
                                     emit(Web3Loaded(web3, network_id, coinbase));
+                                    if (state.backlink.status !== 'LOADING') {
+                                        emit(Web3BacklinkLoaded(web3, network_id, coinbase));
+                                    }
                                     emit(END);
                                 }
                             }).catch((reason: Error): void => {

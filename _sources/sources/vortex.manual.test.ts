@@ -20,6 +20,7 @@ import * as IPFSApi from 'ipfs-api';
 import {IPFSLoad} from "./ipfs/ipfs.actions";
 import {SagaIterator} from "redux-saga";
 import {takeEvery} from "redux-saga/effects";
+import {EventAdd} from "./event/event.actions";
 const IPFS = IPFSApi('ipfs.infura.io', '5001', {protocol: 'https'});
 let IPFS_hash;
 const IPFS_fake_hash = "QmaoJEsqFkHETuCzGukYtfdJFCgNa2JKVNmdMbNdtRwszB";
@@ -101,6 +102,13 @@ describe("Vortex", () => {
         sagaDone.done = done;
         Vortex.get().loadWeb3();
     });
+
+    test('Add Event', (done) => {
+        setTimeout((): void => {
+            Vortex.get().Store.dispatch(EventAdd("Migrations", Migrations.networks[Object.keys(Migrations.networks)[0]].address, "Test"));
+            done();
+        }, 10000);
+    }, 30000);
 
     test('Check Coinbase Balance', (done) => {
         setTimeout((): void => {
@@ -293,5 +301,10 @@ describe("Vortex", () => {
             }
         }, 1000);
     }, 30000);
+
+    test('Event Feed', () => {
+        const state = Vortex.get().Store.getState();
+        expect(state.event.event_feed.length).toBe(1);
+    })
 
 });
