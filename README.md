@@ -14,7 +14,7 @@
 
 ## Introduction
 
-Vortex is an Ethereum Dapp redux store that handles transactions, smart contracts, accounts, method calls, web3 status ... Very easy to use with React, it will allow your Dapp to be more reactive (no need to refresh anything), and will make less requests with web3, for even better results. You can also fetch IPFS data and cache it into the redux store.
+Vortex is an Ethereum Dapp redux store that handles transactions, smart contracts, events, accounts, method calls, web3 status, IPFS fetching ... Very easy to use with React, it will allow your Dapp to be more reactive (no need to refresh anything), and will make less requests with web3, for even better results. You can also fetch IPFS data and cache it into the redux store.
 
 
 * Load all your contracts inside a Redux Store instantly
@@ -22,6 +22,7 @@ Vortex is an Ethereum Dapp redux store that handles transactions, smart contract
 * Track precisely how your transactions are doing
 * Track the balance of your account
 * Keep constant data from your contracts in your cache
+* Get notified when an Event is triggered
 * The Backlink will refresh all your data ONLY when trully necessary (NO MORE POLLING)
 * Support for Solidity Events
 * Access all this data accross your React Components
