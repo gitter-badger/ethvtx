@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Add propMappers
+- `getContract` allows automatic instance recovery
+- `callContract` calls a constant method from an instance
+- `getFeed` get feed elements (filterable)
+- `getAccount` allows automatic account recovery
+- `getIPFSHash` allows automatic IPFS Hash recovery
+- `fetchIPFSHash` in `Vortex` class
+
 ## [1.0.1-delta.1]
 ### Added
 - `subscribeEvent` adds a new event to update list

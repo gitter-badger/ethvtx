@@ -21,6 +21,7 @@
     "./_sources/sources/dummyReducer.ts",
     "./_sources/sources/sagas.ts",
     "./_sources/sources/reducers.ts",
+    "./_sources/sources/propMappers.ts",
 
     "./_sources/sources/web3/web3.sagas.ts",
     "./_sources/sources/web3/web3.reducers.ts",

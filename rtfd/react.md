@@ -29,9 +29,6 @@ export class _FetchHash extends React.Component {
             // Checks if data has not been fetched.
             if (!this.props.content) {
 
-                // Dispatches the action to load the hash.
-                this.props.IPFSLoad(this.props.ipfs_hash);
-
                 return (<code>FETCHING ...</code>)
             } else {
 
@@ -53,21 +50,15 @@ export class _FetchHash extends React.Component {
 }
 
 // Very important to return the actual props, or the given arguments will be lost.
+// getIPFSHash is a propMapper helper. You can find more informations in the Prop Mappers section.
 const mapStateToProps = (state, ownProps) => {
     return {
         ...ownProps,
-        content: IsIpfs.multihash(ownProps.ipfs_hash) ? state.ipfs[ownProps.ipfs_hash] : undefined
+        content: IsIpfs.multihash(ownProps.ipfs_hash) ? getIPFSHash(state, ownProps.ipfs_hash) : undefined
     }
 };
 
-// Nice feature from redux, gives you a method that automatically dispatches an action in your props.
-const mapDispatchToProps = (dispatch) => {
-    return {
-        IPFSLoad: (hash) => {dispatch(IPFSLoad(hash))}
-    }
-};
-
-export const FetchHash = connect(_FetchHash, mapStateToProps, mapDispatchToProps);
+export const FetchHash = connect(_FetchHash, mapStateToProps);
 ```
 
 And you would use it like this
@@ -79,14 +70,41 @@ And you would use it like this
 
 To subscribe to an Event, you have to call
 ```jsx
-import {Vortex} from 'vort_x';
+import {Vortex, getEvents} from 'vort_x';
 
 ...
 
 Vortex.get().subscribeEvent('eventName', 'ContractName', contract_address);
 
-This will work only if you have configured the backlink properly, and if the backlink managed to establish a websocket connection. Any new event is added into `state.event.event_feed`.
+// or, in a mapStateToProps
+
+const mapStateToProps = (state) => {
+    return {
+        events: getEvents(state, {event_name: YOUR_EVENT_NAME, contract_name: YOUR_CONTRACT_NAME, contract_address: YOUR_CONTRACT_ADDRESS}, true, EVENT_ARG_1, ..., EVENT_ARG_N)
+    };
+}
+
+// getEvents will subscribe to an event only if the config contains event_name, contract_name and contract_address,
+// and that the follow argument is set at true. Also Event arguments are taken as
+// last arguments, and are optional.
+
+
+// This will work only if you have configured the backlink properly,
+// and if the backlink managed to establish a websocket connection.
+// Any new event is added into state.event.event_feed.
 ```
+
+## Prop Mappers
+
+Vortex contains helper functions that can make you win a lot of time while writing your `mapStateToProps` functions.
+Most of the time, they will return `undefined` until the required data is available.
+
+- [**getContract**](./reference/README.md#getcontract)
+- [**callContract**](./reference/README.md#callcontract)
+- [**getFeed**](./reference/README.md#getfeed)
+- [**getAccount**](./reference/README.md#getaccount)
+- [**getEvents**](./reference/README.md#getevents)
+- [**getIPFSHash**](./reference/README.md#getipfshash)
 
 ## Vortex Components
 
@@ -655,6 +673,7 @@ import {VortexContractsList, connect, VortexMethodCallList} from 'vort_x-compone
 import {FormGroup, ControlLabel, FormControl, HelpBlock, Button} from 'react-bootstrap';
 import {Panel} from "react-bootstrap";
 import {CallContainer, SingleCall} from "../list-method-calls";
+import {callContract, getContract} from "vort_x";
 
 function FieldGroup({ id, label, help, ...props }) {
     return (
@@ -701,7 +720,7 @@ class ContractsContainer extends React.Component {
         this.props.contract.instance.vortexMethods.get.data({from: this.props.web3.coinbase});
         const mapStateToProps = (state) => {
             return {
-                result: state.contracts[this.props.contract_name][this.props.contract_address].instance.vortexMethods.get.data({from: this.props.web3.coinbase}),
+                result: callContract(getContract(state, this.props.contract_name, this.props.contract_address), "get", {from: this.props.web3.coinbase}),
                 update: (newValue) => {
                     this.props.contract.instance.vortexMethods.set.send(newValue, {from: this.props.web3.coinbase, gas: 20000000});
                 }
