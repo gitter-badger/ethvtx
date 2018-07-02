@@ -1,6 +1,6 @@
 {
   "name": "vort_x",
-  "version": "1.0.1-delta.5",
+  "version": "1.0.1-echo.0",
   "description": "Vortex is an Ethereum Dapp Redux Store that handles transactions, smart contracts, accounts, method calls ...",
   "main": "./index.js",
   "browser": "./index.js",
