@@ -210,3 +210,12 @@ export {
     IPFSConfig,
     BacklinkConfig
 } from './_sources/sources/forge'
+
+export {
+    getContract,
+    callContract,
+    getAccount,
+    getEvents,
+    getFeed,
+    getIPFSHash
+} from './_sources/sources/propMappers';

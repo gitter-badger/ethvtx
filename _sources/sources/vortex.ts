@@ -6,6 +6,7 @@ import {Web3Load} from "./web3/web3.actions";
 import {ContractLoad} from "./contracts/contracts.actions";
 import {AccountAdd} from "./accounts/accounts.actions";
 import {EventAdd} from "./event/event.actions";
+import {IPFSLoad} from "./ipfs/ipfs.actions";
 
 /**
  * This interface is only here to merge all configuration types into one interface. Have a look at each configuration
@@ -170,6 +171,19 @@ export class Vortex<T extends State> {
     public loadContract(contractName: string, contractAddress: string): void {
         if (this._store) {
             this._store.dispatch(ContractLoad(contractName, contractAddress));
+        } else {
+            throw new Error("Call run before.");
+        }
+    }
+
+    /**
+     * Load the given IPFS hash into the store.
+     *
+     * @param {string} hash The IPFS Hash you want to load
+     */
+    public fetchIPFSHash(hash: string): void {
+        if (this._store) {
+            this._store.dispatch(IPFSLoad(hash));
         } else {
             throw new Error("Call run before.");
         }
