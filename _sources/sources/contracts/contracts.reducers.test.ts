@@ -22,7 +22,6 @@ let contractInstance: any = {
     },
     test: 'TEST'
 };
-let transactionArgs: any = {from: contractAddress};
 
 let state = {
     [contractName]: {

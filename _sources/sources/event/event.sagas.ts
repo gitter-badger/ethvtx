@@ -1,5 +1,4 @@
-import {call, put, take, takeEvery, takeLatest, select} from 'redux-saga/effects';
-
+import {call, put, take, takeEvery, select} from 'redux-saga/effects';
 import {SagaIterator, eventChannel, END} from "redux-saga";
 import {Unsubscribe} from "redux";
 import {EventAddAction, EventBroadcasted, EventInsertSubscription} from "./event.actions";

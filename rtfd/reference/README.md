@@ -510,7 +510,7 @@ ___
 
 **● accountFollowing**: *`object`*
 
-*Defined in propMappers.ts:81*
+*Defined in propMappers.ts:82*
 
 #### Type declaration
 
@@ -521,7 +521,7 @@ ___
 
 **● contractLoading**: *`object`*
 
-*Defined in propMappers.ts:13*
+*Defined in propMappers.ts:14*
 
 #### Type declaration
 
@@ -532,7 +532,7 @@ ___
 
 **● eventFeedSelectors**: *`object`*
 
-*Defined in propMappers.ts:100*
+*Defined in propMappers.ts:101*
 
 #### Type declaration
 
@@ -543,7 +543,7 @@ ___
 
 **● eventFeedSubscriptions**: *`object`*
 
-*Defined in propMappers.ts:101*
+*Defined in propMappers.ts:102*
 
 #### Type declaration
 
@@ -554,7 +554,7 @@ ___
 
 **● feedSelectors**: *`object`*
 
-*Defined in propMappers.ts:56*
+*Defined in propMappers.ts:57*
 
 #### Type declaration
 
@@ -565,7 +565,7 @@ ___
 
 **● ipfsHashFetched**: *`object`*
 
-*Defined in propMappers.ts:133*
+*Defined in propMappers.ts:134*
 
 #### Type declaration
 
@@ -576,7 +576,7 @@ ___
 
 **● running**: *`boolean`* = false
 
-*Defined in accounts/accounts.saga.ts:15*
+*Defined in accounts/accounts.saga.ts:14*
 
 ___
 <a id="tolower"></a>
@@ -737,7 +737,7 @@ ___
 
 ▸ **AccountSagas**(): `any`
 
-*Defined in accounts/accounts.saga.ts:139*
+*Defined in accounts/accounts.saga.ts:138*
 
 **Returns:** `any`
 
@@ -1049,7 +1049,7 @@ ___
 
 ▸ **BacklinkSagas**(dispatch: *`function`*): `any`
 
-*Defined in backlink/backlink.sagas.ts:188*
+*Defined in backlink/backlink.sagas.ts:186*
 
 **Parameters:**
 
@@ -1446,7 +1446,7 @@ ___
 
 ▸ **EventSagas**(): `any`
 
-*Defined in event/event.sagas.ts:88*
+*Defined in event/event.sagas.ts:87*
 
 **Returns:** `any`
 
@@ -1634,7 +1634,7 @@ ___
 
 ▸ **IPFSFetchData**(action: *[IPFSLoadAction](interfaces/ipfsloadaction.md)*): `SagaIterator`
 
-*Defined in ipfs/ipfs.saga.ts:10*
+*Defined in ipfs/ipfs.saga.ts:9*
 
 **Parameters:**
 
@@ -1704,7 +1704,7 @@ ___
 
 ▸ **IPFSSagas**(): `any`
 
-*Defined in ipfs/ipfs.saga.ts:73*
+*Defined in ipfs/ipfs.saga.ts:72*
 
 **Returns:** `any`
 
@@ -1997,7 +1997,7 @@ ___
 
 ▸ **callContract**(instance: *`any`*, method_name: *`string`*, ...args: *`any`[]*): `any`
 
-*Defined in propMappers.ts:46*
+*Defined in propMappers.ts:47*
 
 Return the value of the constant call. Chain it with getContract for safety.
 
@@ -2253,7 +2253,7 @@ ___
 
 ▸ **createSubscription**(contract_address: *`string`*, contract_name: *`string`*, event_name: *`string`*, args: *`string`[]*, event_signature: *`string`*, link: *`any`*): `SagaIterator`
 
-*Defined in event/event.sagas.ts:8*
+*Defined in event/event.sagas.ts:7*
 
 **Parameters:**
 
@@ -2311,7 +2311,7 @@ ___
 
 ▸ **fetchAccount**(address: *`string`*, coinbase: *`boolean`*, emit: *`function`*): `Promise`<`void`>
 
-*Defined in accounts/accounts.saga.ts:17*
+*Defined in accounts/accounts.saga.ts:16*
 
 **Parameters:**
 
@@ -2330,7 +2330,7 @@ ___
 
 ▸ **fetchBlockCallTriggers**(height: *`number`*, dispatch: *`function`*): `SagaIterator`
 
-*Defined in backlink/backlink.sagas.ts:155*
+*Defined in backlink/backlink.sagas.ts:153*
 
 **Parameters:**
 
@@ -2369,7 +2369,7 @@ ___
 
 ▸ **getAccount**(state: *[State](interfaces/state.md)*, address: *`string`*, follow?: *`boolean`*):  [AccountInfoState](interfaces/accountinfostate.md) &#124; [AccountErrorState](interfaces/accounterrorstate.md)
 
-*Defined in propMappers.ts:91*
+*Defined in propMappers.ts:92*
 
 Returns the informations about an account. Subscribe to the account if not already in store.
 
@@ -2392,7 +2392,7 @@ ___
 
 ▸ **getContract**(state: *[State](interfaces/state.md)*, contract_name: *`string`*, contract_address: *`string`*, load?: *`boolean`*): `any`
 
-*Defined in propMappers.ts:24*
+*Defined in propMappers.ts:25*
 
 Returns the requested contract instance. Will try to load it if not present in the store.
 
@@ -2432,7 +2432,7 @@ ___
 
 ▸ **getEvents**(state: *[State](interfaces/state.md)*, config?: *[EventFilterConfig](interfaces/eventfilterconfig.md)*, subscribe?: *`boolean`*, ...subscribe_args: *`any`[]*): [EventFeedElementState](interfaces/eventfeedelementstate.md)[]
 
-*Defined in propMappers.ts:112*
+*Defined in propMappers.ts:113*
 
 Returns an array of [EventFeedElementState](interfaces/eventfeedelementstate.md) depending on given configuration.
 
@@ -2467,7 +2467,7 @@ ___
 
 **Returns:** [FeedState](#feedstate)[]
 
-*Defined in propMappers.ts:66*
+*Defined in propMappers.ts:67*
 
 **Parameters:**
 
@@ -2485,7 +2485,7 @@ ___
 
 ▸ **getIPFSHash**(state: *[State](interfaces/state.md)*, hash: *`string`*):  [IPFSContentState](interfaces/ipfscontentstate.md) &#124; [IPFSErrorState](interfaces/ipfserrorstate.md)
 
-*Defined in propMappers.ts:142*
+*Defined in propMappers.ts:143*
 
 Returns fetched IPFS hash. Will fetch it if not already in store.
 
@@ -2505,7 +2505,7 @@ ___
 
 ▸ **initializeRequest**(action: *[Web3LoadedAction](interfaces/web3loadedaction.md)*): `SagaIterator`
 
-*Defined in ipfs/ipfs.saga.ts:59*
+*Defined in ipfs/ipfs.saga.ts:58*
 
 **Parameters:**
 
@@ -2560,7 +2560,7 @@ ___
 
 ▸ **loopOnAccounts**(emit: *`function`*): `Promise`<`void`>
 
-*Defined in accounts/accounts.saga.ts:28*
+*Defined in accounts/accounts.saga.ts:27*
 
 **Parameters:**
 
@@ -2577,7 +2577,7 @@ ___
 
 ▸ **onAccountAdd**(action: *[AccountAddAction](interfaces/accountaddaction.md)*): `SagaIterator`
 
-*Defined in accounts/accounts.saga.ts:112*
+*Defined in accounts/accounts.saga.ts:111*
 
 **Parameters:**
 
@@ -2594,7 +2594,7 @@ ___
 
 ▸ **onAccountInit**(): `SagaIterator`
 
-*Defined in accounts/accounts.saga.ts:71*
+*Defined in accounts/accounts.saga.ts:70*
 
 **Returns:** `SagaIterator`
 
@@ -2605,7 +2605,7 @@ ___
 
 ▸ **onBacklinkInit**(action: *[Web3LoadedAction](interfaces/web3loadedaction.md)*): `SagaIterator`
 
-*Defined in backlink/backlink.sagas.ts:69*
+*Defined in backlink/backlink.sagas.ts:67*
 
 **Parameters:**
 
@@ -2691,7 +2691,7 @@ ___
 
 ▸ **onEventAdd**(action: *[EventAddAction](interfaces/eventaddaction.md)*): `SagaIterator`
 
-*Defined in event/event.sagas.ts:51*
+*Defined in event/event.sagas.ts:50*
 
 **Parameters:**
 
@@ -2725,7 +2725,7 @@ ___
 
 ▸ **onLoadRequest**(action: *[IPFSLoadAction](interfaces/ipfsloadaction.md)*): `SagaIterator`
 
-*Defined in ipfs/ipfs.saga.ts:32*
+*Defined in ipfs/ipfs.saga.ts:31*
 
 **Parameters:**
 
@@ -2742,7 +2742,7 @@ ___
 
 ▸ **onNewAccount**(action: *[AccountAddAction](interfaces/accountaddaction.md)*): `SagaIterator`
 
-*Defined in backlink/backlink.sagas.ts:101*
+*Defined in backlink/backlink.sagas.ts:99*
 
 **Parameters:**
 
@@ -2759,7 +2759,7 @@ ___
 
 ▸ **onNewBlock**(dispatch: *`function`*, action: *[BacklinkNewBlockEventAction](interfaces/backlinknewblockeventaction.md)*): `SagaIterator`
 
-*Defined in backlink/backlink.sagas.ts:170*
+*Defined in backlink/backlink.sagas.ts:168*
 
 **Parameters:**
 
@@ -2777,7 +2777,7 @@ ___
 
 ▸ **onNewContract**(action: *[ContractLoadedAction](interfaces/contractloadedaction.md)*): `SagaIterator`
 
-*Defined in backlink/backlink.sagas.ts:95*
+*Defined in backlink/backlink.sagas.ts:93*
 
 **Parameters:**
 
@@ -2794,7 +2794,7 @@ ___
 
 ▸ **onUpdateRequest**(action: *[AccountUpdateRequestAction](interfaces/accountupdaterequestaction.md)*): `SagaIterator`
 
-*Defined in accounts/accounts.saga.ts:124*
+*Defined in accounts/accounts.saga.ts:123*
 
 **Parameters:**
 
@@ -2811,7 +2811,7 @@ ___
 
 ▸ **recursiveBackwardFetcher**(web3: *`any`*, block: *`any`*, height: *`number`*, depth: *`number`*, emit: *`function`*, hooks: *[BacklinkHookState](interfaces/backlinkhookstate.md)*, dispatch: *`function`*): `void`
 
-*Defined in backlink/backlink.sagas.ts:107*
+*Defined in backlink/backlink.sagas.ts:105*
 
 **Parameters:**
 
@@ -2834,7 +2834,7 @@ ___
 
 ▸ **refreshLoop**(): `SagaIterator`
 
-*Defined in accounts/accounts.saga.ts:54*
+*Defined in accounts/accounts.saga.ts:53*
 
 **Returns:** `SagaIterator`
 
@@ -2951,7 +2951,7 @@ ___
 
 ▸ **singleFetch**(action: *[AccountAddAction](interfaces/accountaddaction.md)*, new_address: *`boolean`*, coinbase: *`boolean`*): `SagaIterator`
 
-*Defined in accounts/accounts.saga.ts:91*
+*Defined in accounts/accounts.saga.ts:90*
 
 **Parameters:**
 
@@ -2988,7 +2988,7 @@ ___
 
 ▸ **updateManager**(action: *[Web3LoadedAction](interfaces/web3loadedaction.md)*, backlink: *[BacklinkState](interfaces/backlinkstate.md)*): `SagaIterator`
 
-*Defined in backlink/backlink.sagas.ts:25*
+*Defined in backlink/backlink.sagas.ts:23*
 
 **Parameters:**
 
@@ -3260,7 +3260,7 @@ ___
 
 **networkNames**: *`object`*
 
-*Defined in backlink/backlink.sagas.ts:18*
+*Defined in backlink/backlink.sagas.ts:16*
 
 <a id="networknames.1"></a>
 
@@ -3268,7 +3268,7 @@ ___
 
 **● 1**: *`string`* = "mainnet"
 
-*Defined in backlink/backlink.sagas.ts:19*
+*Defined in backlink/backlink.sagas.ts:17*
 
 ___
 <a id="networknames.3"></a>
@@ -3277,7 +3277,7 @@ ___
 
 **● 3**: *`string`* = "ropsten"
 
-*Defined in backlink/backlink.sagas.ts:20*
+*Defined in backlink/backlink.sagas.ts:18*
 
 ___
 <a id="networknames.4"></a>
@@ -3286,7 +3286,7 @@ ___
 
 **● 4**: *`string`* = "rinkeby"
 
-*Defined in backlink/backlink.sagas.ts:22*
+*Defined in backlink/backlink.sagas.ts:20*
 
 ___
 <a id="networknames.42"></a>
@@ -3295,7 +3295,7 @@ ___
 
 **● 42**: *`string`* = "kovan"
 
-*Defined in backlink/backlink.sagas.ts:21*
+*Defined in backlink/backlink.sagas.ts:19*
 
 ___
 

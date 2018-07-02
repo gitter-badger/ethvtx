@@ -5,11 +5,9 @@ import * as Web3 from 'web3';
 import {
     BacklinkConnected,
     BacklinkCreateHook,
-    BacklinkCreateHookAction,
-    BacklinkDisable,
     BacklinkError,
     BacklinkNewBlockEvent,
-    BacklinkNewBlockEventAction, BacklinkRemoveHookAction
+    BacklinkNewBlockEventAction
 } from "./backlink.actions";
 import {Unsubscribe} from "redux";
 import {BacklinkHookState, BacklinkState} from "../stateInterface";

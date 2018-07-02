@@ -1,13 +1,3 @@
-import {
-    FeedNewContractState,
-    FeedNewTransactionState,
-    IPFSContentState,
-    IPFSErrorState,
-    Web3LoadedState
-} from "./stateInterface";
-import {SagaIterator} from "redux-saga";
-import {takeEvery} from "redux-saga/effects";
-
 declare var describe: any;
 declare var test: any;
 declare var expect: any;
@@ -19,10 +9,19 @@ import * as SimpleStorage from '../../setup/embark/dist/contracts/SimpleStorage.
 import * as Chains from '../../setup/embark/chains.json';
 import {FeedNewTransaction, FeedNewContract} from "./feed/feed.actions";
 import * as Web3 from "web3";
-
+import {
+    FeedNewContractState,
+    FeedNewTransactionState,
+    IPFSContentState,
+    IPFSErrorState,
+    Web3LoadedState
+} from "./stateInterface";
+import {SagaIterator} from "redux-saga";
+import {takeEvery} from "redux-saga/effects";
 import * as IPFSApi from 'ipfs-api';
 import {IPFSLoad} from "./ipfs/ipfs.actions";
 import {EventAdd} from "./event/event.actions";
+
 const IPFS = IPFSApi('ipfs.infura.io', '5001', {protocol: 'https'});
 let IPFS_hash;
 const IPFS_fake_hash = "QmaoJEsqFkHETuCzGukYtfdJFCgNa2JKVNmdMbNdtRwszB";

@@ -1,5 +1,4 @@
 import {call, put, take, takeEvery, select} from 'redux-saga/effects';
-
 import {SagaIterator, eventChannel, END} from "redux-saga";
 import {IPFSConnect, IPFSError, IPFSLoadAction, IPFSLoaded} from "./ipfs.actions";
 import * as IPFSApi from 'ipfs-api';

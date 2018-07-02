@@ -17,7 +17,7 @@ import {
     BacklinkConfigState,
     BacklinkState,
     ContractArtifactState,
-    EventFeedElementState, EventState,
+    EventFeedElementState,
     EventSubscriptionState,
     FeedState,
     State,

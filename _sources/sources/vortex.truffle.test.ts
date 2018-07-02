@@ -1,11 +1,3 @@
-import {
-    FeedNewContractState,
-    FeedNewTransactionState,
-    IPFSContentState,
-    IPFSErrorState,
-    Web3LoadedState
-} from "./stateInterface";
-
 declare var describe: any;
 declare var test: any;
 declare var expect: any;
@@ -15,19 +7,24 @@ import {Vortex} from "./vortex";
 import * as Migrations from '../../setup/truffle/build/contracts/Migrations.json';
 import {FeedNewTransaction, FeedNewContract} from "./feed/feed.actions";
 import * as Web3 from "web3";
-
+import {
+    FeedNewContractState,
+    FeedNewTransactionState,
+    IPFSContentState,
+    IPFSErrorState,
+    Web3LoadedState
+} from "./stateInterface";
 import * as IPFSApi from 'ipfs-api';
 import {IPFSLoad} from "./ipfs/ipfs.actions";
 import {SagaIterator} from "redux-saga";
 import {takeEvery} from "redux-saga/effects";
 import {EventAdd} from "./event/event.actions";
+
 const IPFS = IPFSApi('ipfs.infura.io', '5001', {protocol: 'https'});
 let IPFS_hash;
 const IPFS_fake_hash = "QmaoJEsqFkHETuCzGukYtfdJFCgNa2JKVNmdMbNdtRwszB";
 const IPFS_dir_hash = "QmTuXY7UC29GVEDEhzNHB3CJ7GD2GDBDhn9DNQoDdkWhDb";
 const to_ipfs = new Buffer("ABCDEF");
-
-
 let _web3;
 
 const getWeb3: Promise<any> = new Promise<any>((ok: (arg?: any) => void, ko: (arg?: any) => void): void => {

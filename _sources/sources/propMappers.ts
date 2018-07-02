@@ -1,5 +1,6 @@
 import {
-    AccountConfigState, AccountErrorState, AccountInfoState,
+    AccountErrorState,
+    AccountInfoState,
     EventFeedElementState,
     FeedState,
     IPFSContentState,

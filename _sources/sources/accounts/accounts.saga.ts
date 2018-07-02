@@ -1,5 +1,4 @@
 import {call, put, take, takeEvery, takeLatest, select} from 'redux-saga/effects';
-
 import {SagaIterator, eventChannel, END} from "redux-saga";
 import {
     AccountAdd,
