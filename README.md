@@ -30,7 +30,7 @@ Vortex is an Ethereum Dapp redux store that handles transactions, smart contract
 
 ----
 
-### [Documentation](https://vort-x.readthedocs.io/)
+### [Documentation](https://vort-x.readthedocs.io/en/develop/react/)
 
 ### [Vortex Components](https://github.com/Horyus/vortex-components)
 
