@@ -7,9 +7,7 @@
 <img width="25%" src="https://raw.githubusercontent.com/Horyus/vort_x/master/.assets/vortex.png">
 </div>
 
-![CI](https://teamcity.rotaru.fr:2702/app/rest/builds/buildType:VortX_VortXBuild/statusIcon)
-
-
+[![Build Status](https://travis-ci.org/Horyus/vortex.svg?branch=develop)](https://travis-ci.org/Horyus/vortex)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Introduction
