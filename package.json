@@ -61,7 +61,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/Horyus/vortex/vortex"
+    "url": "https://github.com/Horyus/vortex"
   },
   "keywords": [
     "ethereum",
@@ -79,7 +79,7 @@
   "author": "Iulian Rotaru",
   "license": "MIT",
   "bugs": {
-    "url": "https://gitlab.com/Horyus/vortex/vortex/issues"
+    "url": "https://github.com/Horyus/vortex/issues"
   },
-  "homepage": "https://gitlab.com/Horyus/vortex/vortex#README"
+  "homepage": "https://github.com/Horyus/vortex#README"
 }
