@@ -22,7 +22,7 @@
 
 **● signed_transaction**: *`string`*
 
-*Defined in stateInterface.ts:63*
+*Defined in stateInterface.ts:67*
 
 ___
 

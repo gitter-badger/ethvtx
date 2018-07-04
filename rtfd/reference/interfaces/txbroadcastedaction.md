@@ -26,8 +26,7 @@
 
 ###  txArgs
 
-**● txArgs**: *[TransactionArgumentState](transactionargumentstate.md) |
-[RawTransactionArgumentState](rawtransactionargumentstate.md)
+**● txArgs**: * [TransactionArgumentState](transactionargumentstate.md) &#124; [RawTransactionArgumentState](rawtransactionargumentstate.md)
 *
 
 *Defined in tx/tx.actions.ts:36*

@@ -9,6 +9,7 @@
 * [Accounts](feedtype.md#accounts)
 * [Contracts](feedtype.md#contracts)
 * [Errors](feedtype.md#errors)
+* [IPFSContent](feedtype.md#ipfscontent)
 * [Transactions](feedtype.md#transactions)
 
 ---
@@ -40,6 +41,15 @@ ___
 **Errors**:  = 4
 
 *Defined in feed/feed.selectors.ts:9*
+
+___
+<a id="ipfscontent"></a>
+
+###  IPFSContent
+
+**IPFSContent**:  = 16
+
+*Defined in feed/feed.selectors.ts:11*
 
 ___
 <a id="transactions"></a>

@@ -8,34 +8,46 @@
 
 **↳ TruffleContracts**
 
+↳  [ContractConfig](contractconfig.md)
+
 ## Index
 
 ### Properties
 
-* [contracts](trufflecontracts.md#contracts)
+* [network_contracts](trufflecontracts.md#network_contracts)
 * [preloaded_contracts](trufflecontracts.md#preloaded_contracts)
+* [truffle_contracts](trufflecontracts.md#truffle_contracts)
 * [type](trufflecontracts.md#type)
 
 ---
 
 ## Properties
 
-<a id="contracts"></a>
+<a id="network_contracts"></a>
 
-###  contracts
+### `<Optional>` network_contracts
 
-**● contracts**: *`any`[]*
+**● network_contracts**: *`TruffleArtifact`[]*
 
-*Defined in forge.ts:42*
+*Defined in forge.ts:61*
 
 ___
 <a id="preloaded_contracts"></a>
 
-###  preloaded_contracts
+### `<Optional>` preloaded_contracts
 
 **● preloaded_contracts**: *`string`[]*
 
-*Defined in forge.ts:43*
+*Defined in forge.ts:60*
+
+___
+<a id="truffle_contracts"></a>
+
+### `<Optional>` truffle_contracts
+
+**● truffle_contracts**: *`TruffleArtifact`[]*
+
+*Defined in forge.ts:59*
 
 ___
 <a id="type"></a>
@@ -46,7 +58,7 @@ ___
 
 *Inherited from [Contracts](contracts.md).[type](contracts.md#type)*
 
-*Defined in forge.ts:32*
+*Defined in forge.ts:49*
 
 ___
 

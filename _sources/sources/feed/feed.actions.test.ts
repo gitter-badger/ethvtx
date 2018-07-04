@@ -1,4 +1,4 @@
-import {FeedNewAccount, FeedNewContract, FeedNewError, FeedNewTransaction} from "./feed.actions";
+import {FeedNewAccount, FeedNewContract, FeedNewError, FeedNewIPFSContent, FeedNewTransaction} from "./feed.actions";
 
 declare var describe: any;
 declare var test: any;
@@ -32,6 +32,12 @@ describe("Feed Actions", (): void => {
         expect(ret.type).toBe('FEED_NEW_ACCOUNT');
         expect(ret.account).toBe('0xabc');
         expect(ret.coinbase).toBe(true);
+    });
+
+    test("FeedNewAccount", (): void => {
+        const ret = FeedNewIPFSContent("SALUT");
+        expect(ret.type).toBe('FEED_NEW_IPFS_CONTENT');
+        expect(ret.ipfs_hash).toBe('SALUT');
     });
 
 });

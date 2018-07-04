@@ -4,7 +4,7 @@ import {
     FeedActions,
     FeedNewAccountAction,
     FeedNewContractAction,
-    FeedNewErrorAction,
+    FeedNewErrorAction, FeedNewIPFSContentAction,
     FeedNewTransactionAction
 } from "./feed.actions";
 
@@ -53,6 +53,16 @@ export const feed : Reducer<FeedState[], FeedActions> = (state: FeedState[] = []
                 action: 'NEW_ACCOUNT',
                 account: (<FeedNewAccountAction>action).account,
                 coinbase: (<FeedNewAccountAction>action).coinbase,
+                timestamp: Date.now()
+            });
+            return [
+                ...state
+            ];
+
+        case 'FEED_NEW_IPFS_CONTENT':
+            state.push({
+                action: 'NEW_IPFS_CONTENT',
+                ipfs_hash: (<FeedNewIPFSContentAction>action).ipfs_hash,
                 timestamp: Date.now()
             });
             return [

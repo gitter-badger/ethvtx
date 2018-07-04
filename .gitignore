@@ -3,6 +3,8 @@ node_modules
 coverage
 doc
 .idea
+/sources
+/index.js
 setup/truffle/build
 setup/truffle/test
 setup/embark/.embark

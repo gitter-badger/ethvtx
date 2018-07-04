@@ -25,11 +25,10 @@
 
 ###  networkId
 
-**● networkId**: *`number` |
-`string`
+**● networkId**: * `number` &#124; `string`
 *
 
-*Defined in web3/web3.actions.ts:43*
+*Defined in web3/web3.actions.ts:58*
 
 ___
 <a id="type"></a>

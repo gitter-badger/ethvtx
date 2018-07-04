@@ -1,0 +1,15 @@
+/package-lock.json
+node_modules
+/coverage
+.idea
+/rtfd
+/sources
+/index.js
+/setup
+/site
+/CHANGELOG.md
+/CONTRIBUTING.md
+/README.md
+/mkdocs.yml
+/tslint.json
+/.assets

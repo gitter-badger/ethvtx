@@ -21,24 +21,20 @@
 
 ###  status
 
-**● status**: *[TransactionBroadcastedState](transactionbroadcastedstate.md) |
-[TransactionReceiptState](transactionreceiptstate.md) |
-[TransactionConfirmedState](transactionconfirmedstate.md) |
-[TransactionErrorState](transactionerrorstate.md)
+**● status**: * [TransactionBroadcastedState](transactionbroadcastedstate.md) &#124; [TransactionReceiptState](transactionreceiptstate.md) &#124; [TransactionConfirmedState](transactionconfirmedstate.md) &#124; [TransactionErrorState](transactionerrorstate.md)
 *
 
-*Defined in stateInterface.ts:67*
+*Defined in stateInterface.ts:71*
 
 ___
 <a id="transaction_arguments"></a>
 
 ###  transaction_arguments
 
-**● transaction_arguments**: *[TransactionArgumentState](transactionargumentstate.md) |
-[RawTransactionArgumentState](rawtransactionargumentstate.md)
+**● transaction_arguments**: * [TransactionArgumentState](transactionargumentstate.md) &#124; [RawTransactionArgumentState](rawtransactionargumentstate.md)
 *
 
-*Defined in stateInterface.ts:68*
+*Defined in stateInterface.ts:72*
 
 ___
 

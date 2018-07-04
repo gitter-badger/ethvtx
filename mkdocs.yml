@@ -4,23 +4,51 @@ docs_dir: ./rtfd
 pages:
   - 'Introduction': index.md
   - 'Tutorial': tutorial.md
+  - 'React Tutorial': react.md
   - 'Store Architecture': architecture/store.md
   - 'Index': reference/README.md
+  - 'Classes':
+    - 'Vortex': reference/classes/vortex.md
+    - 'VortexContract': reference/classes/vortexcontract.md
+  - 'Interfaces':
+    - 'EmbarkContracts': reference/interfaces/embarkcontracts.md
+    - 'TruffleContracts': reference/interfaces/trufflecontracts.md
+    - 'ContractConfig': reference/interfaces/contractconfig.md
+    - 'GeneratorConfig': reference/interfaces/generatorconfig.md
+    - 'IPFSConfig': reference/interfaces/ipfsconfig.md
+    - 'BacklinkConfig': reference/interfaces/backlinkconfig.md
+    - 'EventFilterConfig': reference/interfaces/eventfilterconfig.md
+  - 'Enums':
+    - 'FeedType': reference/enums/feedtype.md
   - 'States':
+    - 'State': reference/interfaces/state.md
     - 'AccountConfigState': reference/interfaces/accountconfigstate.md
     - 'AccountErrorState': reference/interfaces/accounterrorstate.md
     - 'AccountInfoState': reference/interfaces/accountinfostate.md
     - 'AccountStoreState': reference/interfaces/accountstorestate.md
+    - 'BacklinkConfigState': reference/interfaces/backlinkconfigstate.md
+    - 'BacklinkHookState': reference/interfaces/backlinkhookstate.md
+    - 'BacklinkNetworkUrlMaps': reference/interfaces/backlinknetworkurlmaps.md
+    - 'BacklinkState': reference/interfaces/backlinkstate.md
+    - 'BacklinkSubscriptionHookState': reference/interfaces/backlinksubscriptionhookstate.md
     - 'ContractAddressState': reference/interfaces/contractaddressesstate.md
     - 'ContractInstanceState': reference/interfaces/contractinstancestate.md
     - 'ContractStoreState': reference/interfaces/contractstorestate.md
+    - 'ContractArtifactState': reference/interfaces/contractartifactstate.md
+    - 'EventFeedElementState': reference/interfaces/eventfeedelementstate.md
+    - 'EventSubscriptionState': reference/interfaces/eventsubscriptionstate.md
+    - 'EventState': reference/interfaces/eventstate.md
     - 'FeedNewAccountState': reference/interfaces/feednewaccountstate.md
     - 'FeedNewContractState': reference/interfaces/feednewcontractstate.md
     - 'FeedNewErrorState': reference/interfaces/feednewerrorstate.md
     - 'FeedNewErrorErrorState': reference/interfaces/feednewerrorerrorstate.md
     - 'FeedNewTransactionState': reference/interfaces/feednewtransactionstate.md
+    - 'FeedNewIPFSContentState': reference/interfaces/feednewipfscontentstate.md
+    - 'IPFSContentState': reference/interfaces/ipfscontentstate.md
+    - 'IPFSErrorState': reference/interfaces/ipfserrorstate.md
+    - 'IPFSStoreState': reference/interfaces/ipfsstorestate.md
+    - 'IPFSConfigState': reference/interfaces/ipfsconfigstate.md
     - 'RawTransactionArgumentState': reference/interfaces/rawtransactionargumentstate.md
-    - 'State': reference/interfaces/state.md
     - 'TransactionArgumentState': reference/interfaces/transactionargumentstate.md
     - 'TransactionBroadcastedState': reference/interfaces/transactionbroadcastedstate.md
     - 'TransactionConfirmedState': reference/interfaces/transactionconfirmedstate.md
@@ -31,7 +59,5 @@ pages:
     - 'Web3LoadedState': reference/interfaces/web3loadedstate.md
     - 'Web3LoadErrorState': reference/interfaces/web3loaderrorstate.md
     - 'Web3LoadingState': reference/interfaces/web3loadingstate.md
+    - 'Web3LockedState': reference/interfaces/web3lockedstate.md
     - 'Web3NetworkErrorState': reference/interfaces/web3networkerrorstate.md
-  - 'Classes':
-    - 'Vortex': reference/classes/vortex.md
-    - 'VortexContract': reference/classes/vortexcontract.md

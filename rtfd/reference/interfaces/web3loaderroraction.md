@@ -27,7 +27,7 @@
 
 **● error**: *`any`*
 
-*Defined in web3/web3.actions.ts:32*
+*Defined in web3/web3.actions.ts:47*
 
 ___
 <a id="type"></a>

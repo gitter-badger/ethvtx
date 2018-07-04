@@ -19,7 +19,11 @@ export interface Web3NetworkErrorState {
     network_id: number
 }
 
-export type Web3State = Web3LoadingState | Web3LoadedState | Web3LoadErrorState | Web3NetworkErrorState;
+export interface Web3LockedState {
+    status: string
+}
+
+export type Web3State = Web3LoadingState | Web3LoadedState | Web3LoadErrorState | Web3NetworkErrorState | Web3LockedState;
 
 export interface TransactionBroadcastedState {
     type: string,
@@ -99,11 +103,15 @@ interface FeedHeader {
 
 export interface FeedNewContractState extends FeedHeader {
     contract_name: string,
-    contract_address: string,
+    contract_address: string
 }
 
 export interface FeedNewTransactionState extends FeedHeader {
-    transaction_hash: string,
+    transaction_hash: string
+}
+
+export interface FeedNewIPFSContentState extends FeedHeader {
+    ipfs_hash: string
 }
 
 export interface FeedNewErrorErrorState {
@@ -121,7 +129,7 @@ export interface FeedNewAccountState extends FeedHeader{
     coinbase: boolean
 }
 
-export type FeedState = FeedNewContractState | FeedNewTransactionState | FeedNewErrorState | FeedNewAccountState;
+export type FeedState = FeedNewContractState | FeedNewTransactionState | FeedNewErrorState | FeedNewAccountState | FeedNewIPFSContentState;
 
 export interface AccountInfoState {
     balance: string,
@@ -139,14 +147,78 @@ export interface AccountErrorState {
 export type AccountState = AccountInfoState | AccountConfigState | AccountErrorState;
 
 export interface AccountStoreState {
-    [key:string]: AccountState
+    [key:string]: AccountInfoState | AccountConfigState | AccountErrorState
+}
+
+export interface IPFSContentState {
+    content: Buffer
+}
+
+export interface IPFSErrorState {
+    error: any
+}
+
+export interface IPFSConfigState {
+    config: any,
+    instance: any,
+    active: boolean
+}
+
+export interface IPFSStoreState {
+    [key:string]: IPFSContentState | IPFSErrorState | IPFSConfigState
+}
+
+export interface BacklinkNetworkUrlMaps {
+    [key: string]: string
+}
+
+export interface BacklinkConfigState {
+    url: BacklinkNetworkUrlMaps
+}
+
+export interface BacklinkSubscriptionHookState {
+    trigger: (tx: any, dispatch: (arg: any) => void) => void,
+    from: boolean,
+    to: boolean
+}
+
+export interface BacklinkHookState {
+    [key: string]: BacklinkSubscriptionHookState[]
+}
+
+export interface BacklinkState {
+    config: BacklinkConfigState,
+    status: string,
+    error: any,
+    instance: any,
+    url: string,
+    hooks: BacklinkHookState
+}
+
+export interface EventSubscriptionState {
+    [key: string]: any
+}
+
+export interface EventFeedElementState {
+    event_name: string,
+    contract_name: string,
+    contract_address: string,
+    args: any
+}
+
+export interface EventState {
+    event_feed: EventFeedElementState[],
+    subscriptions: EventSubscriptionState
 }
 
 export interface State {
-    web3: Web3State,
+    web3: Web3LoadingState | Web3LoadedState | Web3LoadErrorState | Web3NetworkErrorState | Web3LockedState,
     tx: TransactionStoreState,
     contracts: ContractStoreState,
-    feed: FeedState[],
-    accounts: AccountStoreState
+    feed: (FeedNewContractState | FeedNewTransactionState | FeedNewErrorState | FeedNewAccountState | FeedNewIPFSContentState)[],
+    accounts: AccountStoreState,
+    ipfs: IPFSStoreState,
+    backlink: BacklinkState,
+    event: EventState
 }
 

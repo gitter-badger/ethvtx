@@ -1,9 +1,11 @@
 export {Vortex} from './sources/vortex';
+
 export {
     Web3LoadedState,
     Web3State,
     Web3LoadErrorState,
     Web3LoadingState,
+    Web3LockedState,
     Web3NetworkErrorState,
     FeedState,
     FeedNewErrorState,
@@ -27,9 +29,25 @@ export {
     AccountInfoState,
     AccountErrorState,
     AccountConfigState,
-    FeedNewAccountState
+    FeedNewAccountState,
+    FeedNewIPFSContentState,
+    IPFSStoreState,
+    IPFSErrorState,
+    IPFSContentState,
+    IPFSConfigState,
+    ContractArtifactState,
+    BacklinkConfigState,
+    BacklinkHookState,
+    BacklinkNetworkUrlMaps,
+    BacklinkState,
+    BacklinkSubscriptionHookState,
+    EventState,
+    EventSubscriptionState,
+    EventFeedElementState
 } from './sources/stateInterface';
+
 export {dummyReducer} from './sources/dummyReducer';
+
 export {
     Web3LoadedAction,
     Web3Actions,
@@ -39,8 +57,11 @@ export {
     Web3LoadError,
     Web3LoadErrorAction,
     Web3NetworkError,
-    Web3NetworkErrorAction
+    Web3NetworkErrorAction,
+    Web3Locked,
+    Web3LockedAction
 } from './sources/web3/web3.actions';
+
 export {
     TxBroadcastedAction,
     TxErrorAction,
@@ -57,6 +78,7 @@ export {
     TxSendRawAction,
     TxReceiptTxArgs
 } from './sources/tx/tx.actions';
+
 export {
     ContractLoadAction,
     ContractVarForceRefreshAction,
@@ -76,8 +98,14 @@ export {
     ContractSendAction,
     ContractVarErrorReceived,
     ContractVarForceRefresh,
-    ContractVarReceived
+    ContractVarReceived,
+    ContractCompleteRefresh,
+    ContractCompleteRefreshAction,
+    ContractLoadInfos,
+    ContractPreloadDone,
+    ContractPreloadDoneAction
 } from './sources/contracts/contracts.actions';
+
 export {
     FeedNewErrorAction,
     FeedNewTransaction,
@@ -87,11 +115,21 @@ export {
     FeedActions,
     FeedNewError,
     FeedNewAccountAction,
-    FeedNewAccount
+    FeedNewAccount,
+    FeedNewIPFSContent,
+    FeedNewIPFSContentAction
 } from './sources/feed/feed.actions';
+
 export {
-    FeedType, FeedFilter, FeedFilterContracts, FeedFilterErrors, FeedFilterTransactions, FeedFilterAccounts
+    FeedType,
+    FeedFilter,
+    FeedFilterContracts,
+    FeedFilterErrors,
+    FeedFilterTransactions,
+    FeedFilterAccounts,
+    FeedFilterIPFSContent
 } from './sources/feed/feed.selectors';
+
 export {
     AccountActions,
     AccountUpdateRequestAction,
@@ -107,4 +145,77 @@ export {
     AccountUpdate,
     AccountUpdateRequest
 } from './sources/accounts/accounts.actions';
+
+export {
+    IPFSError,
+    IPFSLoad,
+    IPFSLoaded,
+    IPFSLoadAction,
+    IPFSLoadedAction,
+    IPFSErrorAction,
+    IPFSActions,
+    IPFSConnectAction,
+    IPFSConnect
+} from './sources/ipfs/ipfs.actions';
+
+export {
+    BacklinkNewBlockEventAction,
+    BacklinkError,
+    BacklinkNewBlockEvent,
+    BacklinkActions,
+    BacklinkConnect,
+    BacklinkConnectAction,
+    BacklinkConnected,
+    BacklinkConnectedAction,
+    BacklinkCreateHook,
+    BacklinkCreateHookAction,
+    BacklinkDisable,
+    BacklinkDisableAction,
+    BacklinkDisconnect,
+    BacklinkDisconnectAction,
+    BacklinkDisconnected,
+    BacklinkDisconnectedAction,
+    BacklinkErrorAction,
+    BacklinkRemoveHook,
+    BacklinkRemoveHookAction
+} from './sources/backlink/backlink.actions';
+
+export {
+    EventBroadcastedAction,
+    EventRemoveAction,
+    EventInsertSubscriptionAction,
+    EventActions,
+    EventAddAction,
+    EventAdd,
+    EventBroadcasted,
+    EventInsertSubscription,
+    EventRemove
+} from './sources/event/event.actions';
+
+export {
+    EventFilterConfig,
+    EventFilter
+} from './sources/event/event.selectors';
+
 export {VortexContract} from './sources/contracts/VortexContract';
+
+export {
+    EmbarkContracts,
+    ManualContracts,
+    ManualContractArtifactMap,
+    ManualContractArtifact,
+    TruffleContracts,
+    Contracts,
+    GeneratorConfig,
+    IPFSConfig,
+    BacklinkConfig
+} from './sources/forge'
+
+export {
+    getContract,
+    callContract,
+    getAccount,
+    getEvents,
+    getFeed,
+    getIPFSHash
+} from './sources/propMappers';

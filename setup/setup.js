@@ -20,7 +20,7 @@ const setup = async () => new Promise((ok, ko) => {
     console.log("\n+--------------------------------------+");
     console.log("| Starting Test Setup                  |");
     console.log("+--------------------------------------+\n");
-    global.Server = Ganache.server();
+    global.Server = Ganache.server({vmErrorsOnRPCResponse: true});
     let intervalId = setInterval(() => {
         isPortTaken(8546, (err, status) => {
             if (status === false) {
@@ -36,7 +36,7 @@ const setup = async () => new Promise((ok, ko) => {
                             console.error(stdout);
                         if (stderr)
                             console.error(stderr);
-                        exec("cd setup/embark && ../../node_modules/.bin/embark build && cd ../..", (err, stdout, stderr) => {
+                        exec("cd setup/embark && npm install && ../../node_modules/.bin/embark build && cd ../..", (err, stdout, stderr) => {
                             if (err)
                                 ko(err);
                             console.log("# Deployed Smart Contracts with Embark");

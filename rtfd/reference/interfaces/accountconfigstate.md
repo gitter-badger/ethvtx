@@ -24,7 +24,7 @@
 
 **● refresh_rate**: *`number`*
 
-*Defined in stateInterface.ts:132*
+*Defined in stateInterface.ts:140*
 
 ___
 

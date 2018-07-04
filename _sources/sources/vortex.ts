@@ -1,16 +1,25 @@
 import ContractArtifact from 'truffle-contract-schema';
 import {DeepPartial, Reducer, ReducersMapObject, Store} from "redux";
 import {State} from "./stateInterface";
-import {EmbarkContracts, forge, GeneratorConfig, TruffleContracts} from "./forge";
+import {EmbarkContracts, forge, GeneratorConfig, ManualContracts, TruffleContracts} from "./forge";
 import {Web3Load} from "./web3/web3.actions";
 import {ContractLoad} from "./contracts/contracts.actions";
 import {AccountAdd} from "./accounts/accounts.actions";
+import {EventAdd} from "./event/event.actions";
+import {IPFSLoad} from "./ipfs/ipfs.actions";
+
+/**
+ * This interface is only here to merge all configuration types into one interface. Have a look at each configuration
+ * separately ! For Embark users => {@link EmbarkContracts}, for Truffle ones => {@link TruffleContracts}, and for
+ * users that use no frameworks {@link ManualContracts}.
+ */
+interface ContractConfig extends EmbarkContracts, TruffleContracts, ManualContracts {}
 
 export class Vortex<T extends State> {
 
     private readonly _web3_loader: Promise<any> = undefined;
 
-    private _contracts: TruffleContracts | EmbarkContracts = undefined;
+    private _contracts: ContractConfig = undefined;
 
     private _config: GeneratorConfig<T> = {};
 
@@ -20,7 +29,7 @@ export class Vortex<T extends State> {
 
     private static _instance: Vortex<any> = undefined;
 
-    public static factory<U extends State = State>(contracts: TruffleContracts | EmbarkContracts, loader: Promise<any>, config: GeneratorConfig<U> = undefined): Vortex<U> {
+    public static factory<U extends State = State>(contracts: ContractConfig, loader: Promise<any>, config: GeneratorConfig<U> = undefined): Vortex<U> {
         return (Vortex._instance || (Vortex._instance = new Vortex<U>(contracts, loader, config)));
     }
 
@@ -32,11 +41,11 @@ export class Vortex<T extends State> {
      * Instantiate a new Vorte instance.
      * Accessing VortexInstance will give access to the last instanciated Vortex.
      *
-     * @param {[]} contracts Truffle or Embark Contracts configuration.
+     * @param {ContractConfig} contracts Truffle or Embark Contracts configuration.
      * @param loader Promise that returns a web3 instance ready to be used.
      * @param {GeneratorConfig<T>} config Configuration arguments for the store generator.
      */
-    constructor(contracts: TruffleContracts | EmbarkContracts, loader: Promise<any>, config: GeneratorConfig<T> = undefined) {
+    constructor(contracts: ContractConfig, loader: Promise<any>, config: GeneratorConfig<T> = undefined) {
         this._contracts = contracts;
         this._web3_loader = loader;
         this._config = config || {};
@@ -47,6 +56,11 @@ export class Vortex<T extends State> {
      */
     public run(): void {
         if (this._contracts) {
+            if (this._contracts.type === 'truffle' && this._contracts.network_contracts) {
+                for (let idx = 0; idx < this._contracts.network_contracts.length; ++idx) {
+                    this.networksOf(this._contracts.network_contracts[idx]);
+                }
+            }
             this._store = forge(this._contracts, this._config);
         } else {
             throw new Error("No Contracts Given");
@@ -76,13 +90,33 @@ export class Vortex<T extends State> {
         }
         switch (this._contracts.type) {
             case 'truffle':
-                this._contracts.contracts.push(contract);
+                this._contracts.truffle_contracts.push(contract);
                 break ;
             case 'embark':
-                this._contracts.contracts.push(contract);
+                // TODO Fix this
+                this._contracts.embark_contracts.push(contract);
+                break ;
+            case 'manual':
+                // TODO Fix this
                 break ;
             default:
                 throw new Error("Invalid Contracts !");
+        }
+    }
+
+    /**
+     * Adds a new Event to subscription pool.
+     *
+     * @param {string} event_name Name of the event you want to subscribe to.
+     * @param {string} contract_name Name of the contract where the event is triggered.
+     * @param {string} contract_address Address of contract instance.
+     * @param {string} args Additional arguments for Events
+     */
+    public subscribeEvent(event_name: string, contract_name: string, contract_address: string, ...args: string[]): void {
+        if (this._store) {
+            this._store.dispatch(EventAdd(contract_name, contract_address, event_name, args));
+        } else {
+            throw new Error("Call run before.");
         }
     }
 
@@ -143,6 +177,19 @@ export class Vortex<T extends State> {
     }
 
     /**
+     * Load the given IPFS hash into the store.
+     *
+     * @param {string} hash The IPFS Hash you want to load
+     */
+    public fetchIPFSHash(hash: string): void {
+        if (this._store) {
+            this._store.dispatch(IPFSLoad(hash));
+        } else {
+            throw new Error("Call run before.");
+        }
+    }
+
+    /**
      * Add a new contract to fetch pool.
      *
      * @param {string} address Address to fetch
@@ -158,9 +205,9 @@ export class Vortex<T extends State> {
     /**
      * Contracts getter
      *
-     * @returns {EmbarkContracts | TruffleContracts} Array of loaded artifacts.
+     * @returns {ContractConfig} Array of loaded artifacts.
      */
-    public get Contracts(): EmbarkContracts | TruffleContracts {
+    public get Contracts(): ContractConfig {
         return (this._contracts);
     }
 

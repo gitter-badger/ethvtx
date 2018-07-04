@@ -63,12 +63,12 @@ const contractVarReceivedReducer: Reducer<ContractStoreState, ContractVarReceive
                 ...state[action.contractName][action.contractAddress.toLowerCase()],
                 instance: {
                     ...state[action.contractName][action.contractAddress.toLowerCase()].instance,
-                    vortex: {
-                        ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortex,
+                    vortexMethods: {
+                        ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortexMethods,
                         [action.methodName]: {
-                            ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortex[action.methodName],
-                            vortexCache: {
-                                ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortex[action.methodName].vortexCache,
+                            ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortexMethods[action.methodName],
+                            cache: {
+                                ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortexMethods[action.methodName].cache,
                                 [action.methodHash]: {
                                     data: action.result,
                                     synced: true
@@ -91,12 +91,12 @@ const contractVarErrorReceivedReducer: Reducer<ContractStoreState, ContractVarEr
                 ...state[action.contractName][action.contractAddress.toLowerCase()],
                 instance: {
                     ...state[action.contractName][action.contractAddress.toLowerCase()].instance,
-                    vortex: {
-                        ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortex,
+                    vortexMethods: {
+                        ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortexMethods,
                         [action.methodName]: {
-                            ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortex[action.methodName],
-                            vortexCache: {
-                                ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortex[action.methodName].vortexCache,
+                            ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortexMethods[action.methodName],
+                            cache: {
+                                ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortexMethods[action.methodName].cache,
                                 [action.methodHash]: {
                                     error: action.error,
                                     synced: true
@@ -119,14 +119,14 @@ const contractVarForceRefreshReducer: Reducer<ContractStoreState, ContractVarFor
                 ...state[action.contractName][action.contractAddress.toLowerCase()],
                 instance: {
                     ...state[action.contractName][action.contractAddress.toLowerCase()].instance,
-                    vortex: {
-                        ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortex,
+                    vortexMethods: {
+                        ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortexMethods,
                         [action.methodName]: {
-                            ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortex[action.methodName],
-                            vortexCache: {
-                                ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortex[action.methodName].vortexCache,
+                            ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortexMethods[action.methodName],
+                            cache: {
+                                ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortexMethods[action.methodName].cache,
                                 [action.methodHash]: {
-                                    ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortex[action.methodName].vortexCache[action.methodHash],
+                                    ...state[action.contractName][action.contractAddress.toLowerCase()].instance.vortexMethods[action.methodName].cache[action.methodHash],
                                     synced: false
                                 }
                             }

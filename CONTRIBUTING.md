@@ -1,6 +1,6 @@
 # Contributing
 
-To contribute, head to the [gitlab](https://gitlab.com/Horyus/vortex/vortex) version of this repository.
+To contribute, head to [github](https://github.com/Horyus/vortex).
 When contributing to this repository, please first discuss the change you wish to make via issue,
 email, or any other method with the owners of this repository before making a change.
 
@@ -14,9 +14,11 @@ Please note we have a code of conduct, please follow it in all your interactions
 
 **2** - Each Pull Request should have its own issue created and referenced in every commit. All branches
    should start from `develop` branch. Naming convention for the issue is `[(THEME)] (TITLE)` and Branch Naming
-   should be `(TYPE)/(PROJECT_ID)-(ISSUE_NUMBER)-(THEME_FIRST_LETTER)-(TITLE)`. As an example, if you want to add
+   should be `(TYPE)/(PROJECT_ID)-(ISSUE_NUMBER)-(TITLE)`. As an example, if you want to add
    something related with Redux, Issue name can be `[Redux] Add Reducer`, and Branch should be
-   (saying the issue number is 42) `feature/VTX-42-r-add-reducer`.
+   (saying the issue number is 42) `feature/VTX-42-add-reducer`. The github pull request title should be
+   named `Resolves #42 VTX "[Redux] Add Reducer"` and should contain `Resolves #42 VTX` in the description, for github to
+   properly link the pull request and the issue.
 
    **THEME**: 1-2 Words defining the theme of the contribution. You can look at other contributions to use
    similar ones.
@@ -29,8 +31,6 @@ Please note we have a code of conduct, please follow it in all your interactions
    **PROJECT_ID**: `VTX`.
 
    **ISSUE_NUMBER**: Issue number delivered by gitlab.
-
-   **THEME_FIRST_LETTER**: First letter of defined `THEME`.
 
    **TITLE**: Title in lowercase, space replaced with `-`.
 
@@ -47,7 +47,7 @@ ISSUE_REFERENCE
 
    **COMMIT_TITLE**: 50 characters max, no end punctuation.
 
-   **COMMIT_BODY**: optional, 72 characters per line. If no body, should be replaces by `ISSUE_REFERENCE`.
+   **COMMIT_BODY**: optional, 72 characters per line. If no body, should be replaced by `ISSUE_REFERENCE`.
 
    **ISSUE_REFERENCE**: `VTX #42` would be the issue reference of the example above.
 
@@ -112,7 +112,7 @@ further defined and clarified by project maintainers.
 ### Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported by contacting the project team at [INSERT EMAIL ADDRESS]. All
+reported by contacting the project team at `iulian@rotaru.fr`. All
 complaints will be reviewed and investigated and will result in a response that
 is deemed necessary and appropriate to the circumstances. The project team is
 obligated to maintain confidentiality with regard to the reporter of an incident.

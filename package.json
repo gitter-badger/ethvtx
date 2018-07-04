@@ -1,8 +1,9 @@
 {
   "name": "vort_x",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Vortex is an Ethereum Dapp Redux Store that handles transactions, smart contracts, accounts, method calls ...",
-  "main": "index.js",
+  "main": "./index.js",
+  "browser": "./index.js",
   "directories": {
     "doc": "doc",
     "test": "test"
@@ -24,37 +25,43 @@
     ]
   },
   "dependencies": {
+    "@types/node": "^10.5.1",
     "bn.js": "^4.11.8",
+    "ipfs-api": "^22.0.1",
+    "is-ipfs": "^0.3.2",
     "redux": "^4.0.0",
     "redux-saga": "^0.16.0",
     "reselect": "^3.0.1",
     "sha1": "^1.1.1",
     "truffle-contract-schema": "^2.0.0",
     "typescript": "^2.7.2",
+    "web3": "^1.0.0-beta.34",
+    "web3-typescript-typings": "^0.10.2",
     "web3-utils": "^1.0.0-beta.34"
   },
   "devDependencies": {
-    "embark": "^3.0.6",
-    "ganache-core": "^2.1.0",
+    "embark": "^3.1.1",
+    "ganache-core": "^2.1.2",
     "jest": "^22.4.3",
     "linted": "0.0.2",
     "live-plugin-manager": "^0.12.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
     "truffle": "^4.1.7",
     "ts-jest": "^22.4.4",
     "tslint": "^5.9.1",
     "typedoc": "^0.11.1",
-    "typedoc-plugin-markdown": "^1.1.6",
-    "web3": "^1.0.0-beta.34",
-    "web3-typescript-typings": "^0.10.2"
+    "typedoc-plugin-markdown": "^1.1.6"
   },
   "scripts": {
     "build": "tslint --project . && tsc",
-    "test": "tslint --project . && jest --coverage --notify",
+    "postinstall": "tsc",
+    "test": "tslint --project . && jest --coverage --notify --runInBand",
     "doc": "rm -rf ./rtfd/reference && tslint --project . && tsc && typedoc --out ./rtfd/reference --mode file ./_sources/sources/ --name \"Vortex\" --theme markdown --hideGenerator --target ES6 --exclude **/*.test.ts --readme 'none' --excludeExternals --excludePrivate"
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/Horyus/vortex/vortex"
+    "url": "https://github.com/Horyus/vortex"
   },
   "keywords": [
     "ethereum",
@@ -72,7 +79,7 @@
   "author": "Iulian Rotaru",
   "license": "MIT",
   "bugs": {
-    "url": "https://gitlab.com/Horyus/vortex/vortex/issues"
+    "url": "https://github.com/Horyus/vortex/issues"
   },
-  "homepage": "https://gitlab.com/Horyus/vortex/vortex#README"
+  "homepage": "https://github.com/Horyus/vortex#README"
 }

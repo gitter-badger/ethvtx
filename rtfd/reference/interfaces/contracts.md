@@ -10,6 +10,8 @@
 
 ↳  [TruffleContracts](trufflecontracts.md)
 
+↳  [ManualContracts](manualcontracts.md)
+
 ## Index
 
 ### Properties
@@ -26,7 +28,7 @@
 
 **● type**: *`string`*
 
-*Defined in forge.ts:32*
+*Defined in forge.ts:49*
 
 ___
 

@@ -1,14 +1,30 @@
-import {FeedNewContractState, FeedNewTransactionState, Web3LoadedState} from "./stateInterface";
-
 declare var describe: any;
 declare var test: any;
 declare var expect: any;
+declare var Buffer: any;
 
 import {Vortex} from "./vortex";
 import * as Migrations from '../../setup/truffle/build/contracts/Migrations.json';
 import {FeedNewTransaction, FeedNewContract} from "./feed/feed.actions";
 import * as Web3 from "web3";
+import {
+    FeedNewContractState,
+    FeedNewTransactionState,
+    IPFSContentState,
+    IPFSErrorState,
+    Web3LoadedState
+} from "./stateInterface";
+import * as IPFSApi from 'ipfs-api';
+import {IPFSLoad} from "./ipfs/ipfs.actions";
+import {SagaIterator} from "redux-saga";
+import {takeEvery} from "redux-saga/effects";
+import {EventAdd} from "./event/event.actions";
 
+const IPFS = IPFSApi('ipfs.infura.io', '5001', {protocol: 'https'});
+let IPFS_hash;
+const IPFS_fake_hash = "QmaoJEsqFkHETuCzGukYtfdJFCgNa2JKVNmdMbNdtRwszB";
+const IPFS_dir_hash = "QmTuXY7UC29GVEDEhzNHB3CJ7GD2GDBDhn9DNQoDdkWhDb";
+const to_ipfs = new Buffer("ABCDEF");
 let _web3;
 
 const getWeb3: Promise<any> = new Promise<any>((ok: (arg?: any) => void, ko: (arg?: any) => void): void => {
@@ -20,25 +36,63 @@ const getWeb3: Promise<any> = new Promise<any>((ok: (arg?: any) => void, ko: (ar
     }
 });
 
+let sagaDone = {
+    done: null
+};
+
+function* onLoaded(action: any): SagaIterator {
+    sagaDone.done();
+}
+
+function* testSaga(): any {
+    yield takeEvery('LOAD_WEB3', onLoaded);
+}
+
 describe("Vortex", () => {
     test('Instantiate', () => {
         const vtx = Vortex.factory({
             type: "truffle",
-            contracts: [Migrations],
-            preloaded_contracts: ["Migrations"]
-        }, getWeb3);
-        expect(vtx.Contracts.contracts[0].contractName).toBe("Migrations");
+            truffle_contracts: [Migrations],
+            preloaded_contracts: ["Migrations"],
+            network_contracts: [Migrations]
+        }, getWeb3, {
+            custom_sagas: [
+                testSaga
+            ],
+            ipfs_config: {
+                host: 'ipfs.infura.io',
+                port: '5001',
+                options: {
+                    protocol: 'https'
+                }
+            },
+            backlink_config: {
+                url: {
+                    "mainnet": "wss://mainnet.infura.io/ws",
+                    "default": "ws://localhost:8546/ws"
+                }
+            }
+        });
+        expect(vtx.Contracts.truffle_contracts[0].contractName).toBe("Migrations");
     });
 
+    test("IPFS Push", (done) => {
+        IPFS.files.add(to_ipfs).then((res) => {
+            IPFS_hash = res[0].hash;
+            done();
+        })
+    }, 60000);
+
     test('Recover Instance', () => {
-        expect(Vortex.get().Contracts.contracts[0].contractName).toBe("Migrations");
+        expect(Vortex.get().Contracts.truffle_contracts[0].contractName).toBe("Migrations");
     });
 
     test('Run Instance', () => {
         Vortex.get().run();
     });
 
-    test('Load Web3', () => {
+    test('Load Web3', (done) => {
+        sagaDone.done = done;
         Vortex.get().loadWeb3();
     });
 
@@ -48,11 +102,18 @@ describe("Vortex", () => {
         }, 1000);
     });
 
+    test('Add Event', (done) => {
+        setTimeout((): void => {
+            Vortex.get().Store.dispatch(EventAdd("Migrations", Migrations.networks[Object.keys(Migrations.networks)[0]].address, "Test"));
+            done();
+        }, 10000);
+    }, 30000);
+
     test('Get accounts and follow them', (done) => {
         _web3.eth.getAccounts().then(acc => {
             Vortex.get().subscribeAccount(acc[1]);
             setTimeout((): void => {
-                done(expect(Vortex.get().Store.getState().accounts[acc[1]]).not.toBe(undefined));
+                done(expect(Vortex.get().Store.getState().accounts[acc[1].toLowerCase()]).not.toBe(undefined));
             }, 1000);
         });
     });
@@ -132,8 +193,8 @@ describe("Vortex", () => {
         const contractName = (<FeedNewContractState>state.feed[0]).contract_name;
         const contractAddress = (<FeedNewContractState>state.feed[0]).contract_address.toLowerCase();
         const contract = state.contracts[contractName][contractAddress].instance;
-        contract.vortex.owner.vortexCall({}).then((res: any): void => {
-            if (contract.vortex.owner.vortexData({}) === res) {
+        contract.vortexMethods.owner.call().then((res: any): void => {
+            if (contract.vortexMethods.owner.data() === res) {
                 done();
             }
         }).catch((e: any): void => {
@@ -148,7 +209,7 @@ describe("Vortex", () => {
         const contractAddress = (<FeedNewContractState>state.feed[0]).contract_address;
         const contract = state.contracts[contractName][contractAddress].instance;
 
-        contract.vortex.setCompleted.vortexSend({from: coinbase}, 23).then((_txHash: string): void => {
+        contract.vortexMethods.setCompleted.send(23, {from: coinbase}).then((_txHash: string): void => {
             let intervalId = setInterval(() => {
                 const state = Vortex.get().Store.getState();
                 switch (state.feed.length) {
@@ -177,9 +238,10 @@ describe("Vortex", () => {
             const state = Vortex.get().Store.getState();
             switch (state.feed.length) {
                 case 9:
-                    if (state.feed[8].action === 'NEW_CONTRACT' && (<FeedNewContractState>state.feed[8]).contract_name === 'Migrations' && (<FeedNewContractState>state.feed[8]).contract_address === (<Web3LoadedState>Vortex.get().Store.getState().web3).coinbase)
+                    if (state.feed[8].action === 'NEW_CONTRACT' && (<FeedNewContractState>state.feed[8]).contract_name === 'Migrations' && (<FeedNewContractState>state.feed[8]).contract_address === (<Web3LoadedState>Vortex.get().Store.getState().web3).coinbase) {
+                        clearInterval(intervalId);
                         done();
-                    else
+                    } else
                         done(new Error("Invalid Feed element"));
                     break ;
                 default:
@@ -187,5 +249,55 @@ describe("Vortex", () => {
             }
         }, 1000);
     }, 10000);
+
+    test('Recover IPFS hash previously uploaded', (done) => {
+        Vortex.get().Store.dispatch(IPFSLoad(IPFS_hash));
+        let intervalId = setInterval(() => {
+            const state = Vortex.get().Store.getState();
+            if (state.ipfs[IPFS_hash]) {
+                if ((<IPFSErrorState>state.ipfs[IPFS_hash]).error) {
+                    done((<IPFSErrorState>state.ipfs[IPFS_hash]).error);
+                } else if ((<IPFSContentState>state.ipfs[IPFS_hash]).content) {
+                    clearInterval(intervalId);
+                    done();
+                }
+            }
+        }, 1000);
+    }, 30000);
+
+    test('Recover False IPFS hash', (done) => {
+        Vortex.get().Store.dispatch(IPFSLoad(IPFS_fake_hash));
+        let intervalId = setInterval(() => {
+            const state = Vortex.get().Store.getState();
+            if (state.ipfs[IPFS_fake_hash]) {
+                if ((<IPFSErrorState>state.ipfs[IPFS_fake_hash]).error) {
+                    clearInterval(intervalId);
+                    done();
+                } else if ((<IPFSContentState>state.ipfs[IPFS_fake_hash]).content) {
+                    done(new Error("Should have thrown"));
+                }
+            }
+        }, 1000);
+    }, 300000);
+
+    test('Recover Dir IPFS hash', (done) => {
+        Vortex.get().Store.dispatch(IPFSLoad(IPFS_dir_hash));
+        let intervalId = setInterval(() => {
+            const state = Vortex.get().Store.getState();
+            if (state.ipfs[IPFS_dir_hash]) {
+                if ((<IPFSErrorState>state.ipfs[IPFS_dir_hash]).error) {
+                    done(new Error("Should have thrown"));
+                } else if ((<IPFSContentState>state.ipfs[IPFS_dir_hash]).content) {
+                    clearInterval(intervalId);
+                    done();
+                }
+            }
+        }, 1000);
+    }, 30000);
+
+    test('Event Feed', () => {
+        const state = Vortex.get().Store.getState();
+        expect(state.event.event_feed.length).toBe(1);
+    })
 
 });

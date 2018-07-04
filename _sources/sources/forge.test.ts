@@ -30,7 +30,7 @@ describe("forge", () => {
 
             store = forge({
                 type: 'truffle',
-                contracts: [Migrations],
+                truffle_contracts: [Migrations],
                 preloaded_contracts: ["Migrations"]
             });
             let state: State = store.getState();

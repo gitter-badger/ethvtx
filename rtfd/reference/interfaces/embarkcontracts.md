@@ -8,12 +8,14 @@
 
 **↳ EmbarkContracts**
 
+↳  [ContractConfig](contractconfig.md)
+
 ## Index
 
 ### Properties
 
 * [chains](embarkcontracts.md#chains)
-* [contracts](embarkcontracts.md#contracts)
+* [embark_contracts](embarkcontracts.md#embark_contracts)
 * [preloaded_contracts](embarkcontracts.md#preloaded_contracts)
 * [type](embarkcontracts.md#type)
 
@@ -23,29 +25,29 @@
 
 <a id="chains"></a>
 
-###  chains
+### `<Optional>` chains
 
 **● chains**: *`any`*
 
-*Defined in forge.ts:36*
+*Defined in forge.ts:53*
 
 ___
-<a id="contracts"></a>
+<a id="embark_contracts"></a>
 
-###  contracts
+### `<Optional>` embark_contracts
 
-**● contracts**: *`any`*
+**● embark_contracts**: *`any`*
 
-*Defined in forge.ts:37*
+*Defined in forge.ts:54*
 
 ___
 <a id="preloaded_contracts"></a>
 
-###  preloaded_contracts
+### `<Optional>` preloaded_contracts
 
 **● preloaded_contracts**: *`string`[]*
 
-*Defined in forge.ts:38*
+*Defined in forge.ts:55*
 
 ___
 <a id="type"></a>
@@ -56,7 +58,7 @@ ___
 
 *Inherited from [Contracts](contracts.md).[type](contracts.md#type)*
 
-*Defined in forge.ts:32*
+*Defined in forge.ts:49*
 
 ___
 

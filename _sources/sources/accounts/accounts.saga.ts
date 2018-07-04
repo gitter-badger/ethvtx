@@ -1,5 +1,4 @@
 import {call, put, take, takeEvery, takeLatest, select} from 'redux-saga/effects';
-
 import {SagaIterator, eventChannel, END} from "redux-saga";
 import {
     AccountAdd,
@@ -69,17 +68,22 @@ function* refreshLoop(): SagaIterator {
 }
 
 function* onAccountInit(): SagaIterator {
-    const coinbase = (yield select()).web3.coinbase;
-    yield put(AccountAdd(coinbase, true));
-    const refresh_loop = yield call(refreshLoop);
 
-    try {
-        while (true) {
-            const event = yield take(refresh_loop);
-            yield put(event);
+
+    const state = (yield select());
+    const coinbase = state.web3.coinbase;
+    yield put(AccountAdd(coinbase, true));
+    if (state.backlink.status !== 'CONNECTED' && state.backlink.status !== 'LOADING') {
+        const refresh_loop = yield call(refreshLoop);
+
+        try {
+            while (true) {
+                const event = yield take(refresh_loop);
+                yield put(event);
+            }
+        } finally {
+            refresh_loop.close();
         }
-    } finally {
-        refresh_loop.close();
     }
 }
 
@@ -87,13 +91,13 @@ function *singleFetch(action: AccountAddAction, new_address: boolean, coinbase: 
 
     return eventChannel((emit: (arg?: any) => void) => {
 
-        fetchAccount(action.address, coinbase, emit).then((): void => {
+        fetchAccount(action.address.toLowerCase(), coinbase, emit).then((): void => {
             if (new_address) {
-                emit(FeedNewAccount(action.address, coinbase));
+                emit(FeedNewAccount(action.address.toLowerCase(), coinbase));
             }
             emit(END);
         }).catch((e: Error): void => {
-            emit(AccountError(action.address, e));
+            emit(AccountError(action.address.toLowerCase(), e));
             emit(FeedNewError(e, e.message, "[accounts.sagas.ts][singleFetch] Trying to fetch account informations."));
             emit(END);
         });
@@ -132,7 +136,7 @@ function *onUpdateRequest(action: AccountUpdateRequestAction): SagaIterator {
 }
 
 export function* AccountSagas(): any {
-    yield takeLatest('LOADED_WEB3', onAccountInit);
+    yield takeLatest('LOADED_WEB3_BACKLINK', onAccountInit);
     yield takeEvery('ACCOUNT_ADD', onAccountAdd);
     yield takeEvery('ACCOUNT_UPDATE_REQUEST', onUpdateRequest);
 }

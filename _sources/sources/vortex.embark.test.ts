@@ -1,15 +1,32 @@
-import {FeedNewContractState, FeedNewTransactionState, Web3LoadedState} from "./stateInterface";
-import EmbarkJS from 'Embark/EmbarkJS';
-
 declare var describe: any;
 declare var test: any;
 declare var expect: any;
+declare var Buffer: any;
+declare var global: any;
 
 import {Vortex} from "./vortex";
 import * as SimpleStorage from '../../setup/embark/dist/contracts/SimpleStorage.json';
 import * as Chains from '../../setup/embark/chains.json';
 import {FeedNewTransaction, FeedNewContract} from "./feed/feed.actions";
 import * as Web3 from "web3";
+import {
+    FeedNewContractState,
+    FeedNewTransactionState,
+    IPFSContentState,
+    IPFSErrorState,
+    Web3LoadedState
+} from "./stateInterface";
+import {SagaIterator} from "redux-saga";
+import {takeEvery} from "redux-saga/effects";
+import * as IPFSApi from 'ipfs-api';
+import {IPFSLoad} from "./ipfs/ipfs.actions";
+import {EventAdd} from "./event/event.actions";
+
+const IPFS = IPFSApi('ipfs.infura.io', '5001', {protocol: 'https'});
+let IPFS_hash;
+const IPFS_fake_hash = "QmaoJEsqFkHETuCzGukYtfdJFCgNa2JKVNmdMbNdtRwszB";
+const IPFS_dir_hash = "QmTuXY7UC29GVEDEhzNHB3CJ7GD2GDBDhn9DNQoDdkWhDb";
+const to_ipfs = new Buffer("ABCDEF");
 
 let _web3;
 _web3 = new (<any>Web3)(new (<any>Web3).providers.HttpProvider("http://localhost:8546"));
@@ -22,32 +39,76 @@ const getWeb3: Promise<any> = new Promise<any>((ok: (arg?: any) => void, ko: (ar
     }
 });
 
+let sagaDone = {
+    done: null
+};
+
+function* onLoaded(action: any): SagaIterator {
+    sagaDone.done();
+}
+
+function* testSaga(): any {
+    yield takeEvery('LOAD_WEB3', onLoaded);
+}
+
 describe("Vortex", () => {
     test('Instantiate', () => {
         const vtx = Vortex.factory({
             type: "embark",
-            contracts: {
-                SimpleStorage: new _web3.eth.Contract(SimpleStorage.abi, "0xc7E4d433eb912f78244A54bac86ba757E4e8641F", {
-                    data: SimpleStorage.real_runtime_bytecode
+            embark_contracts: {
+                SimpleStorage: new _web3.eth.Contract(SimpleStorage.abiDefinition, "0xc7E4d433eb912f78244A54bac86ba757E4e8641F", {
+                    data: SimpleStorage.realRuntimeBytecode
                 })
             },
             preloaded_contracts: ["SimpleStorage"],
             chains: Chains
-        }, getWeb3);
-        expect(vtx.Contracts.contracts["SimpleStorage"]).not.toBe(undefined);
+        }, getWeb3, {
+            custom_sagas: [
+                testSaga
+            ],
+            ipfs_config: {
+                host: 'ipfs.infura.io',
+                port: '5001',
+                options: {
+                    protocol: 'https'
+                }
+            },
+            backlink_config: {
+                url: {
+                    "mainnet": "wss://mainnet.infura.io/ws",
+                    "default": "ws://localhost:8546/ws"
+                }
+            }
+        });
+        expect(vtx.Contracts.embark_contracts["SimpleStorage"]).not.toBe(undefined);
     });
 
+    test("IPFS Push", (done) => {
+        IPFS.files.add(to_ipfs).then((res) => {
+            IPFS_hash = res[0].hash;
+            done();
+        })
+    }, 60000);
+
     test('Recover Instance', () => {
-        expect(Vortex.get().Contracts.contracts["SimpleStorage"]).not.toBe(undefined);
+        expect(Vortex.get().Contracts.embark_contracts["SimpleStorage"]).not.toBe(undefined);
     });
 
     test('Run Instance', () => {
         Vortex.get().run();
     });
 
-    test('Load Web3', () => {
+    test('Load Web3', (done) => {
+        sagaDone.done = done;
         Vortex.get().loadWeb3();
-    });
+    }, 10000);
+
+    test('Add Event', (done) => {
+        setTimeout((): void => {
+            Vortex.get().Store.dispatch(EventAdd("SimpleStorage", SimpleStorage.deployedAddress, "Test"));
+            done();
+        }, 10000);
+    }, 30000);
 
     test('Check Coinbase Balance', (done) => {
         setTimeout((): void => {
@@ -59,7 +120,7 @@ describe("Vortex", () => {
         _web3.eth.getAccounts().then(acc => {
             Vortex.get().subscribeAccount(acc[1]);
             setTimeout((): void => {
-                done(expect(Vortex.get().Store.getState().accounts[acc[1]]).not.toBe(undefined));
+                done(expect(Vortex.get().Store.getState().accounts[acc[1].toLowerCase()]).not.toBe(undefined));
             }, 1000);
         });
     });
@@ -139,11 +200,12 @@ describe("Vortex", () => {
         const contractName = (<FeedNewContractState>state.feed[0]).contract_name;
         const contractAddress = (<FeedNewContractState>state.feed[0]).contract_address.toLowerCase();
         const contract = state.contracts[contractName][contractAddress].instance;
-        contract.vortex.owner.vortexCall({}).then((res: any): void => {
-            if (contract.vortex.owner.vortexData({}) === res) {
+        contract.vortexMethods.owner.call().then((res: any): void => {
+            if (contract.vortexMethods.owner.data() === res) {
                 done();
             }
         }).catch((e: any): void => {
+            console.error(e);
             done(e);
         })
     });
@@ -155,7 +217,7 @@ describe("Vortex", () => {
         const contractAddress = (<FeedNewContractState>state.feed[0]).contract_address;
         const contract = state.contracts[contractName][contractAddress].instance;
 
-        contract.vortex.set.vortexSend({from: coinbase}, 23).then((_txHash: string): void => {
+        contract.vortexMethods.set.send(23, {from: coinbase}).then((_txHash: string): void => {
             let intervalId = setInterval(() => {
                 const state = Vortex.get().Store.getState();
                 switch (state.feed.length) {
@@ -194,5 +256,55 @@ describe("Vortex", () => {
             }
         }, 1000);
     }, 10000);
+
+    test('Recover IPFS hash previously uploaded', (done) => {
+        Vortex.get().Store.dispatch(IPFSLoad(IPFS_hash));
+        let intervalId = setInterval(() => {
+            const state = Vortex.get().Store.getState();
+            if (state.ipfs[IPFS_hash]) {
+                if ((<IPFSErrorState>state.ipfs[IPFS_hash]).error) {
+                    done((<IPFSErrorState>state.ipfs[IPFS_hash]).error);
+                } else if ((<IPFSContentState>state.ipfs[IPFS_hash]).content) {
+                    clearInterval(intervalId);
+                    done();
+                }
+            }
+        }, 1000);
+    }, 30000);
+
+    test('Recover False IPFS hash', (done) => {
+        Vortex.get().Store.dispatch(IPFSLoad(IPFS_fake_hash));
+        let intervalId = setInterval(() => {
+            const state = Vortex.get().Store.getState();
+            if (state.ipfs[IPFS_fake_hash]) {
+                if ((<IPFSErrorState>state.ipfs[IPFS_fake_hash]).error) {
+                    clearInterval(intervalId);
+                    done();
+                } else if ((<IPFSContentState>state.ipfs[IPFS_fake_hash]).content) {
+                    done(new Error("Should have thrown"));
+                }
+            }
+        }, 1000);
+    }, 300000);
+
+    test('Recover Dir IPFS hash', (done) => {
+        Vortex.get().Store.dispatch(IPFSLoad(IPFS_dir_hash));
+        let intervalId = setInterval(() => {
+            const state = Vortex.get().Store.getState();
+            if (state.ipfs[IPFS_dir_hash]) {
+                if ((<IPFSErrorState>state.ipfs[IPFS_dir_hash]).error) {
+                    done(new Error("Should have thrown"));
+                } else if ((<IPFSContentState>state.ipfs[IPFS_dir_hash]).content) {
+                    clearInterval(intervalId);
+                    done();
+                }
+            }
+        }, 1000);
+    }, 30000);
+
+    test('Event Feed', () => {
+        const state = Vortex.get().Store.getState();
+        expect(state.event.event_feed.length).toBe(1);
+    })
 
 });
