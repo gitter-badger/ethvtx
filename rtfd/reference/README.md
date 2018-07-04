@@ -1049,7 +1049,7 @@ ___
 
 ▸ **BacklinkSagas**(dispatch: *`function`*): `any`
 
-*Defined in backlink/backlink.sagas.ts:186*
+*Defined in backlink/backlink.sagas.ts:187*
 
 **Parameters:**
 
@@ -1939,7 +1939,7 @@ ___
 
 ▸ **Web3Sagas**(): `any`
 
-*Defined in web3/web3.sagas.ts:119*
+*Defined in web3/web3.sagas.ts:115*
 
 **Returns:** `any`
 
@@ -2019,7 +2019,7 @@ ___
 
 ▸ **callResolveWeb3**(action: *[Web3LoadAction](interfaces/web3loadaction.md)*): `SagaIterator`
 
-*Defined in web3/web3.sagas.ts:107*
+*Defined in web3/web3.sagas.ts:103*
 
 **Parameters:**
 
@@ -2330,7 +2330,7 @@ ___
 
 ▸ **fetchBlockCallTriggers**(height: *`number`*, dispatch: *`function`*): `SagaIterator`
 
-*Defined in backlink/backlink.sagas.ts:153*
+*Defined in backlink/backlink.sagas.ts:154*
 
 **Parameters:**
 
@@ -2742,7 +2742,7 @@ ___
 
 ▸ **onNewAccount**(action: *[AccountAddAction](interfaces/accountaddaction.md)*): `SagaIterator`
 
-*Defined in backlink/backlink.sagas.ts:99*
+*Defined in backlink/backlink.sagas.ts:100*
 
 **Parameters:**
 
@@ -2759,7 +2759,7 @@ ___
 
 ▸ **onNewBlock**(dispatch: *`function`*, action: *[BacklinkNewBlockEventAction](interfaces/backlinknewblockeventaction.md)*): `SagaIterator`
 
-*Defined in backlink/backlink.sagas.ts:168*
+*Defined in backlink/backlink.sagas.ts:169*
 
 **Parameters:**
 
@@ -2777,7 +2777,7 @@ ___
 
 ▸ **onNewContract**(action: *[ContractLoadedAction](interfaces/contractloadedaction.md)*): `SagaIterator`
 
-*Defined in backlink/backlink.sagas.ts:93*
+*Defined in backlink/backlink.sagas.ts:94*
 
 **Parameters:**
 
@@ -2811,7 +2811,7 @@ ___
 
 ▸ **recursiveBackwardFetcher**(web3: *`any`*, block: *`any`*, height: *`number`*, depth: *`number`*, emit: *`function`*, hooks: *[BacklinkHookState](interfaces/backlinkhookstate.md)*, dispatch: *`function`*): `void`
 
-*Defined in backlink/backlink.sagas.ts:105*
+*Defined in backlink/backlink.sagas.ts:106*
 
 **Parameters:**
 
@@ -2845,7 +2845,7 @@ ___
 
 ▸ **resolveWeb3**(action: *[Web3LoadAction](interfaces/web3loadaction.md)*): `SagaIterator`
 
-*Defined in web3/web3.sagas.ts:15*
+*Defined in web3/web3.sagas.ts:14*
 
 **Parameters:**
 
