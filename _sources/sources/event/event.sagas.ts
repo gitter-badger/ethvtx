@@ -51,9 +51,9 @@ function* onEventAdd(action: EventAddAction): SagaIterator {
     action.contract_address = action.contract_address.toLowerCase();
     const state = yield (select());
     if (state.backlink.status !== 'CONNECTED') {
-        const error = new Error("Request Event listening while backlink is not connected");
-        console.error(error);
-        yield put(FeedNewError(error, error.message, "[event.sagas.ts][onEventAdd] Trying to add event " + action.event_name));
+        const error = ("[event.sagas.ts][onEventAdd] Request Event listening while backlink is not connected. Events won't be fetched.");
+        console.warn(error);
+        return ;
     }
     if (!state.contracts || !state.contracts[action.contract_name] || !state.contracts[action.contract_name].artifact || !state.contracts[action.contract_name].artifact.abi) {
         const error = new Error("Request Event listening on unknown contract type " + action.contract_name);
