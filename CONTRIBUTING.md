@@ -17,7 +17,7 @@ Please note we have a code of conduct, please follow it in all your interactions
    should be `(TYPE)/(PROJECT_ID)-(ISSUE_NUMBER)-(TITLE)`. As an example, if you want to add
    something related with Redux, Issue name can be `[Redux] Add Reducer`, and Branch should be
    (saying the issue number is 42) `feature/VTX-42-add-reducer`. The github pull request title should be
-   named `Resolve VTX #42 "[Redux] Add Reducer"` and should contain `Resolve VTX #42` in the description, for github to
+   named `Resolves #42 VTX "[Redux] Add Reducer"` and should contain `Resolves #42 VTX` in the description, for github to
    properly link the pull request and the issue.
 
    **THEME**: 1-2 Words defining the theme of the contribution. You can look at other contributions to use
