@@ -86,6 +86,7 @@ function* onBacklinkInit(action: Web3LoadedAction): SagaIterator {
             break ;
         case 'DISABLED':
             console.warn("[backlink.sagas.ts][onBacklinkInit] Disabled status for Backlink");
+            yield put(Web3BacklinkLoaded(action._, action.networkId, action.coinbase));
             return ;
     }
 }

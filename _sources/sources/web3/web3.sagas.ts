@@ -1,7 +1,6 @@
 import {call, put, take, takeLatest, select} from 'redux-saga/effects';
 import {Unsubscribe} from "redux";
 import {
-    Web3BacklinkLoaded,
     Web3LoadAction,
     Web3Loaded,
     Web3LoadError,
@@ -53,9 +52,6 @@ function* resolveWeb3(action: Web3LoadAction): SagaIterator {
                                     emit(END);
                                 } else {
                                     emit(Web3Loaded(web3, network_id, coinbase));
-                                    if (state.backlink.status !== 'LOADING') {
-                                        emit(Web3BacklinkLoaded(web3, network_id, coinbase));
-                                    }
                                     emit(END);
                                 }
                             }).catch((reason: Error): void => {
