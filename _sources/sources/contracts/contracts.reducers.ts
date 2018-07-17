@@ -4,7 +4,7 @@ import {
     ContractActions,
     ContractErrorAction,
     ContractLoadedAction,
-    ContractLoadingAction,
+    ContractLoadingAction, ContractSetDeployedAction,
     ContractVarErrorReceivedAction,
     ContractVarForceRefreshAction,
     ContractVarReceivedAction
@@ -14,7 +14,7 @@ const contractLoadingReducer: Reducer<ContractStoreState, ContractLoadingAction>
     return {
         ...state,
         [action.contractName]: {
-            ...state[action.contractName],
+            ...(<Object>state)[action.contractName],
             [action.contractAddress.toLowerCase()]: {
                 ...state[action.contractName][action.contractAddress.toLowerCase()],
                 status: 'LOADING',
@@ -29,7 +29,7 @@ const contractLoadedReducer: Reducer<ContractStoreState, ContractLoadedAction> =
     return {
         ...state,
         [action.contractName]: {
-            ...state[action.contractName],
+            ...(<Object>state)[action.contractName],
             [action.contractAddress.toLowerCase()]: {
                 ...state[action.contractName][action.contractAddress.toLowerCase()],
                 status: 'LOADED',
@@ -44,7 +44,7 @@ const contractErrorReducer: Reducer<ContractStoreState, ContractErrorAction> = (
     return {
         ...state,
         [action.contractName]: {
-            ...state[action.contractName],
+            ...(<Object>state)[action.contractName],
             [action.contractAddress.toLowerCase()]: {
                 ...state[action.contractName][action.contractAddress.toLowerCase()],
                 status: 'ERROR',
@@ -58,7 +58,7 @@ const contractVarReceivedReducer: Reducer<ContractStoreState, ContractVarReceive
     return {
         ...state,
         [action.contractName]: {
-            ...state[action.contractName],
+            ...(<Object>state)[action.contractName],
             [action.contractAddress.toLowerCase()]: {
                 ...state[action.contractName][action.contractAddress.toLowerCase()],
                 instance: {
@@ -86,7 +86,7 @@ const contractVarErrorReceivedReducer: Reducer<ContractStoreState, ContractVarEr
     return {
         ...state,
         [action.contractName]: {
-            ...state[action.contractName],
+            ...(<Object>state)[action.contractName],
             [action.contractAddress.toLowerCase()]: {
                 ...state[action.contractName][action.contractAddress.toLowerCase()],
                 instance: {
@@ -114,7 +114,7 @@ const contractVarForceRefreshReducer: Reducer<ContractStoreState, ContractVarFor
     return {
         ...state,
         [action.contractName]: {
-            ...state[action.contractName],
+            ...(<Object>state)[action.contractName],
             [action.contractAddress.toLowerCase()]: {
                 ...state[action.contractName][action.contractAddress.toLowerCase()],
                 instance: {
@@ -138,6 +138,16 @@ const contractVarForceRefreshReducer: Reducer<ContractStoreState, ContractVarFor
     };
 };
 
+const contractSetDeployedReducer: Reducer<ContractStoreState, ContractSetDeployedAction> = (state: ContractStoreState       , action: ContractSetDeployedAction): ContractStoreState => {
+    return {
+        ...state,
+        [action.contract_name]: {
+            ...(<Object>state)[action.contract_name],
+            deployed: action.contract_address.toLowerCase()
+        }
+    }
+};
+
 export const contracts: Reducer<ContractStoreState, ContractActions> = (state: ContractStoreState = {}, action: ContractActions): ContractStoreState => {
     switch (action.type) {
 
@@ -153,6 +163,8 @@ export const contracts: Reducer<ContractStoreState, ContractActions> = (state: C
             return contractVarErrorReceivedReducer(state, <ContractVarErrorReceivedAction>action);
         case 'CONTRACT_VAR_FORCE_REFRESH':
             return contractVarForceRefreshReducer(state, <ContractVarForceRefreshAction>action);
+        case 'CONTRACT_SET_DEPLOYED':
+            return contractSetDeployedReducer(state, <ContractSetDeployedAction>action);
 
         default:
             return state;
