@@ -93,7 +93,7 @@ export interface ContractArtifactState {
 }
 
 export interface ContractStoreState {
-    [key: string]: ContractAddressesState | ContractArtifactState;
+    [key: string]: ContractAddressesState | ContractArtifactState | string;
 }
 
 interface FeedHeader {

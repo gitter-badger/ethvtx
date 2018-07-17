@@ -13,7 +13,7 @@ import {
     ContractLoaded,
     ContractLoadInfos,
     ContractLoading, ContractPreloadDone,
-    ContractSendAction,
+    ContractSendAction, ContractSetDeployed,
     ContractVarErrorReceived,
     ContractVarForceRefresh,
     ContractVarReceived
@@ -134,6 +134,7 @@ function* onLoadContractInitialize(action: Web3LoadedAction): SagaIterator {
                             break;
                         }
                         yield* loadContract(contractNames[idx], contract_instance.networks[action.networkId].address.toLowerCase(), action.coinbase, action._);
+                        yield put(ContractSetDeployed(contractNames[idx], contract_instance.networks[action.networkId].address));
                         recap.push({name: contractNames[idx], address: contract_instance.networks[action.networkId].address.toLowerCase()});
                     }
                 }
@@ -151,6 +152,7 @@ function* onLoadContractInitialize(action: Web3LoadedAction): SagaIterator {
                     const infos = contract_infos[Object.keys(contract_infos)[idx]];
                     if (to_preload.indexOf(infos.name) !== -1 && contracts[infos.name]) {
                         yield* loadContract(infos.name, infos.address.toLowerCase(), action.coinbase, action._);
+                        yield put(ContractSetDeployed(infos.name, infos.address));
                         recap.push({name: infos.name, address: infos.address.toLowerCase()});
                     }
                 }
@@ -174,6 +176,7 @@ function* onLoadContractInitialize(action: Web3LoadedAction): SagaIterator {
                             }
                         }
                         yield* loadContract(Object.keys(config_contract)[idx], infos.at.toLowerCase(), action.coinbase, action._);
+                        yield put(ContractSetDeployed(Object.keys(config_contract)[idx], infos.at));
                         recap.push({name: Object.keys(config_contract)[idx], address: infos.at.toLowerCase()});
                     }
                 }

@@ -176,4 +176,17 @@ export function ContractCompleteRefresh(contract_name: string, contract_address:
     } as ContractCompleteRefreshAction;
 }
 
-export type ContractActions = ContractLoadingAction | ContractLoadedAction | ContractErrorAction | ContractCallAction | ContractSendAction | ContractVarReceivedAction | ContractVarErrorReceivedAction | ContractVarForceRefreshAction;
+export interface ContractSetDeployedAction extends Action {
+    contract_name: string,
+    contract_address: string
+}
+
+export function ContractSetDeployed(contract_name: string, contract_address: string): ContractSetDeployedAction {
+    return {
+        type: 'CONTRACT_SET_DEPLOYED',
+        contract_name,
+        contract_address
+    } as ContractSetDeployedAction;
+}
+
+export type ContractActions = ContractLoadingAction | ContractLoadedAction | ContractErrorAction | ContractCallAction | ContractSendAction | ContractVarReceivedAction | ContractVarErrorReceivedAction | ContractVarForceRefreshAction | ContractSetDeployedAction;

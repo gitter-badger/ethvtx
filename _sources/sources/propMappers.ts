@@ -22,10 +22,16 @@ const contractLoading = {};
  * @param {boolean} load Wether to load to contract or not if not found in store.
  * @returns {any} Returns undefined until the contract instance is found.
  */
-export const getContract = (state: State, contract_name: string, contract_address: string, load?: boolean): any => {
-    contract_address = contract_address.toLowerCase();
+export const getContract = (state: State, contract_name: string, contract_address?: string, load?: boolean): any => {
+    if (!contract_address) {
+        contract_address = (<Object>state.contracts)[contract_name].deployed.toLowercase();
+    } else {
+        contract_address = contract_address.toLowerCase();
+    }
     if (!state.contracts[contract_name])
         throw new Error("Unknown contract type " + contract_name);
+    if (!contract_address)
+        return undefined;
     if (!state.contracts[contract_name][contract_address] || !state.contracts[contract_name][contract_address].instance) {
         if (!contractLoading[contract_name + contract_address] && load) {
             Vortex.get().loadContract(contract_name, contract_address);
