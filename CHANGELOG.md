@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [1.1.2]
+### Fixed
+- Move `@types/node` from `devDependencies` to `dependencies`
+- Fix `getContract` propMapper to work with no supplied address
+
 ## [1.1.1]
 ### Added
 - `deployed` field inside contracts. Easier to retrieve contract that has been automatically deployed.
@@ -57,7 +62,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Internal IPFS mechanisms got improved
 
-[[Unreleased]](https://github.com/Horyus/vortex/compare/1.1.1...HEAD)
+[[Unreleased]](https://github.com/Horyus/vortex/compare/1.1.2...HEAD)
+[[1.1.2]](https://github.com/Horyus/vortex/compare/1.1.1...1.1.2)
 [[1.1.1]](https://github.com/Horyus/vortex/compare/1.1.0...1.1.1)
 [[1.1.0]](https://github.com/Horyus/vortex/compare/1.0.1-echo.0...1.1.0)
 [[1.0.1-echo.0]](https://github.com/Horyus/vortex/compare/1.0.1-delta.5...1.0.1-echo.0)
