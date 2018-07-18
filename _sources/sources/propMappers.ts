@@ -24,22 +24,23 @@ const contractLoading = {};
  */
 export const getContract = (state: State, contract_name: string, contract_address?: string, load?: boolean): any => {
     if (!contract_address) {
-        contract_address = (<Object>state.contracts)[contract_name].deployed.toLowercase();
-    } else {
+        contract_address = (<Object>state.contracts)[contract_name].deployed;
+    }
+    if (contract_address) {
         contract_address = contract_address.toLowerCase();
-    }
-    if (!state.contracts[contract_name])
-        throw new Error("Unknown contract type " + contract_name);
-    if (!contract_address)
-        return undefined;
-    if (!state.contracts[contract_name][contract_address] || !state.contracts[contract_name][contract_address].instance) {
-        if (!contractLoading[contract_name + contract_address] && load) {
-            Vortex.get().loadContract(contract_name, contract_address);
-            contractLoading[contract_name + contract_address] = true;
+        if (!state.contracts[contract_name])
+            throw new Error("Unknown contract type " + contract_name);
+        if (!state.contracts[contract_name][contract_address] || !state.contracts[contract_name][contract_address].instance) {
+            if (!contractLoading[contract_name + contract_address] && load) {
+                Vortex.get().loadContract(contract_name, contract_address);
+                contractLoading[contract_name + contract_address] = true;
+            }
+            return undefined;
         }
+        return state.contracts[contract_name][contract_address].instance;
+    } else {
         return undefined;
     }
-    return state.contracts[contract_name][contract_address].instance;
 };
 
 /**
