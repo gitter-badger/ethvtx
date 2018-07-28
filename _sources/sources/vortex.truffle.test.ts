@@ -23,7 +23,6 @@ import {EventAdd} from "./event/event.actions";
 const IPFS = IPFSApi('ipfs.infura.io', '5001', {protocol: 'https'});
 let IPFS_hash;
 const IPFS_fake_hash = "QmaoJEsqFkHETuCzGukYtfdJFCgNa2JKVNmdMbNdtRwszB";
-const IPFS_dir_hash = "QmTuXY7UC29GVEDEhzNHB3CJ7GD2GDBDhn9DNQoDdkWhDb";
 const to_ipfs = new Buffer("ABCDEF");
 let _web3;
 
@@ -279,21 +278,6 @@ describe("Vortex", () => {
             }
         }, 1000);
     }, 300000);
-
-    test('Recover Dir IPFS hash', (done) => {
-        Vortex.get().Store.dispatch(IPFSLoad(IPFS_dir_hash));
-        let intervalId = setInterval(() => {
-            const state = Vortex.get().Store.getState();
-            if (state.ipfs[IPFS_dir_hash]) {
-                if ((<IPFSErrorState>state.ipfs[IPFS_dir_hash]).error) {
-                    done(new Error("Should have thrown"));
-                } else if ((<IPFSContentState>state.ipfs[IPFS_dir_hash]).content) {
-                    clearInterval(intervalId);
-                    done();
-                }
-            }
-        }, 1000);
-    }, 30000);
 
     test('Event Feed', () => {
         const state = Vortex.get().Store.getState();

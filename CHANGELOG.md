@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Using an IPFS Hash that was being forgotten by the gateways and the nodes. Removed the test.
+- Update Jest setting.
+- Update `.gitignore` and `.npmignore` to add `package-lock.json` and prevent package version mismatch (thx ethereumjs-wallet)
+
 ## [1.1.2]
 ### Fixed
 - Move `@types/node` from `devDependencies` to `dependencies`
