@@ -10,6 +10,16 @@
 [![Build Status](https://travis-ci.org/Horyus/vortex.svg?branch=develop)](https://travis-ci.org/Horyus/vortex)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+[![](https://sourcerer.io/fame/mortimr/Horyus/vortex/images/0)](https://sourcerer.io/fame/mortimr/Horyus/vortex/links/0)
+[![](https://sourcerer.io/fame/mortimr/Horyus/vortex/images/1)](https://sourcerer.io/fame/mortimr/Horyus/vortex/links/1)
+[![](https://sourcerer.io/fame/mortimr/Horyus/vortex/images/2)](https://sourcerer.io/fame/mortimr/Horyus/vortex/links/2)
+[![](https://sourcerer.io/fame/mortimr/Horyus/vortex/images/3)](https://sourcerer.io/fame/mortimr/Horyus/vortex/links/3)
+[![](https://sourcerer.io/fame/mortimr/Horyus/vortex/images/4)](https://sourcerer.io/fame/mortimr/Horyus/vortex/links/4)
+[![](https://sourcerer.io/fame/mortimr/Horyus/vortex/images/5)](https://sourcerer.io/fame/mortimr/Horyus/vortex/links/5)
+[![](https://sourcerer.io/fame/mortimr/Horyus/vortex/images/6)](https://sourcerer.io/fame/mortimr/Horyus/vortex/links/6)
+[![](https://sourcerer.io/fame/mortimr/Horyus/vortex/images/7)](https://sourcerer.io/fame/mortimr/Horyus/vortex/links/7)
+
+
 ## Introduction
 
 Vortex is an Ethereum Dapp redux store that handles transactions, smart contracts, events, accounts, method calls, web3 status, IPFS fetching ... Very easy to use with React, it will allow your Dapp to be more reactive (no need to refresh anything), and will make less requests with web3, for even better results. You can also fetch IPFS data and cache it into the redux store.
