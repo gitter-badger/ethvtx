@@ -65,7 +65,7 @@ function* backgroundContractLoad(): SagaIterator {
         const interval_id = setInterval((): void => {
             const state = Vortex.get().Store.getState();
             runForceRefreshRound(state, emit);
-        }, 15000);
+        }, 5000);
 
         return ((): void => {
             clearInterval(interval_id)
