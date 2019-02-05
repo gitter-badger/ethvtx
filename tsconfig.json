@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "ES2015",
+        "outDir": "build",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "noImplicitAny": true
+    },
+    "exclude": [
+        "node_modules",
+        "build",
+        "sources/test_tools"
+    ],
+    "include": [
+        "./sources/index.ts",
+
+
+        "./sources/typings/ganache-core.d.ts"
+    ]
+}
