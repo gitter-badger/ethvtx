@@ -28,7 +28,7 @@ import {
 }                                                                from '../test_tools';
 import { VtxStatus }                                             from '../state/vtxconfig';
 import { VtxeventsTypes }                                        from '../state/vtxevents';
-import Web3 = require('web3');
+const Web3 = require('web3');
 import { configureVtx }                                          from '../tools/configureVtx';
 import { VtxpollKill }                                           from '../vtxpoll/actions/action';
 
