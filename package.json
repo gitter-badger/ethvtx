@@ -42,7 +42,7 @@
         "ts-jest": "^23.10.5",
         "tslint": "^5.12.1",
         "typescript": "^3.2.2",
-        "web3": "^1.0.0-beta.37"
+        "web3": "1.0.0-beta.32"
     },
     "dependencies": {
         "ethers": "^4.0.20",
