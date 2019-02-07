@@ -3,6 +3,7 @@ module.exports = {
     testEnvironment: 'node',
     collectCoverageFrom: [
         "sources/**/*.ts",
-        "!sources/test_tools/**/*.ts"
+        "!sources/test_tools/**/*.ts",
+        "!sources/index.ts"
     ]
 };
