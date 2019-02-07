@@ -7,4 +7,5 @@ install:
 script:
     - npm run test:editorconfig
     - npm run test:lint
-    - npm run test:travis
+    - npm run test:jest
+    - npm run coverage:upload

@@ -5,9 +5,9 @@
     "main": "index.js",
     "scripts": {
         "test:jest": "jest --verbose --notify --runInBand --coverage",
+        "coverage:upload": "cat ./coverage/lcov.info | coveralls",
         "test:lint": "tslint --project .",
         "test:editorconfig": "editorconfig-cli",
-        "test:travis": "jest --runInBand --coverage --coverageReporters=text-lcov | coveralls",
         "build": "tsc"
     },
     "repository": {
