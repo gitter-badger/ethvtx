@@ -13,8 +13,11 @@
         "sources/test_tools"
     ],
     "include": [
-        "./sources/index.ts",
-
+        "./sources/actions.ts",
+        "./sources/getters.ts",
+        "./sources/dispatchers.ts",
+        "./sources/state.ts",
+        "./sources/tools.ts",
 
         "./sources/typings/ganache-core.d.ts"
     ]
