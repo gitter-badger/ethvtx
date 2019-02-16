@@ -3,8 +3,11 @@ import { TxReducer }                from '../txs/reducers';
 import { VtxconfigReducer }         from '../vtxconfig/reducers';
 import { VtxeventsReducer }         from '../vtxevents/reducers';
 import { VtxpollReducer }           from '../vtxpoll/reducers';
+import { ContractsReducer }         from '../contracts/reducers';
+import { BlocksReducer }            from '../blocks/reducers';
+import { VtxcacheReducer }          from '../vtxcache/reducers';
 
-const VTX_REDUCERS_LIST: string[] = ['txs', 'vtxconfig', 'vtxevents', 'vtxpoll'];
+const VTX_REDUCERS_LIST: string[] = ['txs', 'vtxconfig', 'vtxevents', 'vtxpoll', 'contracts', 'blocks', 'vtxcache'];
 
 interface IReducerMap {
     [key: string]: Reducer;
@@ -13,9 +16,12 @@ interface IReducerMap {
 export const getReducers = (custom_reducers?: IReducerMap): Reducer => {
     let final_reducers: IReducerMap = {
         txs: TxReducer,
+        contracts: ContractsReducer,
+        blocks: BlocksReducer,
         vtxconfig: VtxconfigReducer,
         vtxevents: VtxeventsReducer,
-        vtxpoll: VtxpollReducer
+        vtxpoll: VtxpollReducer,
+        vtxcache: VtxcacheReducer
     };
 
     if (!custom_reducers) {

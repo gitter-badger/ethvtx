@@ -21,7 +21,6 @@ export const vtx_event = async (store: Store, start_idx: number, event_type: Vtx
                     clearInterval(interval_id);
                     ok();
                 }
-
                 if (max !== undefined && idx >= max) {
                     clearInterval(interval_id);
                     ko(new Error('Cannot find event'));

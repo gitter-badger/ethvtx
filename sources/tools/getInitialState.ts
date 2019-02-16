@@ -1,18 +1,33 @@
 import { State }        from '../state';
 import { VtxStatus }    from '../state/vtxconfig';
-import { getCorePolls } from '../vtxpoll/core_entities';
+import { getCorePolls } from '../vtxpoll/core_polls';
 
-const VTX_SECTIONS_LIST: string[] = ['txs', 'vtxconfig', 'vtxevents', 'vtxpoll'];
+const VTX_SECTIONS_LIST: string[] = ['txs', 'vtxconfig', 'vtxevents', 'vtxpoll', 'contracts', 'blocks', 'vtxcache'];
 
 export const getInitialState = <T extends {} = any>(custom_state?: T): State => {
     let state: State = {
         txs: {},
+        contracts: {
+            specs: {},
+            instances: {},
+            signer: null,
+            alias: {}
+        },
+        blocks: {
+            initial_height: null,
+            current_height: null,
+            blocks: {}
+        },
+
         vtxconfig: {
             web3: null,
             last_error: null,
             status: VtxStatus.Idle,
             reset_status: {
-                txs: false
+                txs: false,
+                blocks: false,
+                vtxcache: false,
+                contracts: false
             },
             poll_timer: 100,
             confirmation_treshold: 12
@@ -21,6 +36,9 @@ export const getInitialState = <T extends {} = any>(custom_state?: T): State => 
         vtxpoll: {
             timer: 0,
             actions: getCorePolls()
+        },
+        vtxcache: {
+            store: {}
         }
     };
 
