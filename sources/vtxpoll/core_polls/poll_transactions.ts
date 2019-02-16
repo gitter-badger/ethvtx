@@ -9,10 +9,11 @@ import {
     VtxeventsTxError,
     VtxeventsTypes
 }                            from '../../state/vtxevents';
+import { ready }             from '../../utils/ready';
 
 export const poll_transaction: VtxPollCb = async (state: State, emit: Dispatch): Promise<void> => {
-    if (state.vtxconfig.web3) {
-        const current_block: number = await state.vtxconfig.web3.eth.getBlockNumber();
+    if (ready(state)) {
+        const current_block: number = state.blocks.current_height || await state.vtxconfig.web3.eth.getBlockNumber();
         const treshold: number = state.vtxconfig.confirmation_treshold;
 
         for (const tx of Object.keys(state.txs)) {

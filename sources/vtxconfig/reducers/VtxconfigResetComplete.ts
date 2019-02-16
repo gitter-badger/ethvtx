@@ -7,7 +7,10 @@ export const VtxconfigResetCompleteReducer: Reducer<VtxconfigSection, IVtxconfig
         ({
             ...state,
             reset_status: {
-                txs: false
+                txs: false,
+                blocks: false,
+                contracts: false,
+                vtxcache: false
             },
             status: VtxStatus.Loaded
         });

@@ -23,8 +23,8 @@ export const VtxconfigReset = (): IVtxconfigReset => ({
     type: VtxconfigActions.VtxconfigReset
 });
 
-export const VtxconfigResetSectionComplete = (section: 'txs'): IVtxconfigResetSectionComplete => ({
-    type: VtxconfigActions.VtxconfigResetComplete,
+export const VtxconfigResetSectionComplete = (section: 'txs' | 'blocks' | 'vtxcache' | 'contracts'): IVtxconfigResetSectionComplete => ({
+    type: VtxconfigActions.VtxconfigResetSectionComplete,
     section
 });
 

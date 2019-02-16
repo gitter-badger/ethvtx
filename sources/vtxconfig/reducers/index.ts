@@ -18,7 +18,10 @@ const initial: VtxconfigSection = {
     last_error: null,
     status: VtxStatus.Idle,
     reset_status: {
-        txs: false
+        txs: false,
+        blocks: false,
+        vtxcache: false,
+        contracts: false
     },
     poll_timer: 100,
     confirmation_treshold: 12

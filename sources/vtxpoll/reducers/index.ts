@@ -7,7 +7,7 @@ import {
 }                                      from '../actions/actionTypes';
 import { Reducer }                     from 'redux';
 import { VtxpollSetIntervalIdReducer } from './VtxpollSetIntervalId';
-import { getCorePolls }                from '../core_entities';
+import { getCorePolls }                from '../core_polls';
 import { VtxpollIncTimerReducer }      from './VtxpollIncTimer';
 
 const initialState: VtxpollSection = {
