@@ -3,7 +3,7 @@ import { getInitialState }                                       from '../tools/
 import { getReducers }                                           from '../tools/getReducers';
 import { getSagas }                                              from '../tools/getSagas';
 import { Saga }                                                  from '@redux-saga/types';
-import { State }                                                 from '../state';
+import { State }                                                 from '../state/index';
 import createSagaMiddleware, { SagaMiddleware }                  from 'redux-saga';
 import { TxAdd, TxError, TxRemove, TxSet }                       from './actions/actions';
 import { Tx, TxStatus }                                          from '../state/txs';
@@ -19,7 +19,7 @@ import {
     sendTransaction
 }                                                                from './helpers/dispatchers';
 import * as Ganache                                              from 'ganache-core';
-import { setWeb3 }                                               from '../vtxconfig/helpers/dispatchers';
+import { init }                                                  from '../vtxconfig/helpers/dispatchers';
 import {
     vtx_event,
     vtx_state_check,
@@ -28,6 +28,7 @@ import {
 }                                                                from '../test_tools';
 import { VtxStatus }                                             from '../state/vtxconfig';
 import { VtxeventsTypes }                                        from '../state/vtxevents';
+
 const Web3 = require('web3');
 import { configureVtx }                                          from '../tools/configureVtx';
 import { VtxpollKill }                                           from '../vtxpoll/actions/action';
@@ -117,155 +118,149 @@ const killStore = (store: Store): void => {
 
 describe('[txs]', (): void => {
 
-    test('Add basic transaction', (): void => {
-        const store: Store = buildStore();
+    beforeEach(() => {
+        this.store = buildStore();
+    });
 
-        store.dispatch(
+    afterEach(() => {
+        killStore(this.store);
+    });
+
+    test('Add basic transaction', (): void => {
+
+        this.store.dispatch(
             TxAdd(TX_HASH_ONE, {
                 from: FROM_ADDRESS_BOB,
                 to: TO_ADDRESS_GEORGE
             })
         );
 
-        expect(getTransaction(store.getState(), TX_HASH_ONE).infos.from.toLowerCase())
+        expect(getTransaction(this.store.getState(), TX_HASH_ONE).infos.from.toLowerCase())
             .toEqual(FROM_ADDRESS_BOB.toLowerCase());
 
-        killStore(store);
     });
 
     test('Add basic transaction + Set transaction', (): void => {
-        const store: Store = buildStore();
 
-        store.dispatch(
+        this.store.dispatch(
             TxAdd(TX_HASH_ONE, {
                 from: FROM_ADDRESS_BOB,
                 to: TO_ADDRESS_GEORGE
             })
         );
 
-        store.dispatch(TxSet(TX_HASH_ONE, {}, TxStatus.Error));
+        this.store.dispatch(TxSet(TX_HASH_ONE, {}, TxStatus.Error));
 
-        expect(getTransaction(store.getState(), TX_HASH_ONE).infos.from.toLowerCase())
+        expect(getTransaction(this.store.getState(), TX_HASH_ONE).infos.from.toLowerCase())
             .toEqual(FROM_ADDRESS_BOB.toLowerCase());
-        expect(getTransaction(store.getState(), TX_HASH_ONE).status).toEqual(
+        expect(getTransaction(this.store.getState(), TX_HASH_ONE).status).toEqual(
             TxStatus.Error
         );
 
-        killStore(store);
     });
 
     test('Add basic transaction + Error transaction', (): void => {
-        const store: Store = buildStore();
 
-        store.dispatch(
+        this.store.dispatch(
             TxAdd(TX_HASH_ONE, {
                 from: FROM_ADDRESS_BOB,
                 to: TO_ADDRESS_GEORGE
             })
         );
 
-        store.dispatch(TxError(TX_HASH_ONE, new Error('test')));
+        this.store.dispatch(TxError(TX_HASH_ONE, new Error('test')));
 
-        expect(getTransaction(store.getState(), TX_HASH_ONE).infos.from.toLowerCase())
+        expect(getTransaction(this.store.getState(), TX_HASH_ONE).infos.from.toLowerCase())
             .toEqual(FROM_ADDRESS_BOB.toLowerCase());
-        expect(getTransaction(store.getState(), TX_HASH_ONE).status).toEqual(TxStatus.Error);
+        expect(getTransaction(this.store.getState(), TX_HASH_ONE).status).toEqual(TxStatus.Error);
+        expect(getTransaction(this.store.getState(), TX_HASH_ONE).e.message).toEqual('test');
 
-        killStore(store);
     });
 
     test('Add basic transaction + Remove transaction', (): void => {
-        const store: Store = buildStore();
 
-        store.dispatch(
+        this.store.dispatch(
             TxAdd(TX_HASH_ONE, {
                 from: FROM_ADDRESS_BOB,
                 to: TO_ADDRESS_GEORGE
             })
         );
 
-        store.dispatch(TxRemove(TX_HASH_ONE));
+        this.store.dispatch(TxRemove(TX_HASH_ONE));
 
-        expect(getTransaction(store.getState(), TX_HASH_ONE)).toEqual(undefined);
+        expect(getTransaction(this.store.getState(), TX_HASH_ONE)).toEqual(undefined);
 
-        killStore(store);
     });
 
     test('Add 4 basic transactions + get two', (): void => {
-        const store: Store = buildStore();
 
-        store.dispatch(
+        this.store.dispatch(
             TxAdd(TX_HASH_ONE, {
                 from: FROM_ADDRESS_BOB,
                 to: TO_ADDRESS_GEORGE
             })
         );
 
-        store.dispatch(
+        this.store.dispatch(
             TxAdd(TX_HASH_TWO, {
                 from: FROM_ADDRESS_BOB,
                 to: TO_ADDRESS_LISA
             })
         );
 
-        store.dispatch(
+        this.store.dispatch(
             TxAdd(TX_HASH_THREE, {
                 from: FROM_ADDRESS_MIKE,
                 to: TO_ADDRESS_LISA
             })
         );
 
-        store.dispatch(
+        this.store.dispatch(
             TxAdd(TX_HASH_FOUR, {
                 from: FROM_ADDRESS_MARC,
                 to: TO_ADDRESS_MARIE
             })
         );
 
-        expect(getTransactions(store.getState(), {from: FROM_ADDRESS_BOB}))
+        expect(getTransactions(this.store.getState(), {from: FROM_ADDRESS_BOB}))
             .toHaveLength(2);
 
-        killStore(store);
     });
 
     test('Use addTransaction helper', (): void => {
-        const store: Store = buildStore();
 
-        addTransaction(store.dispatch, TX_HASH_ONE);
+        addTransaction(this.store.dispatch, TX_HASH_ONE);
 
-        expect(getTransaction(store.getState(), TX_HASH_ONE)).toBeDefined();
+        expect(getTransaction(this.store.getState(), TX_HASH_ONE)).toBeDefined();
 
-        killStore(store);
     });
 
     test('Use removeTransaction helper', (): void => {
-        const store: Store = buildStore();
 
-        addTransaction(store.dispatch, TX_HASH_ONE);
-        removeTransaction(store.dispatch, TX_HASH_ONE);
+        addTransaction(this.store.dispatch, TX_HASH_ONE);
+        removeTransaction(this.store.dispatch, TX_HASH_ONE);
 
-        expect(getTransaction(store.getState(), TX_HASH_ONE)).not.toBeDefined();
+        expect(getTransaction(this.store.getState(), TX_HASH_ONE)).not.toBeDefined();
 
-        killStore(store);
     });
 
     test('Use sendTransaction helper', async (done: jest.DoneCallback): Promise<void> => {
-            const store: Store = buildStore();
 
             const web3: Web3 = buildTestWeb3(1);
-            setWeb3(store.dispatch, web3);
-            await vtx_status(store, VtxStatus.Loaded, 10);
-            const initial_length: number = store.getState().vtxevents.length;
-            const id: number = sendTransaction(store.dispatch, {
+            init(this.store.dispatch, web3);
+            await vtx_status(this.store, VtxStatus.Loaded, 10);
+            const initial_length: number = this.store.getState().vtxevents.length;
+            const id: number = sendTransaction(this.store.dispatch, {
                 from: FROM_ADDRESS_MIKE,
                 to: TO_ADDRESS_GEORGE,
                 value: '123',
                 gasPrice: '123456'
             });
 
-            await vtx_event(store, initial_length, VtxeventsTypes.TxBroadcasted, 10);
+            await vtx_event(this.store, initial_length, VtxeventsTypes.TxBroadcasted, 10);
             await ganache_mine(web3, 10);
-            await vtx_event(store, initial_length, VtxeventsTypes.TxConfirmed, 10);
-            const tx: Tx = getTransactionById(store.getState(), id);
+            await vtx_event(this.store, initial_length, VtxeventsTypes.TxConfirmed, 10);
+            const tx: Tx = getTransactionById(this.store.getState(), id);
 
             if (tx === undefined) {
                 return done(
@@ -273,42 +268,37 @@ describe('[txs]', (): void => {
                 );
             }
 
-            killStore(store);
-
             done();
         },
         60 * 1000
     );
 
     test('Use sendTransaction helper, reset and check transaction', async (done: jest.DoneCallback): Promise<void> => {
-        const store: Store = buildStore();
 
         const web3: Web3 = buildTestWeb3();
-        setWeb3(store.dispatch, web3);
-        await vtx_status(store, VtxStatus.Loaded, 10);
-        const initial_length: number = store.getState().vtxevents.length;
-        sendTransaction(store.dispatch, {
+        init(this.store.dispatch, web3);
+        await vtx_status(this.store, VtxStatus.Loaded, 10);
+        const initial_length: number = this.store.getState().vtxevents.length;
+        sendTransaction(this.store.dispatch, {
             from: FROM_ADDRESS_MIKE,
             to: TO_ADDRESS_GEORGE,
             value: '123',
             gasPrice: '123456'
         });
 
-        await vtx_event(store, initial_length, VtxeventsTypes.TxBroadcasted, 10);
-        setWeb3(store.dispatch, web3);
-        await vtx_state_check(store, 'txs', {}, 50);
+        await vtx_event(this.store, initial_length, VtxeventsTypes.TxBroadcasted, 10);
+        init(this.store.dispatch, web3);
+        await vtx_state_check(this.store, 'txs', {}, 50);
 
-        killStore(store);
         done();
     });
 
     test('Use followTransaction helper', async (done: jest.DoneCallback): Promise<void> => {
-        const store: Store = buildStore();
 
         const web3: Web3 = buildTestWeb3();
-        setWeb3(store.dispatch, web3);
-        await vtx_status(store, VtxStatus.Loaded, 10);
-        const initial_length: number = store.getState().vtxevents.length;
+        init(this.store.dispatch, web3);
+        await vtx_status(this.store, VtxStatus.Loaded, 10);
+        const initial_length: number = this.store.getState().vtxevents.length;
         const out_tx = await web3.eth.sendTransaction({
             from: FROM_ADDRESS_MIKE,
             to: TO_ADDRESS_GEORGE,
@@ -316,14 +306,14 @@ describe('[txs]', (): void => {
             gasPrice: '123456'
         });
         const id: number = followTransaction(
-            store.dispatch,
+            this.store.dispatch,
             out_tx.transactionHash
         );
 
-        await vtx_event(store, initial_length, VtxeventsTypes.TxFollowed, 10);
+        await vtx_event(this.store, initial_length, VtxeventsTypes.TxFollowed, 10);
         await ganache_mine(web3, 10);
-        await vtx_event(store, initial_length, VtxeventsTypes.TxConfirmed, 10);
-        const tx: Tx = getTransactionById(store.getState(), id);
+        await vtx_event(this.store, initial_length, VtxeventsTypes.TxConfirmed, 10);
+        const tx: Tx = getTransactionById(this.store.getState(), id);
 
         if (tx === undefined) {
             return done(
@@ -331,7 +321,6 @@ describe('[txs]', (): void => {
             );
         }
 
-        killStore(store);
         done();
     });
 });

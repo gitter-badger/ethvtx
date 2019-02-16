@@ -8,7 +8,7 @@ import { VtxeventsAdd }      from '../../vtxevents/actions/actions';
 import {
     VtxeventErrorTypes,
     VtxeventsError,
-    VtxeventsTxAdded,
+    VtxeventsTxAdded, VtxeventsTxInvalid,
     VtxeventsTypes
 }                            from '../../state/vtxevents';
 import Web3 = require('web3');
@@ -26,6 +26,14 @@ export function* TxFollowSaga(action: ITxFollow): SagaIterator {
                 web3.eth.getTransaction,
                 action.tx_hash
             );
+
+            if (tx_infos === null) {
+                yield put(VtxeventsAdd({
+                    type: VtxeventsTypes.TxInvalid,
+                    tx_hash: action.tx_hash
+                } as VtxeventsTxInvalid));
+                return;
+            }
 
             yield put(VtxeventsAdd({
                 type: VtxeventsTypes.TxFollowed,

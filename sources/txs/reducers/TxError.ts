@@ -6,6 +6,7 @@ export const TxErrorReducer: Reducer<TxSection, ITxError> = (state: TxSection, a
     ...state,
     [action.tx_hash]: {
         ...state[action.tx_hash],
-        status: TxStatus.Error
+        status: TxStatus.Error,
+        e: action.e
     }
 });
