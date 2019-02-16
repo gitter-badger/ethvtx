@@ -5,5 +5,8 @@ module.exports = {
         "sources/**/*.ts",
         "!sources/test_tools/**/*.ts",
         "!sources/*.ts"
+    ],
+    testPathIgnorePatterns: [
+        "examples"
     ]
 };

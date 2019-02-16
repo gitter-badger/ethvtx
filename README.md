@@ -12,3 +12,5 @@ the Ethereum-Ready Redux Store Configuration
 ## Installation
 
 ## React Usage
+
+## Running the examples

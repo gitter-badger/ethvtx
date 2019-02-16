@@ -1,16 +1,18 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "ES2015",
+        "target": "es5",
         "outDir": "build",
+        "declaration": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "noImplicitAny": true
+        "downlevelIteration": true
     },
     "exclude": [
         "node_modules",
         "build",
-        "sources/test_tools"
+        "sources/test_tools",
+        "node_modules/web3/types.d.ts"
     ],
     "include": [
         "./sources/actions.ts",

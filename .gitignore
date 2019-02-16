@@ -3,4 +3,4 @@ node_modules
 .todos.json
 build
 coverage
-
+ethvtx*.gz
