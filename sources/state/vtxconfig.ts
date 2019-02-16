@@ -10,6 +10,9 @@ export enum VtxStatus {
 
 export interface VtxResetStatus {
     txs: boolean;
+    blocks: boolean;
+    vtxcache: boolean;
+    contracts: boolean;
 }
 
 export interface VtxconfigSection {

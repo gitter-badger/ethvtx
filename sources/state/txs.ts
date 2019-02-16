@@ -26,6 +26,7 @@ export interface TxInfos {
 export interface Tx {
     infos: Partial<TxInfos>;
     status: TxStatus;
+    e: Error;
     hash: string;
     id?: number;
 }

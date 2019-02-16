@@ -1,9 +1,17 @@
 export enum VtxeventsTypes {
     Error = 0,
+
     TxBroadcasted,
     TxFollowed,
     TxConfirmed,
-    TxError
+    TxError,
+    TxInvalid,
+
+    ContractsSpecAdded,
+    ContractsSpecRemoved,
+    ContractsInstanceAdded,
+    ContractsInstanceRemoved,
+    ContractsTxBroadcasted
 }
 
 export interface Vtxevent {
@@ -12,7 +20,9 @@ export interface Vtxevent {
 
 export enum VtxeventErrorTypes {
     TxBroadcastError = 0,
-    TxFollowError
+    TxFollowError,
+    BlockFetchError,
+    ContractInvalid
 }
 
 export interface VtxeventsError extends Vtxevent {
@@ -27,5 +37,27 @@ export interface VtxeventsTxBroadcasted extends Vtxevent {
 export type VtxeventsTxAdded = VtxeventsTxBroadcasted;
 export type VtxeventsTxConfirmed = VtxeventsTxBroadcasted;
 export type VtxeventsTxError = VtxeventsTxBroadcasted;
+export type VtxeventsTxInvalid = VtxeventsTxBroadcasted;
+
+export interface VtxeventsContractsSpecAdded extends Vtxevent {
+    name: string;
+}
+
+export type VtxeventsContractsSpecRemoved = VtxeventsContractsSpecAdded;
+
+export interface VtxeventsContractsInstanceAdded extends Vtxevent {
+    contract: string;
+    address: string;
+}
+
+export interface VtxeventsContractsTxBroadcasted extends Vtxevent {
+    contract: string;
+    address: string;
+    method: string;
+    args: any[];
+    tx_hash: string;
+}
+
+export type VtxeventsContractsInstanceRemove = VtxeventsContractsInstanceAdded;
 
 export type VtxeventsSection = Vtxevent;
