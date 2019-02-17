@@ -1,5 +1,6 @@
-import { Action } from 'redux';
-import { Signer } from 'ethers';
+import { Action }      from 'redux';
+import { Signer }      from 'ethers';
+import { VtxContract } from '../VtxContract';
 
 export const ContractsActions = {
     ContractsAddSpec: 'CONTRACTS_ADD_SPEC',
@@ -18,10 +19,6 @@ export interface IContractsSend extends Action<string> {
     args: any[];
     contract: string;
     address: string;
-}
-
-export interface IContractsSetSigner extends Action<string> {
-    signer: Signer;
 }
 
 export interface IContractsAddSpec extends Action<string> {
@@ -54,6 +51,4 @@ export type ContractsActionTypes =
     IContractsAddSpec
     | IContractsRemoveSpec
     | IContractsNew
-    | IContractsRemove
-    | IContractsSetSigner
-    | IContractsSetSigner;
+    | IContractsRemove;

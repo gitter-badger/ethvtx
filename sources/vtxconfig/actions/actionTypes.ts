@@ -7,8 +7,14 @@ export const VtxconfigActions = {
     VtxconfigSetStatus: 'VTXCONFIG_SET_STATUS',
     VtxconfigReset: 'VTXCONFIG_RESET',
     VtxconfigResetSectionComplete: 'VTXCONFIG_RESET_SECTION_COMPLETE',
-    VtxconfigResetComplete: 'VTXCONFIG_RESET_COMPLETE'
+    VtxconfigResetComplete: 'VTXCONFIG_RESET_COMPLETE',
+    VtxconfigSetInfos: 'VTXCONFIG_SET_INFOS'
 };
+
+export interface IVtxconfigSetInfos extends Action<string> {
+    coinbase: string;
+    net: number;
+}
 
 export interface IVtxconfigSetWeb3 extends Action<string> {
     web3: Web3;
@@ -19,6 +25,7 @@ export interface IVtxconfigSetStatus extends Action<string> {
 }
 
 export interface IVtxconfigReset extends Action<string> {
+    enable?: () => Promise<void>;
 }
 
 export interface IVtxconfigResetSectionComplete extends Action<string> {
@@ -33,4 +40,5 @@ export type VtxconfigActionTypes =
     | IVtxconfigSetStatus
     | IVtxconfigReset
     | IVtxconfigResetSectionComplete
-    | IVtxconfigResetComplete;
+    | IVtxconfigResetComplete
+    | IVtxconfigSetInfos;

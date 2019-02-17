@@ -15,7 +15,6 @@ export {
 export {
     ContractsRemove,
     ContractsSend,
-    ContractsSetSigner,
     ContractsNew,
     ContractsReset,
     ContractsRemoveSpec,
@@ -27,7 +26,6 @@ export {
     IContractsRemove,
     IContractsNew,
     IContractsSend,
-    IContractsSetSigner,
     IContractsReset,
     IContractsRemoveSpec,
     IContractsAddSpec,

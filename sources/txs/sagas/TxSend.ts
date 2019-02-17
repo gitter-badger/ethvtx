@@ -32,6 +32,7 @@ export function* TxSendSaga(action: ITxSend): SagaIterator {
 
             yield put(TxAdd(tx_hash.transactionHash, action.tx_infos, action.tx_id));
         } catch (e) {
+            console.log(e);
             yield put(VtxeventsAdd({
                 type: VtxeventsTypes.Error,
                 e,

@@ -10,7 +10,7 @@ export const getInitialState = <T extends {} = any>(custom_state?: T): State => 
         contracts: {
             specs: {},
             instances: {},
-            signer: null,
+            web3: null,
             alias: {}
         },
         blocks: {
@@ -27,10 +27,13 @@ export const getInitialState = <T extends {} = any>(custom_state?: T): State => 
                 txs: false,
                 blocks: false,
                 vtxcache: false,
-                contracts: false
+                contracts: false,
+                vtxconfig: false
             },
             poll_timer: 100,
-            confirmation_treshold: 12
+            confirmation_treshold: 12,
+            coinbase: null,
+            net: null
         },
         vtxevents: [],
         vtxpoll: {

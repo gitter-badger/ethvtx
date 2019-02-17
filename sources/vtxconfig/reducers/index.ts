@@ -1,17 +1,18 @@
 import { Reducer }                              from 'redux';
 import {
     IVtxconfigResetComplete,
-    IVtxconfigResetSectionComplete,
+    IVtxconfigResetSectionComplete, IVtxconfigSetInfos,
     IVtxconfigSetStatus,
     IVtxconfigSetWeb3,
     VtxconfigActions,
     VtxconfigActionTypes
-}                                               from '../actions/actionTypes';
+} from '../actions/actionTypes';
 import { VtxconfigSection, VtxStatus }          from '../../state/vtxconfig';
 import { VtxconfigSetWeb3Reducer }              from './VtxconfigSetWeb3';
 import { VtxconfigSetStatusReducer }            from './VtxconfigSetStatus';
 import { VtxconfigResetSectionCompleteReducer } from './VtxconfigResetSectionComplete';
 import { VtxconfigResetCompleteReducer }        from './VtxconfigResetComplete';
+import { VtxconfigSetInfosReducer }             from './VtxconfigSetInfos';
 
 const initial: VtxconfigSection = {
     web3: null,
@@ -21,10 +22,13 @@ const initial: VtxconfigSection = {
         txs: false,
         blocks: false,
         vtxcache: false,
-        contracts: false
+        contracts: false,
+        vtxconfig: false
     },
     poll_timer: 100,
-    confirmation_treshold: 12
+    confirmation_treshold: 12,
+    coinbase: null,
+    net: null
 };
 
 export const VtxconfigReducer: Reducer<VtxconfigSection, VtxconfigActionTypes> =
@@ -38,6 +42,8 @@ export const VtxconfigReducer: Reducer<VtxconfigSection, VtxconfigActionTypes> =
                 return VtxconfigResetSectionCompleteReducer(state, action as IVtxconfigResetSectionComplete);
             case VtxconfigActions.VtxconfigResetComplete:
                 return VtxconfigResetCompleteReducer(state, action as IVtxconfigResetComplete);
+            case VtxconfigActions.VtxconfigSetInfos:
+                return VtxconfigSetInfosReducer(state, action as IVtxconfigSetInfos);
             default:
                 return state;
         }

@@ -22,7 +22,8 @@ export enum VtxeventErrorTypes {
     TxBroadcastError = 0,
     TxFollowError,
     BlockFetchError,
-    ContractInvalid
+    ContractInvalid,
+    ContractTxError
 }
 
 export interface VtxeventsError extends Vtxevent {

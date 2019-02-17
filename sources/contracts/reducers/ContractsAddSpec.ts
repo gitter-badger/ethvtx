@@ -13,5 +13,6 @@ export const ContractsAddSpecReducer: Reducer<ContractsSection, IContractsAddSpe
                 bin: action.bin,
                 permanent: action.permanent
             }
-        }
+        },
+        web3: state.web3
     });

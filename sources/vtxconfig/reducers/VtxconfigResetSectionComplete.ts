@@ -41,6 +41,15 @@ export const VtxconfigResetSectionCompleteReducer: Reducer<VtxconfigSection, IVt
                     }
                 };
 
+            case 'vtxconfig':
+                return {
+                    ...state,
+                    reset_status: {
+                        ...state.reset_status,
+                        vtxconfig: true
+                    }
+                };
+
             default:
                 console.error(`Attempt to reset unknown section ${action.section}`);
                 return state;

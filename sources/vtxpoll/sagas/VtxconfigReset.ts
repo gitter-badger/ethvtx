@@ -6,13 +6,15 @@ import { Dispatch }                              from 'redux';
 import { VtxpollIncTimer, VtxpollSetIntervalId } from '../actions/action';
 import { VtxpollEntity }                         from '../../state/vtxpoll';
 
+let timer = 0;
+
 async function loop(dispatcher: Dispatch, state_getter: () => State): Promise<void> {
-    dispatcher(VtxpollIncTimer());
+    ++timer;
 
     const state: State = state_getter();
     await Promise.all(
         state.vtxpoll.actions
-            .filter((entity: VtxpollEntity): boolean => state.vtxpoll.timer % entity.interval === 0)
+            .filter((entity: VtxpollEntity): boolean => timer % entity.interval === 0)
             .map(async (entity: VtxpollEntity): Promise<void> => entity.cb(state, dispatcher))
     );
 }

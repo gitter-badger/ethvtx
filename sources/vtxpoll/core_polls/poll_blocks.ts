@@ -5,21 +5,37 @@ import { ready }                          from '../../utils/ready';
 import { Block }                          from '../../state/blocks';
 import { BlocksFetchedHeight, BlocksNew } from '../../blocks/actions/actions';
 
+let polling: boolean = false;
+
 const fetch_blocks = async (dispatch: Dispatch, state: State, blocks: number[]): Promise<void> => {
 
-    for (const num of blocks) {
-        const data: Block = await state.vtxconfig.web3.eth.getBlock(num);
-        dispatch(BlocksNew(num, data));
+    try {
+        for (const num of blocks) {
+            const data: Block = await state.vtxconfig.web3.eth.getBlock(num);
+            dispatch(BlocksNew(num, data));
+        }
+    } catch (e) {
+        polling = false;
     }
 
 };
 
-let polling: boolean = false;
-
 export const poll_blocks: VtxPollCb = async (state: State, emit: Dispatch): Promise<void> => {
     if (ready(state) && !polling) {
         polling = true;
-        const current_height: number = await state.vtxconfig.web3.eth.getBlockNumber();
+
+        let current_height: number;
+        try {
+            current_height = await state.vtxconfig.web3.eth.getBlockNumber();
+        } catch (e) {
+            polling = false;
+            return ;
+        }
+
+        if (current_height === state.blocks.current_height) {
+            polling = false;
+            return ;
+        }
 
         let block_nums: number[];
 

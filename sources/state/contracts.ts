@@ -1,5 +1,4 @@
 import { VtxContract } from '../contracts/VtxContract';
-import { Signer }      from 'ethers';
 
 export interface ContractsSpec {
     name: string;
@@ -36,6 +35,6 @@ export interface ContractAliasStore {
 export interface ContractsSection {
     specs: ContractsSpecStore;
     instances: ContractsTypeStore;
-    signer: Signer;
+    web3: Web3;
     alias: ContractAliasStore;
 }

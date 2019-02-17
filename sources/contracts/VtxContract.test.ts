@@ -160,7 +160,7 @@ describe('[contracts]', (): void => {
         const deployed = await contract.deploy(5);
 
         expect(() => {
-            new VtxContract('ValueStore', signer, deployed.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
+            new VtxContract(web3, 'ValueStore', deployed.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
         }).toThrow();
 
     });
@@ -181,15 +181,15 @@ describe('[contracts]', (): void => {
 
         const deployed = await contract.deploy(5);
 
-        const vtx = new VtxContract('ValueStore', signer, deployed.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
+        const vtx = new VtxContract(web3, 'ValueStore', deployed.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
 
         await vtx.valid();
 
         expect(vtx.fn.getValue()).toEqual(undefined);
 
-        await vtx_cache(this.store, VtxContract.sig('ValueStore', deployed.address, 'getValue'), 0, 50);
+        await vtx_cache(this.store, VtxContract.sig('ValueStore', deployed.address, 'getValue'), 1, 50);
 
-        expect((vtx.fn.getValue() as BigNumber).toNumber()).toEqual(5);
+        expect(parseInt(vtx.fn.getValue())).toEqual(5);
 
     });
 
@@ -209,7 +209,7 @@ describe('[contracts]', (): void => {
 
         const deployed = await contract.deploy(5);
 
-        const vtx = new VtxContract('ValueStore', signer, deployed.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
+        const vtx = new VtxContract(web3, 'ValueStore', deployed.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
 
         await vtx.valid();
 
@@ -237,7 +237,7 @@ describe('[contracts]', (): void => {
 
         const deployed = await contract.deploy(5);
 
-        const vtx = new VtxContract('ValueStore', signer, deployed.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
+        const vtx = new VtxContract(web3, 'ValueStore', deployed.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
 
         await vtx.valid();
 
@@ -270,7 +270,7 @@ describe('[contracts]', (): void => {
 
         const deployed = await contract.deploy(5);
 
-        const vtx = new VtxContract('ValueStore', signer, deployed.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
+        const vtx = new VtxContract(web3, 'ValueStore', deployed.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
 
         await vtx.valid();
 

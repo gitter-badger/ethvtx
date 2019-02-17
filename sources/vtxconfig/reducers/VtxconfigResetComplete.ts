@@ -10,7 +10,8 @@ export const VtxconfigResetCompleteReducer: Reducer<VtxconfigSection, IVtxconfig
                 txs: false,
                 blocks: false,
                 contracts: false,
-                vtxcache: false
+                vtxcache: false,
+                vtxconfig: false
             },
             status: VtxStatus.Loaded
         });

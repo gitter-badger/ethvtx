@@ -8,5 +8,6 @@ export const ContractsRemoveSoecReducer: Reducer<ContractsSection, IContractsRem
         specs: {
             ...state.specs,
             [action.name]: undefined
-        }
+        },
+        web3: state.web3
     });

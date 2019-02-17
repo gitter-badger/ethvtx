@@ -3,11 +3,11 @@ import { ContractAliasStore, ContractsSection, ContractsSpecStore, ContractsType
 import { IContractsReset }                                                              from '../actions/actionTypes';
 import { Signer }                                                                       from 'ethers';
 
-const reset_instances = (instances: ContractsTypeStore, signer: Signer): ContractsTypeStore => {
+const reset_instances = (instances: ContractsTypeStore, web3: Web3): ContractsTypeStore => {
     for (const contract of Object.keys(instances)) {
         for (const instance of Object.keys(instances[contract])) {
             if (!instances[contract][instance].permament) delete instances[contract][instance];
-            else instances[contract][instance].instance.reset(signer);
+            else instances[contract][instance].instance.reset(web3);
         }
 
         if (!Object.keys(instances[contract]).length) delete instances[contract];
@@ -38,14 +38,14 @@ const reset_alias = (aliases: ContractAliasStore): ContractAliasStore => {
 
 export const ContractsResetReducer: Reducer<ContractsSection, IContractsReset> =
     (state: ContractsSection, action: IContractsReset): ContractsSection => ({
-        ...state,
         instances: {
-            ...reset_instances(state.instances, state.signer)
+            ...reset_instances(state.instances, state.web3)
         },
         specs: {
             ...reset_specs(state.specs)
         },
         alias: {
             ...reset_alias(state.alias)
-        }
+        },
+        web3: state.web3
     });

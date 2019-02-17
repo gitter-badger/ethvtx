@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es5",
-        "outDir": "build",
+        "outDir": "lib",
         "declaration": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
@@ -19,7 +19,7 @@
         "./sources/getters.ts",
         "./sources/dispatchers.ts",
         "./sources/state.ts",
-        "./sources/tools.ts",
+        "./sources/index.ts",
 
         "./sources/typings/ganache-core.d.ts"
     ]

@@ -3,9 +3,8 @@ import {
     IContractsAddSpec,
     IContractsNew, IContractsRemove,
     IContractsRemoveSpec,
-    IContractsReset, IContractsSend, IContractsSetSigner
+    IContractsReset, IContractsSend
 }                          from './actionTypes';
-import { Signer }          from 'ethers';
 import { alias_checker }   from '../../utils/alias_checker';
 import { address_checker } from '../../utils/address_checker';
 
@@ -42,11 +41,6 @@ export const ContractsNew = (contract: string, address: string, options?: { alia
 
 export const ContractsReset = (): IContractsReset => ({
     type: ContractsActions.ContractsReset
-});
-
-export const ContractsSetSigner = (signer: Signer): IContractsSetSigner => ({
-    type: ContractsActions.ContractsSetSigner,
-    signer
 });
 
 export const ContractsRemove = (contract: string, address_or_alias: string): IContractsRemove => ({

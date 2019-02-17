@@ -7,5 +7,7 @@ export const VtxconfigSetWeb3Reducer: Reducer<VtxconfigSection, IVtxconfigSetWeb
         ...state,
         web3: action.web3,
         last_error: null,
-        status: VtxStatus.Loading
+        status: VtxStatus.Loading,
+        coinbase: null,
+        net: null
     });

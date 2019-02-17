@@ -28,7 +28,8 @@ export const ContractsRemoveReducer: Reducer<ContractsSection, IContractsRemove>
             },
             alias: {
                 ...state.alias
-            }
+            },
+            web3: state.web3
         };
 
     };

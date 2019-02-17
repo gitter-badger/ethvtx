@@ -42,4 +42,4 @@ export const poll_transaction: VtxPollCb = async (state: State, emit: Dispatch):
     }
 };
 
-export const poll_transaction_interval: number = 5;
+export const poll_transaction_interval: number = 1;

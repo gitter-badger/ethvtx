@@ -1,5 +1,5 @@
 import { Contract, Signer, utils }             from 'ethers';
-import { State }                               from '../state';
+import { ContractsSpec, State }                from '../state';
 import { Dispatch, Store }                     from 'redux';
 import { VtxcacheElement }                     from '../state/vtxcache';
 import { VtxcacheCreate, VtxcacheSetRequired } from '../vtxcache/actions/actions';
@@ -19,16 +19,14 @@ export class VtxContract {
     private static store: Store;
     private _contract: Contract;
     private readonly _bin: string;
-    private _signer: Signer;
     private _valid: boolean = false;
     private readonly _name: string;
     private readonly _methods: Methods = {};
     private readonly _address: string;
     private readonly _abi: any;
 
-    constructor(name: string, signer: Signer, address: string, abi: any, bin?: string) {
-        this._contract = new Contract(address, abi, signer);
-        this._signer = signer;
+    constructor(web3: Web3, name: string, address: string, abi: any, bin?: string) {
+        this._contract = new web3.eth.Contract(abi, address);
         this._name = name;
         this._address = address;
         this._abi = abi;
@@ -89,10 +87,9 @@ export class VtxContract {
         return VtxContract.store.getState();
     }
 
-    public reset = (signer: Signer): void => {
+    public reset = (web3: Web3): void => {
         this._valid = false;
-        this._signer = signer;
-        this._contract = new Contract(this._address, this._abi, signer);
+        this._contract = new web3.eth.Contract(this._abi, this._address);
     }
 
     public readonly valid = async (): Promise<void> => {
@@ -102,7 +99,7 @@ export class VtxContract {
             return;
         }
 
-        const code = (await this._signer.provider.getCode(this._contract.address)).slice(2);
+        const code = (await VtxContract.store.getState().vtxconfig.web3.eth.getCode(this._address)).slice(2);
 
         if (code.toLowerCase() !== this._bin) {
             throw new Error(`Invalid Contract Instance at address ${this._contract.address}: no matching bin`);
@@ -112,17 +109,43 @@ export class VtxContract {
 
     public readonly isValid = (): boolean => this._valid;
 
+    private static readonly tx_inspect_args = (coinbase: string, args: any[]): [any[], any[]] => {
+        if (args.length === 0) return [[], [{from: coinbase}]];
+        const last = args[args.length - 1];
+
+        if (typeof last === 'object' && (
+            last.from !== undefined
+            || last.gasPrice !== undefined
+            || last.gas !== undefined
+            || last.value !== undefined
+        )) {
+            return [args.slice(0, args.length - 1), [{
+                ...args[args.length - 1],
+                from: coinbase
+            }]];
+        } else {
+            return [args, [{from: coinbase}]];
+        }
+
+    }
+
     private readonly generate_transaction_calls = (): void => {
-        for (const method of Object.keys(this._contract.interface.functions)) {
-            if (methodReg.test(method) && this._contract.interface.functions[method].type === 'transaction') {
-                this._methods[method] = (...args: any[]): number => {
+        for (const method of this._abi) {
+            if (method.type === 'function' && method.constant === false) {
+                this._methods[method.name] = (...args: any[]): number => {
                     if (!this._valid) throw new Error('VtxContract instance has not been validated');
 
                     const tx_id: number = get_tx_id();
                     VtxContract.store.dispatch(ContractsSend(
-                        async (): Promise<string> => (await this._contract.functions[method](...args)).hash,
+                        async (): Promise<string> => {
+
+                            const coinbase = await VtxContract.store.getState().vtxconfig.coinbase;
+                            const splitted_args = VtxContract.tx_inspect_args(coinbase, args);
+                            const res = (await this._contract.methods[method.name](...splitted_args[0]).send(...splitted_args[1]));
+                            return res.transactionHash;
+                        },
                         tx_id,
-                        method,
+                        method.name,
                         args,
                         this._name,
                         this._address
@@ -134,17 +157,34 @@ export class VtxContract {
         }
     }
 
+    private static readonly const_inspect_args = (block: number, args: any[]): [any[], any[]] => {
+        if (args.length === 0) return [[], [{}, block]];
+        const last = args[args.length - 1];
+
+        if (typeof last === 'object' && (
+            last.from !== undefined
+            || last.gasPrice !== undefined
+            || last.gas !== undefined
+        )) {
+            return [args.slice(0, args.length - 1), [args[args.length - 1], block]];
+        } else {
+            return [args, [{}, block]];
+        }
+
+    }
+
     private readonly generate_constant_calls = (): void => {
-        for (const method of Object.keys(this._contract.interface.functions)) {
-            if (methodReg.test(method) && this._contract.interface.functions[method].type === 'call') {
+
+        for (const method of this._abi) {
+            if (method.type === 'function' && method.constant === true) {
 
                 // TODO Compute return value
 
-                this._methods[method] = (...args: any[]): any => {
+                this._methods[method.name] = (...args: any[]): any => {
                     if (!this._valid) return undefined;
 
                     // TODO Argument check;
-                    const sig: string = VtxContract.sig(this._name, this._contract.address, method, ...args);
+                    const sig: string = VtxContract.sig(this._name, this._address, method.name, ...args);
 
                     const state: State = VtxContract.getState();
 
@@ -157,7 +197,8 @@ export class VtxContract {
                         const cb: VtxcacheCb<any> = async (block: number): Promise<any> => {
                             // TODO identify the configuration arg (if it exists) and insert blockTag
 
-                            return this._contract.functions[method](...args);
+                            const splitted_args = VtxContract.const_inspect_args(block, args);
+                            return this._contract.methods[method.name](...splitted_args[0]).call(...splitted_args[1]);
                         };
 
                         VtxContract.dispatch(VtxcacheCreate(sig, cb));

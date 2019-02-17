@@ -14,4 +14,6 @@ export const reset = (dispatch: Dispatch): void => {
     dispatch(VtxconfigReset());
 };
 
-export const start = reset;
+export const start = (dispatch: Dispatch, enable?: () => Promise<void>): void => {
+    dispatch(VtxconfigReset(enable));
+};

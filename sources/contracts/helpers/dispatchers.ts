@@ -1,5 +1,6 @@
 import { Dispatch }                                                             from 'redux';
 import { ContractsAddSpec, ContractsNew, ContractsRemove, ContractsRemoveSpec } from '../actions/actions';
+import { VtxContract }                                                          from '../VtxContract';
 
 /**
  * @description This method loads a contract specification. Required before creating instances.
