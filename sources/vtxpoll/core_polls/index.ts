@@ -6,6 +6,7 @@ import {
 import { poll_blocks, poll_blocks_interval }                                     from './poll_blocks';
 import { poll_contracts_constant_calls, poll_contracts_constant_calls_interval } from './poll_contracts_constant_calls';
 import { poll_net_infos, poll_net_infos_interval }                               from './poll_net_infos';
+import { poll_accounts, poll_accounts_interval }                                 from './poll_accounts';
 
 export const getCorePolls: () => VtxpollEntity[] = (): VtxpollEntity[] =>
     [
@@ -24,5 +25,9 @@ export const getCorePolls: () => VtxpollEntity[] = (): VtxpollEntity[] =>
         {
             cb: poll_net_infos,
             interval: poll_net_infos_interval
+        },
+        {
+            cb: poll_accounts,
+            interval: poll_accounts_interval
         }
     ];

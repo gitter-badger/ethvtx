@@ -9,13 +9,12 @@ import * as Ganache                                              from 'ganache-c
 import { configureVtx }                                          from '../tools/configureVtx';
 import { VtxpollKill }                                           from '../vtxpoll/actions/action';
 import * as Fs                                                   from 'fs';
-import { BlocksFetched }                                         from './actions/actions';
-import { getBlock }                                              from './helpers/getters';
+import { getAccount, getAccountList }                            from './helpers/getters';
 import { ganache_mine, vtx_status }                              from '../test_tools';
-import { fetchBlock }                                            from './helpers/dispatchers';
-import { vtx_block }                                             from '../test_tools/vtx_block';
-import { init }                                                  from '../vtxconfig/helpers/dispatchers';
+import { addAccount, removeAccount }                             from './helpers/dispatchers';
+import { init, reset }                                           from '../vtxconfig/helpers/dispatchers';
 import { VtxStatus }                                             from '../state/vtxconfig';
+import { vtx_account }                                           from '../test_tools/vtx_account';
 
 const Web3 = require('web3');
 const Solc = require('solc');
@@ -128,7 +127,7 @@ const killStore = (store: Store): void => {
     store.dispatch(VtxpollKill());
 };
 
-describe('[blocks]', (): void => {
+describe('[accounts]', (): void => {
 
     beforeAll(() => {
     });
@@ -141,48 +140,94 @@ describe('[blocks]', (): void => {
         killStore(this.store);
     });
 
-    test('Manually Add Block in store', async () => {
-
-        const web3 = buildTestWeb3();
-
-        const block = await web3.eth.getBlock(0);
-
-        this.store.dispatch(BlocksFetched(block.number, block));
-
-        const retrieved_block = getBlock(this.store.getState(), 0);
-
-        expect(retrieved_block.number).toEqual(0);
-
-    });
-
-    test('Fetch a block remotely', async () => {
+    test('Fetch accounts, check balances', async () => {
 
         const web3: Web3 = buildTestWeb3();
         init(this.store.dispatch, web3);
         await vtx_status(this.store, VtxStatus.Loaded, 10);
-        fetchBlock(this.store.dispatch, 1);
 
-        await vtx_block(this.store, 0, 50);
+        addAccount(this.store.dispatch, FROM_ADDRESS_MARC, '@marc');
+        addAccount(this.store.dispatch, TO_ADDRESS_LISA, '@lisa');
 
-        const retrieved_block = getBlock(this.store.getState(), 0);
+        await vtx_account(this.store, FROM_ADDRESS_MARC, 0, 50);
+        await vtx_account(this.store, TO_ADDRESS_LISA, 0, 50);
 
-        expect(retrieved_block.number).toEqual(0);
+        const acc_marc = getAccount(this.store.getState(), '@marc');
+        const acc_lisa = getAccount(this.store.getState(), '@lisa');
+
+        expect(acc_marc.balance.toHexString()).toEqual('0x0123456789101112');
+        expect(acc_marc.transaction_count).toEqual(0);
+        expect(acc_lisa.balance.toHexString()).toEqual('0x0123456789101112');
+        expect(acc_lisa.transaction_count).toEqual(0);
     });
 
-    test('Wait for polling to fetch block remotely', async () => {
+    test('Fetch accounts, reset store, check accounts count', async () => {
 
         const web3: Web3 = buildTestWeb3();
         init(this.store.dispatch, web3);
         await vtx_status(this.store, VtxStatus.Loaded, 10);
+
+        addAccount(this.store.dispatch, FROM_ADDRESS_MARC, '@marc');
+        addAccount(this.store.dispatch, TO_ADDRESS_GEORGE, '@george');
+
+        let accounts = getAccountList(this.store.getState());
+
+        expect(accounts).toHaveLength(3);
+
+        reset(this.store.dispatch);
+        await vtx_status(this.store, VtxStatus.Loaded, 10);
+
+        accounts = getAccountList(this.store.getState());
+
+        expect(accounts).toHaveLength(1);
+    });
+
+    test('Fetch accounts, transact, check balances, rm account', async () => {
+
+        const web3: Web3 = buildTestWeb3();
+        init(this.store.dispatch, web3);
+        await vtx_status(this.store, VtxStatus.Loaded, 10);
+
+        addAccount(this.store.dispatch, FROM_ADDRESS_MARC, '@marc');
+        addAccount(this.store.dispatch, TO_ADDRESS_LISA, '@lisa');
+
+        await vtx_account(this.store, FROM_ADDRESS_MARC, 0, 50);
+        await vtx_account(this.store, TO_ADDRESS_LISA, 0, 50);
+
+        let acc_marc = getAccount(this.store.getState(), '@marc');
+        let acc_lisa = getAccount(this.store.getState(), '@lisa');
+
+        expect(acc_marc.balance.toHexString()).toEqual('0x0123456789101112');
+        expect(acc_marc.transaction_count).toEqual(0);
+        expect(acc_lisa.balance.toHexString()).toEqual('0x0123456789101112');
+        expect(acc_lisa.transaction_count).toEqual(0);
+
+        await web3.eth.sendTransaction({
+            from: FROM_ADDRESS_MARC,
+            to: TO_ADDRESS_LISA,
+            value: '0x1112',
+            gas: '0xffff',
+            gasPrice: '0xffffff'
+        });
 
         await ganache_mine(web3, 10);
 
-        await vtx_block(this.store, 10, 50);
-        await vtx_block(this.store, 5, 50);
+        await vtx_account(this.store, FROM_ADDRESS_MARC, 2, 50);
+        await vtx_account(this.store, TO_ADDRESS_LISA, 2, 50);
 
-        const retrieved_block = getBlock(this.store.getState(), 5);
+        acc_marc = getAccount(this.store.getState(), '@marc');
+        acc_lisa = getAccount(this.store.getState(), '@lisa');
 
-        expect(retrieved_block.number).toEqual(5);
+        expect(acc_marc.balance.toHexString()).toEqual('0x0123451581105208');
+        expect(acc_marc.transaction_count).toEqual(1);
+        expect(acc_lisa.balance.toHexString()).toEqual('0x0123456789102224');
+        expect(acc_lisa.transaction_count).toEqual(0);
+
+        removeAccount(this.store.dispatch, '@marc');
+
+        acc_marc = getAccount(this.store.getState(), '@marc');
+
+        expect(acc_marc).toBeUndefined();
     });
 
 });

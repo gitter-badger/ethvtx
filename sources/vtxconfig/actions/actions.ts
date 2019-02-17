@@ -24,7 +24,7 @@ export const VtxconfigReset = (enable?: () => Promise<void>): IVtxconfigReset =>
     enable
 });
 
-export const VtxconfigResetSectionComplete = (section: 'txs' | 'blocks' | 'vtxcache' | 'contracts' | 'vtxconfig'): IVtxconfigResetSectionComplete => ({
+export const VtxconfigResetSectionComplete = (section: 'txs' | 'blocks' | 'vtxcache' | 'contracts' | 'vtxconfig' | 'accounts'): IVtxconfigResetSectionComplete => ({
     type: VtxconfigActions.VtxconfigResetSectionComplete,
     section
 });

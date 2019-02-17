@@ -2,7 +2,7 @@ import { State }        from '../state';
 import { VtxStatus }    from '../state/vtxconfig';
 import { getCorePolls } from '../vtxpoll/core_polls';
 
-const VTX_SECTIONS_LIST: string[] = ['txs', 'vtxconfig', 'vtxevents', 'vtxpoll', 'contracts', 'blocks', 'vtxcache'];
+const VTX_SECTIONS_LIST: string[] = ['txs', 'vtxconfig', 'vtxevents', 'vtxpoll', 'contracts', 'blocks', 'vtxcache', 'accounts'];
 
 export const getInitialState = <T extends {} = any>(custom_state?: T): State => {
     let state: State = {
@@ -18,6 +18,10 @@ export const getInitialState = <T extends {} = any>(custom_state?: T): State => 
             current_height: null,
             blocks: {}
         },
+        accounts: {
+            accounts: {},
+            alias: {}
+        },
 
         vtxconfig: {
             web3: null,
@@ -28,7 +32,8 @@ export const getInitialState = <T extends {} = any>(custom_state?: T): State => 
                 blocks: false,
                 vtxcache: false,
                 contracts: false,
-                vtxconfig: false
+                vtxconfig: false,
+                accounts: false
             },
             poll_timer: 100,
             confirmation_treshold: 12,

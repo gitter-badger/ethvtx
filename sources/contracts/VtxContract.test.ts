@@ -131,7 +131,7 @@ const killStore = (store: Store): void => {
     store.dispatch(VtxpollKill());
 };
 
-describe('[contracts]', (): void => {
+describe('[VtxContract]', (): void => {
 
     beforeAll(() => {
         compile_contract();
@@ -167,6 +167,7 @@ describe('[contracts]', (): void => {
 
     test('Deploy contract, call constant method', async () => {
 
+        // TODO Find timeout resolution error
         VtxContract.init(this.store);
 
         const web3 = buildTestWeb3();
@@ -187,7 +188,8 @@ describe('[contracts]', (): void => {
 
         expect(vtx.fn.getValue()).toEqual(undefined);
 
-        await vtx_cache(this.store, VtxContract.sig('ValueStore', deployed.address, 'getValue'), 1, 50);
+        await ganache_mine(web3, 10);
+        await vtx_cache(this.store, VtxContract.sig('ValueStore', deployed.address, 'getValue'), 1, 100);
 
         expect(parseInt(vtx.fn.getValue())).toEqual(5);
 

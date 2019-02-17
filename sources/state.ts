@@ -26,7 +26,7 @@ export {
     ContractsTypeStore,
     ContractsSection,
     AliasStore,
-    Alias,
+    ContractAlias,
     ContractsInstancesStore,
     ContractsSpec
 }                                                          from './state/contracts';

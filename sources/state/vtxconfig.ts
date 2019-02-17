@@ -16,6 +16,7 @@ export interface VtxResetStatus {
     vtxcache: boolean;
     contracts: boolean;
     vtxconfig: boolean;
+    accounts: boolean;
 }
 
 export interface VtxconfigSection {

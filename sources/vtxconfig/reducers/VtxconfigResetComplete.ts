@@ -11,7 +11,8 @@ export const VtxconfigResetCompleteReducer: Reducer<VtxconfigSection, IVtxconfig
                 blocks: false,
                 contracts: false,
                 vtxcache: false,
-                vtxconfig: false
+                vtxconfig: false,
+                accounts: false
             },
             status: VtxStatus.Loaded
         });

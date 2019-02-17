@@ -19,13 +19,13 @@ export interface ContractsTypeStore {
     [key: string]: ContractsInstancesStore;
 }
 
-export interface Alias {
+export interface ContractAlias {
     address: string;
     permanent: boolean;
 }
 
 export interface AliasStore {
-    [key: string]: Alias;
+    [key: string]: ContractAlias;
 }
 
 export interface ContractAliasStore {

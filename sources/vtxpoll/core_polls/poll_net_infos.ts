@@ -5,6 +5,7 @@ import { ready }                          from '../../utils/ready';
 import { Block }                          from '../../state/blocks';
 import { BlocksFetchedHeight, BlocksNew } from '../../blocks/actions/actions';
 import { VtxconfigReset }                 from '../../vtxconfig/actions/actions';
+import { address_checker }                from '../../utils/address_checker';
 
 let polling: boolean = false;
 
@@ -14,7 +15,7 @@ export const poll_net_infos: VtxPollCb = async (state: State, emit: Dispatch): P
 
         const web3 = state.vtxconfig.web3;
 
-        const current_coinbase: string = await web3.eth.getCoinbase();
+        const current_coinbase: string = address_checker(await web3.eth.getCoinbase());
 
         if (current_coinbase !== state.vtxconfig.coinbase) {
             emit(VtxconfigReset());

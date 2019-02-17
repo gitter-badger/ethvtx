@@ -11,6 +11,7 @@ export function* VtxconfigResetSectionComplete(action: IVtxconfigResetSectionCom
         && state.vtxconfig.reset_status.blocks
         && state.vtxconfig.reset_status.vtxcache
         && state.vtxconfig.reset_status.vtxconfig
+        && state.vtxconfig.reset_status.accounts
         && state.vtxconfig.reset_status.contracts) {
         yield put(VtxconfigResetComplete());
     }

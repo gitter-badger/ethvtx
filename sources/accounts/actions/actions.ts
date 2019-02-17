@@ -1,0 +1,26 @@
+import { AccountsActions, IAccountsAdd, IAccountsRemove, IAccountsReset, IAccountsSetInfos } from './actionTypes';
+import { address_checker }                                                                   from '../../utils/address_checker';
+import { BigNumber }                                                                         from 'ethers/utils';
+
+export const AccountsAdd = (address: string, alias?: string): IAccountsAdd => ({
+    type: AccountsActions.AccountsAdd,
+    address: address_checker(address),
+    alias
+});
+
+export const AccountsRemove = (address_or_alias: string): IAccountsRemove => ({
+    type: AccountsActions.AccountsRemove,
+    address_or_alias: address_checker(address_or_alias)
+});
+
+export const AccountsSetInfos = (address: string, balance: BigNumber, transaction_count: number, contract: boolean): IAccountsSetInfos => ({
+    type: AccountsActions.AccountsSetInfos,
+    address,
+    balance,
+    transaction_count,
+    contract
+});
+
+export const AccountsReset = (): IAccountsReset => ({
+    type: AccountsActions.AccountsReset
+});

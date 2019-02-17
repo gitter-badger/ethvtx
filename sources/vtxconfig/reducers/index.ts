@@ -1,5 +1,6 @@
 import { Reducer }                              from 'redux';
 import {
+    IVtxconfigReset,
     IVtxconfigResetComplete,
     IVtxconfigResetSectionComplete, IVtxconfigSetInfos,
     IVtxconfigSetStatus,
@@ -13,6 +14,7 @@ import { VtxconfigSetStatusReducer }            from './VtxconfigSetStatus';
 import { VtxconfigResetSectionCompleteReducer } from './VtxconfigResetSectionComplete';
 import { VtxconfigResetCompleteReducer }        from './VtxconfigResetComplete';
 import { VtxconfigSetInfosReducer }             from './VtxconfigSetInfos';
+import { VtxconfigResetReducer }                from './VtxconfigReset';
 
 const initial: VtxconfigSection = {
     web3: null,
@@ -23,7 +25,8 @@ const initial: VtxconfigSection = {
         blocks: false,
         vtxcache: false,
         contracts: false,
-        vtxconfig: false
+        vtxconfig: false,
+        accounts: false
     },
     poll_timer: 100,
     confirmation_treshold: 12,
@@ -44,6 +47,8 @@ export const VtxconfigReducer: Reducer<VtxconfigSection, VtxconfigActionTypes> =
                 return VtxconfigResetCompleteReducer(state, action as IVtxconfigResetComplete);
             case VtxconfigActions.VtxconfigSetInfos:
                 return VtxconfigSetInfosReducer(state, action as IVtxconfigSetInfos);
+            case VtxconfigActions.VtxconfigReset:
+                return VtxconfigResetReducer(state, action as IVtxconfigReset);
             default:
                 return state;
         }

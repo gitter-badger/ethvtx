@@ -7,6 +7,7 @@ import { Store }                            from 'redux';
 import { ContractsSagas }                   from '../contracts/sagas';
 import { BlocksSagas }                      from '../blocks/sagas';
 import { VtxcacheSagas }                    from '../vtxcache/sagas';
+import { AccountsSagas }                    from '../accounts/sagas';
 
 export const getSagas = (store: Store, custom_sagas?: Saga[]): Saga => {
     if (!custom_sagas) {
@@ -17,6 +18,7 @@ export const getSagas = (store: Store, custom_sagas?: Saga[]): Saga => {
         TxSagas,
         ContractsSagas,
         BlocksSagas,
+        AccountsSagas,
         VtxconfigSagas,
         VtxpollSagas.bind(null, store.dispatch, store.getState),
         VtxcacheSagas,

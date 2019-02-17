@@ -3,6 +3,7 @@ import { call, put, select }                                                    
 import { IVtxconfigReset }                                                      from '../actions/actionTypes';
 import { VtxconfigResetSectionComplete, VtxconfigSetInfos, VtxconfigSetStatus } from '../actions/actions';
 import { VtxStatus }                                                            from '../../state/vtxconfig';
+import { address_checker }                                                      from '../../utils/address_checker';
 
 export function* VtxconfigResetSaga(action: IVtxconfigReset): SagaIterator {
 
@@ -18,7 +19,7 @@ export function* VtxconfigResetSaga(action: IVtxconfigReset): SagaIterator {
 
     const web3 = (yield select()).vtxconfig.web3;
 
-    const coinbase = yield call(web3.eth.getCoinbase);
+    const coinbase = address_checker(yield call(web3.eth.getCoinbase));
     const net = yield call(web3.eth.net.getId);
 
     yield put(VtxconfigSetInfos(coinbase, net));

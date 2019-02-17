@@ -1,0 +1,21 @@
+import { BigNumber } from 'ethers/utils';
+
+export interface Account {
+    address: string;
+    balance: BigNumber;
+    transaction_count: number;
+    contract: boolean;
+}
+
+export interface AccountsStore {
+    [key: string]: Account;
+}
+
+export interface AliasStore {
+    [key: string]: string;
+}
+
+export interface AccountsSection {
+    accounts: AccountsStore;
+    alias: AliasStore;
+}
