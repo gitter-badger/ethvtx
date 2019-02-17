@@ -40,5 +40,3 @@ npm run start
 
 You can then visit the app from http://localhost:3000.
 Be sure to have [Metamask](https://metamask.io/) installed, and quadruple-check that you aren't on the Main Ethereum Network before testing transactions :) .
-
-## Running the examples
