@@ -19,9 +19,10 @@ export class TxsShowcase extends React.Component {
             <div style={{marginTop: '20px'}}>
                 <h2>Transactions</h2>
                 <Grid
-                    rows={['small']}
-                    columns={["1/3", "1/3", "1/3"]}
+                    rows={['auto']}
+                    columns={["auto", "auto", "auto"]}
                     gap="medium"
+                    margin="medium"
                     areas={[
                         { name: 'broadcast', start: [0, 0], end: [1, 0] },
                         { name: 'follow', start: [1, 0], end: [2, 0] },
