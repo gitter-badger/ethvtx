@@ -74,3 +74,6 @@ export {
     IVtxpollKill, IVtxpollSetIntervalId, VtxpollActions, VtxpollActionTypes
 }from './vtxpoll/actions/actionTypes';
 export { VtxpollKill, VtxpollSetIntervalId } from './vtxpoll/actions/action';
+
+export {IAccountsReset, AccountsActions, IAccountsSetInfos, IAccountsRemove, IAccountsAdd, AccountsActionTypes} from './accounts/actions/actionTypes';
+export {AccountsReset, AccountsRemove, AccountsAdd, AccountsSetInfos} from './accounts/actions/actions';

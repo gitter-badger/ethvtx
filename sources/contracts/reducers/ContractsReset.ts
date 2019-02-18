@@ -1,7 +1,7 @@
-import { Reducer }                                                                      from 'redux';
-import { ContractAliasStore, ContractsSection, ContractsSpecStore, ContractsTypeStore } from '../../state/contracts';
-import { IContractsReset }                                                              from '../actions/actionTypes';
-import { Signer }                                                                       from 'ethers';
+import { Reducer }                                                                          from 'redux';
+import { ContractTypeAliasStore, ContractsSection, ContractsSpecStore, ContractsTypeStore } from '../../state/contracts';
+import { IContractsReset }                                                                  from '../actions/actionTypes';
+import { Signer }                                                                           from 'ethers';
 
 const reset_instances = (instances: ContractsTypeStore, web3: Web3): ContractsTypeStore => {
     for (const contract of Object.keys(instances)) {
@@ -24,7 +24,7 @@ const reset_specs = (specs: ContractsSpecStore): ContractsSpecStore => {
     return specs;
 };
 
-const reset_alias = (aliases: ContractAliasStore): ContractAliasStore => {
+const reset_alias = (aliases: ContractTypeAliasStore): ContractTypeAliasStore => {
     for (const contract of Object.keys(aliases)) {
         for (const alias of Object.keys(aliases[contract])) {
             if (!aliases[contract][alias].permanent) delete aliases[contract][alias];

@@ -1,6 +1,6 @@
-export { State }                                           from './state/index';
-export { TxInfos, Tx, TxSection, TxStatus }                from './state/txs';
-export { VtxconfigSection, VtxResetStatus, VtxStatus }     from './state/vtxconfig';
+export { State }                                               from './state/index';
+export { TxInfos, Tx, TxSection, TxStatus }                    from './state/txs';
+export { VtxconfigSection, VtxResetStatus, VtxStatus }         from './state/vtxconfig';
 export {
     VtxeventsTxAdded,
     Vtxevent,
@@ -17,17 +17,18 @@ export {
     VtxeventsContractsSpecAdded,
     VtxeventsContractsInstanceRemove,
     VtxeventsTxInvalid
-}                                                          from './state/vtxevents';
-export { VtxPollCb, VtxpollEntity, VtxpollSection }        from './state/vtxpoll';
-export { BlocksSection, BlockStore, Block }                from './state/blocks';
+}                                                              from './state/vtxevents';
+export { VtxPollCb, VtxpollEntity, VtxpollSection }            from './state/vtxpoll';
+export { BlocksSection, BlockStore, Block }                    from './state/blocks';
 export {
-    ContractAliasStore,
+    ContractTypeAliasStore,
     ContractsSpecStore,
     ContractsTypeStore,
     ContractsSection,
-    AliasStore,
+    ContractAliasStore,
     ContractAlias,
     ContractsInstancesStore,
     ContractsSpec
-}                                                          from './state/contracts';
-export { VtxcacheElement, VtxcacheSection, VtxcacheStore } from './state/vtxcache';
+}                                                              from './state/contracts';
+export { VtxcacheElement, VtxcacheSection, VtxcacheStore }     from './state/vtxcache';
+export { AccountsSection, AliasStore, AccountsStore, Account } from './state/accounts';

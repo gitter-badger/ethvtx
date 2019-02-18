@@ -24,17 +24,17 @@ export interface ContractAlias {
     permanent: boolean;
 }
 
-export interface AliasStore {
+export interface ContractAliasStore {
     [key: string]: ContractAlias;
 }
 
-export interface ContractAliasStore {
-    [key: string]: AliasStore;
+export interface ContractTypeAliasStore {
+    [key: string]: ContractAliasStore;
 }
 
 export interface ContractsSection {
     specs: ContractsSpecStore;
     instances: ContractsTypeStore;
     web3: Web3;
-    alias: ContractAliasStore;
+    alias: ContractTypeAliasStore;
 }

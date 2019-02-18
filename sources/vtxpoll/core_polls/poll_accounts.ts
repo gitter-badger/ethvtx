@@ -47,7 +47,8 @@ export const poll_accounts: VtxPollCb = async (state: State, emit: Dispatch): Pr
 
             let contract = undefined;
             if (state.accounts.accounts[account].contract === null) {
-                contract = (await web3.eth.getCode(account)) !== '0x';
+                const code = (await web3.eth.getCode(account));
+                contract = code !== '0x' && code !== '0x0';
             }
 
             if (state.accounts.accounts[account].balance !== balance || state.accounts.accounts[account].transaction_count !== transaction_count) {
