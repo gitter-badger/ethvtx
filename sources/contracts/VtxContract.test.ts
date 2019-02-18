@@ -167,7 +167,6 @@ describe('[VtxContract]', (): void => {
 
     test('Deploy contract, call constant method', async () => {
 
-        // TODO Find timeout resolution error
         VtxContract.init(this.store);
 
         const web3 = buildTestWeb3();
@@ -193,7 +192,7 @@ describe('[VtxContract]', (): void => {
 
         expect(parseInt(vtx.fn.getValue())).toEqual(5);
 
-    });
+    }, 60000);
 
     test('Deploy contract, call constant method with invalid args', async () => {
 
