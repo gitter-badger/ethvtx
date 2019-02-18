@@ -15,6 +15,8 @@ A complete set of **dispatcher** and **getters** are exposed to the developer an
 
 You can broadcast **transactions**, adding the transaction hash in the store. Information and status will be fetched and provided directly from the redux store. You can also only provide a transaction hash and informations about it will be fetched too.
 
+You can fetch informations about **accounts**. The store will fetch the balance, the transaction count and will tell if the address is a contract or not. By default, the coinbase is added. You can dynamically add any account and the polling engine will start fetching its informations.
+
 ## Installation
 
 ## React Usage
