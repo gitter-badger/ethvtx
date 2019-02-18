@@ -1,10 +1,10 @@
-import { IVtxconfigReset }                       from '../../vtxconfig/actions/actionTypes';
-import { SagaIterator }                          from 'redux-saga';
-import { State }                                 from '../../state';
-import { call, put, select }                     from 'redux-saga/effects';
-import { Dispatch }                              from 'redux';
-import { VtxpollIncTimer, VtxpollSetIntervalId } from '../actions/action';
-import { VtxpollEntity }                         from '../../state/vtxpoll';
+import { IVtxconfigReset }      from '../../vtxconfig/actions/actionTypes';
+import { SagaIterator }         from 'redux-saga';
+import { State }                from '../../state';
+import { call, put, select }    from 'redux-saga/effects';
+import { Dispatch }             from 'redux';
+import { VtxpollSetIntervalId } from '../actions/action';
+import { VtxpollEntity }        from '../../state/vtxpoll';
 
 let timer = 0;
 

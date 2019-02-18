@@ -1,6 +1,5 @@
 import { VtxpollSection }              from '../../state/vtxpoll';
 import {
-    IVtxpollIncTimer,
     IVtxpollSetIntervalId,
     VtxpollActions,
     VtxpollActionTypes
@@ -8,7 +7,6 @@ import {
 import { Reducer }                     from 'redux';
 import { VtxpollSetIntervalIdReducer } from './VtxpollSetIntervalId';
 import { getCorePolls }                from '../core_polls';
-import { VtxpollIncTimerReducer }      from './VtxpollIncTimer';
 
 const initialState: VtxpollSection = {
     actions: getCorePolls(),
@@ -20,8 +18,6 @@ export const VtxpollReducer: Reducer<VtxpollSection, VtxpollActionTypes> =
         switch (action.type) {
             case VtxpollActions.VtxpollSetIntervalId:
                 return VtxpollSetIntervalIdReducer(state, action as IVtxpollSetIntervalId);
-            case VtxpollActions.VtxpollIncTimer:
-                return VtxpollIncTimerReducer(state, action as IVtxpollIncTimer);
             default:
                 return state;
         }

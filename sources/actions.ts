@@ -71,6 +71,6 @@ export { VtxeventsAdd }                                          from './vtxeven
 export { IVtxeventsAdd, VtxeventsActions, VtxeventsActionTypes } from './vtxevents/actions/actionTypes';
 
 export {
-    IVtxpollIncTimer, IVtxpollKill, IVtxpollSetIntervalId, VtxpollActions, VtxpollActionTypes
+    IVtxpollKill, IVtxpollSetIntervalId, VtxpollActions, VtxpollActionTypes
 }from './vtxpoll/actions/actionTypes';
-export { VtxpollIncTimer, VtxpollKill, VtxpollSetIntervalId } from './vtxpoll/actions/action';
+export { VtxpollKill, VtxpollSetIntervalId } from './vtxpoll/actions/action';
