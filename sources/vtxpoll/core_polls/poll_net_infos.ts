@@ -25,7 +25,7 @@ export const poll_net_infos: VtxPollCb = async (state: State, emit: Dispatch): P
 
         const current_net: number = await web3.eth.net.getId();
 
-        if (current_net !== state.vtxconfig.net) {
+        if (current_net !== state.vtxconfig.net_id) {
             emit(VtxconfigReset());
             polling = false;
             return ;

@@ -6,5 +6,5 @@ export const VtxconfigSetInfosReducer: Reducer<VtxconfigSection, IVtxconfigSetIn
     (state: VtxconfigSection, action: IVtxconfigSetInfos): VtxconfigSection => ({
         ...state,
         coinbase: action.coinbase,
-        net: action.net
+        net_id: action.net
     });

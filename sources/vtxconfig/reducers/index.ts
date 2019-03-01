@@ -31,7 +31,8 @@ const initial: VtxconfigSection = {
     poll_timer: 100,
     confirmation_treshold: 12,
     coinbase: null,
-    net: null
+    net_id: null,
+    allowed_nets: null
 };
 
 export const VtxconfigReducer: Reducer<VtxconfigSection, VtxconfigActionTypes> =

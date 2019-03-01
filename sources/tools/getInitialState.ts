@@ -38,7 +38,8 @@ export const getInitialState = <T extends {} = any>(custom_state?: T): State => 
             poll_timer: 100,
             confirmation_treshold: 12,
             coinbase: null,
-            net: null
+            net_id: null,
+            allowed_nets: null
         },
         vtxevents: [],
         vtxpoll: {

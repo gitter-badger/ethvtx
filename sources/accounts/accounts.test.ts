@@ -100,11 +100,20 @@ const compile_contract = (): void => {
 
 };
 
-const buildStore = (): Store => {
+const fetch_net_infos = async (web3: Web3, val: any): Promise<void> => {
+    val.net_id = await web3.eth.net.getId();
+    val.genesis_hash = (await web3.eth.getBlock(0)).hash.toLowerCase();
+}
+
+const buildStore = (net_id: number, genesis_hash: string): Store => {
     const composer = compose;
+
     const initial_state: State = configureVtx(getInitialState(), {
         poll_timer: 10,
-        confirmation_treshold: 3
+        confirmation_treshold: 3,
+        allowed_nets: {
+            [net_id]: genesis_hash
+        }
     });
     const reducers: Reducer = getReducers();
 
@@ -132,18 +141,39 @@ describe('[accounts]', (): void => {
     beforeAll(() => {
     });
 
-    beforeEach(() => {
-        this.store = buildStore();
+    beforeEach(async () => {
+        this.web3 = buildTestWeb3();
+        await fetch_net_infos(this.web3, this);
+        this.store = buildStore(this.net_id, this.genesis_hash);
     });
 
     afterEach(() => {
         killStore(this.store);
     });
 
+    test('Invalid net id', async () => {
+
+        killStore(this.store);
+        --this.net_id;
+        this.store = buildStore(this.net_id, this.genesis_hash);
+
+        init(this.store.dispatch, this.web3);
+        await vtx_status(this.store, VtxStatus.WrongNet, 10);
+    });
+
+    test('Invalid genesis hash', async () => {
+
+        killStore(this.store);
+        this.genesis_hash += 'x';
+        this.store = buildStore(this.net_id, this.genesis_hash);
+
+        init(this.store.dispatch, this.web3);
+        await vtx_status(this.store, VtxStatus.WrongNet, 10);
+    });
+
     test('Fetch accounts, check balances', async () => {
 
-        const web3: Web3 = buildTestWeb3();
-        init(this.store.dispatch, web3);
+        init(this.store.dispatch, this.web3);
         await vtx_status(this.store, VtxStatus.Loaded, 10);
 
         addAccount(this.store.dispatch, FROM_ADDRESS_MARC, '@marc');
@@ -163,8 +193,7 @@ describe('[accounts]', (): void => {
 
     test('Fetch accounts, reset store, check accounts count', async () => {
 
-        const web3: Web3 = buildTestWeb3();
-        init(this.store.dispatch, web3);
+        init(this.store.dispatch, this.web3);
         await vtx_status(this.store, VtxStatus.Loaded, 10);
 
         addAccount(this.store.dispatch, FROM_ADDRESS_MARC, '@marc');
@@ -184,8 +213,7 @@ describe('[accounts]', (): void => {
 
     test('Fetch accounts, transact, check balances, rm account', async () => {
 
-        const web3: Web3 = buildTestWeb3();
-        init(this.store.dispatch, web3);
+        init(this.store.dispatch, this.web3);
         await vtx_status(this.store, VtxStatus.Loaded, 10);
 
         addAccount(this.store.dispatch, FROM_ADDRESS_MARC, '@marc');
@@ -202,7 +230,7 @@ describe('[accounts]', (): void => {
         expect(acc_lisa.balance.toHexString()).toEqual('0x0123456789101112');
         expect(acc_lisa.transaction_count).toEqual(0);
 
-        await web3.eth.sendTransaction({
+        await this.web3.eth.sendTransaction({
             from: FROM_ADDRESS_MARC,
             to: TO_ADDRESS_LISA,
             value: '0x1112',
@@ -210,7 +238,7 @@ describe('[accounts]', (): void => {
             gasPrice: '0xffffff'
         });
 
-        await ganache_mine(web3, 10);
+        await ganache_mine(this.web3, 10);
 
         await vtx_account(this.store, FROM_ADDRESS_MARC, 2, 50);
         await vtx_account(this.store, TO_ADDRESS_LISA, 2, 50);

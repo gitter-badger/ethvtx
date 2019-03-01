@@ -9,5 +9,5 @@ export const VtxconfigSetWeb3Reducer: Reducer<VtxconfigSection, IVtxconfigSetWeb
         last_error: null,
         status: VtxStatus.Loading,
         coinbase: null,
-        net: null
+        net_id: null
     });

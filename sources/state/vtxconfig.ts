@@ -19,6 +19,10 @@ export interface VtxResetStatus {
     accounts: boolean;
 }
 
+export interface VtxconfigAllowedNetworks {
+    [key: number]: string;
+}
+
 export interface VtxconfigSection {
     web3: Web3;
     last_error: Error;
@@ -27,5 +31,6 @@ export interface VtxconfigSection {
     poll_timer: number;
     confirmation_treshold: number;
     coinbase: string;
-    net: number;
+    net_id: number;
+    allowed_nets: VtxconfigAllowedNetworks;
 }
