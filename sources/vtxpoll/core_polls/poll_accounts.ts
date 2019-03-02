@@ -1,11 +1,9 @@
-import { VtxPollCb }                      from '../../state/vtxpoll';
-import { State }                          from '../../state';
-import { Dispatch }                       from 'redux';
-import { ready }                          from '../../utils/ready';
-import { Block }                          from '../../state/blocks';
-import { BlocksFetchedHeight, BlocksNew } from '../../blocks/actions/actions';
-import { BigNumber }                      from 'ethers/utils';
-import { AccountsSetInfos }               from '../../accounts/actions/actions';
+import { VtxPollCb }        from '../../state/vtxpoll';
+import { State }            from '../../state';
+import { Dispatch }         from 'redux';
+import { ready }            from '../../utils/ready';
+import { BigNumber }        from 'bignumber.js';
+import { AccountsSetInfos } from '../../accounts/actions/actions';
 
 let polling: boolean = false;
 let last_block: number = null;

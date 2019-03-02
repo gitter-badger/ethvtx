@@ -1,5 +1,5 @@
 import { Action }    from 'redux';
-import { BigNumber } from 'ethers/utils';
+import { BigNumber } from 'bignumber.js';
 
 export const AccountsActions = {
     AccountsAdd: 'ACCOUNTS_ADD',
@@ -24,6 +24,7 @@ export interface IAccountsSetInfos extends Action<string> {
     contract: boolean;
 }
 
-export interface IAccountsReset extends Action<string> {}
+export interface IAccountsReset extends Action<string> {
+}
 
 export type AccountsActionTypes = IAccountsAdd | IAccountsRemove | IAccountsSetInfos | IAccountsReset;

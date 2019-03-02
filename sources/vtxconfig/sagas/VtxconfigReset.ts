@@ -21,6 +21,7 @@ export function* VtxconfigResetSaga(action: IVtxconfigReset): SagaIterator {
     const web3 = state.vtxconfig.web3;
 
     const coinbase = address_checker(yield call(web3.eth.getCoinbase));
+
     const net = yield call(web3.eth.net.getId);
 
     if (state.vtxconfig.allowed_nets !== null) {

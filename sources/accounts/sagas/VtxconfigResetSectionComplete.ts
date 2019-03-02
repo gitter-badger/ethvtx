@@ -2,7 +2,7 @@ import { IVtxconfigResetSectionComplete }               from '../../vtxconfig/ac
 import { SagaIterator }                                 from 'redux-saga';
 import { call, put, select }                            from 'redux-saga/effects';
 import { VtxconfigResetSectionComplete }                from '../../vtxconfig/actions/actions';
-import { BigNumber }                                    from 'ethers/utils';
+import { BigNumber }                                    from 'bignumber.js';
 import { AccountsAdd, AccountsReset, AccountsSetInfos } from '../actions/actions';
 
 export function* VtxconfigResetSectionCompleteSaga(action: IVtxconfigResetSectionComplete): SagaIterator {

@@ -1,11 +1,11 @@
-import { Contract, Signer, utils }             from 'ethers';
-import { ContractsSpec, State }                from '../state';
+import { State }                               from '../state';
 import { Dispatch, Store }                     from 'redux';
 import { VtxcacheElement }                     from '../state/vtxcache';
 import { VtxcacheCreate, VtxcacheSetRequired } from '../vtxcache/actions/actions';
 import { VtxcacheCb }                          from '../vtxcache/actions/actionTypes';
 import { get_tx_id }                           from '../utils/get_tx_id';
 import { ContractsSend }                       from './actions/actions';
+import { keccak256 }                           from 'js-sha3';
 
 const hexReg = /^[a-fA-F0-9]+$/;
 const methodReg = /^[a-zA-Z0-9_]+$/;
@@ -17,7 +17,7 @@ interface Methods {
 export class VtxContract {
 
     private static store: Store;
-    private _contract: Contract;
+    private _contract: any;
     private readonly _bin: string;
     private _valid: boolean = false;
     private readonly _name: string;
@@ -72,7 +72,7 @@ export class VtxContract {
                     payload += `:${JSON.stringify(arg)}`;
             }
         }
-        return utils.keccak256(`0x${new Buffer(payload).toString('hex')}`);
+        return keccak256(`0x${new Buffer(payload).toString('hex')}`);
     }
 
     public static init = (store: Store): void => {
@@ -85,6 +85,42 @@ export class VtxContract {
         }
 
         return VtxContract.store.getState();
+    }
+
+    private static readonly tx_inspect_args = (coinbase: string, args: any[]): [any[], any[]] => {
+        if (args.length === 0) return [[], [{from: coinbase}]];
+        const last = args[args.length - 1];
+
+        if (typeof last === 'object' && (
+            last.from !== undefined
+            || last.gasPrice !== undefined
+            || last.gas !== undefined
+            || last.value !== undefined
+        )) {
+            return [args.slice(0, args.length - 1), [{
+                ...args[args.length - 1],
+                from: coinbase
+            }]];
+        } else {
+            return [args, [{from: coinbase}]];
+        }
+
+    }
+
+    private static readonly const_inspect_args = (block: number, args: any[]): [any[], any[]] => {
+        if (args.length === 0) return [[], [{}, block]];
+        const last = args[args.length - 1];
+
+        if (typeof last === 'object' && (
+            last.from !== undefined
+            || last.gasPrice !== undefined
+            || last.gas !== undefined
+        )) {
+            return [args.slice(0, args.length - 1), [args[args.length - 1], block]];
+        } else {
+            return [args, [{}, block]];
+        }
+
     }
 
     public reset = (web3: Web3): void => {
@@ -108,26 +144,6 @@ export class VtxContract {
     }
 
     public readonly isValid = (): boolean => this._valid;
-
-    private static readonly tx_inspect_args = (coinbase: string, args: any[]): [any[], any[]] => {
-        if (args.length === 0) return [[], [{from: coinbase}]];
-        const last = args[args.length - 1];
-
-        if (typeof last === 'object' && (
-            last.from !== undefined
-            || last.gasPrice !== undefined
-            || last.gas !== undefined
-            || last.value !== undefined
-        )) {
-            return [args.slice(0, args.length - 1), [{
-                ...args[args.length - 1],
-                from: coinbase
-            }]];
-        } else {
-            return [args, [{from: coinbase}]];
-        }
-
-    }
 
     private readonly generate_transaction_calls = (): void => {
         for (const method of this._abi) {
@@ -155,22 +171,6 @@ export class VtxContract {
                 };
             }
         }
-    }
-
-    private static readonly const_inspect_args = (block: number, args: any[]): [any[], any[]] => {
-        if (args.length === 0) return [[], [{}, block]];
-        const last = args[args.length - 1];
-
-        if (typeof last === 'object' && (
-            last.from !== undefined
-            || last.gasPrice !== undefined
-            || last.gas !== undefined
-        )) {
-            return [args.slice(0, args.length - 1), [args[args.length - 1], block]];
-        } else {
-            return [args, [{}, block]];
-        }
-
     }
 
     private readonly generate_constant_calls = (): void => {

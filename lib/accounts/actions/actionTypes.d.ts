@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import { BigNumber } from 'ethers/utils';
+import { BigNumber } from 'bignumber.js';
 export declare const AccountsActions: {
     AccountsAdd: string;
     AccountsRemove: string;

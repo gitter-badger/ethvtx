@@ -17,12 +17,12 @@ export declare class VtxContract {
     static sig: (contract_name: string, contract_address: string, method_name: string, ...args: any[]) => string;
     static init: (store: Store<any, import("redux").AnyAction>) => void;
     private static readonly getState;
+    private static readonly tx_inspect_args;
+    private static readonly const_inspect_args;
     reset: (web3: any) => void;
     readonly valid: () => Promise<void>;
     readonly isValid: () => boolean;
-    private static readonly tx_inspect_args;
     private readonly generate_transaction_calls;
-    private static readonly const_inspect_args;
     private readonly generate_constant_calls;
 }
 export {};

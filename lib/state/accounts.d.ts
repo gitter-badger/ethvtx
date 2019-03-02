@@ -1,4 +1,4 @@
-import { BigNumber } from 'ethers/utils';
+import { BigNumber } from 'bignumber.js';
 export interface Account {
     address: string;
     balance: BigNumber;

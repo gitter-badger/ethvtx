@@ -18,7 +18,6 @@ import {
 }                                                                from './helpers/dispatchers';
 import { getContract, getContractList, getContractsSpecList }    from './helpers/getters';
 import { getVtxEvents }                                          from '../vtxevents/helpers/getters';
-import { ethers }                                                from 'ethers';
 import { VtxContract }                         from './VtxContract';
 import { ganache_mine, vtx_event, vtx_status } from '../test_tools';
 import {
@@ -83,7 +82,8 @@ const GANACHE_ARGS: any = (time: number): any => ({
             balance: '0x123456789101112'
         }
     ],
-    blockTime: time
+    blockTime: time,
+    gasLimit: 0xffffffffff
 });
 
 const buildTestWeb3 = (time?: number): Web3 =>
@@ -205,26 +205,29 @@ describe('[contracts]', (): void => {
         init(this.store.dispatch, web3);
         await vtx_status(this.store, VtxStatus.Loaded, 10);
 
-        const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+        const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
-        const signer = provider.getSigner();
+        const coinbase = await web3.eth.getCoinbase();
+        const deployed = await contract.deploy({
+            arguments: [5],
+            data: contracts.ValueStore.evm.bytecode.object
+        }).send({
+            from: coinbase,
+            gas: 0xffffff
+        });
 
-        const contract = new ethers.ContractFactory(contracts.ValueStore.abi, contracts.ValueStore.evm.bytecode.object, signer);
-
-        const deployed = await contract.deploy(5);
-
-        loadContractInstance(this.store.dispatch, 'ValueStore', deployed.address, {alias: '@default', permanent: true});
+        loadContractInstance(this.store.dispatch, 'ValueStore', deployed.options.address, {alias: '@default', permanent: true});
 
         await vtx_event(this.store, 0, VtxeventsTypes.ContractsInstanceAdded, 10);
         const add_events = getVtxEvents(this.store.getState(), VtxeventsTypes.ContractsInstanceAdded);
 
         expect(add_events).toHaveLength(1);
         expect((<any> add_events[0]).contract).toEqual('ValueStore');
-        expect((<any> add_events[0]).address).toEqual(deployed.address);
+        expect((<any> add_events[0]).address).toEqual(deployed.options.address);
 
-        expect(getContract(this.store.getState(), 'ValueStore', deployed.address)).toBeDefined();
+        expect(getContract(this.store.getState(), 'ValueStore', deployed.options.address)).toBeDefined();
         expect(getContract(this.store.getState(), 'ValueStore', '@default')).toBeDefined();
-        expect(getContractList(this.store.getState())['ValueStore'][0]).toEqual(deployed.address);
+        expect(getContractList(this.store.getState())['ValueStore'][0]).toEqual(deployed.options.address);
 
     });
 
@@ -239,19 +242,22 @@ describe('[contracts]', (): void => {
         init(this.store.dispatch, web3);
         await vtx_status(this.store, VtxStatus.Loaded, 10);
 
-        const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+        const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
-        const signer = provider.getSigner();
+        const coinbase = await web3.eth.getCoinbase();
+        const deployed = await contract.deploy({
+            arguments: [5],
+            data: contracts.ValueStore.evm.bytecode.object
+        }).send({
+            from: coinbase,
+            gas: 0xffffff
+        });
 
-        const contract = new ethers.ContractFactory(contracts.ValueStore.abi, contracts.ValueStore.evm.bytecode.object, signer);
+        loadContractInstance(this.store.dispatch, 'ValueStore', deployed.options.address, {alias: '@default', permanent: true});
 
-        const deployed = await contract.deploy(5);
-
-        loadContractInstance(this.store.dispatch, 'ValueStore', deployed.address, {alias: '@default', permanent: true});
-
-        expect(getContract(this.store.getState(), 'ValueStore', deployed.address)).toBeDefined();
+        expect(getContract(this.store.getState(), 'ValueStore', deployed.options.address)).toBeDefined();
         expect(getContract(this.store.getState(), 'ValueStore', '@default')).toBeDefined();
-        expect(getContractList(this.store.getState())['ValueStore'][0]).toEqual(deployed.address);
+        expect(getContractList(this.store.getState())['ValueStore'][0]).toEqual(deployed.options.address);
         expect(this.store.getState().contracts.alias.ValueStore['@default']).toBeDefined();
 
         removeContractInstance(this.store.dispatch, 'ValueStore', '@default');
@@ -262,7 +268,7 @@ describe('[contracts]', (): void => {
         expect((<any> remove_events[0]).contract).toEqual('ValueStore');
         expect((<any> remove_events[0]).address).toEqual('@default');
 
-        expect(getContract(this.store.getState(), 'ValueStore', deployed.address)).toBeUndefined();
+        expect(getContract(this.store.getState(), 'ValueStore', deployed.options.address)).toBeUndefined();
         expect(getContract(this.store.getState(), 'ValueStore', '@default')).toBeUndefined();
         expect(Object.keys(getContractList(this.store.getState()))).toHaveLength(0);
         expect(this.store.getState().contracts.alias.ValueStore).toBeUndefined();
@@ -280,22 +286,25 @@ describe('[contracts]', (): void => {
 
         await vtx_status(this.store, VtxStatus.Loaded, 10);
 
-        const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+        const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
-        const signer = provider.getSigner();
+        const coinbase = await web3.eth.getCoinbase();
+        const deployed = await contract.deploy({
+            arguments: [5],
+            data: contracts.ValueStore.evm.bytecode.object
+        }).send({
+            from: coinbase,
+            gas: 0xffffff
+        });
 
-        const contract = new ethers.ContractFactory(contracts.ValueStore.abi, contracts.ValueStore.evm.bytecode.object, signer);
+        loadContractInstance(this.store.dispatch, 'ValueStore', deployed.options.address);
 
-        const deployed = await contract.deploy(5);
-
-        loadContractInstance(this.store.dispatch, 'ValueStore', deployed.address);
-
-        expect(getContract(this.store.getState(), 'ValueStore', deployed.address)).toBeDefined();
+        expect(getContract(this.store.getState(), 'ValueStore', deployed.options.address)).toBeDefined();
 
         init(this.store.dispatch, web3);
         await vtx_status(this.store, VtxStatus.Loaded, 10);
 
-        expect(getContract(this.store.getState(), 'ValueStore', deployed.address)).toBeUndefined();
+        expect(getContract(this.store.getState(), 'ValueStore', deployed.options.address)).toBeUndefined();
 
     });
 
@@ -310,22 +319,25 @@ describe('[contracts]', (): void => {
 
         await vtx_status(this.store, VtxStatus.Loaded, 10);
 
-        const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+        const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
-        const signer = provider.getSigner();
+        const coinbase = await web3.eth.getCoinbase();
+        const deployed = await contract.deploy({
+            arguments: [5],
+            data: contracts.ValueStore.evm.bytecode.object
+        }).send({
+            from: coinbase,
+            gas: 0xffffff
+        });
 
-        const contract = new ethers.ContractFactory(contracts.ValueStore.abi, contracts.ValueStore.evm.bytecode.object, signer);
+        loadContractInstance(this.store.dispatch, 'ValueStore', deployed.options.address, {permanent: true});
 
-        const deployed = await contract.deploy(5);
-
-        loadContractInstance(this.store.dispatch, 'ValueStore', deployed.address, {permanent: true});
-
-        expect(getContract(this.store.getState(), 'ValueStore', deployed.address)).toBeDefined();
+        expect(getContract(this.store.getState(), 'ValueStore', deployed.options.address)).toBeDefined();
 
         init(this.store.dispatch, web3);
         await vtx_status(this.store, VtxStatus.Loaded, 10);
 
-        expect(getContract(this.store.getState(), 'ValueStore', deployed.address)).toBeDefined();
+        expect(getContract(this.store.getState(), 'ValueStore', deployed.options.address)).toBeDefined();
 
     });
 
@@ -339,17 +351,20 @@ describe('[contracts]', (): void => {
             permanent: true
         });
 
-        const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+        const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
-        const signer = provider.getSigner();
+        const coinbase = await web3.eth.getCoinbase();
+        const deployed = await contract.deploy({
+            arguments: [5],
+            data: contracts.ValueStore.evm.bytecode.object
+        }).send({
+            from: coinbase,
+            gas: 0xffffff
+        });
 
-        const contract = new ethers.ContractFactory(contracts.ValueStore.abi, contracts.ValueStore.evm.bytecode.object, signer);
+        loadContractInstance(this.store.dispatch, 'ValueStore', deployed.options.address, {permanent: true});
 
-        const deployed = await contract.deploy(5);
-
-        loadContractInstance(this.store.dispatch, 'ValueStore', deployed.address, {permanent: true});
-
-        expect(getContract(this.store.getState(), 'ValueStore', deployed.address)).toBeDefined();
+        expect(getContract(this.store.getState(), 'ValueStore', deployed.options.address)).toBeDefined();
 
         start(this.store.dispatch);
         await vtx_status(this.store, VtxStatus.WrongNet, 10);
@@ -366,17 +381,20 @@ describe('[contracts]', (): void => {
             permanent: true
         });
 
-        const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+        const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
-        const signer = provider.getSigner();
+        const coinbase = await web3.eth.getCoinbase();
+        const deployed = await contract.deploy({
+            arguments: [5],
+            data: contracts.ValueStore.evm.bytecode.object
+        }).send({
+            from: coinbase,
+            gas: 0xffffff
+        });
 
-        const contract = new ethers.ContractFactory(contracts.ValueStore.abi, contracts.ValueStore.evm.bytecode.object, signer);
+        loadContractInstance(this.store.dispatch, 'ValueStore', deployed.options.address, {permanent: true});
 
-        const deployed = await contract.deploy(5);
-
-        loadContractInstance(this.store.dispatch, 'ValueStore', deployed.address, {permanent: true});
-
-        expect(getContract(this.store.getState(), 'ValueStore', deployed.address)).toBeDefined();
+        expect(getContract(this.store.getState(), 'ValueStore', deployed.options.address)).toBeDefined();
 
         start(this.store.dispatch);
         await vtx_status(this.store, VtxStatus.Loaded, 10);
@@ -393,17 +411,20 @@ describe('[contracts]', (): void => {
             permanent: true
         });
 
-        const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+        const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
-        const signer = provider.getSigner();
+        const coinbase = await web3.eth.getCoinbase();
+        const deployed = await contract.deploy({
+            arguments: [5],
+            data: contracts.ValueStore.evm.bytecode.object
+        }).send({
+            from: coinbase,
+            gas: 0xffffff
+        });
 
-        const contract = new ethers.ContractFactory(contracts.ValueStore.abi, contracts.ValueStore.evm.bytecode.object, signer);
+        loadContractInstance(this.store.dispatch, 'ValueStore', deployed.options.address, {permanent: true});
 
-        const deployed = await contract.deploy(5);
-
-        loadContractInstance(this.store.dispatch, 'ValueStore', deployed.address, {permanent: true});
-
-        expect(getContract(this.store.getState(), 'ValueStore', deployed.address)).toBeDefined();
+        expect(getContract(this.store.getState(), 'ValueStore', deployed.options.address)).toBeDefined();
 
         start(this.store.dispatch);
         await vtx_status(this.store, VtxStatus.Loaded, 10);
@@ -418,7 +439,7 @@ describe('[contracts]', (): void => {
         init(this.store.dispatch, web3);
         await vtx_status(this.store, VtxStatus.Loaded, 10);
 
-        expect(getContract(this.store.getState(), 'ValueStore', deployed.address)).toBeDefined();
+        expect(getContract(this.store.getState(), 'ValueStore', deployed.options.address)).toBeDefined();
 
         const spec_list: string[] = getContractsSpecList(this.store.getState());
 
@@ -437,20 +458,23 @@ describe('[contracts]', (): void => {
         init(this.store.dispatch, web3);
         await vtx_status(this.store, VtxStatus.Loaded, 10);
 
-        const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+        const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
-        const signer = provider.getSigner();
+        const coinbase = await web3.eth.getCoinbase();
+        const deployed = await contract.deploy({
+            arguments: [5],
+            data: contracts.ValueStore.evm.bytecode.object
+        }).send({
+            from: coinbase,
+            gas: 0xffffff
+        });
 
-        const contract = new ethers.ContractFactory(contracts.ValueStore.abi, contracts.ValueStore.evm.bytecode.object, signer);
-
-        const deployed = await contract.deploy(5);
-
-        loadContractInstance(this.store.dispatch, 'ValueStore', deployed.address, {alias: '@default', permanent: true});
+        loadContractInstance(this.store.dispatch, 'ValueStore', deployed.options.address, {alias: '@default', permanent: true});
 
         const vtxc = getContract(this.store.getState(), 'ValueStore', '@default');
 
         const initial_length: number = this.store.getState().vtxevents.length;
-        await vtx_valid_instance(this.store, 'ValueStore', deployed.address);
+        await vtx_valid_instance(this.store, 'ValueStore', deployed.options.address);
 
         const id = vtxc.fn.setValue(3);
 

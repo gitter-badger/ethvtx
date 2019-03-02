@@ -10,15 +10,13 @@ import { VtxeventsTypes }                                        from '../state/
 import { configureVtx }                                          from '../tools/configureVtx';
 import { VtxpollKill }                                           from '../vtxpoll/actions/action';
 import * as Fs                                                   from 'fs';
-import { ethers, utils }                                         from 'ethers';
-import { VtxContract }                         from './VtxContract';
-import { vtx_cache }                           from '../test_tools/vtx_cache';
-import { ganache_mine, vtx_event, vtx_status } from '../test_tools';
-import { BigNumber }                           from 'ethers/utils';
-import { init }                                from '../vtxconfig/helpers/dispatchers';
-import { getTransactionById }                  from '../txs/helpers/getters';
-import { Tx }                                  from '../state/txs';
-import { VtxStatus }                           from '../state/vtxconfig';
+import { VtxContract }                                           from './VtxContract';
+import { vtx_cache }                                             from '../test_tools/vtx_cache';
+import { ganache_mine, vtx_event, vtx_status }                   from '../test_tools';
+import { init }                                                  from '../vtxconfig/helpers/dispatchers';
+import { getTransactionById }                                    from '../txs/helpers/getters';
+import { Tx }                                                    from '../state/txs';
+import { VtxStatus }                                             from '../state/vtxconfig';
 
 const Web3 = require('web3');
 const Solc = require('solc');
@@ -73,7 +71,8 @@ const GANACHE_ARGS: any = (time: number): any => ({
             balance: '0x123456789101112'
         }
     ],
-    blockTime: time
+    blockTime: time,
+    gasLimit: 0xffffffffff
 });
 
 const buildTestWeb3 = (time?: number): Web3 =>
@@ -149,18 +148,21 @@ describe('[VtxContract]', (): void => {
 
         const web3 = buildTestWeb3();
         init(this.store.dispatch, web3);
-        await vtx_status(this.store, VtxStatus.Loaded, 10);
+        await vtx_status(this.store, VtxStatus.Loaded, 50);
 
-        const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+        const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
-        const signer = provider.getSigner();
-
-        const contract = new ethers.ContractFactory(contracts.ValueStore.abi, contracts.ValueStore.evm.bytecode.object, signer);
-
-        const deployed = await contract.deploy(5);
+        const coinbase = await web3.eth.getCoinbase();
+        const deployed = await contract.deploy({
+            arguments: [5],
+            data: contracts.ValueStore.evm.bytecode.object
+        }).send({
+            from: coinbase,
+            gas: 0xffffff
+        });
 
         expect(() => {
-            new VtxContract(web3, 'ValueStore', deployed.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
+            new VtxContract(web3, 'ValueStore', deployed.options.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
         }).toThrow();
 
     });
@@ -171,24 +173,26 @@ describe('[VtxContract]', (): void => {
 
         const web3 = buildTestWeb3();
         init(this.store.dispatch, web3);
-        await vtx_status(this.store, VtxStatus.Loaded, 10);
+        await vtx_status(this.store, VtxStatus.Loaded, 50);
 
-        const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+        const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
-        const signer = provider.getSigner();
-
-        const contract = new ethers.ContractFactory(contracts.ValueStore.abi, contracts.ValueStore.evm.bytecode.object, signer);
-
-        const deployed = await contract.deploy(5);
-
-        const vtx = new VtxContract(web3, 'ValueStore', deployed.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
+        const coinbase = await web3.eth.getCoinbase();
+        const deployed = await contract.deploy({
+            arguments: [5],
+            data: contracts.ValueStore.evm.bytecode.object
+        }).send({
+            from: coinbase,
+            gas: 0xffffff
+        });
+        const vtx = new VtxContract(web3, 'ValueStore', deployed.options.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
 
         await vtx.valid();
 
         expect(vtx.fn.getValue()).toEqual(undefined);
 
         await ganache_mine(web3, 10);
-        await vtx_cache(this.store, VtxContract.sig('ValueStore', deployed.address, 'getValue'), 1, 100);
+        await vtx_cache(this.store, VtxContract.sig('ValueStore', deployed.options.address, 'getValue'), 1, 100);
 
         expect(parseInt(vtx.fn.getValue())).toEqual(5);
 
@@ -200,23 +204,26 @@ describe('[VtxContract]', (): void => {
 
         const web3 = buildTestWeb3();
         init(this.store.dispatch, web3);
-        await vtx_status(this.store, VtxStatus.Loaded, 10);
+        await vtx_status(this.store, VtxStatus.Loaded, 50);
 
-        const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+        const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
-        const signer = provider.getSigner();
+        const coinbase = await web3.eth.getCoinbase();
+        const deployed = await contract.deploy({
+            arguments: [5],
+            data: contracts.ValueStore.evm.bytecode.object
+        }).send({
+            from: coinbase,
+            gas: 0xffffff
+        });
 
-        const contract = new ethers.ContractFactory(contracts.ValueStore.abi, contracts.ValueStore.evm.bytecode.object, signer);
-
-        const deployed = await contract.deploy(5);
-
-        const vtx = new VtxContract(web3, 'ValueStore', deployed.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
+        const vtx = new VtxContract(web3, 'ValueStore', deployed.options.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
 
         await vtx.valid();
 
         expect(vtx.fn.getValue(123)).toEqual(undefined);
 
-        await vtx_cache(this.store, VtxContract.sig('ValueStore', deployed.address, 'getValue', 123), 0, 50);
+        await vtx_cache(this.store, VtxContract.sig('ValueStore', deployed.options.address, 'getValue', 123), 0, 50);
 
         expect(vtx.fn.getValue(123).error).toBeDefined();
 
@@ -228,17 +235,20 @@ describe('[VtxContract]', (): void => {
 
         const web3 = buildTestWeb3();
         init(this.store.dispatch, web3);
-        await vtx_status(this.store, VtxStatus.Loaded, 10);
+        await vtx_status(this.store, VtxStatus.Loaded, 50);
 
-        const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+        const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
-        const signer = provider.getSigner();
+        const coinbase = await web3.eth.getCoinbase();
+        const deployed = await contract.deploy({
+            arguments: [5],
+            data: contracts.ValueStore.evm.bytecode.object
+        }).send({
+            from: coinbase,
+            gas: 0xffffff
+        });
 
-        const contract = new ethers.ContractFactory(contracts.ValueStore.abi, contracts.ValueStore.evm.bytecode.object, signer);
-
-        const deployed = await contract.deploy(5);
-
-        const vtx = new VtxContract(web3, 'ValueStore', deployed.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
+        const vtx = new VtxContract(web3, 'ValueStore', deployed.options.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
 
         await vtx.valid();
 
@@ -261,17 +271,20 @@ describe('[VtxContract]', (): void => {
 
         const web3 = buildTestWeb3();
         init(this.store.dispatch, web3);
-        await vtx_status(this.store, VtxStatus.Loaded, 10);
+        await vtx_status(this.store, VtxStatus.Loaded, 50);
 
-        const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+        const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
-        const signer = provider.getSigner();
+        const coinbase = await web3.eth.getCoinbase();
+        const deployed = await contract.deploy({
+            arguments: [5],
+            data: contracts.ValueStore.evm.bytecode.object
+        }).send({
+            from: coinbase,
+            gas: 0xffffff
+        });
 
-        const contract = new ethers.ContractFactory(contracts.ValueStore.abi, contracts.ValueStore.evm.bytecode.object, signer);
-
-        const deployed = await contract.deploy(5);
-
-        const vtx = new VtxContract(web3, 'ValueStore', deployed.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
+        const vtx = new VtxContract(web3, 'ValueStore', deployed.options.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
 
         await vtx.valid();
 

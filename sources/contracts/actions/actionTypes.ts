@@ -1,6 +1,4 @@
 import { Action }      from 'redux';
-import { Signer }      from 'ethers';
-import { VtxContract } from '../VtxContract';
 
 export const ContractsActions = {
     ContractsAddSpec: 'CONTRACTS_ADD_SPEC',

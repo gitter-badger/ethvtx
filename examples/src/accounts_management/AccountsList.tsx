@@ -1,10 +1,9 @@
 import React                          from 'react';
-import { State }                      from 'ethvtx/lib/state';
+import { State, BigNumber }                      from 'ethvtx/lib/state';
 import { connect }                    from 'react-redux';
 import { getAccountList }             from 'ethvtx/lib/getters';
 import { Card, CardHeader, CardBody } from 'shards-react';
 import { Account }                    from 'ethvtx/lib/state';
-import { BigNumber }                  from 'ethers/utils';
 
 interface IAccountsListProps {
     accounts?: any[];

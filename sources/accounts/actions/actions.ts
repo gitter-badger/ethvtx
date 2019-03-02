@@ -1,6 +1,6 @@
 import { AccountsActions, IAccountsAdd, IAccountsRemove, IAccountsReset, IAccountsSetInfos } from './actionTypes';
 import { address_checker }                                                                   from '../../utils/address_checker';
-import { BigNumber }                                                                         from 'ethers/utils';
+import { BigNumber }                                                                         from 'bignumber.js';
 
 export const AccountsAdd = (address: string, alias?: string): IAccountsAdd => ({
     type: AccountsActions.AccountsAdd,

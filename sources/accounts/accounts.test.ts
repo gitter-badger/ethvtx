@@ -185,9 +185,9 @@ describe('[accounts]', (): void => {
         const acc_marc = getAccount(this.store.getState(), '@marc');
         const acc_lisa = getAccount(this.store.getState(), '@lisa');
 
-        expect(acc_marc.balance.toHexString()).toEqual('0x0123456789101112');
+        expect(acc_marc.balance.toString()).toEqual('81985529206280466');
         expect(acc_marc.transaction_count).toEqual(0);
-        expect(acc_lisa.balance.toHexString()).toEqual('0x0123456789101112');
+        expect(acc_lisa.balance.toString()).toEqual('81985529206280466');
         expect(acc_lisa.transaction_count).toEqual(0);
     });
 
@@ -225,9 +225,9 @@ describe('[accounts]', (): void => {
         let acc_marc = getAccount(this.store.getState(), '@marc');
         let acc_lisa = getAccount(this.store.getState(), '@lisa');
 
-        expect(acc_marc.balance.toHexString()).toEqual('0x0123456789101112');
+        expect(acc_marc.balance.toString()).toEqual('81985529206280466');
         expect(acc_marc.transaction_count).toEqual(0);
-        expect(acc_lisa.balance.toHexString()).toEqual('0x0123456789101112');
+        expect(acc_lisa.balance.toString()).toEqual('81985529206280466');
         expect(acc_lisa.transaction_count).toEqual(0);
 
         await this.web3.eth.sendTransaction({
@@ -246,9 +246,9 @@ describe('[accounts]', (): void => {
         acc_marc = getAccount(this.store.getState(), '@marc');
         acc_lisa = getAccount(this.store.getState(), '@lisa');
 
-        expect(acc_marc.balance.toHexString()).toEqual('0x0123451581105208');
+        expect(acc_marc.balance.toString()).toEqual('81985176884761096');
         expect(acc_marc.transaction_count).toEqual(1);
-        expect(acc_lisa.balance.toHexString()).toEqual('0x0123456789102224');
+        expect(acc_lisa.balance.toString()).toEqual('81985529206284836');
         expect(acc_lisa.transaction_count).toEqual(0);
 
         removeAccount(this.store.dispatch, '@marc');

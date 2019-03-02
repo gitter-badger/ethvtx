@@ -1,7 +1,6 @@
 import { Reducer }                                                                          from 'redux';
 import { ContractTypeAliasStore, ContractsSection, ContractsSpecStore, ContractsTypeStore } from '../../state/contracts';
 import { IContractsReset }                                                                  from '../actions/actionTypes';
-import { Signer }                                                                           from 'ethers';
 
 const reset_instances = (instances: ContractsTypeStore, web3: Web3): ContractsTypeStore => {
     for (const contract of Object.keys(instances)) {

@@ -1,8 +1,8 @@
 import { TxInfos } from '../state/txs';
-import { utils }   from 'ethers';
+import { encode } from 'eip55';
 
 export const format_txinfos = (tx_infos: Partial<TxInfos>): Partial<TxInfos> => {
-    if (tx_infos.from) tx_infos.from = utils.getAddress(tx_infos.from);
-    if (tx_infos.to) tx_infos.to = utils.getAddress(tx_infos.to);
+    if (tx_infos.from) tx_infos.from = encode(tx_infos.from);
+    if (tx_infos.to) tx_infos.to = encode(tx_infos.to);
     return tx_infos;
 };
