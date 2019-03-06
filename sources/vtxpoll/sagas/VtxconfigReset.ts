@@ -33,6 +33,6 @@ export function* VtxconfigReset(dispatch: Dispatch, state_getter: any, action: I
 
     if (state.vtxpoll.interval_id !== undefined && clear) {
         clearInterval(state.vtxpoll.interval_id);
-        yield put(VtxpollSetIntervalId(null));
+        yield put(VtxpollSetIntervalId(undefined));
     }
 }
