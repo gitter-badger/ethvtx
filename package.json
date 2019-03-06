@@ -59,7 +59,7 @@
     ],
     "husky": {
         "hooks": {
-            "pre-commit": "npm run build && editorconfig-cli"
+            "pre-commit": "npm run build && git status && editorconfig-cli"
         }
     }
 }
