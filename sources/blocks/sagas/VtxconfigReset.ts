@@ -9,9 +9,15 @@ export function* VtxconfigResetSaga(action: IVtxconfigReset): SagaIterator {
 
     const state: State = yield select();
 
-    if (state.blocks.initial_height === null) {
-        const current_height: number = yield call(state.vtxconfig.web3.eth.getBlockNumber);
-        yield put(BlocksInitialHeight(current_height));
+    const clear: boolean = state.vtxconfig.web3 === null;
+
+    if (!clear) {
+
+        if (state.blocks.initial_height === null) {
+            const current_height: number = yield call(state.vtxconfig.web3.eth.getBlockNumber);
+            yield put(BlocksInitialHeight(current_height));
+        }
+
     }
 
     yield put(VtxconfigResetSectionComplete('blocks'));

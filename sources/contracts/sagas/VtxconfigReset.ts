@@ -25,6 +25,13 @@ function* ValidateInstances(): SagaIterator {
 }
 
 export function* VtxconfigResetSaga(action: IVtxconfigReset): SagaIterator {
-    yield put(ContractsReset());
+
+    const state: State = yield select();
+
+    const clear: boolean = state.vtxconfig.web3 === null;
+
+    if (!clear) {
+        yield put(ContractsReset());
+    }
     yield call(ValidateInstances);
 }

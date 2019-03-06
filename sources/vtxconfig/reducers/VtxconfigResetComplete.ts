@@ -14,5 +14,5 @@ export const VtxconfigResetCompleteReducer: Reducer<VtxconfigSection, IVtxconfig
                 vtxconfig: false,
                 accounts: false
             },
-            status: VtxStatus.Loaded
+            status: state.web3 === null ? VtxStatus.Idle : VtxStatus.Loaded
         });

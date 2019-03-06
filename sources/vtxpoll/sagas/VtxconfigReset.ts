@@ -21,12 +21,18 @@ async function loop(dispatcher: Dispatch, state_getter: () => State): Promise<vo
 
 export function* VtxconfigReset(dispatch: Dispatch, state_getter: any, action: IVtxconfigReset): SagaIterator {
     const state: State = yield select();
+    const clear = state.vtxconfig.web3 === null;
 
-    if (state.vtxpoll.interval_id === undefined) {
+    if (state.vtxpoll.interval_id === undefined && !clear) {
         const interval_id: NodeJS.Timeout = yield call(
             setInterval,
             loop.bind(this, dispatch, state_getter),
             state.vtxconfig.poll_timer);
         yield put(VtxpollSetIntervalId(interval_id));
+    }
+
+    if (state.vtxpoll.interval_id !== undefined && clear) {
+        clearInterval(state.vtxpoll.interval_id);
+        yield put(VtxpollSetIntervalId(null));
     }
 }

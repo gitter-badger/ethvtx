@@ -7,38 +7,41 @@ import { address_checker }                                                      
 
 export function* VtxconfigResetSaga(action: IVtxconfigReset): SagaIterator {
 
-    if (action.enable) {
-        yield put(VtxconfigSetStatus(VtxStatus.Authorizing));
-        try {
-            yield call(action.enable);
-        } catch (e) {
-            yield put(VtxconfigSetStatus(VtxStatus.Unauthorized));
-            return ;
-        }
-    }
-
     const state = (yield select());
-    const web3 = state.vtxconfig.web3;
+    const clear: boolean =  state.vtxconfig.web3 === null;
 
-    const coinbase = address_checker(yield call(web3.eth.getCoinbase));
+    if (!clear) {
 
-    const net = yield call(web3.eth.net.getId);
-
-    if (state.vtxconfig.allowed_nets !== null) {
-
-        if (state.vtxconfig.allowed_nets[net] === undefined) {
-            yield put(VtxconfigSetStatus(VtxStatus.WrongNet));
-            return ;
+        if (action.enable) {
+            yield put(VtxconfigSetStatus(VtxStatus.Authorizing));
+            try {
+                yield call(action.enable);
+            } catch (e) {
+                yield put(VtxconfigSetStatus(VtxStatus.Unauthorized));
+                return ;
+            }
         }
 
-        const genesis_hash: string = (yield call(web3.eth.getBlock, 0)).hash.toLowerCase();
-        if (state.vtxconfig.allowed_nets[net].toLowerCase() !== genesis_hash) {
-            yield put(VtxconfigSetStatus(VtxStatus.WrongNet));
-            return ;
+        const web3 = state.vtxconfig.web3;
+        const coinbase = address_checker(yield call(web3.eth.getCoinbase));
+
+        const net = yield call(web3.eth.net.getId);
+
+        if (state.vtxconfig.allowed_nets !== null) {
+
+            if (state.vtxconfig.allowed_nets[net] === undefined) {
+                yield put(VtxconfigSetStatus(VtxStatus.WrongNet));
+                return;
+            }
+
+            const genesis_hash: string = (yield call(web3.eth.getBlock, 0)).hash.toLowerCase();
+            if (state.vtxconfig.allowed_nets[net].toLowerCase() !== genesis_hash) {
+                yield put(VtxconfigSetStatus(VtxStatus.WrongNet));
+                return;
+            }
         }
+
+        yield put(VtxconfigSetInfos(coinbase, net));
     }
-
-    yield put(VtxconfigSetInfos(coinbase, net));
-
     yield put(VtxconfigResetSectionComplete('vtxconfig'));
 }
