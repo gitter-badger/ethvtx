@@ -6,9 +6,10 @@ import {
     VtxeventsActionTypes
 }                              from '../actions/actionTypes';
 import { VtxeventsAddReducer } from './VtxeventsAdd';
+import { InitialState }        from '../../state/index';
 
 export const VtxeventsReducer: Reducer<VtxeventsSection[], VtxeventsActionTypes> =
-    (state: VtxeventsSection[] = [], action: VtxeventsActionTypes): VtxeventsSection[] => {
+    (state: VtxeventsSection[] = InitialState.vtxevents, action: VtxeventsActionTypes): VtxeventsSection[] => {
         switch (action.type) {
             case VtxeventsActions.VtxeventsAdd:
                 return VtxeventsAddReducer(state, action as IVtxeventsAdd);

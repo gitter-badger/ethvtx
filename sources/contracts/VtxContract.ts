@@ -6,11 +6,17 @@ import { VtxcacheCb }                          from '../vtxcache/actions/actionT
 import { get_tx_id }                           from '../utils/get_tx_id';
 import { ContractsSend }                       from './actions/actions';
 import { keccak256 }                           from 'js-sha3';
+import { EventsFollowed }                      from '../state/events';
+import { EventsFollow }                        from '../events/actions/actions';
 
 const hexReg = /^[a-fA-F0-9]+$/;
 const methodReg = /^[a-zA-Z0-9_]+$/;
 
 interface Methods {
+    [key: string]: (...args: any[]) => any;
+}
+
+interface Events {
     [key: string]: (...args: any[]) => any;
 }
 
@@ -22,6 +28,7 @@ export class VtxContract {
     private _valid: boolean = false;
     private readonly _name: string;
     private readonly _methods: Methods = {};
+    private readonly _events: Events = {};
     private readonly _address: string;
     private readonly _abi: any;
 
@@ -43,6 +50,7 @@ export class VtxContract {
 
         this.generate_constant_calls();
         this.generate_transaction_calls();
+        this.generate_event_calls();
     }
 
     private static get dispatch(): Dispatch {
@@ -55,6 +63,42 @@ export class VtxContract {
 
     public get fn(): Methods {
         return this._methods;
+    }
+
+    public get events(): Events {
+        return this._events;
+    }
+
+    public static event_sig = (contract_name: string, contract_address: string, method_name: string, args: {[key: string]: string; }): string => {
+        let payload: string = `EVENT:${contract_name}:${contract_address}:${method_name}`;
+        if (args) {
+            for (const arg of Object.keys(args)) {
+                switch (typeof arg) {
+
+                    case 'number':
+                    case 'string':
+                        payload += `:${arg}`;
+                        break;
+
+                    case 'object':
+                    default:
+                        payload += `:${JSON.stringify(arg)}`;
+                }
+
+                switch (typeof args[arg]) {
+
+                    case 'number':
+                    case 'string':
+                        payload += `:${args[arg]}`;
+                        break;
+
+                    case 'object':
+                    default:
+                        payload += `:${JSON.stringify(args[arg])}`;
+                }
+            }
+        }
+        return keccak256(`0x${new Buffer(payload).toString('hex')}`);
     }
 
     public static sig = (contract_name: string, contract_address: string, method_name: string, ...args: any[]): string => {
@@ -97,10 +141,10 @@ export class VtxContract {
             || last.gas !== undefined
             || last.value !== undefined
         )) {
-            return [args.slice(0, args.length - 1), [{
-                ...args[args.length - 1],
-                from: coinbase
-            }]];
+            return [
+                args.slice(0, args.length - 1),
+                [args[args.length - 1]]
+            ];
         } else {
             return [args, [{from: coinbase}]];
         }
@@ -216,5 +260,35 @@ export class VtxContract {
             }
         }
     }
+
+    private readonly generate_event_calls = (): void => {
+
+        for (const event of this._abi) {
+            if (event.type === 'event') {
+
+                this._events[event.name] = (args: {[key: string]: string; }): any => {
+                    if (!this._valid) return [];
+
+                    const sig: string = VtxContract.event_sig(this._name, this._address, event.name, args);
+
+                    const state: State = VtxContract.getState();
+
+                    const followed: EventsFollowed = state.events.followed[sig];
+
+                    if (followed === undefined) {
+                        VtxContract.store.dispatch(EventsFollow(event.name, args, this._name, this._address, sig));
+                        return [];
+                    }
+
+                    return state.events.data[sig] || [];
+                };
+            }
+
+        }
+
+    }
+
+    public getPastEvents = async (...args: any[]): Promise<any> =>
+        this._contract.getPastEvents(...args)
 
 }

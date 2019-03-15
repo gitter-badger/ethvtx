@@ -15,28 +15,10 @@ import { VtxconfigResetSectionCompleteReducer } from './VtxconfigResetSectionCom
 import { VtxconfigResetCompleteReducer }        from './VtxconfigResetComplete';
 import { VtxconfigSetInfosReducer }             from './VtxconfigSetInfos';
 import { VtxconfigResetReducer }                from './VtxconfigReset';
-
-const initial: VtxconfigSection = {
-    web3: null,
-    last_error: null,
-    status: VtxStatus.Idle,
-    reset_status: {
-        txs: false,
-        blocks: false,
-        vtxcache: false,
-        contracts: false,
-        vtxconfig: false,
-        accounts: false
-    },
-    poll_timer: 100,
-    confirmation_treshold: 12,
-    coinbase: null,
-    net_id: null,
-    allowed_nets: null
-};
+import { InitialState }                         from '../../state/index';
 
 export const VtxconfigReducer: Reducer<VtxconfigSection, VtxconfigActionTypes> =
-    (state: VtxconfigSection = initial, action: VtxconfigActionTypes): VtxconfigSection => {
+    (state: VtxconfigSection = InitialState.vtxconfig, action: VtxconfigActionTypes): VtxconfigSection => {
         switch (action.type) {
             case VtxconfigActions.VtxconfigSetWeb3:
                 return VtxconfigSetWeb3Reducer(state, action as IVtxconfigSetWeb3);

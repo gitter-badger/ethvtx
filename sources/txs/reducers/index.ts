@@ -14,8 +14,9 @@ import { TxRemoveReducer } from './TxRemove';
 import { TxSetReducer }    from './TxSet';
 import { TxErrorReducer }  from './TxError';
 import { TxResetReducer }  from './TxReset';
+import { InitialState }    from '../../state/index';
 
-export const TxReducer: Reducer<TxSection, TxActionTypes> = (state: TxSection = {}, action: TxActionTypes): TxSection => {
+export const TxReducer: Reducer<TxSection, TxActionTypes> = (state: TxSection = InitialState.txs, action: TxActionTypes): TxSection => {
     switch (action.type) {
         case TxActions.TxAdd:
             return TxAddReducer(state, action as ITxAdd);

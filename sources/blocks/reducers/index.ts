@@ -11,15 +11,10 @@ import { BlocksInitialHeightReducer } from './BlocksInitialHeight';
 import { BlocksNewReducer }           from './BlocksNew';
 import { BlocksFetchedReducer }       from './BlocksFetched';
 import { BlocksFetchedHeightReducer } from './BlocksFetchedHeight';
-
-const initial_state: BlocksSection = {
-    initial_height: null,
-    current_height: null,
-    blocks: {}
-};
+import { InitialState }               from '../../state/index';
 
 export const BlocksReducer: Reducer<BlocksSection, BlocksActionTypes> =
-    (state: BlocksSection = initial_state, action: BlocksActionTypes): BlocksSection => {
+    (state: BlocksSection = InitialState.blocks, action: BlocksActionTypes): BlocksSection => {
 
         switch (action.type) {
             case BlocksActions.BlocksFetchedHeight:

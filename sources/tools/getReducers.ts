@@ -1,12 +1,13 @@
 import { combineReducers, Reducer } from 'redux';
-import { TxReducer }                from '../txs/reducers';
-import { VtxconfigReducer }         from '../vtxconfig/reducers';
-import { VtxeventsReducer }         from '../vtxevents/reducers';
-import { VtxpollReducer }           from '../vtxpoll/reducers';
-import { ContractsReducer }         from '../contracts/reducers';
-import { BlocksReducer }            from '../blocks/reducers';
-import { VtxcacheReducer }          from '../vtxcache/reducers';
-import { AccountsReducer }          from '../accounts/reducers';
+import { TxReducer }        from '../txs/reducers';
+import { VtxconfigReducer } from '../vtxconfig/reducers';
+import { VtxeventsReducer } from '../vtxevents/reducers';
+import { VtxpollReducer }   from '../vtxpoll/reducers';
+import { ContractsReducer } from '../contracts/reducers';
+import { BlocksReducer }    from '../blocks/reducers';
+import { VtxcacheReducer }  from '../vtxcache/reducers';
+import { AccountsReducer }  from '../accounts/reducers';
+import { EventsReducer }    from '../events/reducers';
 
 const VTX_REDUCERS_LIST: string[] = ['txs', 'vtxconfig', 'vtxevents', 'vtxpoll', 'contracts', 'blocks', 'vtxcache', 'accounts'];
 
@@ -20,6 +21,7 @@ export const getReducers = (custom_reducers?: IReducerMap): Reducer => {
         contracts: ContractsReducer,
         blocks: BlocksReducer,
         accounts: AccountsReducer,
+        events: EventsReducer,
         vtxconfig: VtxconfigReducer,
         vtxevents: VtxeventsReducer,
         vtxpoll: VtxpollReducer,

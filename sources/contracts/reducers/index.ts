@@ -13,16 +13,10 @@ import { ContractsNewReducer }                                       from './Con
 import { ContractsRemoveReducer }                                    from './ContractsRemove';
 import { IVtxconfigSetWeb3, VtxconfigActions, VtxconfigActionTypes } from '../../vtxconfig/actions/actionTypes';
 import { VtxconfigSetWeb3Reducer }                                   from './VtxconfigSetWeb3';
-
-const initial_state: ContractsSection = {
-    specs: {},
-    instances: {},
-    web3: null,
-    alias: {}
-};
+import { InitialState }                                              from '../../state/index';
 
 export const ContractsReducer: Reducer<ContractsSection, ContractsActionTypes> =
-    (state: ContractsSection = initial_state, action: ContractsActionTypes | VtxconfigActionTypes): ContractsSection => {
+    (state: ContractsSection = InitialState.contracts, action: ContractsActionTypes | VtxconfigActionTypes): ContractsSection => {
         switch (action.type) {
             case ContractsActions.ContractsAddSpec:
                 return ContractsAddSpecReducer(state, action as IContractsAddSpec);

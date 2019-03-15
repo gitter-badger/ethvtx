@@ -1,4 +1,4 @@
-export { State } from './state/index';
+export { State, InitialState } from './state/index';
 export { TxInfos, Tx, TxSection, TxStatus } from './state/txs';
 export { VtxconfigSection, VtxResetStatus, VtxStatus } from './state/vtxconfig';
 export { VtxeventsTxAdded, Vtxevent, VtxeventErrorTypes, VtxeventsError, VtxeventsSection, VtxeventsTxBroadcasted, VtxeventsTxConfirmed, VtxeventsTxError, VtxeventsTypes, VtxeventsContractsTxBroadcasted, VtxeventsContractsInstanceAdded, VtxeventsContractsSpecRemoved, VtxeventsContractsSpecAdded, VtxeventsContractsInstanceRemove, VtxeventsTxInvalid } from './state/vtxevents';

@@ -12,13 +12,10 @@ import { VtxcacheSetDataReducer }     from './VtxcacheSetData';
 import { VtxcacheCreateReducer }      from './VtxcacheCreate';
 import { VtxcacheSetErrorReducer }    from './VtxcacheSetError';
 import { VtxcacheResetReducer }       from './VtxcacheReset';
-
-const initial_state: VtxcacheSection = {
-    store: {}
-};
+import { InitialState }               from '../../state/index';
 
 export const VtxcacheReducer: Reducer<VtxcacheSection, VtxcacheActionTypes> =
-    (state: VtxcacheSection = initial_state, action: VtxcacheActionTypes): VtxcacheSection => {
+    (state: VtxcacheSection = InitialState.vtxcache, action: VtxcacheActionTypes): VtxcacheSection => {
         switch (action.type) {
             case VtxcacheActions.VtxcacheSetRequired:
                 return VtxcacheSetRequiredReducer(state, action as IVtxcacheSetRequired);
