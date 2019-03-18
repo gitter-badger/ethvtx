@@ -12,7 +12,7 @@ export const vtx_cache = async (store: Store, signature: string, block: number, 
 
                 if (max !== undefined && idx >= max) {
                     clearInterval(interval_id);
-                    ko(new Error('Cannot find state update'));
+                    ko(new Error('Cannot find cache state update'));
                 }
 
                 ++idx;

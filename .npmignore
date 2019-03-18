@@ -4,4 +4,10 @@ node_modules
 sources
 coverage
 /examples
+docker-compose.yml
+Dockerfile
+/website
+/docs
+package-lock.json
+yarn.lock
 

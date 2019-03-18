@@ -5,18 +5,52 @@ import { call, put, select }    from 'redux-saga/effects';
 import { Dispatch }             from 'redux';
 import { VtxpollSetIntervalId } from '../actions/action';
 import { VtxpollEntity }        from '../../state/vtxpoll';
+import { ready }                from '../../utils/ready';
 
 let timer = 0;
+let polling: {[key: string]: boolean} = null;
+let last_polling_block = null;
+
+const finished_all_calls = (): boolean => {
+
+    for (const sec of Object.keys(polling)) {
+        if (polling[sec] === true) return false;
+    }
+
+    return true;
+};
 
 async function loop(dispatcher: Dispatch, state_getter: () => State): Promise<void> {
+
+    if (polling !== null && !finished_all_calls()) return ;
+
     ++timer;
 
     const state: State = state_getter();
-    await Promise.all(
-        state.vtxpoll.actions
-            .filter((entity: VtxpollEntity): boolean => timer % entity.interval === 0)
-            .map(async (entity: VtxpollEntity): Promise<void> => entity.cb(state, dispatcher))
-    );
+    const block_dependent: boolean = last_polling_block !== state.blocks.current_height;
+    last_polling_block = state.blocks.current_height;
+
+    if (polling === null) {
+        polling = {};
+        for (const poll of state.vtxpoll.actions) {
+            polling[poll.name] = false;
+        }
+    }
+
+    if (ready(state)) {
+
+        await Promise.all(
+            state.vtxpoll.actions
+                .filter((entity: VtxpollEntity): boolean => (timer % entity.interval === 0 && polling[entity.name] === false))
+                .map(async (entity: VtxpollEntity): Promise<void> => {
+                    polling[entity.name] = true;
+                    await entity.cb(state, dispatcher, block_dependent);
+                    polling[entity.name] = false;
+                })
+        );
+
+    }
+
 }
 
 export function* VtxconfigReset(dispatch: Dispatch, state_getter: any, action: IVtxconfigReset): SagaIterator {

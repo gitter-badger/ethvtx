@@ -148,7 +148,7 @@ describe('[VtxContract]', (): void => {
 
         const web3 = buildTestWeb3();
         init(this.store.dispatch, web3);
-        await vtx_status(this.store, VtxStatus.Loaded, 50);
+        await vtx_status(this.store, VtxStatus.Loaded, 100);
 
         const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
@@ -173,7 +173,7 @@ describe('[VtxContract]', (): void => {
 
         const web3 = buildTestWeb3();
         init(this.store.dispatch, web3);
-        await vtx_status(this.store, VtxStatus.Loaded, 50);
+        await vtx_status(this.store, VtxStatus.Loaded, 100);
 
         const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
@@ -192,7 +192,7 @@ describe('[VtxContract]', (): void => {
         expect(vtx.fn.getValue()).toEqual(undefined);
 
         await ganache_mine(web3, 10);
-        await vtx_cache(this.store, VtxContract.sig('ValueStore', deployed.options.address, 'getValue'), 1, 100);
+        await vtx_cache(this.store, VtxContract.sig('ValueStore', deployed.options.address, 'getValue'), 1, 200);
 
         expect(parseInt(vtx.fn.getValue())).toEqual(5);
 
@@ -204,7 +204,7 @@ describe('[VtxContract]', (): void => {
 
         const web3 = buildTestWeb3();
         init(this.store.dispatch, web3);
-        await vtx_status(this.store, VtxStatus.Loaded, 50);
+        await vtx_status(this.store, VtxStatus.Loaded, 100);
 
         const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
@@ -223,7 +223,7 @@ describe('[VtxContract]', (): void => {
 
         expect(vtx.fn.getValue(123)).toEqual(undefined);
 
-        await vtx_cache(this.store, VtxContract.sig('ValueStore', deployed.options.address, 'getValue', 123), 0, 50);
+        await vtx_cache(this.store, VtxContract.sig('ValueStore', deployed.options.address, 'getValue', 123), 0, 200);
 
         expect(vtx.fn.getValue(123).error).toBeDefined();
 
@@ -235,7 +235,7 @@ describe('[VtxContract]', (): void => {
 
         const web3 = buildTestWeb3();
         init(this.store.dispatch, web3);
-        await vtx_status(this.store, VtxStatus.Loaded, 50);
+        await vtx_status(this.store, VtxStatus.Loaded, 100);
 
         const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
@@ -256,9 +256,9 @@ describe('[VtxContract]', (): void => {
 
         const id = vtx.fn.setValue(3);
 
-        await vtx_event(this.store, initial_length, VtxeventsTypes.TxFollowed, 10);
+        await vtx_event(this.store, initial_length, VtxeventsTypes.TxFollowed, 100);
         await ganache_mine(web3, 10);
-        await vtx_event(this.store, initial_length, VtxeventsTypes.TxConfirmed, 10);
+        await vtx_event(this.store, initial_length, VtxeventsTypes.TxConfirmed, 100);
         const tx: Tx = getTransactionById(this.store.getState(), id);
 
         expect(tx.e).toEqual(null);
@@ -271,7 +271,7 @@ describe('[VtxContract]', (): void => {
 
         const web3 = buildTestWeb3();
         init(this.store.dispatch, web3);
-        await vtx_status(this.store, VtxStatus.Loaded, 50);
+        await vtx_status(this.store, VtxStatus.Loaded, 100);
 
         const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
@@ -292,7 +292,7 @@ describe('[VtxContract]', (): void => {
 
         const id = vtx.fn.setValue(5);
 
-        await vtx_event(this.store, initial_length, VtxeventsTypes.TxError, 50);
+        await vtx_event(this.store, initial_length, VtxeventsTypes.TxError, 200);
         const tx: Tx = getTransactionById(this.store.getState(), id);
 
         expect(tx.e).not.toEqual(null);

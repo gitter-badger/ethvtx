@@ -1,20 +1,18 @@
 import { VtxPollCb }                     from '../../state/vtxpoll';
 import { State }                         from '../../state';
 import { Dispatch }                      from 'redux';
-import { ready }                         from '../../utils/ready';
 import { EventsFollowed, Web3Event }     from '../../state/events';
 import { VtxContract }                   from '../../contracts/VtxContract';
 import { EventsCaught, EventsSetHeight } from '../../events/actions/actions';
 
-let polling: boolean = false;
-
-export const poll_events: VtxPollCb = async (state: State, emit: Dispatch): Promise<void> => {
-    if (ready(state) && !polling && state.blocks.initial_height !== null && state.blocks.current_height !== null) {
-        polling = true;
+export const poll_events: VtxPollCb = async (state: State, emit: Dispatch, new_block: boolean): Promise<void> => {
+    if (state.blocks.initial_height !== null && state.blocks.current_height !== null) {
 
         const events: {[key: string]: EventsFollowed} = state.events.followed;
 
         for (const event_sig of Object.keys(events)) {
+
+            if (!new_block && events[event_sig].last_fetched !== null) continue ;
 
             const from: number = events[event_sig].last_fetched !== null ? (events[event_sig].last_fetched + 1) : state.blocks.initial_height;
             const to: number = state.blocks.current_height;
@@ -38,8 +36,7 @@ export const poll_events: VtxPollCb = async (state: State, emit: Dispatch): Prom
 
         }
 
-        polling = false;
     }
 };
 
-export const poll_events_interval: number = 5;
+export const poll_events_interval: number = 1;

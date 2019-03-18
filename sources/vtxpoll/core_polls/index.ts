@@ -13,26 +13,32 @@ export const getCorePolls: () => VtxpollEntity[] = (): VtxpollEntity[] =>
     [
         {
             cb: poll_transaction,
-            interval: poll_transaction_interval
+            interval: poll_transaction_interval,
+            name: 'poll_transaction'
         },
         {
             cb: poll_blocks,
-            interval: poll_blocks_interval
+            interval: poll_blocks_interval,
+            name: 'poll_blocks'
         },
         {
             cb: poll_contracts_constant_calls,
-            interval: poll_contracts_constant_calls_interval
+            interval: poll_contracts_constant_calls_interval,
+            name: 'poll_contracts_constant_calls'
         },
         {
             cb: poll_net_infos,
-            interval: poll_net_infos_interval
+            interval: poll_net_infos_interval,
+            name: 'poll_net_infos'
         },
         {
             cb: poll_accounts,
-            interval: poll_accounts_interval
+            interval: poll_accounts_interval,
+            name: 'poll_accounts'
         },
         {
             cb: poll_events,
-            interval: poll_events_interval
+            interval: poll_events_interval,
+            name: 'poll_events'
         }
     ];
