@@ -5,7 +5,7 @@ the Ethereum-Ready Redux Store Configuration
 | Service | Status |
 | :---: | :---: |
 | Travis CI | [![Build Status](https://travis-ci.org/Horyus/ethvtx.svg?branch=develop)](https://travis-ci.org/Horyus/ethvtx) |
-| Coveralls | [![Coverage Status](https://coveralls.io/repos/github/Horyus/ethvtx/badge.svg?branch=develop)](https://coveralls.io/github/Horyus/ethvtx?branch=develop) |
+| Coveralls | [![Coverage Status](https://coveralls.io/repos/github/Horyus/ethvtx/badge.svg?branch=develop)](https://coveralls.io/github/Horyus/ethvtx?branch=develop) [![Join the chat at https://gitter.im/ethvtx/community](https://badges.gitter.im/ethvtx/community.svg)](https://gitter.im/ethvtx/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) |
 
 ## Introduction
 
