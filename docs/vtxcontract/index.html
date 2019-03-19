@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>VtxContract · ethvtx</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;&lt;code&gt;VtxContract&lt;/code&gt; is &lt;code&gt;ethvtx&lt;/code&gt;&#x27;s wrapper around web3&#x27;s contract interface. It&#x27;s important to use it as it has a lot of side mechanisms needed to have a proper and optimized data refresh flow. The &lt;code&gt;getters&lt;/code&gt; will help you very easily recover your instance, this is what you can do with it.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="VtxContract · ethvtx"/><meta property="og:type" content="website"/><meta property="og:url" content="https://horyus.github.io/ethvtx/index.html"/><meta property="og:description" content="&lt;p&gt;&lt;code&gt;VtxContract&lt;/code&gt; is &lt;code&gt;ethvtx&lt;/code&gt;&#x27;s wrapper around web3&#x27;s contract interface. It&#x27;s important to use it as it has a lot of side mechanisms needed to have a proper and optimized data refresh flow. The &lt;code&gt;getters&lt;/code&gt; will help you very easily recover your instance, this is what you can do with it.&lt;/p&gt;
+"/><meta property="og:image" content="https://horyus.github.io/ethvtx/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://horyus.github.io/ethvtx/img/docusaurus.png"/><link rel="shortcut icon" href="/ethvtx/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://horyus.github.io/ethvtx/blog/atom.xml" title="ethvtx Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://horyus.github.io/ethvtx/blog/feed.xml" title="ethvtx Blog RSS Feed"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/ethvtx/css/main.css"/><script src="/ethvtx/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/ethvtx/"><h2 class="headerTitle">ethvtx</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/ethvtx/docs/install" target="_self">Docs</a></li><li class=""><a href="/ethvtx/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Contracts</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Setup</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ethvtx/docs/install">Installation</a></li><li class="navListItem"><a class="navItem" href="/ethvtx/docs/creating_store">Creating the store</a></li><li class="navListItem"><a class="navItem" href="/ethvtx/docs/customizing_store">Customizing the store</a></li><li class="navListItem"><a class="navItem" href="/ethvtx/docs/starting_ethvtx">Starting ethvtx</a></li><li class="navListItem"><a class="navItem" href="/ethvtx/docs/ethvtx_status">ethvtx status</a></li><li class="navListItem"><a class="navItem" href="/ethvtx/docs/examples">Examples</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Accounts</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ethvtx/docs/accounts_intro">Introduction</a></li><li class="navListItem"><a class="navItem" href="/ethvtx/docs/accounts_state">State</a></li><li class="navListItem"><a class="navItem" href="/ethvtx/docs/accounts_getters">Getters</a></li><li class="navListItem"><a class="navItem" href="/ethvtx/docs/accounts_dispatchers">Dispatchers</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Blocks</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ethvtx/docs/blocks_intro">Introduction</a></li><li class="navListItem"><a class="navItem" href="/ethvtx/docs/blocks_state">State</a></li><li class="navListItem"><a class="navItem" href="/ethvtx/docs/blocks_getters">Getters</a></li><li class="navListItem"><a class="navItem" href="/ethvtx/docs/blocks_dispatchers">Dispatchers</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Transactions</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ethvtx/docs/transactions_intro">Introduction</a></li><li class="navListItem"><a class="navItem" href="/ethvtx/docs/transactions_state">State</a></li><li class="navListItem"><a class="navItem" href="/ethvtx/docs/transactions_getters">Getters</a></li><li class="navListItem"><a class="navItem" href="/ethvtx/docs/transactions_dispatchers">Dispatchers</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Contracts</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ethvtx/docs/contracts_intro">Introduction</a></li><li class="navListItem"><a class="navItem" href="/ethvtx/docs/contracts_state">State</a></li><li class="navListItem"><a class="navItem" href="/ethvtx/docs/contracts_getters">Getters</a></li><li class="navListItem"><a class="navItem" href="/ethvtx/docs/contracts_dispatchers">Dispatchers</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/ethvtx/docs/vtxcontract">VtxContract</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">ΞVTX</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ethvtx/docs/vtx_intro">Introduction</a></li><li class="navListItem"><a class="navItem" href="/ethvtx/docs/vtx_state">State</a></li><li class="navListItem"><a class="navItem" href="/ethvtx/docs/vtx_getters">Getters</a></li><li class="navListItem"><a class="navItem" href="/ethvtx/docs/vtx_dispatchers">Dispatchers</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">VtxContract</h1></header><article><div><span><p><code>VtxContract</code> is <code>ethvtx</code>'s wrapper around web3's contract interface. It's important to use it as it has a lot of side mechanisms needed to have a proper and optimized data refresh flow. The <code>getters</code> will help you very easily recover your instance, this is what you can do with it.</p>
+<h2><a class="anchor" aria-hidden="true" id="call-constant-methods"></a><a href="#call-constant-methods" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Call constant methods</h2>
+<p>Let's say we have a contract of type <code>SimpleStorage</code>, we loaded it with the alias <code>@default</code>, and it has a constant call method <code>getData()</code> that returns an <code>uint</code>.</p>
+<p>Look how easy it is to recover this value.</p>
+<pre><code class="hljs css language-jsx">
+<span class="hljs-keyword">const</span> mapStateToProps = <span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> ({
+    <span class="hljs-attr">value</span>: getContract(state, <span class="hljs-string">'SimpleStorage'</span>, <span class="hljs-string">'@default'</span>).fn.getData()
+});
+
+</code></pre>
+<p>Of course, the first time you call this method, it will return undefined. But it will trigger mechanisms that will ask for the polling engine to fetch its result. This is very useful in React Apps, the component connected on this call will be updated <strong>ONLY</strong> when a new value is fetched. The whole refresh process is explained in the <a href="/ethvtx/docs/contracts_intro"><strong>Contract Introduction</strong></a></p>
+<h2><a class="anchor" aria-hidden="true" id="call-transaction-methods"></a><a href="#call-transaction-methods" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Call transaction methods</h2>
+<p>You can very easily make transaction calls.</p>
+<p>Let's say we have a contract of type <code>SimpleStorage</code>, we loaded it with the alias <code>@default</code>, and it has a transaction call method <code>setData(uint)</code></p>
+<p>That's how you make the call.</p>
+<pre><code class="hljs css language-jsx">
+<span class="hljs-keyword">const</span> mapStateToProps = <span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> ({
+    <span class="hljs-attr">set_value</span>: <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> getContract(state, <span class="hljs-string">'SimpleStorage'</span>, <span class="hljs-string">'@default'</span>).fn.setData(value, {<span class="hljs-attr">from</span>: state.vtxconfig.coinbase})
+});
+
+<span class="hljs-comment">// And just call it somewhere in your component, let's say when the user submits a form</span>
+...
+onSubmit = <span class="hljs-function">(<span class="hljs-params">new_value</span>) =&gt;</span> <span class="hljs-keyword">this</span>.props.set_value(new_value)
+...
+
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="catch-evm-events"></a><a href="#catch-evm-events" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Catch EVM Events</h2>
+<p>You will also have the ability to catch events broadcasted by the smart contract.</p>
+<p>We do not need a <code>ws</code> connection, our workflow is entirely based on refreshing data only when a new block is available, so the web3 method <code>getPastEvents</code> is just perfect for <code>ethvtx</code>.</p>
+<p>By default, all the events from the <code>initial_block</code> will be fetched as soon as this call is made. The <code>initial_block</code> is the block number fetched when the app starts.</p>
+<p>Let's say we have a contract of type <code>SimpleStorage</code>, we loaded it with the alias <code>@default</code>, and it has an event <code>ValueChanged(address indexed who, uint new_value)</code> that is emitted as soon as the value is changed in the contract.</p>
+<pre><code class="hljs">
+// You can fetch <span class="hljs-literal">all</span> the events emitted by the contract ...
+const mapStateToProps = (<span class="hljs-keyword">state</span>) =&gt; ({
+    all_events: getContract(<span class="hljs-keyword">state</span>, 'SimpleStorage', '@<span class="hljs-keyword">default</span>').events.ValueChanged()
+})
+
+</code></pre>
+<pre><code class="hljs">
+// ... or you can use the filter <span class="hljs-keyword">on</span> indexed parameters 
+const mapStateToProps = (<span class="hljs-keyword">state</span>) =&gt; ({
+    only_my_events: getContract(<span class="hljs-keyword">state</span>, 'SimpleStorage', '@<span class="hljs-keyword">default</span>').events.ValueChanged({who: <span class="hljs-keyword">state</span>.vtxconfig.coinbase})
+})
+
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ethvtx/docs/contracts_dispatchers"><span class="arrow-prev">← </span><span>Dispatchers</span></a><a class="docs-next button" href="/ethvtx/docs/vtx_intro"><span>Introduction</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#call-constant-methods">Call constant methods</a></li><li><a href="#call-transaction-methods">Call transaction methods</a></li><li><a href="#catch-evm-events">Catch EVM Events</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/ethvtx/" class="nav-home"><img src="/ethvtx/img/ethvtx.svg" alt="ethvtx" width="66" height="58"/></a><div><h5>Community</h5><a href="/ethvtx/en/users.html">User Showcase</a><a href="">Project Chat</a></div><div><h5>More</h5><a href="/ethvtx/blog">Blog</a><a href="https://github.com/horyus/ethvtx">GitHub</a><a class="github-button" href="https://github.com/horyus/ethvtx" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section></footer></div></body></html>
