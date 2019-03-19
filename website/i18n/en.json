@@ -65,12 +65,6 @@
         "title": "ethvtx status",
         "sidebar_label": "ethvtx status"
       },
-      "doc4": {
-        "title": "Other Document"
-      },
-      "doc5": {
-        "title": "Fifth Document"
-      },
       "examples": {
         "title": "Examples",
         "sidebar_label": "Examples"

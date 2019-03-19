@@ -202,9 +202,6 @@ describe('[contracts]', (): void => {
         });
 
         const web3 = buildTestWeb3();
-        init(this.store.dispatch, web3);
-        await vtx_status(this.store, VtxStatus.Loaded, 10);
-
         const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
         const coinbase = await web3.eth.getCoinbase();
@@ -215,6 +212,9 @@ describe('[contracts]', (): void => {
             from: coinbase,
             gas: 0xffffff
         });
+
+        init(this.store.dispatch, web3);
+        await vtx_status(this.store, VtxStatus.Loaded, 10);
 
         loadContractInstance(this.store.dispatch, 'ValueStore', deployed.options.address, {alias: '@default', permanent: true});
 
@@ -239,9 +239,6 @@ describe('[contracts]', (): void => {
         });
 
         const web3 = buildTestWeb3();
-        init(this.store.dispatch, web3);
-        await vtx_status(this.store, VtxStatus.Loaded, 10);
-
         const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
         const coinbase = await web3.eth.getCoinbase();
@@ -252,6 +249,9 @@ describe('[contracts]', (): void => {
             from: coinbase,
             gas: 0xffffff
         });
+
+        init(this.store.dispatch, web3);
+        await vtx_status(this.store, VtxStatus.Loaded, 10);
 
         loadContractInstance(this.store.dispatch, 'ValueStore', deployed.options.address, {alias: '@default', permanent: true});
 
@@ -278,14 +278,6 @@ describe('[contracts]', (): void => {
     test('Loads a spec, deploys instance, loads instance, reset, nothing should be there', async () => {
 
         const web3 = buildTestWeb3();
-        init(this.store.dispatch, web3);
-
-        loadContractSpec(this.store.dispatch, 'ValueStore', contracts.ValueStore.abi, {
-            bin: contracts.ValueStore.evm.deployedBytecode.object
-        });
-
-        await vtx_status(this.store, VtxStatus.Loaded, 10);
-
         const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
         const coinbase = await web3.eth.getCoinbase();
@@ -296,6 +288,14 @@ describe('[contracts]', (): void => {
             from: coinbase,
             gas: 0xffffff
         });
+
+        init(this.store.dispatch, web3);
+
+        loadContractSpec(this.store.dispatch, 'ValueStore', contracts.ValueStore.abi, {
+            bin: contracts.ValueStore.evm.deployedBytecode.object
+        });
+
+        await vtx_status(this.store, VtxStatus.Loaded, 10);
 
         loadContractInstance(this.store.dispatch, 'ValueStore', deployed.options.address);
 
@@ -311,13 +311,6 @@ describe('[contracts]', (): void => {
     test('Loads a spec, deploys instance, loads instance, reset, only instance remains', async () => {
 
         const web3 = buildTestWeb3();
-        init(this.store.dispatch, web3);
-
-        loadContractSpec(this.store.dispatch, 'ValueStore', contracts.ValueStore.abi, {
-            bin: contracts.ValueStore.evm.deployedBytecode.object
-        });
-
-        await vtx_status(this.store, VtxStatus.Loaded, 10);
 
         const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
@@ -330,6 +323,13 @@ describe('[contracts]', (): void => {
             gas: 0xffffff
         });
 
+        init(this.store.dispatch, web3);
+
+        loadContractSpec(this.store.dispatch, 'ValueStore', contracts.ValueStore.abi, {
+            bin: contracts.ValueStore.evm.deployedBytecode.object
+        });
+
+        await vtx_status(this.store, VtxStatus.Loaded, 10);
         loadContractInstance(this.store.dispatch, 'ValueStore', deployed.options.address, {permanent: true});
 
         expect(getContract(this.store.getState(), 'ValueStore', deployed.options.address)).toBeDefined();
@@ -344,13 +344,6 @@ describe('[contracts]', (): void => {
     test('set web3, Loads a spec with invalid bin, deploys instance, loads instance, init, Wrong Net status', async () => {
 
         const web3 = buildTestWeb3();
-        setWeb3(this.store.dispatch, web3);
-
-        loadContractSpec(this.store.dispatch, 'ValueStore', contracts.ValueStore.abi, {
-            bin: '00ee',
-            permanent: true
-        });
-
         const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
         const coinbase = await web3.eth.getCoinbase();
@@ -360,6 +353,13 @@ describe('[contracts]', (): void => {
         }).send({
             from: coinbase,
             gas: 0xffffff
+        });
+
+        setWeb3(this.store.dispatch, web3);
+
+        loadContractSpec(this.store.dispatch, 'ValueStore', contracts.ValueStore.abi, {
+            bin: '00ee',
+            permanent: true
         });
 
         loadContractInstance(this.store.dispatch, 'ValueStore', deployed.options.address, {permanent: true});
@@ -374,13 +374,6 @@ describe('[contracts]', (): void => {
     test('set web3, Loads a spec with invalid bin, deploys instance, loads instance, init, Loaded Status', async () => {
 
         const web3 = buildTestWeb3();
-        setWeb3(this.store.dispatch, web3);
-
-        loadContractSpec(this.store.dispatch, 'ValueStore', contracts.ValueStore.abi, {
-            bin: contracts.ValueStore.evm.deployedBytecode.object,
-            permanent: true
-        });
-
         const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
         const coinbase = await web3.eth.getCoinbase();
@@ -390,6 +383,13 @@ describe('[contracts]', (): void => {
         }).send({
             from: coinbase,
             gas: 0xffffff
+        });
+
+        setWeb3(this.store.dispatch, web3);
+
+        loadContractSpec(this.store.dispatch, 'ValueStore', contracts.ValueStore.abi, {
+            bin: contracts.ValueStore.evm.deployedBytecode.object,
+            permanent: true
         });
 
         loadContractInstance(this.store.dispatch, 'ValueStore', deployed.options.address, {permanent: true});
@@ -404,13 +404,6 @@ describe('[contracts]', (): void => {
     test('set web3, Loads a spec with invalid bin, deploys instance, loads instance, init, Loaded Status, switch to empty net, WrongNet, switch back, Loaded', async () => {
 
         const web3 = buildTestWeb3();
-        setWeb3(this.store.dispatch, web3);
-
-        loadContractSpec(this.store.dispatch, 'ValueStore', contracts.ValueStore.abi, {
-            bin: contracts.ValueStore.evm.deployedBytecode.object,
-            permanent: true
-        });
-
         const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
         const coinbase = await web3.eth.getCoinbase();
@@ -420,6 +413,13 @@ describe('[contracts]', (): void => {
         }).send({
             from: coinbase,
             gas: 0xffffff
+        });
+
+        setWeb3(this.store.dispatch, web3);
+
+        loadContractSpec(this.store.dispatch, 'ValueStore', contracts.ValueStore.abi, {
+            bin: contracts.ValueStore.evm.deployedBytecode.object,
+            permanent: true
         });
 
         loadContractInstance(this.store.dispatch, 'ValueStore', deployed.options.address, {permanent: true});
@@ -455,9 +455,6 @@ describe('[contracts]', (): void => {
         });
 
         const web3 = buildTestWeb3();
-        init(this.store.dispatch, web3);
-        await vtx_status(this.store, VtxStatus.Loaded, 10);
-
         const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
         const coinbase = await web3.eth.getCoinbase();
@@ -468,6 +465,9 @@ describe('[contracts]', (): void => {
             from: coinbase,
             gas: 0xffffff
         });
+
+        init(this.store.dispatch, web3);
+        await vtx_status(this.store, VtxStatus.Loaded, 10);
 
         loadContractInstance(this.store.dispatch, 'ValueStore', deployed.options.address, {alias: '@default', permanent: true});
 

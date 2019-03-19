@@ -18,7 +18,7 @@ const users = [
 const siteConfig = {
   title: 'ethvtx', // Title for your website.
   tagline: 'The Ethereum-Ready & Framework-Agnostic Redux Configuration',
-  url: 'https://mortimr.github.io', // Your website URL
+  url: 'https://horyus.github.io', // Your website URL
   baseUrl: '/ethvtx/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
@@ -26,7 +26,7 @@ const siteConfig = {
 
   // Used for publishing and more
   projectName: 'ethvtx',
-  organizationName: 'mortimr',
+  organizationName: 'horyus',
   // For top-level user or org sites, the organization is still the same.
   // e.g., for the https://JoelMarcey.github.io site, it would be set like...
   //   organizationName: 'JoelMarcey'
@@ -79,7 +79,7 @@ const siteConfig = {
 
   // You may provide arbitrary config keys to be used as needed by your
   // template. For example, if you need your repo's URL...
-  repoUrl: 'https://github.com/mortimr/ethvtx',
+  repoUrl: 'https://github.com/horyus/ethvtx',
 };
 
 module.exports = siteConfig;

@@ -147,9 +147,6 @@ describe('[VtxContract]', (): void => {
     test('Deploy contract, call constant method, not calling init on VortexContract', async () => {
 
         const web3 = buildTestWeb3();
-        init(this.store.dispatch, web3);
-        await vtx_status(this.store, VtxStatus.Loaded, 100);
-
         const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
         const coinbase = await web3.eth.getCoinbase();
@@ -160,6 +157,9 @@ describe('[VtxContract]', (): void => {
             from: coinbase,
             gas: 0xffffff
         });
+
+        init(this.store.dispatch, web3);
+        await vtx_status(this.store, VtxStatus.Loaded, 100);
 
         expect(() => {
             new VtxContract(web3, 'ValueStore', deployed.options.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
@@ -172,9 +172,6 @@ describe('[VtxContract]', (): void => {
         VtxContract.init(this.store);
 
         const web3 = buildTestWeb3();
-        init(this.store.dispatch, web3);
-        await vtx_status(this.store, VtxStatus.Loaded, 100);
-
         const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
         const coinbase = await web3.eth.getCoinbase();
@@ -185,6 +182,10 @@ describe('[VtxContract]', (): void => {
             from: coinbase,
             gas: 0xffffff
         });
+
+        init(this.store.dispatch, web3);
+        await vtx_status(this.store, VtxStatus.Loaded, 100);
+
         const vtx = new VtxContract(web3, 'ValueStore', deployed.options.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
 
         await vtx.valid();
@@ -203,9 +204,6 @@ describe('[VtxContract]', (): void => {
         VtxContract.init(this.store);
 
         const web3 = buildTestWeb3();
-        init(this.store.dispatch, web3);
-        await vtx_status(this.store, VtxStatus.Loaded, 100);
-
         const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
         const coinbase = await web3.eth.getCoinbase();
@@ -216,6 +214,9 @@ describe('[VtxContract]', (): void => {
             from: coinbase,
             gas: 0xffffff
         });
+
+        init(this.store.dispatch, web3);
+        await vtx_status(this.store, VtxStatus.Loaded, 100);
 
         const vtx = new VtxContract(web3, 'ValueStore', deployed.options.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
 
@@ -234,9 +235,6 @@ describe('[VtxContract]', (): void => {
         VtxContract.init(this.store);
 
         const web3 = buildTestWeb3();
-        init(this.store.dispatch, web3);
-        await vtx_status(this.store, VtxStatus.Loaded, 100);
-
         const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
         const coinbase = await web3.eth.getCoinbase();
@@ -247,6 +245,9 @@ describe('[VtxContract]', (): void => {
             from: coinbase,
             gas: 0xffffff
         });
+
+        init(this.store.dispatch, web3);
+        await vtx_status(this.store, VtxStatus.Loaded, 100);
 
         const vtx = new VtxContract(web3, 'ValueStore', deployed.options.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
 
@@ -270,9 +271,6 @@ describe('[VtxContract]', (): void => {
         VtxContract.init(this.store);
 
         const web3 = buildTestWeb3();
-        init(this.store.dispatch, web3);
-        await vtx_status(this.store, VtxStatus.Loaded, 100);
-
         const contract = new  web3.eth.Contract(contracts.ValueStore.abi);
 
         const coinbase = await web3.eth.getCoinbase();
@@ -283,6 +281,9 @@ describe('[VtxContract]', (): void => {
             from: coinbase,
             gas: 0xffffff
         });
+
+        init(this.store.dispatch, web3);
+        await vtx_status(this.store, VtxStatus.Loaded, 100);
 
         const vtx = new VtxContract(web3, 'ValueStore', deployed.options.address, contracts.ValueStore.abi, contracts.ValueStore.evm.deployedBytecode.object);
 

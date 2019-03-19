@@ -4,8 +4,8 @@ the Ethereum-Ready Redux Store Configuration
 
 | Service | Status |
 | :---: | :---: |
-| Travis CI | [![Build Status](https://travis-ci.org/mortimr/ethvtx.svg?branch=develop)](https://travis-ci.org/mortimr/ethvtx) |
-| Coveralls | [![Coverage Status](https://coveralls.io/repos/github/mortimr/ethvtx/badge.svg?branch=develop)](https://coveralls.io/github/mortimr/ethvtx?branch=develop) |
+| Travis CI | [![Build Status](https://travis-ci.org/Horyus/ethvtx.svg?branch=develop)](https://travis-ci.org/Horyus/ethvtx) |
+| Coveralls | [![Coverage Status](https://coveralls.io/repos/github/Horyus/ethvtx/badge.svg?branch=develop)](https://coveralls.io/github/Horyus/ethvtx?branch=develop) |
 
 ## Introduction
 
@@ -27,7 +27,7 @@ The repository contains a complete React Typescript Showcase.
 
 To setup the showcase, run:
 ```shell
-git clone https://github.com/mortimr/ethvtx
+git clone https://github.com/horyus/ethvtx
 cd ethvtx
 npm install
 npm run build

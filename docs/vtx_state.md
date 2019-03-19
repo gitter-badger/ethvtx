@@ -99,7 +99,7 @@ Enumeration, representing the type of event that occured in the store.
 }
 ```
 
-There is one TS interface for each event type. All of them are defined [**here**](https://github.com/mortimr/ethvtx/blob/develop/sources/state/vtxevents.ts)
+There is one TS interface for each event type. All of them are defined [**here**](https://github.com/horyus/ethvtx/blob/develop/sources/state/vtxevents.ts)
 
 ## VtxEventsSection
 

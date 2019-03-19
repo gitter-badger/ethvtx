@@ -68,9 +68,9 @@ class HomeSplash extends React.Component {
                 <div className="inner">
                     <ProjectTitle siteConfig={siteConfig} />
                     <PromoSection>
-                        <Button href="https://github.com/mortimr/ethvtx">Try It Out</Button>
-                        <Button href="https://github.com/mortimr/ethvtx/tree/develop/examples">React Demo</Button>
-                        <Button href="https://github.com/mortimr/ethvtx_embark">Embark Demo</Button>
+                        <Button href="https://github.com/horyus/ethvtx">Try It Out</Button>
+                        <Button href="https://github.com/horyus/ethvtx/tree/develop/examples">React Demo</Button>
+                        <Button href="https://github.com/horyus/ethvtx_embark">Embark Demo</Button>
                     </PromoSection>
                 </div>
             </SplashContainer>
